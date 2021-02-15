@@ -1,0 +1,9 @@
+EntityManagement Class (Precollision, Collision)
+Entity Class
+EntityDataHandler Class
+MeshHandler Class
+Original Interaction Manager (Vector of Interaction in Scene, Interaction.h Struct)
+HitBox Class (Handles Collision checking)
+
+Setting up clean framework for use in SP
+Setup the Git repo
