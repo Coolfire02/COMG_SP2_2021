@@ -978,67 +978,78 @@ Mesh* MeshBuilder::GenerateCube(const std::string &meshName, Color color)
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Position3D* botLeftPos, Position3D* topRightPos)
+Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 {
 	// Cube
+	Vector3 topRightPos, botLeftPos;
+	topRightPos = Vector3(box.currentPos);
+	botLeftPos = Vector3(box.currentPos);
+	topRightPos.x += box.halfSize.x;
+	topRightPos.y += box.halfSize.y;
+	topRightPos.z -= box.halfSize.z;
+
+	botLeftPos.x -= box.halfSize.x;
+	botLeftPos.y -= box.halfSize.y;
+	botLeftPos.z += box.halfSize.z;
+
 	int index = 0;
 	std::vector<Vertex> vertex;
 	Vertex v;
 	v.color = Color(1,1,1);
 	Vector3 normal;
 	normal.Set(0, 0, 1);
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal;  vertex.push_back(v); //front
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, botLeftPos.z); v.normal = normal;  vertex.push_back(v); //front
+	v.pos.set(botLeftPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
 	normal.Set(-1, 0, 0);
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v); //forward left
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v); //forward left
+	v.pos.set(botLeftPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
 	normal.Set(0, 0, -1);
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal;  vertex.push_back(v); //forward back
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, topRightPos.z); v.normal = normal;  vertex.push_back(v); //forward back
+	v.pos.set(topRightPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
 	normal.Set(1, 0, 0);
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v); //forward right
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), botLeftPos->getZ());  v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v); //forward right
+	v.pos.set(topRightPos.x, topRightPos.y, botLeftPos.z);  v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
 	normal.Set(0, 1, 0);
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal;  vertex.push_back(v);//up
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, botLeftPos.z); v.normal = normal;  vertex.push_back(v);//up
+	v.pos.set(topRightPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(topRightPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), topRightPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, topRightPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
 
 	normal.Set(0, -1, 0);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal;  vertex.push_back(v);//down
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal;  vertex.push_back(v);//down
+	v.pos.set(botLeftPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), botLeftPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(botLeftPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
-	v.pos.set(topRightPos->getX(), botLeftPos->getY(), topRightPos->getZ()); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, botLeftPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(botLeftPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
+	v.pos.set(topRightPos.x, botLeftPos.y, topRightPos.z); v.normal = normal; vertex.push_back(v);
 
 	std::vector<GLuint> index_buffer_data;
 	for (int i = 0; i < 36; i++) {
@@ -1063,7 +1074,8 @@ void MeshBuilder::calcMinMaxPos(Mesh* mesh, std::vector<Vertex> vertex_buffer_da
 	
 	float lowX, lowY, highZ, //Bot Left
 		highX, highY, lowZ; //Top Right
-	lowX = lowY = highZ = highX = highY = lowZ = 0.f;
+	lowX = lowY = lowZ = 9999999.f;
+	highX = highY = highZ = -9999999.f;
 
 	for (auto& entry : vertex_buffer_data) {
 		Position pos = entry.pos;

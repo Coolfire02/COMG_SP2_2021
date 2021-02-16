@@ -39,7 +39,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(this->scene->modelStack.Top());
+		this->hitBox->update(this->getEntityData());
 	}
 	else {
 		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
@@ -47,7 +47,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(oldData->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(this->scene->modelStack.Top());
+		this->hitBox->update(this->getOldEntityData());
 	}
 }
 

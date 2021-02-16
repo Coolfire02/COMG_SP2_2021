@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include "Vertex.h"
+#include "HitBox.h"
 
 /******************************************************************************/
 /*!
@@ -31,7 +32,7 @@ public:
 	static Mesh* GenerateHalfTorus(const std::string& meshName, Color color, float innerR, float outterR);
 	static Mesh* GenerateCylinder(const std::string& meshName, Color color, int height);
 	static Mesh* GenerateOBJMTL(const std::string& meshName, const std::string& file_path, const std::string& mtl_path);
-	static Mesh* GenerateHitBox(const std::string& meshName, Position3D* botLeftPos, Position3D* topRightPos);
+	static Mesh* GenerateHitBox(const std::string& meshName, Box& box);
 
 private:
 	static void calcMinMaxPos(Mesh*, std::vector<Vertex>);
