@@ -1,5 +1,5 @@
 #pragma once
-#include "Source/Scene.h"
+#include "Scene.h"
 #include <iostream>
 #include <vector>
 
