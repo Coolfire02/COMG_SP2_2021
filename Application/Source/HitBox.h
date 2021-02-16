@@ -1,7 +1,6 @@
 #pragma once
-#include "Position3D.h"
-#include "Mtx44.h"
 #include "Vector3.h"
+#include "EntityDataHandler.h"
 #include <vector>
 
 struct Box {
@@ -17,8 +16,6 @@ struct Box {
 		this->zAxis = zAxis;
 		this->halfSize = halfSize;
 	}
-
-
 
 	bool hasSeparatingPlane(Vector3& vector, Vector3 plane, Box& otherBox) {
 		return (Math::FAbs(vector.Dot(plane)) > 
@@ -61,11 +58,17 @@ struct Box {
 
 class HitBox
 {
-
+	Box* hitBox;
+	HitBox();
+	~HitBox();
 
 	
 public:
-	HitBox();
+	HitBox(Box* box);
 	~HitBox();
+
+	Box* getThisTickBox();
+	void update(EntityData* data);
+	bool collidedWith(HitBox* other);
 };
 
