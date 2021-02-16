@@ -41,7 +41,7 @@ private:
 	EntityManager eManager;
 
 	//Game Variables
-	Entity* player;
+	Player* player;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
-
+#include "Player.h"
 #include "shader.hpp"
 #include "Utility.h"
 
@@ -156,7 +156,11 @@ void SceneAssignment2::Init() {
 	//eManager.spawnWorldEntity(shopBase);
 
 	//Camera init(starting pos, where it looks at, up
-	camera.Init(Vector3(player->getEntityData()->transX, player->getEntityData()->transY+2, player->getEntityData()->transZ), Vector3(0, 6, -9), Vector3(0, 1, 0));
+	player = new Player(this, Vector3(0, 0), "player");
+	eManager.spawnMovingEntity(player);
+	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
+				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
+				Vector3(0, 1, 0));
 
 	//Light init
 	light[0].type = Light::LIGHT_DIRECTIONAL;
@@ -235,7 +239,6 @@ void SceneAssignment2::Init() {
 void SceneAssignment2::Update(double dt)
 {
 	camera.Update(dt);
-
 	bool foundInteractionZone = false;
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
@@ -272,9 +275,9 @@ void SceneAssignment2::Update(double dt)
 	eManager.collisionUpdate(dt);
 
 	if (player->usingNewData()) { //Aka movement not cancelled
-		camera.Move(player->getEntityData()->transX - player->getOldEntityData()->transX,
-			player->getEntityData()->transY - player->getOldEntityData()->transY,
-			player->getEntityData()->transZ - player->getOldEntityData()->transZ);
+		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
+			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
+			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
 	}
 
 	eManager.postCollisionUpdate();
@@ -310,7 +313,7 @@ void SceneAssignment2::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	Vector3 pLoc = Vector3(player->getEntityData()->transX, player->getEntityData()->transY, player->getEntityData()->transZ);
+	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
 
 	//Requires Implementation of Velocity by Joash
@@ -318,7 +321,7 @@ void SceneAssignment2::Update(double dt)
 
 	if (Application::IsKeyPressed('W')) {
 		Vector3 view = (camera.target - camera.position).Normalized();
-		pLoc += view * (float)dt *  playerSpeed;
+		pLoc += view * (float)dt * playerSpeed;
 	}
 	if (Application::IsKeyPressed('A')) {
 		Vector3 view = (camera.target - camera.position).Normalized();
@@ -342,16 +345,15 @@ void SceneAssignment2::Update(double dt)
 		Vector3 up = right.Cross(view).Normalized();
 		pLoc += right * (float)dt * playerSpeed;
 	}
-
 	// SCENE WORLD BOUNDARIES
 	//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
 	//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
 
 	// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-	player->getEntityData()->transX = pLoc.x;
-	//Skip y since we want level ground
-	player->getEntityData()->transZ = pLoc.z;
-}
+	player->getEntityData()->Translate.x = pLoc.x;
+	// Skip y since we want level ground
+	player->getEntityData()->Translate.z = pLoc.z;
+}	
 
 void SceneAssignment2::Render()
 {
@@ -366,8 +368,10 @@ void SceneAssignment2::Render()
 	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z,
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
-
+	
 	modelStack.LoadIdentity();
+
+	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
 
 	modelStack.PushMatrix();
 	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
