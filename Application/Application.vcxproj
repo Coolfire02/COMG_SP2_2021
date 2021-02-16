@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Source\CustomEntity.cpp" />
     <ClCompile Include="Source\NPC.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Source\SceneAssignment2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Source\Interactions.h" />
     <ClInclude Include="Source\CustomEntity.h" />
     <ClInclude Include="Source\NPC.h" />
@@ -188,7 +190,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WorldObject.h" />
-	<ClInclude Include="Source\SceneAssignment2.h" />
+    <ClInclude Include="Source\SceneAssignment2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
