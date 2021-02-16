@@ -32,12 +32,11 @@ std::vector<Entity*> EntityManager::getEntities() {
 }
 
 std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
-	
 	//OldTick
 	for (auto& entry : prevTick) {
 		delete entry;
+		entry = nullptr;
 	}
-	prevTick.clear();
 	prevTick = thisTick;
 	thisTick.clear();
 
