@@ -1,10 +1,10 @@
 #include "Weapon.h"
 WEAPON_TYPE Weapon::weaponType;
 
-Weapon::Weapon()
+Weapon::Weapon() //set damage and magSize to 0
 {
-	magazineSize = 0;
 	damage = 0;
+	magazineSize = 0;
 }
 
 Weapon::~Weapon()

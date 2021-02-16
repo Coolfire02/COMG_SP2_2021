@@ -11,7 +11,7 @@ public:
 	WeaponInventory();
 	~WeaponInventory();
 
-	std::vector<Weapon*> weaponList;
+	std::vector<Weapon*> weaponList; //vector to store player's owned Weapons
 
 	void addWeapon(Weapon* weapon, WEAPON_TYPE wType);
 	Weapon* getWeapon();
