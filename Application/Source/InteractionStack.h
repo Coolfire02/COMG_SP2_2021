@@ -7,11 +7,10 @@ private:
 	std::vector<Interaction*> stackedInteraction;
 public:
 	InteractionStack();
-	//InteractionStack(Interaction* interact);
 	~InteractionStack();
 
-	void pushStack(Interaction* interact);
+	void pushStackInteraction(Interaction* interact); //Insert using Interaction
+	void pushStackText(std::string interactionText); //Insert using Text
 	void popStack();
-	void insertInteraction(std::string interactionText);
 };
 
