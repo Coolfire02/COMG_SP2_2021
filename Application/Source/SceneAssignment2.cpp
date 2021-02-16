@@ -159,6 +159,14 @@ void SceneAssignment2::Init() {
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0), "player");
 	eManager.spawnMovingEntity(player);
+	
+	Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
+	tree->getEntityData()->Translate.Set(30, 1, 30);
+	tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
+	eManager.spawnWorldEntity(tree);
+
+
+
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
@@ -249,9 +257,8 @@ void SceneAssignment2::Update(double dt)
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::SONIC) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				entry->cancelled = true;
+				std::cout << "Collided" << std::endl;
 			}
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
@@ -268,7 +275,7 @@ void SceneAssignment2::Update(double dt)
 					}
 				}
 			}
-		}
+		
 	}
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
@@ -422,7 +429,7 @@ void SceneAssignment2::Render()
 		entity->Render();
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
-			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", entity->getHitBox()->getThisTickBox()->botLeftPos, entity->getHitBox()->getThisTickBox()->topRightPos);
+			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;

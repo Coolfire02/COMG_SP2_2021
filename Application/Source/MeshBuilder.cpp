@@ -982,8 +982,8 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 {
 	// Cube
 	Vector3 topRightPos, botLeftPos;
-	topRightPos = box.currentPos;
-	botLeftPos = box.currentPos;
+	topRightPos = Vector3(box.currentPos);
+	botLeftPos = Vector3(box.currentPos);
 	topRightPos.x += box.halfSize.x;
 	topRightPos.y += box.halfSize.y;
 	topRightPos.z -= box.halfSize.z;
@@ -1074,7 +1074,8 @@ void MeshBuilder::calcMinMaxPos(Mesh* mesh, std::vector<Vertex> vertex_buffer_da
 	
 	float lowX, lowY, highZ, //Bot Left
 		highX, highY, lowZ; //Top Right
-	lowX = lowY = highZ = highX = highY = lowZ = 0.f;
+	lowX = lowY = lowZ = 9999999.f;
+	highX = highY = highZ = -9999999.f;
 
 	for (auto& entry : vertex_buffer_data) {
 		Position pos = entry.pos;

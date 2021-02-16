@@ -14,6 +14,10 @@ bool HitBox::collidedWith(HitBox* other) {
 	}
 }
 
+Box* HitBox::getThisTickBox() {
+	return hitBox;
+}
+
 void HitBox::update(EntityData* data) {
 	this->hitBox->currentPos = data->Translate;
 	this->hitBox->xAxis = data->Rotation.x / 360.f;

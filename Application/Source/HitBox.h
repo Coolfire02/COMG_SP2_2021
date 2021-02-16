@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "EntityDataHandler.h"
+#include "Position3D.h"
 #include <vector>
 
 struct Box {
@@ -8,6 +9,17 @@ struct Box {
 	Vector3 currentPos;
 	Vector3 xAxis, yAxis, zAxis;
 	Vector3 halfSize;
+
+	Box(Position3D botLeftPos, Position3D topRightPos) {
+		this->currentPos = Vector3(0, 0, 0);
+		this->halfSize = Vector3( 
+			(topRightPos.getX() - botLeftPos.getX()) / 2.0f ,
+			(topRightPos.getY() - botLeftPos.getY()) / 2.0f ,
+			(botLeftPos.getZ() - topRightPos.getZ()) / 2.0f);
+		this->xAxis.Set(1.0f, 0.f, 0.f);
+		this->yAxis.Set(.0f, 1.f, 0.f);
+		this->zAxis.Set(.0f, 0.f, 1.f);
+	}
 
 	Box(Vector3 currentPos, Vector3 xAxis, Vector3 yAxis, Vector3 zAxis, Vector3 halfSize) {
 		this->currentPos = currentPos;
@@ -31,10 +43,10 @@ struct Box {
 	}
 
 	bool isCollidedWith(Box& otherBox) {
-		Vector3 vector = otherBox.currentPos - this->currentPos;
-		return !(
+		static Vector3 vector = otherBox.currentPos - this->currentPos;
+		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
-			hasSeparatingPlane(vector, this->yAxis, otherBox) || 
+			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis, otherBox) ||
 			hasSeparatingPlane(vector, otherBox.xAxis, otherBox) ||
 			hasSeparatingPlane(vector, otherBox.yAxis, otherBox) ||
@@ -50,6 +62,7 @@ struct Box {
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox)
 			);
+		return collided;
 	}
 
 	~Box() {
@@ -59,10 +72,7 @@ struct Box {
 class HitBox
 {
 	Box* hitBox;
-	HitBox();
-	~HitBox();
 
-	
 public:
 	HitBox(Box* box);
 	~HitBox();

@@ -21,7 +21,7 @@ struct EntityData {
 	EntityData() {
 		Translate.Set(0, 0, 0);
 		Rotation.Set(0, 0, 0);
-		Scale.Set(0, 0, 0);
+		Scale.Set(1, 1, 1);
 	}
 
 	void setValuesTo(EntityData* other) {
