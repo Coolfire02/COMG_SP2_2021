@@ -28,4 +28,3 @@ public:
 
 	void initWeapon(WEAPON_TYPE wType, int ammos, int damages);
 };
-

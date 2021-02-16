@@ -30,7 +30,4 @@ public:
 	void switchScene(static SCENES);
 	Scene* getSceneByName(std::string);
 	Scene* getScene();
-
-	void addWeapon(Weapon* weapon);
 };
-

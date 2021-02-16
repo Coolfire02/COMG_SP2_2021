@@ -15,7 +15,19 @@ void WeaponInventory::addWeapon(Weapon* weapon, WEAPON_TYPE wType)
 	activeWeapon->weaponType = weapon->weaponType; //set activeWeapon to new weapon
 }
 
-Weapon* WeaponInventory::getWeapon()
+Weapon* WeaponInventory::getActiveWeapon()
 {
 	return weaponList[activeWeapon->weaponType]; //return activeWeapon
+}
+
+void WeaponInventory::setActiveWeapon(WEAPON_TYPE wType)
+{
+	for (int i = 0; i < weaponList.size(); ++i) //loop through whole vector to see if player owns the weapon
+	{
+		if (weaponList[i]->weaponType == wType) //if yes then
+		{
+			activeWeapon = weaponList[i]; //set active weapon
+		}
+	}		
+	return;
 }

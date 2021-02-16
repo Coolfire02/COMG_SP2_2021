@@ -13,7 +13,6 @@ Weapon::~Weapon()
 
 Weapon::Weapon(WEAPON_TYPE wType)
 {
-	this->weaponType = wType; //set new weaponType
 	switch (wType) //based on new weaponType, init the dmg and magSize
 	{
 	case FIST:

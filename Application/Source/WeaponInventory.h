@@ -14,6 +14,6 @@ public:
 	std::vector<Weapon*> weaponList; //vector to store player's owned Weapons
 
 	void addWeapon(Weapon* weapon, WEAPON_TYPE wType);
-	Weapon* getWeapon();
+	Weapon* getActiveWeapon();
+	void setActiveWeapon(WEAPON_TYPE wType);
 };
-
