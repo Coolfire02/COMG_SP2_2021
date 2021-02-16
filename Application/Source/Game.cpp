@@ -1,4 +1,5 @@
 #include "Game.h"
+SCENES Game::activeScene;
 
 Game::Game()
 {
@@ -30,21 +31,15 @@ void Game::addScene(Scene* scene)
 	scene->Init();
 }
 
-Scene* Game::switchScene(static SCENES scene)
+void Game::switchScene(static SCENES scene)
 {
-	switch (scene)
-	{
-	case 0:
-		return SceneList[0];
-		break;
-
-	}
+	activeScene = scene;
 }
 
 Scene* Game::getSceneByString(std::string scene)
 {
 	for (int i = 0; i < SceneList.size(); ++i)
-		if (sceneName == scene)
+		if (SceneList[i]->getName() == scene)
 			return SceneList[i];
 }
 

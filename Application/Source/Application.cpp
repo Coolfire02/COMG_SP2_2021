@@ -13,6 +13,8 @@
 
 #include "MeshHandler.h"
 #include "SceneAssignment2.h"
+#include "Game.h"
+Game g;
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -166,9 +168,11 @@ void Application::Init()
 
 void Application::Run()
 {
-	for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
+	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Init();
-	}
+	}*/
+	g.addScene(new SceneAssignment2);
+	g.addScene(new SceneAssignment2);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -179,9 +183,9 @@ void Application::Run()
 		else if (IsKeyPressed(VK_F2))
 			mainScene = 1;
 		double dt = m_timer.getElapsedTime();
-		scenes[mainScene]->elapser(dt);
-		scenes[mainScene]->Update(dt);
-		scenes[mainScene]->Render();
+		g.getScene()->elapser(dt);
+		g.getScene()->Update(dt);
+		g.getScene()->Render();
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -191,10 +195,10 @@ void Application::Run()
 
 	} //Check if the ESC key had been pressed or if the window had been closed
 	
-	for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
+	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Exit();
 		delete scenes[i];
-	}
+	}*/
 }
 
 bool Application::changeToScene(std::string sceneName, std::string msg) {

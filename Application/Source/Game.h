@@ -10,7 +10,7 @@ enum SCENES
 	S_COUNT
 };
 
-class Game : public Scene
+class Game
 {
 public:
 	Game();
@@ -25,7 +25,7 @@ public:
 	virtual void Exit();
 
 	void addScene(Scene* scene);
-	Scene* switchScene(static SCENES);
+	void switchScene(static SCENES);
 	Scene* getSceneByString(std::string);
 	Scene* getScene();
 };
