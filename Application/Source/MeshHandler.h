@@ -7,6 +7,7 @@ enum GEOMETRY_TYPE {
 	//General
 	GEO_AXES = 0,
 	GEO_LIGHTBALL,
+	GEO_QUAD,
 	GEO_TEXT,
 
 	//For OBJs

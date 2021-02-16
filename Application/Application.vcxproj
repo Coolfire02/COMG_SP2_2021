@@ -168,6 +168,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
+    <ClCompile Include="Source\WeaponInventory.cpp" />
     <ClCompile Include="Source\WorldObject.cpp" />
     <ClCompile Include="Source\SceneAssignment2.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Weapon.h" />
+    <ClInclude Include="Source\WeaponInventory.h" />
     <ClInclude Include="Source\WorldObject.h" />
     <ClInclude Include="Source\SceneAssignment2.h" />
     <ClInclude Include="Source\Game.h" />
