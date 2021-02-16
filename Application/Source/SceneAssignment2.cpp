@@ -141,9 +141,15 @@ void SceneAssignment2::Init() {
 	//eManager.spawnWorldEntity(eggman);
 
 	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(0, 0, 0);
+	building->getEntityData()->SetTransform(40, 0, 0);
 	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building);
+
+	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
+	building2->getEntityData()->SetTransform(-40, 0, 0);
+	building2->getEntityData()->SetRotate(0, 60, 0);
+	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
+	eManager.spawnWorldEntity(building2);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -171,9 +177,9 @@ void SceneAssignment2::Init() {
 	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
 	//eManager.spawnWorldEntity(tree);
 
-	Entity* car = new Car(SEDAN, this, "sedan");
+	/*Entity* car = new Car(SEDAN, this, "sedan");
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
-	eManager.spawnMovingEntity(car);
+	eManager.spawnMovingEntity(car);*/
 
 
 
@@ -270,6 +276,7 @@ void SceneAssignment2::Update(double dt)
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				player->cancelNextMovement();
 				std::cout << "Collided" << std::endl;
 			}
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {

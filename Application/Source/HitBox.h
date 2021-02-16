@@ -44,23 +44,13 @@ struct Box {
 			Math::FAbs(plane.Dot(otherBox.zAxis.Dot(otherBox.halfSize.z)))
 			);
 
-		return (Math::FAbs(vector.Dot(plane)) > 
-			(
-			Math::FAbs(plane.Dot(this->xAxis.Dot(this->halfSize.x))) + 
-			Math::FAbs(plane.Dot(this->yAxis.Dot(this->halfSize.y))) +
-			Math::FAbs(plane.Dot(this->zAxis.Dot(this->halfSize.z))) +
-			
-			Math::FAbs(plane.Dot(otherBox.xAxis.Dot(otherBox.halfSize.x))) +
-			Math::FAbs(plane.Dot(otherBox.yAxis.Dot(otherBox.halfSize.y))) +
-			Math::FAbs(plane.Dot(otherBox.zAxis.Dot(otherBox.halfSize.z)))
-			));
+		return (a > b);
 	}
 
 	bool isCollidedWith(Box otherBox) {
-		Vector3 vector = Vector3(otherBox.currentPos);
-		vector = vector - this->currentPos;
+		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
 		bool collided = !(
-			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
+			/*hasSeparatingPlane(vector, this->xAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis, otherBox) ||
 			hasSeparatingPlane(vector, otherBox.xAxis, otherBox) ||
@@ -75,8 +65,105 @@ struct Box {
 			hasSeparatingPlane(vector, this->yAxis.Cross(otherBox.zAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.xAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
-			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox)
-			);
+			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox)*/
+
+			Math::FAbs(vector.Dot(this->xAxis) >
+				this->halfSize.x * 5 +
+				Math::FAbs(otherBox.halfSize.x * 5 * otherBox.xAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.y * 5 * otherBox.yAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.z * 5 * otherBox.zAxis.Dot(this->xAxis))) || // SA = AaxisX
+
+			Math::FAbs(vector.Dot(this->yAxis) >
+				this->halfSize.y * 5 +
+				Math::FAbs(otherBox.halfSize.x * 5 * otherBox.xAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.y * 5 * otherBox.yAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.z * 5 * otherBox.zAxis.Dot(this->xAxis))) ||
+
+			Math::FAbs(vector.Dot(this->zAxis) >
+				this->halfSize.z * 5 +
+				Math::FAbs(otherBox.halfSize.x * 5 * otherBox.xAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.y * 5 * otherBox.yAxis.Dot(this->xAxis)) +
+				Math::FAbs(otherBox.halfSize.z * 5 * otherBox.zAxis.Dot(this->xAxis))) ||
+
+
+
+			Math::FAbs(vector.Dot(otherBox.xAxis) >
+				Math::FAbs(this->halfSize.x * 5 * this->xAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->yAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->zAxis.Dot(otherBox.xAxis)) + otherBox.halfSize.x * 5) ||
+
+			Math::FAbs(vector.Dot(otherBox.yAxis) >
+				Math::FAbs(this->halfSize.x * 5 * this->xAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->yAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->zAxis.Dot(otherBox.yAxis)) + otherBox.halfSize.y * 5) ||
+
+			Math::FAbs(vector.Dot(otherBox.zAxis) >
+				Math::FAbs(this->halfSize.x * 5 * this->xAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->yAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->zAxis.Dot(otherBox.zAxis)) + otherBox.halfSize.z * 5) ||
+
+
+
+			Math::FAbs(vector.Dot(this->xAxis.Cross(otherBox.xAxis))) > 
+				Math::FAbs(this->halfSize.y * 5 * this->zAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->yAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->xAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->xAxis.Dot(otherBox.yAxis)) ||
+
+			Math::FAbs(vector.Dot(this->xAxis.Cross(otherBox.yAxis))) >
+				Math::FAbs(this->halfSize.y * 5 * this->zAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->yAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->xAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->xAxis.Dot(otherBox.xAxis)) ||
+
+			Math::FAbs(vector.Dot(this->xAxis.Cross(otherBox.zAxis))) >
+				Math::FAbs(this->halfSize.y * 5 * this->zAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->yAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->xAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->xAxis.Dot(otherBox.xAxis)) ||
+
+
+
+			Math::FAbs(vector.Dot(this->yAxis.Cross(otherBox.xAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->zAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->xAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->yAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->yAxis.Dot(otherBox.yAxis)) ||
+
+			Math::FAbs(vector.Dot(this->yAxis.Cross(otherBox.yAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->zAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->xAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->yAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->yAxis.Dot(otherBox.xAxis)) ||
+
+			Math::FAbs(vector.Dot(this->yAxis.Cross(otherBox.zAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->zAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->xAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->yAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->yAxis.Dot(otherBox.xAxis)) ||
+
+			 
+
+			Math::FAbs(vector.Dot(this->zAxis.Cross(otherBox.xAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->yAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->xAxis.Dot(otherBox.xAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->zAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->zAxis.Dot(otherBox.yAxis)) ||
+
+			Math::FAbs(vector.Dot(this->zAxis.Cross(otherBox.yAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->yAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->xAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->zAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.z * 5 * this->zAxis.Dot(otherBox.xAxis)) ||
+
+			Math::FAbs(vector.Dot(this->zAxis.Cross(otherBox.zAxis))) >
+				Math::FAbs(this->halfSize.x * 5 * this->yAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->xAxis.Dot(otherBox.zAxis)) +
+				Math::FAbs(this->halfSize.x * 5 * this->zAxis.Dot(otherBox.yAxis)) +
+				Math::FAbs(this->halfSize.y * 5 * this->zAxis.Dot(otherBox.xAxis))
+
+					);
+
 		return collided;
 	}
 
