@@ -191,6 +191,10 @@ Vector3 Vector3::operator*( float scalar ) const
 	return Vector3(scalar * x, scalar * y, scalar * z);
 }
 
+float Vector3::operator* (const Vector3& rhs) const {
+	return{ x * rhs.x + y * rhs.y + z * rhs.z };
+}
+
 /******************************************************************************/
 /*!
 \brief
