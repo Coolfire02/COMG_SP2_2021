@@ -36,6 +36,12 @@ struct EntityData {
 		Translate.z = z;
 	}
 
+	void SetScale(float x, float y, float z) {
+		Scale.x = x;
+		Scale.y = y;
+		Scale.z = z;
+	}
+
 	void SetRotate(float x, float y, float z) {
 		Rotation.x = x;
 		Rotation.y = y;

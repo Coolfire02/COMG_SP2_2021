@@ -7,7 +7,7 @@
 //#include <map>
 
 enum ENTITYTYPE {
-	SONIC,
+	PLAYER,
 	COIN,
 	FENCE,
 	LIVE_NPC,

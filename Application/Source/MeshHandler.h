@@ -10,10 +10,10 @@ enum GEOMETRY_TYPE {
 	GEO_TEXT,
 
 	//For OBJs
-	GEO_TREE,
+	GEO_BUILDING_1,
 
 	//Platform
-	
+	GEO_QUAD,
 
 	//Misc
 	
