@@ -9,7 +9,8 @@
 #include "Player.h"
 #include "shader.hpp"
 #include "Utility.h"
-
+#include "Game.h"
+Game game;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -156,9 +157,10 @@ void SceneAssignment2::Init() {
 	//eManager.spawnWorldEntity(shopBase);
 
 	//Camera init(starting pos, where it looks at, up
-	player = new Player(Vector3(0, 0), "player");
+	player = new Player(this, Vector3(0, 0), "player");
+	eManager.spawnMovingEntity(player);
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
-				Vector3(0, 0, -1),
+				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
 
 	//Light init
@@ -302,7 +304,8 @@ void SceneAssignment2::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('4') & 0x8001) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		game.switchScene(S_MAINWORLD);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	if (Application::IsKeyPressed('9')) {

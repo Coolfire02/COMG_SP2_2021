@@ -145,7 +145,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CustomEntity.cpp" />
+    <ClCompile Include="Source\InteractionStack.cpp" />
+    <ClCompile Include="Source\Inventory.cpp" />
+    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\NPC.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -163,12 +167,18 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
     <ClCompile Include="Source\WorldObject.cpp" />
     <ClCompile Include="Source\SceneAssignment2.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Interactions.h" />
     <ClInclude Include="Source\CustomEntity.h" />
+    <ClInclude Include="Source\InteractionStack.h" />
+    <ClInclude Include="Source\Inventory.h" />
+    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\NPC.h" />
     <ClInclude Include="Source\EntityDataHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
@@ -189,8 +199,10 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Weapon.h" />
     <ClInclude Include="Source\WorldObject.h" />
     <ClInclude Include="Source\SceneAssignment2.h" />
+    <ClInclude Include="Source\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

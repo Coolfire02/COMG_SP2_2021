@@ -1,10 +1,15 @@
 #pragma once
 #include "Entity.h"
+// Created by Joash on 16/2/21
 
 class Player : public Entity
 {
+private:
+	int Money;
+	// std::vector<Items*> Inventory; remove the // later when Items have been implemented
+
 public:
-	Player(Vector3 position, std::string);
+	Player(Scene* scene, Vector3 position, std::string);
 	~Player();
 	void Update(double);
 	void Render();
