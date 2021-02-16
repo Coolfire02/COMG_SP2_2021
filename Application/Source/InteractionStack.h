@@ -10,7 +10,9 @@ public:
 	~InteractionStack();
 
 	void pushStackInteraction(Interaction* interact); //Insert using Interaction
-	void pushStackText(std::string interactionText); //Insert using Text
+	void pushStackText(std::vector<std::string> preInteractionCMD, std::string interactionText, std::vector<std::string> postInteractionCMD); //Insert using Text
 	void popStack();
+
+	void switchInteraction(std::string cmd);
 };
 
