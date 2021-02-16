@@ -100,17 +100,17 @@ void FirstPersonCamera::Update(double dt)
 		target = position + view;
 	}*/
 
-	if (Application::IsKeyPressed(VK_SPACE))
-	{
-		position.y += dt * 50.f;
-		target = position + view;
-	}
+	//if (Application::IsKeyPressed(VK_SPACE))
+	//{
+	//	position.y += dt * 50.f;
+	//	target = position + view;
+	//}
 
-	if (Application::IsKeyPressed(VK_CONTROL))
-	{
-		position.y -= dt * 50.f;
-		target = position + view;
-	}
+	//if (Application::IsKeyPressed(VK_CONTROL))
+	//{
+	//	position.y -= dt * 50.f;
+	//	target = position + view;
+	//}
 
 	if (Application::IsKeyPressed(VK_LEFT))
 	{
