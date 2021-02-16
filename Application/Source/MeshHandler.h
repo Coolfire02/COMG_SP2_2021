@@ -11,10 +11,19 @@ enum GEOMETRY_TYPE {
 
 	//For OBJs
 	GEO_BUILDING_1,
+	GEO_TREE,
+	GEO_SEDAN,
+	GEO_SEDAN_SPORTS,
+	GEO_RACER,
+	GEO_POLICE,
+	GEO_AMBULANCE,
+	GEO_SUV,
 
 	//Platform
 	GEO_QUAD,
-	GEO_TREE,
+
+
+	//Misc
 
 	//Skybox
 	GEO_SKY_LEFT,

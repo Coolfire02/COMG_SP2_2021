@@ -10,6 +10,7 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Game.h"
+#include "Car.h"
 Game game;
 
 SceneAssignment2::SceneAssignment2() : 
@@ -140,9 +141,15 @@ void SceneAssignment2::Init() {
 	//eManager.spawnWorldEntity(eggman);
 
 	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(0, 0, 0);
+	building->getEntityData()->SetTransform(40, 0, 0);
 	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building);
+
+	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
+	building2->getEntityData()->SetTransform(-40, 0, 0);
+	building2->getEntityData()->SetRotate(0, 60, 0);
+	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
+	eManager.spawnWorldEntity(building2);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -170,6 +177,10 @@ void SceneAssignment2::Init() {
 	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
 	//eManager.spawnWorldEntity(tree);
 
+	/*Entity* car = new Car(SEDAN, this, "sedan");
+	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
+	eManager.spawnMovingEntity(car);*/
+
 
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
@@ -177,7 +188,7 @@ void SceneAssignment2::Init() {
 				Vector3(0, 1, 0));
 
 	//Light init
-	light[0].type = Light::LIGHT_DIRECTIONAL;
+	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 40, 0);
 	light[0].color.set(1, 1, 1); //set to white light
 	light[0].power = 1;
@@ -274,6 +285,7 @@ void SceneAssignment2::Update(double dt)
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				player->cancelNextMovement();
 				std::cout << "Collided" << std::endl;
 			}
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
@@ -291,43 +303,31 @@ void SceneAssignment2::Update(double dt)
 					}
 				}
 			}
-
 		}
+		
 	}
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
 	eManager.collisionUpdate(dt);
 
-		
-		if (foundInteractionZone == false) {
-			canInteractWithSomething = false;
-		}
-		eManager.collisionUpdate(dt);
 
-		if (player->usingNewData()) { //Aka movement not cancelled
-			camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-				player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
-				player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-		}
+	if (player->usingNewData()) { //Aka movement not cancelled
+		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
+			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
+			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+	}
 
-		eManager.postCollisionUpdate();
+	eManager.postCollisionUpdate();
 
-		fps = (float)1 / dt;
-
-		if (isInteracting && passedInteractCooldown()) {
-			if (ePressed) {
-				nextInteraction();
-
-			}
-			latestInteractionSwitch = this->elapsed;
-		}
 	fps = (float)1 / dt;
 
 	if (isInteracting && passedInteractCooldown()) {
 		if (ePressed) {
 			nextInteraction();
+
 		}
+		latestInteractionSwitch = this->elapsed;
 	}
 
 

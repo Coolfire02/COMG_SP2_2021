@@ -90,15 +90,16 @@
     <ClCompile Include="Source\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>Source Files\Entities</Filter>
+=======
     <ClCompile Include="Source\GarageInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -107,6 +108,7 @@
     </ClCompile>
     <ClCompile Include="Source\WeaponInventory.cpp">
       <Filter>Source Files</Filter>
+>>>>>>> 18fabba4b4796bf548d2bca1aabc2e1bf6d73ebb
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,15 +193,16 @@
     <ClInclude Include="Source\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\Car.h">
+      <Filter>Header Files\Entities</Filter>
+=======
     <ClInclude Include="Source\GarageInventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -208,6 +211,7 @@
     </ClInclude>
     <ClInclude Include="Source\WeaponInventory.h">
       <Filter>Header Files</Filter>
+>>>>>>> 18fabba4b4796bf548d2bca1aabc2e1bf6d73ebb
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 
 enum ENTITYTYPE {
 	PLAYER,
+	CAR,
 	COIN,
 	FENCE,
 	LIVE_NPC,

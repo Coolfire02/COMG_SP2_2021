@@ -1,5 +1,7 @@
 #pragma once
 #include "Entity.h"
+// Car class created by Ridwan on 16/2/21
+// Optimized by Joash on 16/2/21
 
 enum CAR_TYPE
 {
@@ -14,21 +16,23 @@ enum CAR_TYPE
 class Car : public Entity
 {
 private:
-	float carSpeed;
-	bool carBought;
-	CAR_TYPE carType;
+	bool          seated;
+	float         carSpeed;
+	CAR_TYPE      carType;
+	GEOMETRY_TYPE associatedType;
+
 public:
+	Car(CAR_TYPE type, Scene* scene, std::string);
 	Car();
 	Car(float speed, CAR_TYPE type);
 	~Car();
-
-	//Setter
-	void setSpeed(float speed);
-	void setBought(bool bought);
-
-	//Getter
-	float getSpeed();
-	bool getBought();
+	 
+	void     Init();
+	void     setSpeed(float speed);
+	float    getSpeed();
 	CAR_TYPE getCartype();
+
+	void Update(double);
+	void Render();
 };
 

@@ -51,8 +51,7 @@ struct Box {
 	}
 
 	bool isCollidedWith(Box otherBox) {
-		Vector3 vector = Vector3(otherBox.currentPos);
-		vector = vector - this->currentPos;
+		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
 		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
@@ -69,8 +68,8 @@ struct Box {
 			hasSeparatingPlane(vector, this->yAxis.Cross(otherBox.zAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.xAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
-			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox)
-			);
+			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox));
+
 		return collided;
 	}
 

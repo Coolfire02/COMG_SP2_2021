@@ -21,7 +21,7 @@ bool GarageInventory::getCar(CAR_TYPE cartype)
 	{
 		if (carList[i]->getCartype() == cartype)
 		{
-			return carList[i]->getBought();
+			return true;
 		}
 	}
 }

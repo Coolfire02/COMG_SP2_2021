@@ -19,7 +19,11 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
 	//OBJS
-	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//1.obj", "MTL//Buildings//1.mtl");
+	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building1.obj", "MTL//Buildings//1.mtl");
+	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
+	
+	//Cars
+	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 
 	////Sonic characters
 	//meshList[GEO_SONIC_EGGMAN] = MeshBuilder::GenerateOBJMTL("Eggman", "OBJ//Eggman.obj", "MTL//Eggman.mtl");
