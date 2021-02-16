@@ -23,6 +23,8 @@ private:
 
 public:
 	Car(CAR_TYPE type, Scene* scene, std::string);
+	Car();
+	Car(float speed, CAR_TYPE type);
 	~Car();
 	 
 	void     Init();

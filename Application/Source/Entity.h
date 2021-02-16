@@ -37,6 +37,7 @@ protected:
 	void loadOriginTRSIntoStacknHitBox();
 
 public:
+	Entity();
 	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name);
 	~Entity();
 

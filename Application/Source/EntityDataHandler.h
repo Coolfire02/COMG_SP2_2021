@@ -25,9 +25,9 @@ struct EntityData {
 	}
 
 	void setValuesTo(EntityData* other) {
-		this->Translate = other->Translate;
-		this->Rotation = other->Rotation;
-		this->Scale = other->Scale;
+		this->Translate = Vector3(other->Translate);
+		this->Rotation = Vector3(other->Rotation);
+		this->Scale = Vector3(other->Scale);
 	}
 
 	void SetTransform(float x, float y, float z) {

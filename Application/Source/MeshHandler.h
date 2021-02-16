@@ -23,7 +23,6 @@ enum GEOMETRY_TYPE {
 	GEO_QUAD,
 
 	//Misc
-	
 
 	//Skybox
 	GEO_SKY_LEFT,

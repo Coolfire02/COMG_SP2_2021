@@ -16,7 +16,7 @@ Car::~Car()
 void Car::Init() {
 
 	Mesh* theMesh;
-	
+
 	switch (carType) {
 	case SEDAN:
 		this->associatedType = GEO_SEDAN;
@@ -54,10 +54,21 @@ void Car::Init() {
 	this->carSpeed = 1.f;
 }
 
+Car::Car()
+{
+}
+
+Car::Car(float speed, CAR_TYPE type)
+{
+	this->carSpeed = speed;
+	this->carType = type;
+}
+
 void Car::setSpeed(float speed)
 {
 	this->carSpeed = speed;
 }
+
 float Car::getSpeed()
 {
 	return this->carSpeed;
@@ -88,7 +99,7 @@ void Car::Update(double) {
 void Car::Render()
 {
 	this->scene->modelStack.PushMatrix();
-		this->loadOriginTRSIntoStacknHitBox();
-		if (this->isVisible()) this->scene->RenderMesh(MeshHandler::getMesh(associatedType), this->scene->isLightEnabled());
+	this->loadOriginTRSIntoStacknHitBox();
+	if (this->isVisible()) this->scene->RenderMesh(MeshHandler::getMesh(associatedType), this->scene->isLightEnabled());
 	this->scene->modelStack.PopMatrix();
 }

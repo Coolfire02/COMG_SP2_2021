@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include <iostream>
 #include <vector>
+#include "Scene.h"
+#include "Weapon.h"
 
 enum SCENES
 {
@@ -26,7 +28,6 @@ public:
 
 	void addScene(Scene* scene);
 	void switchScene(static SCENES);
-	Scene* getSceneByString(std::string);
+	Scene* getSceneByName(std::string);
 	Scene* getScene();
 };
-
