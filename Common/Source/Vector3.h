@@ -45,6 +45,7 @@ struct Vector3
 	
 	Vector3 operator*( float scalar ) const; //Scalar multiplication
 	Vector3& operator*=( float scalar );
+	float operator* (const Vector3& rhs) const;
 
 	bool operator==( const Vector3& rhs ) const; //Equality check
 	bool operator!= ( const Vector3& rhs ) const; //Inequality check
