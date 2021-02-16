@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Source\CustomEntity.cpp" />
     <ClCompile Include="Source\NPC.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\MeshHandler.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\HitBox.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Position3D.h" />
     <ClInclude Include="Source\FirstPersonCamera.h" />
     <ClInclude Include="Source\Light.h" />
@@ -188,7 +190,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WorldObject.h" />
-	<ClInclude Include="Source\SceneAssignment2.h" />
+    <ClInclude Include="Source\SceneAssignment2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

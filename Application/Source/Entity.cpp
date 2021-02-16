@@ -34,19 +34,19 @@ void Entity::cancelNextMovement() {
 
 void Entity::loadOriginTRSIntoStacknHitBox() {
 	if (useNewData) {
-		this->scene->modelStack.Translate(data->transX, data->transY, data->transZ);
-		this->scene->modelStack.Rotate(data->rotXMag, 1.f, 0.f, 0.f);
-		this->scene->modelStack.Rotate(data->rotYMag, 0.f, 1.f, 0.f);
-		this->scene->modelStack.Rotate(data->rotZMag, 0.f, 0.f, 1.f);
-		this->scene->modelStack.Scale(data->scaleX, data->scaleY, data->scaleZ);
+		this->scene->modelStack.Translate(data->Translate.x, data->Translate.y, data->Translate.z);
+		this->scene->modelStack.Rotate(data->Rotation.x, 1.f, 0.f, 0.f);
+		this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
+		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
+		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
 		this->hitBox->update(this->scene->modelStack.Top());
 	}
 	else {
-		this->scene->modelStack.Translate(oldData->transX, oldData->transY, oldData->transZ);
-		this->scene->modelStack.Rotate(oldData->rotXMag, 1.f, 0.f, 0.f);
-		this->scene->modelStack.Rotate(oldData->rotYMag, 0.f, 1.f, 0.f);
-		this->scene->modelStack.Rotate(oldData->rotZMag, 0.f, 0.f, 1.f);
-		this->scene->modelStack.Scale(oldData->scaleX, oldData->scaleY, oldData->scaleZ);
+		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
+		this->scene->modelStack.Rotate(oldData->Rotation.x, 1.f, 0.f, 0.f);
+		this->scene->modelStack.Rotate(oldData->Rotation.y, 0.f, 1.f, 0.f);
+		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
+		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
 		this->hitBox->update(this->scene->modelStack.Top());
 	}
 }

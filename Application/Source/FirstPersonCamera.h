@@ -5,13 +5,16 @@
 #include "Vector3.h"
 #include "Mtx44.h"
 #include "Entity.h"
+#include "Player.h"
 
 class FirstPersonCamera
 {
 public:
 	Vector3 position;
-	Vector3 target;
+	Vector3 target, defaultTarget;
 	Vector3 up;
+
+	float test_pitch;
 
 	FirstPersonCamera();
 	~FirstPersonCamera();

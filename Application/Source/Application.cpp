@@ -12,21 +12,7 @@
 #include <stdlib.h>
 
 #include "MeshHandler.h"
-#include "Scene1.h"
-#include "Scene2.h"
-#include "Scene3.h"
-#include "Scene4.h"
-#include "Scene5.h"
-#include "SceneLight1.h"
-#include "SceneLight2.h"
-#include "SceneTexture.h"
-#include "SceneSkybox.h"
-#include "SceneModel.h"
-#include "SceneAssignment1.h"
 #include "SceneAssignment2.h"
-#include "SceneRaceAssignment2.h"
-#include "SceneText.h"
-#include "SceneUI.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -34,8 +20,13 @@ unsigned Application::m_height;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
+double Application::mouse_last_x = 0.0, Application::mouse_last_y = 0.0,
+		Application::mouse_current_x = 0.0, Application::mouse_current_y = 0.0,
+		Application::mouse_diff_x = 0.0, Application::mouse_diff_y = 0.0;
+double Application::camera_yaw = 0.0, Application::camera_pitch = 0.0;
+
 //Scenes
-Scene* Application::scenes[2] = { new SceneAssignment2, new SceneRaceAssignment2 };
+Scene* Application::scenes[1] = { new SceneAssignment2 };
 int Application::mainScene = 0;
 
 //Define an error callback
@@ -71,6 +62,38 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	Application::m_height = h;
 	glViewport(0, 0, w, h);
 }
+
+bool Application::GetMouseUpdate()
+{
+	glfwGetCursorPos(m_window, &mouse_current_x, &mouse_current_y);
+
+	// Calculate the difference in positions
+	mouse_diff_x = mouse_current_x - mouse_last_x;
+	mouse_diff_y = mouse_current_y - mouse_last_y;
+
+	//Calculate the yaw and pitch
+	camera_yaw = (float)mouse_diff_x * 0.0174555555555556f;// * 3.142f / 180.0f;
+	camera_pitch = mouse_diff_y * 0.0174555555555556f;// 3.142f / 180.0f );
+
+	// Do a wraparound if the mouse cursor has gone out of the deadzone
+	if ((mouse_current_x < m_window_deadzone) || (mouse_current_x > m_window_width - m_window_deadzone))
+	{
+		mouse_current_x = m_window_width >> 1;
+		glfwSetCursorPos(m_window, mouse_current_x, mouse_current_y);
+	}
+	if ((mouse_current_y < m_window_deadzone) || (mouse_current_y > m_window_height - m_window_deadzone))
+	{
+		mouse_current_y = m_window_height >> 1;
+		glfwSetCursorPos(m_window, mouse_current_x, mouse_current_y);
+	}
+
+	// Store the current position as the last position
+	mouse_last_x = mouse_current_x;
+	mouse_last_y = mouse_current_y;
+
+	return false;
+}
+
 bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
 {
 	return glfwGetMouseButton(m_window, key) != 0;
@@ -110,7 +133,6 @@ void Application::Init()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 
-
 	//Create a window and create its OpenGL context
 	m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
@@ -139,6 +161,7 @@ void Application::Init()
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		//return -1;
 	}
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Application::Run()
@@ -150,6 +173,7 @@ void Application::Run()
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
+		GetMouseUpdate();
 		if(IsKeyPressed(VK_F1))
 			mainScene = 0;
 		else if (IsKeyPressed(VK_F2))
@@ -178,8 +202,8 @@ bool Application::changeToScene(std::string sceneName, std::string msg) {
 		if (scenes[i]->getName() == sceneName) {
 			if (mainScene != i) {
 				if (sceneName == "RunningScene") {
-					static_cast<SceneRaceAssignment2*>(scenes[i])->StartRacingSession();
-					static_cast<SceneRaceAssignment2*>(scenes[i])->setPlayerSpeed(std::stof(msg));
+					// static_cast<MainWorld*>(scenes[i])->StartRacingSession();
+					// static_cast<MainWrol*>(scenes[i])->setPlayerSpeed(std::stof(msg));
 				}
 					
 				mainScene = i;

@@ -33,7 +33,7 @@ bool MeshHandler::loadMeshes() {
 
 	////Kenney Platform Kit
 	//meshList[GEO_SHOPBASE] = MeshBuilder::GenerateOBJMTL("shopBase", "OBJ//shopBase.obj", "MTL//shopBase.mtl");
-	//meshList[GEO_TREE] = MeshBuilder::GenerateOBJMTL("Tree", "OBJ//Tree.obj", "MTL//Tree.mtl");
+	meshList[GEO_TREE] = MeshBuilder::GenerateOBJMTL("Tree", "OBJ//Tree.obj", "MTL//Tree.mtl");
 	//meshList[GEO_OBJ_GRASS] = MeshBuilder::GenerateOBJMTL("grass", "OBJ//blockLarge.obj", "MTL//blockLarge.mtl");
 
 	// END Zip Library OBJs

@@ -18,7 +18,7 @@ public:
 	void Run();
 	void Exit();
 
-	static Scene* scenes[2];
+	static Scene* scenes[1];
 	static bool changeToScene(std::string, std::string);
 	static Scene* getSceneByName(std::string);
 	static bool IsMousePressed(unsigned short key);
@@ -27,6 +27,13 @@ public:
 	static int GetWindowHeight();
 	static unsigned m_width;
 	static unsigned m_height;
+
+	static double mouse_last_x, mouse_last_y, mouse_current_x, mouse_current_y, mouse_diff_x, mouse_diff_y;
+	static double camera_yaw, camera_pitch;
+	const static int m_window_deadzone = 100;
+	const static int m_window_width = 800;
+	const static int m_window_height = 600;
+	bool GetMouseUpdate();
 
 private:
 	static int mainScene;
