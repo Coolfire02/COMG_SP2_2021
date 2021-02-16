@@ -1,6 +1,10 @@
 #include "Entity.h"
 #include <iostream>
 
+Entity::Entity()
+{
+}
+
 Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name) : scene(associatedScene), type(type), dead(false), name(name), useNewData(true), visible(true) {
 	this->data = new EntityData();
 	this->oldData = new EntityData();

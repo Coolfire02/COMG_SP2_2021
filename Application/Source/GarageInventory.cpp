@@ -11,7 +11,7 @@ GarageInventory::~GarageInventory()
 void GarageInventory::addCar(float spd, CAR_TYPE cartype)
 {
 	Car* temp;
-	temp = new Car(spd, cartype);
+	//temp = new Car(spd, cartype);
 	carList.push_back(temp);
 }
 

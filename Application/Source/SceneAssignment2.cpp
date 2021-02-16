@@ -269,7 +269,7 @@ void SceneAssignment2::Update(double dt)
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
-					if(!canInteractWithSomething)
+					if (!canInteractWithSomething)
 						canInteractWithSomething = true;
 					else if (passedInteractCooldown()) {
 						std::string name = entry->victim->getName();
@@ -281,94 +281,95 @@ void SceneAssignment2::Update(double dt)
 					}
 				}
 			}
-		
-	}
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
-	eManager.collisionUpdate(dt);
 
-	if (player->usingNewData()) { //Aka movement not cancelled
-		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
-			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-	}
-
-	eManager.postCollisionUpdate();
-
-	fps = (float) 1 / dt;
-
-	if (isInteracting && passedInteractCooldown()) {
-		if (ePressed) {
-			nextInteraction();
-			
 		}
-		latestInteractionSwitch = this->elapsed;
-	}
+		if (foundInteractionZone == false) {
+			canInteractWithSomething = false;
+		}
+		eManager.collisionUpdate(dt);
+
+		if (player->usingNewData()) { //Aka movement not cancelled
+			camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
+				player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
+				player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+		}
+
+		eManager.postCollisionUpdate();
+
+		fps = (float)1 / dt;
+
+		if (isInteracting && passedInteractCooldown()) {
+			if (ePressed) {
+				nextInteraction();
+
+			}
+			latestInteractionSwitch = this->elapsed;
+		}
 
 
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('3') & 0x8001) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
-		game.switchScene(S_MAINWORLD);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
+		if (GetAsyncKeyState('1') & 0x8001) {
+			glEnable(GL_CULL_FACE);
+		}
+		else if (GetAsyncKeyState('2') & 0x8001) {
+			glDisable(GL_CULL_FACE);
+		}
+		else if (GetAsyncKeyState('3') & 0x8001) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		else if (GetAsyncKeyState('4') & 0x8001) {
+			game.switchScene(S_MAINWORLD);
+			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
 
-	if (Application::IsKeyPressed('9')) {
-		hitboxEnable = !hitboxEnable;
-	}
-	if (Application::IsKeyPressed('0')) {
-		lightEnable = !lightEnable;
-	}
+		if (Application::IsKeyPressed('9')) {
+			hitboxEnable = !hitboxEnable;
+		}
+		if (Application::IsKeyPressed('0')) {
+			lightEnable = !lightEnable;
+		}
 
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
 
-	//Requires Implementation of Velocity by Joash
-	const float playerSpeed = 15.0;
+		//Requires Implementation of Velocity by Joash
+		const float playerSpeed = 15.0;
 
-	if (Application::IsKeyPressed('W')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		pLoc += view * (float)dt * playerSpeed;
-	}
-	if (Application::IsKeyPressed('A')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.y = 0;
-		right.Normalize();
-		Vector3 up = right.Cross(view).Normalized();
-		pLoc -= right * (float)dt * playerSpeed;
-	}
-		
-	if (Application::IsKeyPressed('S')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		pLoc -= view * (float)dt * playerSpeed;
-	}
-		
-	if (Application::IsKeyPressed('D')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.y = 0;
-		right.Normalize();
-		Vector3 up = right.Cross(view).Normalized();
-		pLoc += right * (float)dt * playerSpeed;
-	}
-	// SCENE WORLD BOUNDARIES
-	//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-	//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+		if (Application::IsKeyPressed('W')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			pLoc += view * (float)dt * playerSpeed;
+		}
+		if (Application::IsKeyPressed('A')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc -= right * (float)dt * playerSpeed;
+		}
 
-	// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-	player->getEntityData()->Translate.x = pLoc.x;
-	// Skip y since we want level ground
-	player->getEntityData()->Translate.z = pLoc.z;
-}	
+		if (Application::IsKeyPressed('S')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			pLoc -= view * (float)dt * playerSpeed;
+		}
+
+		if (Application::IsKeyPressed('D')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc += right * (float)dt * playerSpeed;
+		}
+		// SCENE WORLD BOUNDARIES
+		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+		player->getEntityData()->Translate.x = pLoc.x;
+		// Skip y since we want level ground
+		player->getEntityData()->Translate.z = pLoc.z;
+	}
+}
 
 void SceneAssignment2::Render()
 {

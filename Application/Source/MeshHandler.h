@@ -7,7 +7,6 @@ enum GEOMETRY_TYPE {
 	//General
 	GEO_AXES = 0,
 	GEO_LIGHTBALL,
-	GEO_QUAD,
 	GEO_TEXT,
 
 	//For OBJs
@@ -17,7 +16,7 @@ enum GEOMETRY_TYPE {
 	GEO_QUAD,
 
 	//Misc
-	
+	GEO_TREE,
 
 	//Skybox
 	GEO_SKY_LEFT,

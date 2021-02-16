@@ -18,6 +18,7 @@ private:
 	bool carBought;
 	CAR_TYPE carType;
 public:
+	Car();
 	Car(float speed, CAR_TYPE type);
 	~Car();
 

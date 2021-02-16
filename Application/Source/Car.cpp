@@ -1,5 +1,9 @@
 #include "Car.h"
 
+Car::Car()
+{
+}
+
 Car::Car(float speed, CAR_TYPE type)
 {
 	this->carSpeed = speed;
