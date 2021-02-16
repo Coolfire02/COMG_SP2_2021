@@ -21,7 +21,7 @@ struct EntityData {
 	EntityData() {
 		Translate.Set(0, 0, 0);
 		Rotation.Set(0, 0, 0);
-		Scale.Set(0, 0, 0);
+		Scale.Set(1, 1, 1);
 	}
 
 	void setValuesTo(EntityData* other) {
@@ -34,6 +34,12 @@ struct EntityData {
 		Translate.x = x;
 		Translate.y = y;
 		Translate.z = z;
+	}
+
+	void SetScale(float x, float y, float z) {
+		Scale.x = x;
+		Scale.y = y;
+		Scale.z = z;
 	}
 
 	void SetRotate(float x, float y, float z) {

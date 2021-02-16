@@ -139,6 +139,11 @@ void SceneAssignment2::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
+	Entity* building = new WorldObject(this, GEO_BUILDING_1, "building1");
+	building->getEntityData()->SetTransform(20, 0, 0);
+	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
+	eManager.spawnWorldEntity(building);
+
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
 	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
@@ -157,7 +162,7 @@ void SceneAssignment2::Init() {
 	//eManager.spawnWorldEntity(shopBase);
 
 	//Camera init(starting pos, where it looks at, up
-	player = new Player(this, Vector3(0, 0), "player");
+	player = new Player(this, Vector3(0, 0, 0), "player");
 	eManager.spawnMovingEntity(player);
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -249,7 +254,7 @@ void SceneAssignment2::Update(double dt)
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::SONIC) {
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				entry->cancelled = true;
 			}
@@ -417,6 +422,12 @@ void SceneAssignment2::Render()
 	}
 
 	this->RenderSkybox();
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Scale(1000, 1000, 1000);
+	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
