@@ -17,6 +17,6 @@ public:
 	float getY();
 	float getZ();
 
-	static Position3D* getMidPoint(Position3D*, Position3D*);
+	static Position3D getMidPoint(Position3D*, Position3D*);
 };
 

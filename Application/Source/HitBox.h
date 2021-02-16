@@ -2,16 +2,22 @@
 #include "Vector3.h"
 #include "EntityDataHandler.h"
 #include "Position3D.h"
+#include "Mtx44.h"
 #include <vector>
 
 struct Box {
 
+	Vector3 originalhalfSize, originalCenterOffset;
+
 	Vector3 currentPos;
 	Vector3 xAxis, yAxis, zAxis;
-	Vector3 originalhalfSize;
 	Vector3 halfSize;
 
+
 	Box(Position3D botLeftPos, Position3D topRightPos) {
+		Position3D center = Position3D(botLeftPos.getMidPoint(&botLeftPos, &topRightPos));
+		this->originalCenterOffset = Vector3(center.getX()/2.0, center.getY() / 2.0, center.getZ() / 2.0);
+
 		this->currentPos = Vector3(0, 0, 0);
 		this->originalhalfSize = Vector3( 
 			(topRightPos.getX() - botLeftPos.getX()) / 2.0f ,
@@ -32,27 +38,15 @@ struct Box {
 	//}
 
 	bool hasSeparatingPlane(Vector3 vector, Vector3 plane, Box otherBox) {
-		float a = Math::FAbs(vector.Dot(plane));
-
-		float b = (
-			Math::FAbs(plane.Dot(this->xAxis.Dot(this->halfSize.x))) +
-			Math::FAbs(plane.Dot(this->yAxis.Dot(this->halfSize.y))) +
-			Math::FAbs(plane.Dot(this->zAxis.Dot(this->halfSize.z))) +
-
-			Math::FAbs(plane.Dot(otherBox.xAxis.Dot(otherBox.halfSize.x))) +
-			Math::FAbs(plane.Dot(otherBox.yAxis.Dot(otherBox.halfSize.y))) +
-			Math::FAbs(plane.Dot(otherBox.zAxis.Dot(otherBox.halfSize.z)))
-			);
-
 		return (Math::FAbs(vector.Dot(plane)) > 
 			(
-			Math::FAbs(plane.Dot(this->xAxis.Dot(this->halfSize.x))) + 
-			Math::FAbs(plane.Dot(this->yAxis.Dot(this->halfSize.y))) +
-			Math::FAbs(plane.Dot(this->zAxis.Dot(this->halfSize.z))) +
+			Math::FAbs(plane.Dot(this->xAxis * this->halfSize.x)) +
+			Math::FAbs(plane.Dot(this->yAxis * this->halfSize.y)) +
+			Math::FAbs(plane.Dot(this->zAxis * this->halfSize.z)) +
 			
-			Math::FAbs(plane.Dot(otherBox.xAxis.Dot(otherBox.halfSize.x))) +
-			Math::FAbs(plane.Dot(otherBox.yAxis.Dot(otherBox.halfSize.y))) +
-			Math::FAbs(plane.Dot(otherBox.zAxis.Dot(otherBox.halfSize.z)))
+			Math::FAbs(plane.Dot(otherBox.xAxis * otherBox.halfSize.x)) +
+			Math::FAbs(plane.Dot(otherBox.yAxis * otherBox.halfSize.y)) +
+			Math::FAbs(plane.Dot(otherBox.zAxis * otherBox.halfSize.z))
 			));
 	}
 
@@ -93,7 +87,7 @@ public:
 	~HitBox();
 
 	Box* getThisTickBox();
-	void update(EntityData* data);
+	void update(EntityData* data, Mtx44 matrix);
 	bool collidedWith(HitBox* other);
 };
 

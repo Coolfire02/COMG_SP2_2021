@@ -16,6 +16,7 @@ Mesh::Mesh(const std::string &meshName)
 	, textureID(0)
 	, botLeftPos(nullptr)
 	, topRightPos(nullptr)
+	, meshCenter(nullptr)
 {
 
 	glGenBuffers(1, &vertexBuffer);
@@ -39,6 +40,7 @@ Mesh::~Mesh()
 
 	delete botLeftPos;
 	delete topRightPos;
+	delete meshCenter;
 }
 
 unsigned Mesh::locationKa;

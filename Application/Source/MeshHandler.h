@@ -16,9 +16,6 @@ enum GEOMETRY_TYPE {
 	GEO_QUAD,
 	GEO_TREE,
 
-	//Misc
-	GEO_TREE,
-
 	//Skybox
 	GEO_SKY_LEFT,
 	GEO_SKY_RIGHT,

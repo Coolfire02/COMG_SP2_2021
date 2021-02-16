@@ -19,11 +19,14 @@ Box* HitBox::getThisTickBox() {
 	return hitBox;
 }
 
-void HitBox::update(EntityData* data) {
-	this->hitBox->currentPos = data->Translate;
-	this->hitBox->xAxis.x = 1-data->Rotation.x / 360.f;
-	this->hitBox->yAxis.y = 1-data->Rotation.y / 360.f;
-	this->hitBox->zAxis.z = 1-data->Rotation.z / 360.f;
+void HitBox::update(EntityData* data, Mtx44 mtx) {
+	this->hitBox->currentPos = data->Translate + this->hitBox->originalCenterOffset;
+	this->hitBox->xAxis.Set(mtx.a[0], mtx.a[4], mtx.a[8]);
+	this->hitBox->yAxis.Set(mtx.a[1], mtx.a[5], mtx.a[9]);
+	this->hitBox->zAxis.Set(mtx.a[2], mtx.a[6], mtx.a[10]);
+	this->hitBox->xAxis.Normalize();
+	this->hitBox->yAxis.Normalize();
+	this->hitBox->zAxis.Normalize();
 	this->hitBox->halfSize.x = this->hitBox->originalhalfSize.x * data->Scale.x;
 	this->hitBox->halfSize.y = this->hitBox->originalhalfSize.y * data->Scale.y;
 	this->hitBox->halfSize.z = this->hitBox->originalhalfSize.z * data->Scale.z;

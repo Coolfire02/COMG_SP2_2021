@@ -22,7 +22,7 @@ Mesh* MeshBuilder::GenerateOBJ(const std::string& meshName, const std::string& f
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex_buffer_data);
+	calcMinMaxPosnMeshCenter(mesh, vertex_buffer_data);
 	return mesh;
 }
 
@@ -54,7 +54,7 @@ Mesh* MeshBuilder::GenerateOBJMTL(const std::string& meshName,
 		* sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
 	mesh->indexSize = index_buffer_data.size();
 	mesh->mode = Mesh::DRAW_TRIANGLES;
-	calcMinMaxPos(mesh, vertex_buffer_data);
+	calcMinMaxPosnMeshCenter(mesh, vertex_buffer_data);
 	return mesh;
 }
 
@@ -130,7 +130,7 @@ Mesh* MeshBuilder::GenerateText(const std::string& meshName, unsigned numRow, un
 	mesh->indexSize = index_buffer_data.size();
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
-	calcMinMaxPos(mesh, vertex_buffer_data);
+	calcMinMaxPosnMeshCenter(mesh, vertex_buffer_data);
 	return mesh;
 }
 
@@ -177,7 +177,7 @@ Mesh* MeshBuilder::GenerateAxes(const std::string &meshName, float lengthX, floa
 	mesh->mode = Mesh::DRAW_LINES;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -253,7 +253,7 @@ Mesh* MeshBuilder::GenerateHalfCone(const std::string& meshName, Color color, in
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -310,7 +310,7 @@ Mesh* MeshBuilder::GenerateConicalFrustum(const std::string& meshName, Color col
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -357,7 +357,7 @@ Mesh* MeshBuilder::GenerateCone(const std::string& meshName, Color color, int ra
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -429,7 +429,7 @@ Mesh* MeshBuilder::GenerateCylinder(const std::string& meshName, Color color, in
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -476,7 +476,7 @@ Mesh* MeshBuilder::GenerateTorus(const std::string& meshName, Color color, float
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -523,7 +523,7 @@ Mesh* MeshBuilder::GenerateHalfTorus(const std::string& meshName, Color color, f
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -605,7 +605,7 @@ Mesh* MeshBuilder::GenerateSphere(const std::string& meshName, Color color) {
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -658,7 +658,7 @@ Mesh* MeshBuilder::GenerateHemiSphere(const std::string& meshName, Color color) 
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -724,7 +724,7 @@ Mesh* MeshBuilder::GenerateQuaterSphere(const std::string& meshName, Color color
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -795,7 +795,7 @@ Mesh* MeshBuilder::GenerateHemiSphereFrustum(const std::string& meshName, Color 
 	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -843,7 +843,7 @@ Mesh* MeshBuilder::GenerateTetahedron(const std::string& meshName, Color color) 
 	mesh->indexSize = index_buffer_data.size();
 
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 
 }
@@ -879,7 +879,7 @@ Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color)
 	mesh->indexSize = index_buffer_data.size();
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
-	calcMinMaxPos(mesh, vertex_buffer_data);
+	calcMinMaxPosnMeshCenter(mesh, vertex_buffer_data);
 	return mesh;
 }
 
@@ -974,7 +974,7 @@ Mesh* MeshBuilder::GenerateCube(const std::string &meshName, Color color)
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
@@ -1066,11 +1066,11 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 	mesh->indexSize = index_buffer_data.size();
 
-	calcMinMaxPos(mesh, vertex);
+	calcMinMaxPosnMeshCenter(mesh, vertex);
 	return mesh;
 }
 
-void MeshBuilder::calcMinMaxPos(Mesh* mesh, std::vector<Vertex> vertex_buffer_data) {
+void MeshBuilder::calcMinMaxPosnMeshCenter(Mesh* mesh, std::vector<Vertex> vertex_buffer_data) {
 	
 	float lowX, lowY, highZ, //Bot Left
 		highX, highY, lowZ; //Top Right
@@ -1088,8 +1088,6 @@ void MeshBuilder::calcMinMaxPos(Mesh* mesh, std::vector<Vertex> vertex_buffer_da
 		if (pos.z < lowZ) lowZ = pos.z;
 		else if (pos.z > highZ) highZ = pos.z;
 	}
-
 	mesh->botLeftPos = new Position3D(lowX, lowY, highZ);
 	mesh->topRightPos = new Position3D(highX, highY, lowZ);
-
 }

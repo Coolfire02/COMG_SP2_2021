@@ -256,12 +256,21 @@ void SceneAssignment2::Update(double dt)
 	camera.Update(dt);
 	bool foundInteractionZone = false;
 
+
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
 
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
+
+	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
+			entry->getEntityData()->Rotation.x += 2 * dt;
+			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
+		}
+	}
+
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
@@ -459,6 +468,9 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
+			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.y, 1, 0, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.z, 1, 0, 0);
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;

@@ -35,7 +35,7 @@ public:
 	static Mesh* GenerateHitBox(const std::string& meshName, Box& box);
 
 private:
-	static void calcMinMaxPos(Mesh*, std::vector<Vertex>);
+	static void calcMinMaxPosnMeshCenter(Mesh*, std::vector<Vertex>);
 
 };
 
