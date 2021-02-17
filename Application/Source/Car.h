@@ -23,6 +23,8 @@ private:
 	Vector3		  velocityGoal;
 	float		  rotation;
 	float         carSpeed;
+	float		  carSpeedGoal;
+	float		  maxCarSpeed;
 	
 public:
 	Car(CAR_TYPE, Scene* ,std::string);
