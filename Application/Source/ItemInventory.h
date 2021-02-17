@@ -12,8 +12,6 @@ public:
 	ItemInventory(ITEM_TYPE itemtype, int amt);
 	~ItemInventory();
 
-	//void addItem(ITEM_TYPE itemtype, int amt);
-
 	//Setters
 	void setItemType(ITEM_TYPE itemtype);
 	void setAmtOfItems(int amt);

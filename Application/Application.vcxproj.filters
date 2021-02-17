@@ -30,6 +30,7 @@
     <ClCompile Include="Source\SceneAssignment2.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Car.h" />
@@ -65,5 +66,6 @@
     <ClInclude Include="Source\SceneAssignment2.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\UIManager.h" />
   </ItemGroup>
 </Project>

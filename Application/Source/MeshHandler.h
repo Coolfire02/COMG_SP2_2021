@@ -33,8 +33,14 @@ enum GEOMETRY_TYPE {
 	GEO_SKY_FRONT,
 	GEO_SKY_BACK,
 
-	//UI
-	
+	//UI Items
+	UI_EGGPLANT,
+	UI_CORN,
+	UI_BURGER,
+
+	//UI Garage Cars
+	UI_SEDAN,
+	UI_SUV,
 
 	//Textured Quads
 	

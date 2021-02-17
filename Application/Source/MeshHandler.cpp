@@ -54,7 +54,20 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_ENDRACE] = MeshBuilder::GenerateQuad("EndRace", Color(1, 1, 1));
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
 	
-	//UI
+	//UI Items
+	meshList[UI_EGGPLANT] = MeshBuilder::GenerateQuad("eggplantUI", Color(1, 1, 1));
+	meshList[UI_EGGPLANT]->textureID = LoadTGA("Image//eggplantUI.tga");
+	meshList[UI_CORN] = MeshBuilder::GenerateQuad("cornUI", Color(1, 1, 1));
+	meshList[UI_CORN]->textureID = LoadTGA("Image//cornUI.tga");
+	meshList[UI_BURGER] = MeshBuilder::GenerateQuad("burgerUI", Color(1, 1, 1));
+	meshList[UI_BURGER]->textureID = LoadTGA("Image//burgerUI.tga");
+
+	//UI Garage Car
+	meshList[UI_SEDAN] = MeshBuilder::GenerateQuad("sedanUI", Color(1, 1, 1));
+	meshList[UI_SEDAN]->textureID = LoadTGA("Image//sedanUI.tga");
+	meshList[UI_SUV] = MeshBuilder::GenerateQuad("suvUI", Color(1, 1, 1));
+	meshList[UI_SUV]->textureID = LoadTGA("Image//suvUI.tga");
+
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
 

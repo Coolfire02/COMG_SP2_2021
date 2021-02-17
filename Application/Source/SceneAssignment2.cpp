@@ -11,7 +11,10 @@
 #include "Utility.h"
 #include "Game.h"
 #include "Car.h"
+#include "Inventory.h"
+
 Game game;
+Inventory inv;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -40,7 +43,7 @@ SceneAssignment2::~SceneAssignment2()
 }
 
 void SceneAssignment2::Init() {
-
+	
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -271,8 +274,24 @@ void SceneAssignment2::Init() {
 void SceneAssignment2::Update(double dt)
 {
 	bool foundInteractionZone = false;
-
-
+	toggleTimer += dt;
+	//UI item adding testing
+	/*if (Application::IsKeyPressed('F'))
+	{
+		inv.addItem(BURGER, 1);
+		inv.addItem(EGGPLANT, 1);
+		inv.addItem(CORN, 1);
+		inv.addCar(SUV);
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	{
+		toggleTimer = 0;
+		inv.toggleItem();
+		if (inv.getCurrentCarType() == SEDAN)
+			inv.switchCar(SUV);
+		else
+			inv.switchCar(SEDAN);
+	}*/
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -529,6 +548,37 @@ void SceneAssignment2::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
+
+	////UI inventory testing
+	//switch (inv.getCurrentItemType())
+	//{
+	//case BURGER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+	//	//std::cout << "Burger";
+	//	break;
+	//case CORN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+	//	//std::cout << "Corn";
+	//	break;
+	//case EGGPLANT:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+	//	//std::cout << "Eggplant";
+	//	break;
+	//default:
+	//	break;
+	//}
+	////test garage inv
+	//switch (inv.getCurrentCarType())
+	//{
+	//case SEDAN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
+	//	break;
+	//case SUV:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
+	//	break;
+	//default:
+	//	break;
+	//}
 	
 	//FPS UI
 	ss.str("");

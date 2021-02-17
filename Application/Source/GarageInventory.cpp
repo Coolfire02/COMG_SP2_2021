@@ -2,7 +2,7 @@
 
 GarageInventory::GarageInventory()
 {
-	this->carType = NO_CAR;
+	this->carType = SEDAN;
 }
 
 GarageInventory::GarageInventory(CAR_TYPE cartype)
