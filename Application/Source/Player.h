@@ -18,6 +18,8 @@ public:
 	~Player();
 	bool isDriving();
 	void setDriving(Car*, bool);
+	Car* getCar();
+
 	void Update(double);
 	void Render();
 };
