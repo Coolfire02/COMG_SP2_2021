@@ -198,21 +198,24 @@ void Camera::Update(double dt)
 		target.Set(carPtr->getEntityData()->Translate.x, carPtr->getEntityData()->Translate.y + 5, carPtr->getEntityData()->Translate.z);
 		break;
 	}
-	case TOPDOWN:
+	case TOPDOWN_FIRSTPERSON:
 	{
-		//test_pitch = 0;
-		Vector3 view = (target - position).Normalized();
-		float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
-		Mtx44 rotation;
-		rotation.SetToRotation(yaw, 0, 1, 0);
-		view = rotation * view;
-		target = position + view;
-		Vector3 right = view.Cross(up);
-		right.y = 0;
-		right.Normalize();
-		up = right.Cross(view).Normalized();
+		{
+			Vector3 view = (target - position).Normalized();
+			float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			view = rotation * view;
+			target = position + view;
+			Vector3 right = view.Cross(up);
+			right.y = 0;
+			right.Normalize();
+			up = right.Cross(view).Normalized();
+		}
 	}
 	break;
+	case TOPDOWN_THIRDPERSON:
+		break;
 	}
 
 }
