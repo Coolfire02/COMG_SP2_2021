@@ -10,8 +10,6 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Car.h"
-Game game;
-//Inventory inv;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -214,7 +212,7 @@ void SceneAssignment2::Init() {
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
 	light[1].color.set(0.5f, 0.5f, 1.f); //set to white light
-	light[1].power = 10;
+	light[1].power = 15;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;
@@ -222,6 +220,19 @@ void SceneAssignment2::Init() {
 	light[1].cosInner = cos(Math::DegreeToRadian(30));
 	light[1].exponent = 3.f;
 	light[1].spotDirection.Set(0, 0, 1);
+
+	//3rd light
+	light[2].type = Light::LIGHT_SPOT;
+	light[2].position.set(0, 0, 0);
+	light[2].color.set(0.5f, 0.5f, 1.f); //set to white light
+	light[2].power = 0;
+	light[2].kC = 1.f;
+	light[2].kL = 0.1f;
+	light[2].kQ = 0.01f;
+	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[2].cosInner = cos(Math::DegreeToRadian(30));
+	light[2].exponent = 3.f;
+	light[2].spotDirection.Set(0, 0, 1);
 
 
 	// Make sure you pass uniform parameters after glUseProgram()
@@ -426,13 +437,15 @@ void SceneAssignment2::Update(double dt)
 		0,
 		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
 
-	light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
 		break;
 	case TOPDOWN_THIRDPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		break;
 	}

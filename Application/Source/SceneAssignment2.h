@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Game.h"
+#include "Inventory.h"
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
@@ -45,6 +46,7 @@ private:
 	//Game Variables
 	Player* player;
 	Game game;
+	Inventory inv;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen
