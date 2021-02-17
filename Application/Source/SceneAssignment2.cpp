@@ -346,8 +346,9 @@ void SceneAssignment2::Update(double dt)
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				player->cancelNextMovement();
-				std::cout << "Collided" << std::endl;
+				player->getEntityData()->Translate += entry->plane * 2;
+				//player->cancelNextMovement();
+				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -633,9 +634,11 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.y, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.z, 1, 0, 0);
+			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
+		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
+			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;

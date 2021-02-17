@@ -16,16 +16,17 @@ enum CAR_TYPE
 
 class Player;
 
-class Car : public Entity {
+class Car : public Entity
+{
 private:
-	GEOMETRY_TYPE associatedType;
-	CAR_TYPE      carType;
+	float         carSpeed;
 	Player*       plr;
+	CAR_TYPE      carType;
+	GEOMETRY_TYPE associatedType;
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
 	float		  rotation;
-	float         carSpeed;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
 	

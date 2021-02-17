@@ -4,6 +4,7 @@ Inventory::Inventory()
 {
 	currentCar = nullptr;
 	currentItem = nullptr;
+	weaponInv = nullptr;
 
 	//Create garage inventory
 	currentCar = new GarageInventory(SEDAN);
@@ -16,6 +17,15 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
+}
+
+void Inventory::addWeap(WEAPON_TYPE weapontype)
+{
+	if (weaponInv == nullptr) //If there are no weapons in the inventory
+	{
+		Weapon* temp = new Weapon();
+		weaponInv = new WeaponInventory(temp, weapontype);
+	}
 }
 
 void Inventory::addCar(CAR_TYPE cartype)
@@ -95,6 +105,11 @@ void Inventory::switchCar(CAR_TYPE cartype)
 	}
 }
 
+void Inventory::switchWeapon(WEAPON_TYPE wType)
+{
+	weaponInv->setActiveWeapon(wType);
+}
+
 void Inventory::toggleItem()
 {
 	for (int i = 0; i < itemInv.size(); i++)
@@ -136,4 +151,12 @@ ITEM_TYPE Inventory::getCurrentItemType()
 int Inventory::getCurrentItemAmt()
 {
 	return currentItem->getAmtOfItems();
+}
+
+Weapon* Inventory::getActiveWeapon()
+{
+	if (weaponInv == nullptr)
+		return nullptr;
+	else
+		return weaponInv->getActiveWeapon();
 }

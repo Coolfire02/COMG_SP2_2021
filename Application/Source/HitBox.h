@@ -5,6 +5,11 @@
 #include "Mtx44.h"
 #include <vector>
 
+struct Collider {
+	bool collided;
+	Vector3 plane;
+};
+
 struct Box {
 
 	Vector3 originalhalfSize, originalCenterOffset;
@@ -16,7 +21,7 @@ struct Box {
 
 	Box(Position3D botLeftPos, Position3D topRightPos) {
 		Position3D center = Position3D(botLeftPos.getMidPoint(&botLeftPos, &topRightPos));
-		this->originalCenterOffset = Vector3(center.getX()/2.0, center.getY() / 2.0, center.getZ() / 2.0);
+		this->originalCenterOffset = Vector3(center.getX(), center.getY(), center.getZ());
 
 		this->currentPos = Vector3(0, 0, 0);
 		this->originalhalfSize = Vector3( 
@@ -36,7 +41,7 @@ struct Box {
 	//	this->zAxis = zAxis;
 	//	this->halfSize = halfSize;
 	//}
-
+	
 	bool hasSeparatingPlane(Vector3 vector, Vector3 plane, Box otherBox) {
 		return (Math::FAbs(vector.Dot(plane)) > 
 			(
@@ -50,8 +55,10 @@ struct Box {
 			));
 	}
 
-	bool isCollidedWith(Box otherBox) {
+	Collider isCollidedWith(Box otherBox) {
 		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
+		Collider collider;
+		
 		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
@@ -69,8 +76,8 @@ struct Box {
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.xAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox));
-
-		return collided;
+		collider.collided = collided;
+		return collider;
 	}
 
 	~Box() {
@@ -87,6 +94,6 @@ public:
 
 	Box* getThisTickBox();
 	void update(EntityData* data, Mtx44 matrix);
-	bool collidedWith(HitBox* other);
+	Collider collidedWith(HitBox* other);
 };
 
