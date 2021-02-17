@@ -11,7 +11,7 @@
 #include "Utility.h"
 #include "Car.h"
 Game game;
-Inventory inv;
+//Inventory inv;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -152,7 +152,7 @@ void SceneAssignment2::Init() {
 	eManager.spawnWorldEntity(building2);
 
 	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(60, 0, 60);
+	car->getEntityData()->SetTransform(0, 0, 60);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnWorldEntity(car);
@@ -393,29 +393,29 @@ void SceneAssignment2::Update(double dt)
 	{
 		if (!camMap)
 		{
-			if (camera.camType == FIRSTPERSON)
+			switch (camera.camType)
 			{
+			case FIRSTPERSON:
 				camera.camType = TOPDOWN_FIRSTPERSON;
-				camMap = true;
-			}
-			else
-			{
+				break;
+			case THIRDPERSON:
 				camera.camType = TOPDOWN_THIRDPERSON;
-				camMap = true;
+				break;
 			}
+			camMap = true;
 		}
 		else
 		{
-			if (camera.camType == TOPDOWN_FIRSTPERSON)
+			switch (camera.camType)
 			{
+			case TOPDOWN_FIRSTPERSON:
 				camera.camType = FIRSTPERSON;
-				camMap = false;
-			}
-			else
-			{
+				break;
+			case TOPDOWN_THIRDPERSON:
 				camera.camType = THIRDPERSON;
-				camMap = false;
+				break;
 			}
+			camMap = false;
 
 		}
 	}
@@ -431,7 +431,7 @@ void SceneAssignment2::Update(double dt)
 			light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
 			break;
 		case TOPDOWN_THIRDPERSON:
-			light[1].spotDirection.Set(0, 0, 0);
+			light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 			break;
 		}
 
@@ -572,6 +572,29 @@ void SceneAssignment2::Render()
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
+		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[1].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		modelStack.PushMatrix();
+		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
+		break;
+	case TOPDOWN_THIRDPERSON:
 		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
 			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
 			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
