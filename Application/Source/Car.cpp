@@ -122,13 +122,22 @@ void Car::Update(double dt) {
 		carSpeedGoal = maxCarSpeed;
 	}
 
-	if (Application::IsKeyPressed('D') && abs(carSpeed) > 0) {
-		this->getEntityData()->Rotation.y -= dt * 80;
+	if (Application::IsKeyPressed('D')) {
+		if (Application::IsKeyPressed('W'))
+			this->getEntityData()->Rotation.y -= dt * 80;
+		
+		if (Application::IsKeyPressed('S'))
+			this->getEntityData()->Rotation.y += dt * 80;
 	}
 
-	if (Application::IsKeyPressed('A') && abs(carSpeed) > 0) {
-		this->getEntityData()->Rotation.y += dt * 80;
+	if (Application::IsKeyPressed('A')) {
+		if (Application::IsKeyPressed('W'))
+			this->getEntityData()->Rotation.y += dt * 80;
+
+		if (Application::IsKeyPressed('S'))
+			this->getEntityData()->Rotation.y -= dt * 80;
 	}
+
 
 	if (Application::IsKeyPressed('S')) {
 		carSpeedGoal = - maxCarSpeed * 0.25f;

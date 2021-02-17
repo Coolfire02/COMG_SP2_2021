@@ -17,6 +17,11 @@ bool Player::isDriving()
 	return driving;
 }
 
+void Player::setDriving(Car* car, bool drive) {
+	driving = drive;
+	currentDrivingCar = car;
+}
+
 void Player::Update(double dt) {
 
 }

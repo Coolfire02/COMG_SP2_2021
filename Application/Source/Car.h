@@ -3,15 +3,18 @@
 #include "Player.h"
 // Car class created by Ridwan on 16/2/21
 // Optimized by Joash on 16/2/21
-enum CAR_TYPE {
-	NO_CAR = 0,
-	SEDAN,
+
+enum CAR_TYPE
+{
+	SEDAN = 0,
 	SEDAN_SPORTS,
 	RACER,
 	POLICE,
 	AMBULANCE,
 	SUV,
 };
+
+class Player;
 
 class Car : public Entity {
 private:

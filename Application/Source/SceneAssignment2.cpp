@@ -10,6 +10,8 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Car.h"
+Game game;
+Inventory inv;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -38,7 +40,7 @@ SceneAssignment2::~SceneAssignment2()
 }
 
 void SceneAssignment2::Init() {
-
+	
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -107,7 +109,7 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 80.0f / 60.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
 	projectionStack.LoadMatrix(projection);
 
 	MeshHandler::loadMeshes();
@@ -270,14 +272,36 @@ void SceneAssignment2::Init() {
 }
 
 
+bool eHeld = false;
+
 void SceneAssignment2::Update(double dt)
 {
 	
 	bool foundInteractionZone = false;
-
+	toggleTimer += dt;
+	//UI item adding testing
+	/*if (Application::IsKeyPressed('F'))
+	{
+		inv.addItem(BURGER, 1);
+		inv.addItem(EGGPLANT, 1);
+		inv.addItem(CORN, 1);
+		inv.addCar(SUV);
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	{
+		toggleTimer = 0;
+		inv.toggleItem();
+		if (inv.getCurrentCarType() == SEDAN)
+			inv.switchCar(SUV);
+		else
+			inv.switchCar(SEDAN);
+	}*/
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
+
+	if (!ePressed)
+		eHeld = false;
 
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
@@ -292,20 +316,27 @@ void SceneAssignment2::Update(double dt)
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
-				if (Application::IsKeyPressed('E')) {
-					if (((Car*)entry)->getPlayer() == nullptr && !((Player*)player)->isDriving()) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
+					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
+						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.carPtr = entry;
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
 					}
-					else {
+					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
+						player->setDriving(nullptr, false);
 						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
 						((Car*)entry)->setPlayer(nullptr);
 						camera.carPtr = nullptr;
 						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 5, 0, entry->getEntityData()->Translate.z);
+						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
+						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.position.y += 2;
+						camera.test_pitch = 0;
+						camera.target = camera.defaultTarget;
 					}
 				}
 			}
@@ -314,10 +345,21 @@ void SceneAssignment2::Update(double dt)
 
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				player->cancelNextMovement();
 				std::cout << "Collided" << std::endl;
 			}
+
+			if (entry->victim->getType() == ENTITYTYPE::CAR) {
+				if (player->isDriving()) {
+					std::cout << "In Car" << std::endl;
+				}
+				else {
+					player->cancelNextMovement();
+					std::cout << "Collided" << std::endl;
+				}
+			}
+
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
@@ -600,6 +642,37 @@ void SceneAssignment2::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
+
+	////UI inventory testing
+	//switch (inv.getCurrentItemType())
+	//{
+	//case BURGER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+	//	//std::cout << "Burger";
+	//	break;
+	//case CORN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+	//	//std::cout << "Corn";
+	//	break;
+	//case EGGPLANT:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+	//	//std::cout << "Eggplant";
+	//	break;
+	//default:
+	//	break;
+	//}
+	////test garage inv
+	//switch (inv.getCurrentCarType())
+	//{
+	//case SEDAN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
+	//	break;
+	//case SUV:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
+	//	break;
+	//default:
+	//	break;
+	//}
 	
 	//FPS UI
 	ss.str("");

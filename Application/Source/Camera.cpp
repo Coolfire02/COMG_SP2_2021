@@ -195,6 +195,10 @@ void Camera::Update(double dt)
 		}
 
 		position = carPtr->getEntityData()->Translate + TPSPositionVector;
+
+		if (position.y < 1)
+			position.y = 1;
+
 		target.Set(carPtr->getEntityData()->Translate.x, carPtr->getEntityData()->Translate.y + 5, carPtr->getEntityData()->Translate.z);
 		break;
 	}

@@ -130,8 +130,8 @@ void Application::Init()
 		exit(EXIT_FAILURE);
 	}
 
-	m_width = 800;
-	m_height = 600;
+	m_width = 1280;
+	m_height = 720;
 
 	//Set the GLFW window creation hints - these are optional
 	glfwWindowHint(GLFW_SAMPLES, 4); //Request 4x antialiasing

@@ -71,7 +71,9 @@ private:
 
 	bool hitboxEnable;
 	float fps;
-	
+
+	float toggleTimer = 0;
+
 	void RenderSkybox();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 
