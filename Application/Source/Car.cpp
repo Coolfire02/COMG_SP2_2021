@@ -109,24 +109,30 @@ void Car::Update(double dt) {
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 
-	this->velocity.x = Interpolate(velocityGoal.x, this->velocity.x, dt);
-	this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
-
-	plr->getEntityData()->Translate = this->getEntityData()->Translate;
-
 	if (Application::IsKeyReleased('W')) {
 		this->velocityGoal.x = 0;
 		this->velocityGoal.z = 0;
 	}
 
 	if (Application::IsKeyPressed('W')) {
-		this->velocityGoal.x = (rotation * Vector3(1, 0, 0)).x;
-		this->velocityGoal.z = (rotation * Vector3(0, 0, 1)).z;
+		this->velocityGoal = rotation * Vector3(0, 0, 1) * carSpeed;
 	}
 
 	if (Application::IsKeyPressed('D') && velocity.Magnitude() > 0) {
+		this->getEntityData()->Rotation.y -= dt * 80;
+	}
+
+	if (Application::IsKeyPressed('A') && velocity.Magnitude() > 0) {
 		this->getEntityData()->Rotation.y += dt * 80;
 	}
+
+	if (Application::IsKeyPressed('S')) {
+		this->velocityGoal = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
+	}
+
+	this->velocity.x = Interpolate(velocityGoal.x, this->velocity.x, dt);
+	this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
+	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 	this->getEntityData()->Translate += this->velocity;
 }
 
