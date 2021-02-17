@@ -112,7 +112,7 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 80.0f / 60.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
 	projectionStack.LoadMatrix(projection);
 
 	MeshHandler::loadMeshes();
@@ -271,6 +271,8 @@ void SceneAssignment2::Init() {
 }
 
 
+bool eHeld = false;
+
 void SceneAssignment2::Update(double dt)
 {
 	bool foundInteractionZone = false;
@@ -296,6 +298,9 @@ void SceneAssignment2::Update(double dt)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
 
+	if (!ePressed)
+		eHeld = false;
+
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
@@ -309,20 +314,27 @@ void SceneAssignment2::Update(double dt)
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
-				if (Application::IsKeyPressed('E')) {
-					if (((Car*)entry)->getPlayer() == nullptr && !((Player*)player)->isDriving()) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
+					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
+						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.carPtr = entry;
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
 					}
-					else {
+					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
+						player->setDriving(nullptr, false);
 						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
 						((Car*)entry)->setPlayer(nullptr);
 						camera.carPtr = nullptr;
 						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 5, 0, entry->getEntityData()->Translate.z);
+						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
+						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.position.y += 2;
+						camera.test_pitch = 0;
+						camera.target = camera.defaultTarget;
 					}
 				}
 			}
@@ -331,10 +343,21 @@ void SceneAssignment2::Update(double dt)
 
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				player->cancelNextMovement();
 				std::cout << "Collided" << std::endl;
 			}
+
+			if (entry->victim->getType() == ENTITYTYPE::CAR) {
+				if (player->isDriving()) {
+					std::cout << "In Car" << std::endl;
+				}
+				else {
+					player->cancelNextMovement();
+					std::cout << "Collided" << std::endl;
+				}
+			}
+
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;

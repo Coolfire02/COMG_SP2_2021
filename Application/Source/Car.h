@@ -14,6 +14,8 @@ enum CAR_TYPE
 	SUV,
 };
 
+class Player;
+
 class Car : public Entity {
 private:
 	GEOMETRY_TYPE associatedType;
