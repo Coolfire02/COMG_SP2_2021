@@ -28,6 +28,7 @@ protected:
 	ENTITYTYPE type;
 	EntityData* oldData;
 	bool visible;
+	Mtx44 currentMtx;
 	bool useNewData;
 	EntityData *data;
 	HitBox *hitBox; //Gets updated based on Position, defaultMin and defaultMax scaled on scale.
@@ -49,6 +50,7 @@ public:
 	bool usingNewData();
 	ENTITYTYPE getType();
 	HitBox* getHitBox();
+	Mtx44 getCurrentMtx();
 	const Scene* getAssociatedScene();
 
 	bool isVisible();

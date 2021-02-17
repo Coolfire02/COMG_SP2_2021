@@ -1,23 +1,32 @@
-#ifndef CAMERA_FIRST_PERSON_H
-#define CAMERA_FIRST_PERSON_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "Application.h"
 #include "Vector3.h"
 #include "Mtx44.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Car.h"
 
-class FirstPersonCamera
+enum CAMERATYPE {
+	FIRSTPERSON,
+	THIRDPERSON,
+};
+
+class Camera
 {
 public:
-	Vector3 position;
+	CAMERATYPE camType;
+	Entity*    carPtr;
+
+	Vector3 position, TPSPositionVector;
 	Vector3 target, defaultTarget;
 	Vector3 up;
 
 	float test_pitch;
 
-	FirstPersonCamera();
-	~FirstPersonCamera();
+	Camera();
+	~Camera();
 	void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
 	void Reset();
 	void Update(double dt);

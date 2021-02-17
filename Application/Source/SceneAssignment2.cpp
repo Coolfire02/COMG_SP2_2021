@@ -151,6 +151,12 @@ void SceneAssignment2::Init() {
 	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building2);
 
+	Entity* car = new Car(SEDAN, this, "car");
+	car->getEntityData()->SetTransform(60, 0, 60);
+	car->getEntityData()->SetRotate(0, 0, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
 	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
@@ -264,7 +270,6 @@ void SceneAssignment2::Init() {
 
 void SceneAssignment2::Update(double dt)
 {
-	camera.Update(dt);
 	bool foundInteractionZone = false;
 
 
@@ -280,11 +285,34 @@ void SceneAssignment2::Update(double dt)
 			entry->getEntityData()->Rotation.x += 2 * dt;
 			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
+
+		if (entry->getType() == ENTITYTYPE::CAR) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
+				std::cout << "In Range" << std::endl;
+				// Show interaction UI
+				if (Application::IsKeyPressed('E')) {
+					if (((Car*)entry)->getPlayer() == nullptr && !((Player*)player)->isDriving()) {
+						((Car*)entry)->setPlayer(player);
+						camera.carPtr = entry;
+						camera.camType = THIRDPERSON;
+						std::cout << "Player Set" << std::endl;
+					}
+					else {
+						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
+						((Car*)entry)->setPlayer(nullptr);
+						camera.carPtr = nullptr;
+						camera.camType = FIRSTPERSON;
+						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 5, 0, entry->getEntityData()->Translate.z);
+						camera.position = player->getEntityData()->Translate;
+					}
+				}
+			}
+		}
 	}
 
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				player->cancelNextMovement();
 				std::cout << "Collided" << std::endl;
 			}
@@ -311,12 +339,12 @@ void SceneAssignment2::Update(double dt)
 	}
 	eManager.collisionUpdate(dt);
 
-
 	if (player->usingNewData()) { //Aka movement not cancelled
 		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
 			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
 			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
 	}
+	camera.Update(dt);
 
 	eManager.postCollisionUpdate();
 
@@ -358,40 +386,42 @@ void SceneAssignment2::Update(double dt)
 	//Requires Implementation of Velocity by Joash
 	const float playerSpeed = 15.0;
 
-	if (Application::IsKeyPressed('W')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		pLoc += view * (float)dt * playerSpeed;
-	}
-	if (Application::IsKeyPressed('A')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.y = 0;
-		right.Normalize();
-		Vector3 up = right.Cross(view).Normalized();
-		pLoc -= right * (float)dt * playerSpeed;
-	}
+	if (!((Player*)player)->isDriving()) {
+		if (Application::IsKeyPressed('W')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			pLoc += view * (float)dt * playerSpeed;
+		}
+		if (Application::IsKeyPressed('A')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc -= right * (float)dt * playerSpeed;
+		}
 
-	if (Application::IsKeyPressed('S')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		pLoc -= view * (float)dt * playerSpeed;
-	}
+		if (Application::IsKeyPressed('S')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			pLoc -= view * (float)dt * playerSpeed;
+		}
 
-	if (Application::IsKeyPressed('D')) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.y = 0;
-		right.Normalize();
-		Vector3 up = right.Cross(view).Normalized();
-		pLoc += right * (float)dt * playerSpeed;
-	}
-	// SCENE WORLD BOUNDARIES
-	//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-	//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+		if (Application::IsKeyPressed('D')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc += right * (float)dt * playerSpeed;
+		}
+		// SCENE WORLD BOUNDARIES
+		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
 
-	// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-	player->getEntityData()->Translate.x = pLoc.x;
-	// Skip y since we want level ground
-	player->getEntityData()->Translate.z = pLoc.z;
+		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+		player->getEntityData()->Translate.x = pLoc.x;
+		// Skip y since we want level ground
+		player->getEntityData()->Translate.z = pLoc.z;
+	}
 	
 }
 

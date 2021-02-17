@@ -50,6 +50,11 @@ bool Application::IsKeyPressed(unsigned short key)
     return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
 
+bool Application::IsKeyReleased(unsigned short key)
+{
+	return ((GetAsyncKeyState(key) & 0x8001) == 0);
+}
+
 Application::Application()
 {
 }

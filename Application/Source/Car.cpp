@@ -1,8 +1,8 @@
 #include "Car.h"
+#include "Application.h"
 
 Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTYPE::CAR, name)
 {
-	this->seated = false;
 	this->carType = type;
 	this->scene = scene;
 	this->name = name;
@@ -19,6 +19,7 @@ void Car::Init() {
 
 	switch (carType) {
 	case SEDAN:
+		this->carSpeed = 1.f;
 		this->associatedType = GEO_SEDAN;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
@@ -51,7 +52,7 @@ void Car::Init() {
 	default:
 		break;
 	}
-	this->carSpeed = 1.f;
+	this->carSpeed = 0.5f;
 }
 
 Car::Car()
@@ -69,6 +70,10 @@ void Car::setSpeed(float speed)
 	this->carSpeed = speed;
 }
 
+void Car::setPlayer(Player* player) {
+	this->plr = player;
+}
+
 float Car::getSpeed()
 {
 	return this->carSpeed;
@@ -79,20 +84,50 @@ CAR_TYPE Car::getCartype()
 	return this->carType;
 }
 
-Vector3 Car::Interpolate(Vector3 GoalVelocity, Vector3 CurrentVelocity, double dt) {
-	Vector3 flDifference = GoalVelocity - CurrentVelocity;
+Player* Car::getPlayer()
+{
+	return this->plr;
+}
 
-	if (flDifference.Magnitude() > dt)
+float Car::Interpolate(float GoalVelocity, float CurrentVelocity, double dt) {
+	float flDifference = GoalVelocity - CurrentVelocity;
+
+	if (flDifference > dt)
 		return CurrentVelocity + dt;
 
-	if (flDifference.Magnitude() < -dt)
+	if (flDifference < -dt)
 		return CurrentVelocity - dt;
 
 	return GoalVelocity;
 }
 
-void Car::Update(double) {
+void Car::Update(double dt) {
 
+	if (!plr)
+		return;
+
+	Mtx44 rotation;
+	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
+
+	this->velocity.x = Interpolate(velocityGoal.x, this->velocity.x, dt);
+	this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
+
+	plr->getEntityData()->Translate = this->getEntityData()->Translate;
+
+	if (Application::IsKeyReleased('W')) {
+		this->velocityGoal.x = 0;
+		this->velocityGoal.z = 0;
+	}
+
+	if (Application::IsKeyPressed('W')) {
+		this->velocityGoal.x = (rotation * Vector3(1, 0, 0)).x;
+		this->velocityGoal.z = (rotation * Vector3(0, 0, 1)).z;
+	}
+
+	if (Application::IsKeyPressed('D') && velocity.Magnitude() > 0) {
+		this->getEntityData()->Rotation.y += dt * 80;
+	}
+	this->getEntityData()->Translate += this->velocity;
 }
 
 void Car::Render()

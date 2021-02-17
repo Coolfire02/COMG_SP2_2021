@@ -160,7 +160,7 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\HitBox.cpp" />
     <ClCompile Include="Source\Position3D.cpp" />
-    <ClCompile Include="Source\FirstPersonCamera.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="Source\HitBox.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Position3D.h" />
-    <ClInclude Include="Source\FirstPersonCamera.h" />
+    <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

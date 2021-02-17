@@ -44,6 +44,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
 		this->hitBox->update(data, this->scene->modelStack.Top());
+		this->currentMtx = this->scene->modelStack.Top();
 	}
 	else {
 		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
@@ -52,6 +53,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
 		this->hitBox->update(oldData, this->scene->modelStack.Top());
+		this->currentMtx = this->scene->modelStack.Top();
 	}
 }
 
@@ -79,6 +81,11 @@ bool Entity::usingNewData() {
 
 HitBox* Entity::getHitBox() {
 	return hitBox;
+}
+
+Mtx44 Entity::getCurrentMtx()
+{
+	return this->currentMtx;
 }
 
 void Entity::PreUpdate() {

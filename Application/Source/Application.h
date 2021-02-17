@@ -22,6 +22,7 @@ public:
 	static bool changeToScene(std::string, std::string);
 	static Scene* getSceneByName(std::string);
 	static bool IsMousePressed(unsigned short key);
+	static bool IsKeyReleased(unsigned short key);
 	static void GetCursorPos(double* xpos, double* ypos);
 	static int GetWindowWidth();
 	static int GetWindowHeight();

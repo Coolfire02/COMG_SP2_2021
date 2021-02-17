@@ -4,7 +4,7 @@
 #include <map>
 
 #include "Scene.h"
-#include "FirstPersonCamera.h"	
+#include "Camera.h"	
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
@@ -37,7 +37,7 @@ class SceneAssignment2 : public Scene
 
 private:
 
-	FirstPersonCamera camera;
+	Camera camera;
 	EntityManager eManager;
 
 	//Game Variables

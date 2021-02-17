@@ -3,9 +3,7 @@
 #include "Player.h"
 // Car class created by Ridwan on 16/2/21
 // Optimized by Joash on 16/2/21
-
-enum CAR_TYPE
-{
+enum CAR_TYPE {
 	NO_CAR = 0,
 	SEDAN,
 	SEDAN_SPORTS,
@@ -15,28 +13,31 @@ enum CAR_TYPE
 	SUV,
 };
 
-class Car : public Entity
-{
+class Car : public Entity {
 private:
-	Vector3       velocity;
-
-	float         carSpeed;
-	Player*       plr;
-	CAR_TYPE      carType;
 	GEOMETRY_TYPE associatedType;
+	CAR_TYPE      carType;
+	Player*       plr;
 
+	Vector3       velocity;
+	Vector3		  velocityGoal;
+	float		  rotation;
+	float         carSpeed;
+	
 public:
-	Car(CAR_TYPE type, Scene* scene, std::string);
+	Car(CAR_TYPE, Scene* ,std::string);
+	Car(float, CAR_TYPE);
 	Car();
-	Car(float speed, CAR_TYPE type);
 	~Car();
 	 
 	void     Init();
 	void     setSpeed(float speed);
+	void     setPlayer(Player*);
 	float    getSpeed();
 
-	Vector3 Interpolate(Vector3, Vector3, double);
+	float  Interpolate(float, float, double);
 	CAR_TYPE getCartype();
+	Player* getPlayer();
 
 	void Update(double);
 	void Render();
