@@ -11,6 +11,7 @@
 enum CAMERATYPE {
 	FIRSTPERSON,
 	THIRDPERSON,
+	TOPDOWN,
 };
 
 class Camera

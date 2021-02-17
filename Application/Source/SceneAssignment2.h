@@ -4,7 +4,8 @@
 #include <map>
 
 #include "Scene.h"
-#include "Camera.h"	
+#include "Camera.h"
+#include "Game.h"
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
@@ -38,10 +39,12 @@ class SceneAssignment2 : public Scene
 private:
 
 	Camera camera;
+	Camera camera2;
 	EntityManager eManager;
 
 	//Game Variables
 	Player* player;
+	Game game;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen
@@ -71,6 +74,9 @@ private:
 	
 	void RenderSkybox();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
+
+	//topdown cam map
+	bool camMap;
 
 public:
 	SceneAssignment2();

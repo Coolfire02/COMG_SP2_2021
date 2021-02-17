@@ -9,9 +9,7 @@
 #include "Player.h"
 #include "shader.hpp"
 #include "Utility.h"
-#include "Game.h"
 #include "Car.h"
-Game game;
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this)
@@ -193,6 +191,10 @@ void SceneAssignment2::Init() {
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
 
+	camera2.Init(Vector3(player->getEntityData()->Translate.x, 150, player->getEntityData()->Translate.z),
+		Vector3(0, -50, -1),
+		Vector3(0, 1, 0));
+
 	//Light init
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 40, 0);
@@ -208,16 +210,16 @@ void SceneAssignment2::Init() {
 
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
-	light[1].position.set(0,0,0);
-	light[1].color.set(0.4f, 0.4f, 0.8f); //set to white light
-	light[1].power = 3;
+	light[1].position.set(0, 0, 0);
+	light[1].color.set(1.f, 0.f, 0.f); //set to white light
+	light[1].power = 15;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;
 	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[1].cosInner = cos(Math::DegreeToRadian(30));
 	light[1].exponent = 3.f;
-	light[1].spotDirection.Set(0,0,0);
+	light[1].spotDirection.Set(0, 0, 1);
 
 
 	// Make sure you pass uniform parameters after glUseProgram()
@@ -270,8 +272,27 @@ void SceneAssignment2::Init() {
 
 void SceneAssignment2::Update(double dt)
 {
-	bool foundInteractionZone = false;
+	if (GetAsyncKeyState('M') & 0x0001) 
+	{
+		if (camMap)
+		{
+			camera.camType = FIRSTPERSON;
+			camMap = false;
+		}
+		else
+		{
+			camera.camType = TOPDOWN;
+			camMap = true;
+		}
+	}
 
+	camera2.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
+		0,
+		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+	light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
+	
+	bool foundInteractionZone = false;
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
@@ -435,10 +456,22 @@ void SceneAssignment2::Render()
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	viewStack.LoadIdentity();
-	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z,
-		camera.target.x, camera.target.y, camera.target.z,
-		camera.up.x, camera.up.y, camera.up.z);
+	if (camMap)
+	{
+		viewStack.LoadIdentity();
+		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,
+			camera2.target.x, camera2.target.y, camera2.target.z,
+			camera2.up.x, camera2.up.y, camera2.up.z);
+	}
+	else
+	{
+		viewStack.LoadIdentity();
+		viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z,
+			camera.target.x, camera.target.y, camera.target.z,
+			camera.up.x, camera.up.y, camera.up.z);
+
+	}
+
 	
 	modelStack.LoadIdentity();
 
@@ -466,24 +499,36 @@ void SceneAssignment2::Render()
 		Position lightPos_cameraSpace = viewStack.Top() * light[0].position;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
 	}
+	switch (camera.camType)
+	{
+	case TOPDOWN:
+		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
 
-	if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-		Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
+		}
+		else if (light[1].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
 
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		modelStack.PushMatrix();
+		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
+		break;
+	default:
+		break;
 	}
-	else if (light[1].type == Light::LIGHT_SPOT) {
-		Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
 
-	}
-	else { //Point light
-		Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-	}
+	
 
 	this->RenderSkybox();
 

@@ -75,6 +75,7 @@ void Camera::Update(double dt)
 
 	switch (camType) {
 	case FIRSTPERSON:
+
 		if (Application::IsKeyPressed(VK_LEFT))
 		{
 			Vector3 view = (target - position).Normalized();
@@ -151,6 +152,8 @@ void Camera::Update(double dt)
 				test_pitch = -60.f;
 				return;
 			}
+		
+			
 			float pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
 
 			Vector3 view = (target - position).Normalized();
@@ -165,9 +168,9 @@ void Camera::Update(double dt)
 		}
 		break;
 	case THIRDPERSON:
-
+	{
 		Vector3 view = (target - position).Normalized();
-		Vector3 right = view.Cross(up);	
+		Vector3 right = view.Cross(up);
 		right.Normalize();
 
 		{
@@ -195,6 +198,23 @@ void Camera::Update(double dt)
 		target.Set(carPtr->getEntityData()->Translate.x, carPtr->getEntityData()->Translate.y + 5, carPtr->getEntityData()->Translate.z);
 		break;
 	}
+	case TOPDOWN:
+	{
+		//test_pitch = 0;
+		Vector3 view = (target - position).Normalized();
+		float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
+		Mtx44 rotation;
+		rotation.SetToRotation(yaw, 0, 1, 0);
+		view = rotation * view;
+		target = position + view;
+		Vector3 right = view.Cross(up);
+		right.y = 0;
+		right.Normalize();
+		up = right.Cross(view).Normalized();
+	}
+	break;
+	}
+
 }
 
 
