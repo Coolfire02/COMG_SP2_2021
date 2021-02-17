@@ -22,6 +22,11 @@ void Player::setDriving(Car* car, bool drive) {
 	currentDrivingCar = car;
 }
 
+Car* Player::getCar()
+{
+	return this->currentDrivingCar;
+}
+
 void Player::Update(double dt) {
 
 }
