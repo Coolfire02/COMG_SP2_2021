@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CustomEntity.cpp" />
     <ClCompile Include="Source\GarageInventory.cpp" />
@@ -175,8 +176,10 @@
     <ClCompile Include="Source\WorldObject.cpp" />
     <ClCompile Include="Source\SceneAssignment2.cpp" />
     <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\GarageInventory.h" />
     <ClInclude Include="Source\Interactions.h" />
@@ -211,6 +214,8 @@
     <ClInclude Include="Source\WorldObject.h" />
     <ClInclude Include="Source\SceneAssignment2.h" />
     <ClInclude Include="Source\Game.h" />
+    <ClInclude Include="Source\Text.h" />
+    <ClInclude Include="Source\UIItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

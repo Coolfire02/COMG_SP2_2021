@@ -42,9 +42,10 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 
 	for (auto& movingE : movingEntities) {
 		for (auto& worldE : worldEntities) {
-			if (movingE->getHitBox()->collidedWith(worldE->getHitBox())) {
+			Collider c = movingE->getHitBox()->collidedWith(worldE->getHitBox());
+			if (c.collided) {
 				//std::cout << "Collision detected!" << std::endl;
-				thisTick.push_back(new CollidedWith(movingE, worldE, true));
+				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.plane));
 			}
 			else {
 				/*std::cout << "No Collision detected!" << std::endl;

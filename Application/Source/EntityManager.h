@@ -7,7 +7,8 @@ struct CollidedWith {
 	Entity* attacker, * victim;
 	const bool justCollided;
 	bool cancelled;
-	CollidedWith(Entity* attacker, Entity* victim, bool justCollided) : attacker(attacker), victim(victim), justCollided(justCollided), cancelled(false) {};
+	Vector3 plane;
+	CollidedWith(Entity* attacker, Entity* victim, bool justCollided, Vector3 plane) : attacker(attacker), victim(victim), justCollided(justCollided), cancelled(false), plane(plane) {};
 	
 };
 

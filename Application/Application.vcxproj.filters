@@ -31,6 +31,8 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />
+    <ClCompile Include="Source\Button.cpp" />
+    <ClCompile Include="Source\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Car.h" />
@@ -67,5 +69,8 @@
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\UIManager.h" />
+    <ClInclude Include="Source\Button.h" />
+    <ClInclude Include="Source\Text.h" />
+    <ClInclude Include="Source\UIItem.h" />
   </ItemGroup>
 </Project>

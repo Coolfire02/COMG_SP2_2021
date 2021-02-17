@@ -5,6 +5,11 @@
 #include "Mtx44.h"
 #include <vector>
 
+struct Collider {
+	bool collided;
+	Vector3 plane;
+};
+
 struct Box {
 
 	Vector3 originalhalfSize, originalCenterOffset;
@@ -36,7 +41,7 @@ struct Box {
 	//	this->zAxis = zAxis;
 	//	this->halfSize = halfSize;
 	//}
-
+	
 	bool hasSeparatingPlane(Vector3 vector, Vector3 plane, Box otherBox) {
 		return (Math::FAbs(vector.Dot(plane)) > 
 			(
@@ -50,8 +55,12 @@ struct Box {
 			));
 	}
 
-	bool isCollidedWith(Box otherBox) {
+	Collider isCollidedWith(Box otherBox) {
 		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
+		Collider collider;
+
+		bool collided = false;
+		
 		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
@@ -70,7 +79,7 @@ struct Box {
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox));
 
-		return collided;
+		return collider;
 	}
 
 	~Box() {

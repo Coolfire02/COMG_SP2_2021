@@ -346,8 +346,9 @@ void SceneAssignment2::Update(double dt)
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				player->cancelNextMovement();
-				std::cout << "Collided" << std::endl;
+				player->getEntityData()->Translate += entry->plane * 2;
+				//player->cancelNextMovement();
+				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::CAR) {

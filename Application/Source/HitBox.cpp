@@ -8,11 +8,8 @@ HitBox::HitBox(Box* box) {
 	this->hitBox = box;
 }
 
-bool HitBox::collidedWith(HitBox* other) {
-	if (hitBox->isCollidedWith(*other->hitBox)) {
-		return true;
-	}
-	return false;
+Collider HitBox::collidedWith(HitBox* other) {
+	return hitBox->isCollidedWith(*other->hitBox);
 }
 
 Box* HitBox::getThisTickBox() {
