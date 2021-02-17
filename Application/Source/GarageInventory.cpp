@@ -2,31 +2,24 @@
 
 GarageInventory::GarageInventory()
 {
+	this->carType = NO_CAR;
+}
+
+GarageInventory::GarageInventory(CAR_TYPE cartype)
+{
+	this->carType = cartype;
 }
 
 GarageInventory::~GarageInventory()
 {
 }
 
-void GarageInventory::addCar(float spd, CAR_TYPE cartype)
+void GarageInventory::addCar(CAR_TYPE cartype)
 {
-	Car* temp;
-	//temp = new Car(spd, cartype);
-	carList.push_back(temp);
+	this->carType = cartype;
 }
 
-bool GarageInventory::getCar(CAR_TYPE cartype)
+CAR_TYPE GarageInventory::getCarType()
 {
-	for (int i = 0; i < carList.size(); i++)
-	{
-		if (carList[i]->getCartype() == cartype)
-		{
-			return true;
-		}
-	}
-}
-
-std::vector<Car*> GarageInventory::getCarlist()
-{
-	return this->carList;
+	return this->carType;
 }

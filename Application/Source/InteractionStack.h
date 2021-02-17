@@ -1,5 +1,6 @@
 #pragma once
 #include "Interactions.h"
+//InteractionStack class created by Ridwan on 16/2/2021
 
 class InteractionStack
 {

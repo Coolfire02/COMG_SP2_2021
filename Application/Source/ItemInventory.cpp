@@ -2,25 +2,37 @@
 
 ItemInventory::ItemInventory()
 {
+	this->item = EMPTY;
+	this->amtOfItems = 0;
+}
+
+ItemInventory::ItemInventory(ITEM_TYPE itemtype, int amt)
+{
+	this->item = itemtype;
+	this->amtOfItems = amt;
 }
 
 ItemInventory::~ItemInventory()
 {
+	//blank on purpose
 }
 
-void ItemInventory::addItem(ITEM_TYPE itemtype)
+void ItemInventory::setItemType(ITEM_TYPE itemtype)
 {
-	Item* temp;
-	temp = new Item(itemtype);
-	itemList.push_back(temp);
+	this->item = itemtype;
 }
 
-//bool ItemInventory::getItem(ITEM_TYPE itemtype)
-//{
-//	return false;
-//}
-
-std::vector<Item*> ItemInventory::getItemlist()
+void ItemInventory::setAmtOfItems(int amt)
 {
-	return this->itemList;
+	this->amtOfItems = amt;
+}
+
+ITEM_TYPE ItemInventory::getItemType()
+{
+	return this->item.getType();
+}
+
+int ItemInventory::getAmtOfItems()
+{
+	return this->amtOfItems;
 }

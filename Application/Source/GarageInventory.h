@@ -1,16 +1,16 @@
 #pragma once
 #include "Car.h"
 #include <vector>
-class GarageInventory
+class GarageInventory //Garage Slot
 {
 private:
-	std::vector<Car*> carList;
+	CAR_TYPE carType;
 public:
 	GarageInventory();
+	GarageInventory(CAR_TYPE cartype);
 	~GarageInventory();
 
-	void addCar(float spd, CAR_TYPE cartype);
-	bool getCar(CAR_TYPE cartype);
-	std::vector<Car*> getCarlist();
+	void addCar(CAR_TYPE cartype);
+	CAR_TYPE getCarType();
 };
 

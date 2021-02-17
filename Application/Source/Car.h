@@ -6,7 +6,8 @@
 
 enum CAR_TYPE
 {
-	SEDAN = 0,
+	NO_CAR = 0,
+	SEDAN,
 	SEDAN_SPORTS,
 	RACER,
 	POLICE,
