@@ -16,7 +16,7 @@ struct Box {
 
 	Vector3 currentPos;
 	Vector3 xAxis, yAxis, zAxis;
-	Vector3 halfSize;
+	Vector3 halfSize, centerOffset;
 
 
 	Box(Position3D botLeftPos, Position3D topRightPos) {
@@ -29,6 +29,7 @@ struct Box {
 			(topRightPos.getY() - botLeftPos.getY()) / 2.0f ,
 			(botLeftPos.getZ() - topRightPos.getZ()) / 2.0f);
 		this->halfSize = Vector3(originalhalfSize);
+		this->centerOffset = Vector3(originalCenterOffset);
 		this->xAxis.Set(1.0f, 0.f, 0.f);
 		this->yAxis.Set(.0f, 1.f, 0.f);
 		this->zAxis.Set(.0f, 0.f, 1.f);
