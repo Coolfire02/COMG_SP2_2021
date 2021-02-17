@@ -79,20 +79,19 @@ CAR_TYPE Car::getCartype()
 	return this->carType;
 }
 
-float Interpolate(float GoalVelocity, float CurrentVelocity, double dt) {
-	float flDifference = GoalVelocity - CurrentVelocity;
+Vector3 Car::Interpolate(Vector3 GoalVelocity, Vector3 CurrentVelocity, double dt) {
+	Vector3 flDifference = GoalVelocity - CurrentVelocity;
 
-	if (flDifference > dt)
+	if (flDifference.Magnitude() > dt)
 		return CurrentVelocity + dt;
 
-	if (flDifference < -dt)
+	if (flDifference.Magnitude() < -dt)
 		return CurrentVelocity - dt;
 
 	return GoalVelocity;
 }
 
 void Car::Update(double) {
-	if (this->seated);
 
 }
 

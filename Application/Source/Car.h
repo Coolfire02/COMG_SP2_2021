@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Player.h"
 // Car class created by Ridwan on 16/2/21
 // Optimized by Joash on 16/2/21
 
@@ -16,8 +17,10 @@ enum CAR_TYPE
 class Car : public Entity
 {
 private:
-	bool          seated;
+	Vector3       velocity;
+
 	float         carSpeed;
+	Player*       plr;
 	CAR_TYPE      carType;
 	GEOMETRY_TYPE associatedType;
 
@@ -30,6 +33,8 @@ public:
 	void     Init();
 	void     setSpeed(float speed);
 	float    getSpeed();
+
+	Vector3 Interpolate(Vector3, Vector3, double);
 	CAR_TYPE getCartype();
 
 	void Update(double);
