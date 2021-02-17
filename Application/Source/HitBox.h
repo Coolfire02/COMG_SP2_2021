@@ -10,13 +10,14 @@ struct Box {
 	Vector3 originalhalfSize, originalCenterOffset;
 
 	Vector3 currentPos;
+	Vector3 centerOffset;
 	Vector3 xAxis, yAxis, zAxis;
 	Vector3 halfSize;
 
 
 	Box(Position3D botLeftPos, Position3D topRightPos) {
 		Position3D center = Position3D(botLeftPos.getMidPoint(&botLeftPos, &topRightPos));
-		this->originalCenterOffset = Vector3(center.getX()/2.0, center.getY() / 2.0, center.getZ() / 2.0);
+		this->originalCenterOffset = Vector3(center.getX(), center.getY(), center.getZ());
 
 		this->currentPos = Vector3(0, 0, 0);
 		this->originalhalfSize = Vector3( 
@@ -51,7 +52,7 @@ struct Box {
 	}
 
 	bool isCollidedWith(Box otherBox) {
-		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
+		Vector3 vector = Vector3((otherBox.currentPos-otherBox.centerOffset) - (this->currentPos-this->centerOffset));
 		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
 			hasSeparatingPlane(vector, this->yAxis, otherBox) ||
@@ -85,6 +86,7 @@ public:
 	HitBox(Box* box);
 	~HitBox();
 
+	Vector3 getCenterOffset();
 	Box* getThisTickBox();
 	void update(EntityData* data, Mtx44 matrix);
 	bool collidedWith(HitBox* other);

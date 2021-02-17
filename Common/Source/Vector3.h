@@ -66,7 +66,7 @@ struct Vector3
 	//Throw a divide by zero exception if normalizing a zero vector
 	Vector3& Normalize( void ) throw( DivideByZero );
 
-	//Magnitude
+	//Magnitude by YH
 	float Magnitude();
 	
 	friend std::ostream& operator<<( std::ostream& os, Vector3& rhs); //print to ostream

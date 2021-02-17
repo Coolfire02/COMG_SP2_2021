@@ -982,15 +982,15 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 {
 	// Cube
 	Vector3 topRightPos, botLeftPos;
-	topRightPos = Vector3(box.currentPos);
-	botLeftPos = Vector3(box.currentPos);
-	topRightPos.x += box.halfSize.x;
-	topRightPos.y += box.halfSize.y;
-	topRightPos.z -= box.halfSize.z;
+	topRightPos = Vector3(0,0,0);
+	botLeftPos = Vector3(0,0,0);
+	topRightPos.x += box.originalhalfSize.x;
+	topRightPos.y += box.originalhalfSize.y;
+	topRightPos.z -= box.originalhalfSize.z;
 
-	botLeftPos.x -= box.halfSize.x;
-	botLeftPos.y -= box.halfSize.y;
-	botLeftPos.z += box.halfSize.z;
+	botLeftPos.x -= box.originalhalfSize.x;
+	botLeftPos.y -= box.originalhalfSize.y;
+	botLeftPos.z += box.originalhalfSize.z;
 
 	int index = 0;
 	std::vector<Vertex> vertex;

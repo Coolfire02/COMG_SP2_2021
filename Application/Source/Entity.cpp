@@ -43,7 +43,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(data, this->scene->modelStack.Top());
+		
 	}
 	else {
 		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
@@ -51,8 +51,32 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 		this->scene->modelStack.Rotate(oldData->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(oldData, this->scene->modelStack.Top());
+
 	}
+}
+
+void Entity::RenderHitbox() {
+	this->scene->modelStack.PushMatrix();
+	EntityData* data = (useNewData ? this->data : this->oldData);
+	
+	Vector3 trans = data->Translate;
+	trans.x += this->hitBox->getThisTickBox()->centerOffset.x;
+	trans.y += this->hitBox->getThisTickBox()->centerOffset.y;
+	trans.z += this->hitBox->getThisTickBox()->centerOffset.z;
+	
+	this->scene->modelStack.Translate(trans.x, trans.y, trans.z);
+	this->scene->modelStack.Rotate(data->Rotation.x, 1.f, 0.f, 0.f);
+	this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
+	this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
+	this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
+
+	this->hitBox->update(data, this->scene->modelStack.Top());
+	
+	Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *this->getHitBox()->getThisTickBox());
+	this->scene->RenderMesh(mesh, false);
+	delete mesh;
+
+	this->scene->modelStack.PopMatrix();
 }
 
 

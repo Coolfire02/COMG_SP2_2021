@@ -61,5 +61,6 @@ public:
 	void PostUpdate(); //Called just before EManager's Update is finished
 
 	virtual void Render() = 0;
+	void RenderHitbox();
 };
 

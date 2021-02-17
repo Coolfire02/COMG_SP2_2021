@@ -20,16 +20,21 @@ Box* HitBox::getThisTickBox() {
 }
 
 void HitBox::update(EntityData* data, Mtx44 mtx) {
-	this->hitBox->currentPos = data->Translate; //+ this->hitBox->originalCenterOffset;
+	this->hitBox->centerOffset.x = this->hitBox->originalCenterOffset.x * data->Scale.x;
+	this->hitBox->centerOffset.y = this->hitBox->originalCenterOffset.y * data->Scale.y;
+	this->hitBox->centerOffset.z = this->hitBox->originalCenterOffset.z * data->Scale.z;
+	this->hitBox->currentPos = data->Translate + this->hitBox->centerOffset;
 	this->hitBox->xAxis.Set(mtx.a[0], mtx.a[4], mtx.a[8]);
 	this->hitBox->yAxis.Set(mtx.a[1], mtx.a[5], mtx.a[9]);
 	this->hitBox->zAxis.Set(mtx.a[2], mtx.a[6], mtx.a[10]);
 	this->hitBox->xAxis.Normalize();
 	this->hitBox->yAxis.Normalize();
 	this->hitBox->zAxis.Normalize();
-	this->hitBox->halfSize.x = this->hitBox->originalhalfSize.x * data->Scale.x;
-	this->hitBox->halfSize.y = this->hitBox->originalhalfSize.y * data->Scale.y;
-	this->hitBox->halfSize.z = this->hitBox->originalhalfSize.z * data->Scale.z;
+	
+	this->hitBox->halfSize = this->hitBox->originalhalfSize - this->hitBox->originalCenterOffset;
+	this->hitBox->halfSize.x *= data->Scale.x;
+	this->hitBox->halfSize.y *= data->Scale.y;
+	this->hitBox->halfSize.z *= data->Scale.z;
 }
 
 HitBox::~HitBox() {

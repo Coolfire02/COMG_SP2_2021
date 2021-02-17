@@ -465,16 +465,9 @@ void SceneAssignment2::Render()
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
-		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
-			modelStack.PushMatrix();
-			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.y, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.z, 1, 0, 0);
-			this->RenderMesh(mesh, lightEnable);
-			modelStack.PopMatrix();
-			delete mesh;
-		}
+
+		entity->RenderHitbox();
+		
 	}
 
 	std::ostringstream ss;
