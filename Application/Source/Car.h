@@ -14,11 +14,11 @@ enum CAR_TYPE
 	SUV,
 };
 
+class Player;
+
 class Car : public Entity
 {
 private:
-	Vector3       velocity;
-	bool seated;
 	float         carSpeed;
 	Player*       plr;
 	CAR_TYPE      carType;

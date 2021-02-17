@@ -21,7 +21,7 @@ struct Box {
 
 	Box(Position3D botLeftPos, Position3D topRightPos) {
 		Position3D center = Position3D(botLeftPos.getMidPoint(&botLeftPos, &topRightPos));
-		this->originalCenterOffset = Vector3(center.getX()/2.0, center.getY() / 2.0, center.getZ() / 2.0);
+		this->originalCenterOffset = Vector3(center.getX(), center.getY(), center.getZ());
 
 		this->currentPos = Vector3(0, 0, 0);
 		this->originalhalfSize = Vector3( 

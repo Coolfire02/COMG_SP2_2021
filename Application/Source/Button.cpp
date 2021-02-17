@@ -42,7 +42,7 @@ void Button::spawnTextObject(std::string text, Color txtColor, FONTTYPE type, fl
 }
 
 void Button::Render() {
-	this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeOfQuad);
+	// this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeOfQuad, UIInfo.sizeOfQuad);
 	if (text != nullptr) {
 		text->Render();
 	}

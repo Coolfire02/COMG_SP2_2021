@@ -635,9 +635,11 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.y, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.z, 1, 0, 0);
+			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
+		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
+			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;

@@ -170,6 +170,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\UIItem.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />

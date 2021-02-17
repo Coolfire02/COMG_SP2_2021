@@ -146,6 +146,9 @@ void Car::Update(double dt) {
 
 	// this->velocity.x = Interpolate(velocityGoal.x, this->velocity.x, dt);
 	// this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
+	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
+		this->getEntityData()->Rotation.y = 0;
+
 	carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;

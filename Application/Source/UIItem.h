@@ -4,7 +4,7 @@ struct UIItem {
 	float originX, originY;
 	float sizeOfQuad;
 
-	UIItem();
+	UIItem() {}
 
 	UIItem(UIItem& item) {
 		this->originX = item.originX;
