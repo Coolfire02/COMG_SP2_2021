@@ -17,7 +17,12 @@ Box* HitBox::getThisTickBox() {
 }
 
 void HitBox::update(EntityData* data, Mtx44 mtx) {
-	this->hitBox->currentPos = data->Translate; //+ this->hitBox->originalCenterOffset;
+
+	this->hitBox->centerOffset.x = data->Scale.x * this->hitBox->originalCenterOffset.x;
+	this->hitBox->centerOffset.y = data->Scale.y * this->hitBox->originalCenterOffset.y;
+	this->hitBox->centerOffset.z = data->Scale.z * this->hitBox->originalCenterOffset.z;
+	this->hitBox->currentPos = data->Translate + this->hitBox->centerOffset;
+
 	this->hitBox->xAxis.Set(mtx.a[0], mtx.a[4], mtx.a[8]);
 	this->hitBox->yAxis.Set(mtx.a[1], mtx.a[5], mtx.a[9]);
 	this->hitBox->zAxis.Set(mtx.a[2], mtx.a[6], mtx.a[10]);

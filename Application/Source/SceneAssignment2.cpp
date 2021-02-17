@@ -358,7 +358,7 @@ void SceneAssignment2::Update(double dt)
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				player->getEntityData()->Translate += entry->plane * 2;
-				//player->cancelNextMovement();
+				player->cancelNextMovement();
 				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
 			}
 
