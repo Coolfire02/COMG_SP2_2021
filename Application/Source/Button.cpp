@@ -1,6 +1,7 @@
 #include "Button.h"
 
-Button::Button(std::string buttonName, float originX, float originY, float quadSize, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
+Button::Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSize, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
+	this->scene = scene;
 	this->UIInfo.originX = originX;
 	this->UIInfo.originY = originY;
 	this->UIInfo.sizeOfQuad = quadSize;
@@ -25,5 +26,31 @@ void Button::setText(std::string text) {
 }
 
 void Button::setText(std::ostringstream text) {
+	this->text->setText(text.str());
+}
+
+Text* Button::getTextObject() {
+	return text;
+}
+
+void Button::spawnTextObject(std::string text, Color txtColor, FONTTYPE type, float textSize) {
+	if (this->text != nullptr) {
+		delete this->text;
+	}
+	this->text = new Text(scene, txtColor, UIInfo, type, textSize);
 	this->text->setText(text);
 }
+
+void Button::Render() {
+	this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeOfQuad);
+	if (text != nullptr) {
+		text->Render();
+	}
+}
+
+void Button::setQuadImage(GEOMETRY_TYPE type) {
+	this->quadTexture = type;
+}
+
+
+

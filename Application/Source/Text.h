@@ -48,6 +48,9 @@ public:
 	void setText(std::string text);
 	void setText(std::ostringstream text);
 	void setVisisble(bool visibility);
+	std::string getText();
+	void setColor(Color color);
+	Color getColor();
 	bool isVisible();
 	void setSize(float size);
 	void changeFont(FONTTYPE type);

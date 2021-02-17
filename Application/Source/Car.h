@@ -14,12 +14,6 @@ enum CAR_TYPE
 	SUV,
 };
 
-<<<<<<< Updated upstream
-class Player;
-
-class Car : public Entity {
-private:
-=======
 class Car : public Entity
 {
 private:
@@ -28,15 +22,11 @@ private:
 	float         carSpeed;
 	Player*       plr;
 	CAR_TYPE      carType;
->>>>>>> Stashed changes
 	GEOMETRY_TYPE associatedType;
-	CAR_TYPE      carType;
-	Player*       plr;
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
 	float		  rotation;
-	float         carSpeed;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
 	

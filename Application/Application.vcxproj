@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ButtonManager.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CustomEntity.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Source\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\ButtonManager.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\GarageInventory.h" />

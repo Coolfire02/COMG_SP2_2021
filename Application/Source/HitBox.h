@@ -58,8 +58,6 @@ struct Box {
 	Collider isCollidedWith(Box otherBox) {
 		Vector3 vector = Vector3(otherBox.currentPos - this->currentPos);
 		Collider collider;
-
-		bool collided = false;
 		
 		bool collided = !(
 			hasSeparatingPlane(vector, this->xAxis, otherBox) ||
@@ -78,7 +76,7 @@ struct Box {
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.xAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox));
-
+		collider.collided = collided;
 		return collider;
 	}
 
@@ -96,6 +94,6 @@ public:
 
 	Box* getThisTickBox();
 	void update(EntityData* data, Mtx44 matrix);
-	bool collidedWith(HitBox* other);
+	Collider collidedWith(HitBox* other);
 };
 

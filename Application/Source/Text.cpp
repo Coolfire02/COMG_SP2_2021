@@ -27,6 +27,18 @@ Font* Text::getFont(FONTTYPE type) {
     return nullptr;
 }
 
+std::string Text::getText() {
+    return text.str();
+}
+
+Color Text::getColor() {
+    return color;
+}
+
+void Text::setColor(Color color) {
+    this->color = color;
+}
+
 void Text::LoadTextData(int textDataArray[], std::string textDataCSV) {
     std::ifstream data(textDataCSV);
     std::string line;
