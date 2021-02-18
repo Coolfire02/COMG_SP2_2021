@@ -170,12 +170,12 @@ void Camera::Update(double dt)
 			TPSPositionVector = rotation * TPSPositionVector;
 		}
 
-		position = carPtr->getEntityData()->Translate + TPSPositionVector;
+		position = playerPtr->getEntityData()->Translate + TPSPositionVector;
 
 		if (position.y < 1)
 			position.y = 1;
 
-		target.Set(carPtr->getEntityData()->Translate.x, carPtr->getEntityData()->Translate.y + 5, carPtr->getEntityData()->Translate.z);
+		target.Set(playerPtr->getEntityData()->Translate.x, playerPtr->getEntityData()->Translate.y + 5, playerPtr->getEntityData()->Translate.z);
 		break;
 	}
 	case TOPDOWN_FIRSTPERSON:

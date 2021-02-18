@@ -328,15 +328,13 @@ void SceneGunShop::Update(double dt)
 					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
-						camera.carPtr = entry;
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
 					}
 					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
 						player->setDriving(nullptr, false);
-						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
+						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 						((Car*)entry)->setPlayer(nullptr);
-						camera.carPtr = nullptr;
 						camera.camType = FIRSTPERSON;
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
@@ -358,7 +356,7 @@ void SceneGunShop::Update(double dt)
 				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
 			}
 
-			if (entry->victim->getType() == ENTITYTYPE::CAR) {
+			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
 					std::cout << "In Car" << std::endl;
 				}
@@ -366,7 +364,7 @@ void SceneGunShop::Update(double dt)
 					player->cancelNextMovement();
 					std::cout << "Collided" << std::endl;
 				}
-			}
+			}*/
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {

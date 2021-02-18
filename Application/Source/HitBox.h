@@ -11,7 +11,6 @@ struct Collider {
 };
 
 struct Box {
-
 	Vector3 originalhalfSize, originalCenterOffset;
 	Vector3 currentPos;
 	Vector3 xAxis, yAxis, zAxis;
