@@ -11,8 +11,6 @@ private:
 	std::vector<GarageInventory*> garageInv;
 	GarageInventory* currentCar;
 	
-	//std::vector<ItemInventory*> itemInv;
-	//ItemInventory* currentItem;
 	ItemInventory* itemInventory;
 
 	WeaponInventory* weaponInv;

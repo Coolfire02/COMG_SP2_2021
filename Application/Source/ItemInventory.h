@@ -6,7 +6,6 @@
 class ItemInventory //Inventory slot
 {
 private:
-	//int amtOfItems;
 	std::vector<Item*> itemInv;
 	Item* currentItem;
 public:

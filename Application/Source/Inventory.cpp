@@ -53,27 +53,6 @@ void Inventory::addCar(CAR_TYPE cartype)
 
 void Inventory::addItem(ITEM_TYPE itemtype, int amt)
 {
-	//if (itemInv[0] == nullptr) //If player does not have any item yet
-	//{
-	//	itemInv.clear();
-	//	currentItem = new ItemInventory(itemtype, amt);
-	//	itemInv.push_back(currentItem);
-	//}
-	//else
-	//{
-	//	for (int i = 0; i < itemInv.size(); i++) //If player owns item already
-	//	{
-	//		if (itemInv[i]->getItemType() == itemtype)
-	//		{
-	//			itemInv[i]->setAmtOfItems(itemInv[i]->getAmtOfItems() + amt);
-	//			return;
-	//		}
-	//	}
-	//	
-	//	ItemInventory* addingItem; //If player does not own a specific item yet
-	//	addingItem = new ItemInventory(itemtype, amt);
-	//	itemInv.push_back(addingItem);
-	//}
 	if (itemInventory == nullptr) //If player does not have any item yet
 	{
 		itemInventory = new ItemInventory(itemtype, amt);
@@ -86,18 +65,9 @@ void Inventory::addItem(ITEM_TYPE itemtype, int amt)
 
 void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 {
-	//for (int i = 0; i < itemInv.size(); i++) //If player owns item already
-	//{
-	//	if (itemInv[i]->getItemType() == itemtype)
-	//	{
-	//		itemInv[i]->setAmtOfItems(itemInv[i]->getAmtOfItems() + amt);
-	//		if (itemInv[i]->getAmtOfItems() > 0)
-	//		{
-	//			//need to fix item inv deletion
-	//		}
-	//		return;
-	//	}
-	//}
+	if (itemInventory != nullptr)
+		itemInventory->setAmtOfItems(itemtype, amt);
+	return;
 }
 
 void Inventory::deleteItem(ITEM_TYPE itemtype)
@@ -123,22 +93,6 @@ void Inventory::switchWeapon(WEAPON_TYPE wType)
 
 void Inventory::toggleItem()
 {
-	//for (int i = 0; i < itemInv.size(); i++)
-	//{
-	//	if (currentItem == itemInv[i])
-	//	{
-	//		if ((i + 1) < itemInv.size()) //Go to next item when not at last slot
-	//		{
-	//			std::cout << "Switch";
-	//			currentItem = itemInv[i + 1];
-	//		}
-	//		else //If item is at last slot then go to first slot
-	//		{
-	//			currentItem = itemInv[0];
-	//		}
-	//		return;
-	//	}
-	//}
 	if (itemInventory != nullptr)
 		itemInventory->toggleItem();
 	return;
