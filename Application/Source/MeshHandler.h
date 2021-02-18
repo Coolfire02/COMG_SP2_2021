@@ -37,6 +37,7 @@ enum GEOMETRY_TYPE {
 	UI_BLACK,
 	UI_BLUE,
 	UI_WINDOW,
+	UI_EMPTY,
 
 	//UI Items
 	UI_EGGPLANT,
@@ -46,6 +47,10 @@ enum GEOMETRY_TYPE {
 	//UI Garage Cars
 	UI_SEDAN,
 	UI_SUV,
+
+	//UI Weapons
+	UI_PISTOL,
+	UI_SILENCER,
 
 	//Textured Quads
 	

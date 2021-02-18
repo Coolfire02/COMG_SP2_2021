@@ -84,6 +84,9 @@ private:
 
 	//topdown cam map
 	bool camMap;
+	
+	float CameraBobber = 0;
+	double bobTime = 0;
 
 public:
 	SceneAssignment2();

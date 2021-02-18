@@ -297,22 +297,26 @@ void SceneAssignment2::Update(double dt)
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	inv.addItem(BURGER, 1);
-	//	inv.addItem(EGGPLANT, 2);
-	//	inv.addItem(CORN, 3);
-	//	//inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	//{
-	//	toggleTimer = 0;
-	//	inv.toggleItem();
-	//	/*if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);*/
-	//}
+	if (Application::IsKeyPressed('F'))
+	{
+		inv.addItem(BURGER, 1);
+		inv.addItem(EGGPLANT, 2);
+		inv.addItem(CORN, 3);
+		//inv.addWeap(PISTOL); //Error if you try to add weapons
+		//inv.addCar(SUV);
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	{
+		toggleTimer = 0;
+		inv.toggleItem();
+		/*if (inv.getCurrentCarType() == SEDAN)
+			inv.switchCar(SUV);
+		else
+			inv.switchCar(SEDAN);*/
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	{
+	}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -513,12 +517,22 @@ void SceneAssignment2::Update(double dt)
 	Vector3 oldLoc = Vector3(pLoc);
 
 	//Requires Implementation of Velocity by Joash
-	const float playerSpeed = 15.0;
-
+	float playerSpeed = 15.0;
 	if (!((Player*)player)->isDriving()) {
+
+		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+			camera.position.y += CameraBobber;
+		}
+
 		if (Application::IsKeyPressed('W')) {
+
+			if (Application::IsKeyPressed(VK_LSHIFT)) {
+				playerSpeed = 25.f;
+			}
+
 			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc += view * (float)dt * playerSpeed;
+
 		}
 		if (Application::IsKeyPressed('A')) {
 			Vector3 view = (camera.target - camera.position).Normalized();
@@ -550,6 +564,9 @@ void SceneAssignment2::Update(double dt)
 		player->getEntityData()->Translate.x = pLoc.x;
 		// Skip y since we want level ground
 		player->getEntityData()->Translate.z = pLoc.z;
+
+		bobTime += dt;
+		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
 }
 
@@ -711,43 +728,59 @@ void SceneAssignment2::Render()
 	}
 
 	//UI Testing Health
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
 
-	//ss.str("");
-	//ss.clear();
-	//ss << "6/30";
-	//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 102, 18);
+	ss.str("");
+	ss.clear();
+	ss << "6/30";
+	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
 
-	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-	//	//std::cout << "Burger";
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-	//	//std::cout << "Corn";
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-	//	//std::cout << "Eggplant";
-	//	break;
-	//default:
-	//	break;
-	//}
-	////test garage inv
-	//switch (inv.getCurrentCarType())
-	//{
-	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
-	//	break;
-	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
-	//	break;
-	//default:
-	//	break;
-	//}
+	//UI inventory testing
+	switch (inv.getCurrentItemType())
+	{
+	case BURGER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 70, 10, 10, 10);
+		break;
+	case CORN:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 70, 10, 10, 10);
+		break;
+	case EGGPLANT:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 10, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 10, 10, 10);
+		break;
+	}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 10, 10, 10);
+	//test garage inv
+	/*switch (inv.getCurrentCarType())
+	{
+	case SEDAN:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
+		break;
+	case SUV:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
+		break;
+	default:
+		break;
+	}*/
+
+	switch (inv.getActiveWeapon()->weaponType)
+	{
+	case FIST:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 20, 10, 10);
+		break;
+	case PISTOL:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 70, 20, 10, 10);
+		break;
+	case SILENCER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 70, 20, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 20, 10, 10);
+		break;
+	}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 20, 10, 10);
 	
 	//FPS UI
 	ss.str("");
