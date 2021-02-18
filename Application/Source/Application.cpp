@@ -15,7 +15,7 @@
 #include "SceneAssignment2.h"
 #include "Scene2021.h"
 #include "Game.h"
-Game g;
+#include "SceneGunShop.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -69,6 +69,9 @@ void resize_callback(GLFWwindow* window, int w, int h)
 
 bool Application::GetMouseUpdate()
 {
+	if (glfwGetInputMode(m_window, GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
+		return false;
+	
 	glfwGetCursorPos(m_window, &mouse_current_x, &mouse_current_y);
 
 	// Calculate the difference in positions
@@ -166,6 +169,13 @@ void Application::Init()
 		//return -1;
 	}
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void Application::setCursorEnabled(bool enabled) {
+	if(enabled)
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	else
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Application::Run()

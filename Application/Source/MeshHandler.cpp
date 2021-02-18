@@ -81,12 +81,14 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
 	
 	//General UI
-	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("shapeUI", Color(1, 1, 1));
-	meshList[UI_BLACK]->textureID = LoadTGA("Image//shapeUI.tga");
-	meshList[UI_BLUE] = MeshBuilder::GenerateQuad("shapeUI2", Color(1, 1, 1));
-	meshList[UI_BLUE]->textureID = LoadTGA("Image//shapeUI2.tga");
+	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));
+	meshList[UI_BLACK]->textureID = LoadTGA("Image//blackUI.tga");
+	meshList[UI_BLUE] = MeshBuilder::GenerateQuad("blueUI", Color(1, 1, 1));
+	meshList[UI_BLUE]->textureID = LoadTGA("Image//blueUI.tga");
 	meshList[UI_WINDOW] = MeshBuilder::GenerateQuad("panelUI", Color(1, 1, 1));
 	meshList[UI_WINDOW]->textureID = LoadTGA("Image//panelUI.tga");
+	meshList[UI_EMPTY] = MeshBuilder::GenerateQuad("emptyUI", Color(1, 1, 1));
+	meshList[UI_EMPTY]->textureID = LoadTGA("Image//emptyUI.tga");
 
 	//UI Items
 	meshList[UI_EGGPLANT] = MeshBuilder::GenerateQuad("eggplantUI", Color(1, 1, 1));
@@ -102,6 +104,18 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_SUV] = MeshBuilder::GenerateQuad("suvUI", Color(1, 1, 1));
 	meshList[UI_SUV]->textureID = LoadTGA("Image//suvUI.tga");
 
+	//UI Weapons
+	meshList[UI_PISTOL] = MeshBuilder::GenerateQuad("pistolUI", Color(1, 1, 1));
+	meshList[UI_PISTOL]->textureID = LoadTGA("Image//pistolUI.tga");
+	meshList[UI_SILENCER] = MeshBuilder::GenerateQuad("silencerUI", Color(1, 1, 1));
+	meshList[UI_SILENCER]->textureID = LoadTGA("Image//silencerUI.tga");
+
+	//Garage
+	meshList[GARAGE_WALL] = MeshBuilder::GenerateQuad("garageWall", Color(1, 1, 1));
+	meshList[GARAGE_WALL]->textureID = LoadTGA("Image//garageWall.tga");
+	meshList[GARAGE_DOOR] = MeshBuilder::GenerateQuad("garageDoor", Color(1, 1, 1));
+	meshList[GARAGE_DOOR]->textureID = LoadTGA("Image//garageDoor.tga");
+
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
 
@@ -116,16 +130,26 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SKY_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1));
 	meshList[GEO_SKY_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1));
 
-	meshList[GEO_SKY_LEFT]->textureID = LoadTGA("Image//bluecloud_lf.tga");
-	meshList[GEO_SKY_RIGHT]->textureID = LoadTGA("Image//bluecloud_rt.tga");
-	meshList[GEO_SKY_TOP]->textureID = LoadTGA("Image//bluecloud_up.tga");
-	meshList[GEO_SKY_BOTTOM]->textureID = LoadTGA("Image//bluecloud_dn.tga");
-	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//bluecloud_ft.tga");
-	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//bluecloud_bk.tga");
+	meshList[GEO_SKY_LEFT]->textureID = LoadTGA("Image//Skybox//bluecloud_lf.tga");
+	meshList[GEO_SKY_RIGHT]->textureID = LoadTGA("Image//Skybox//bluecloud_rt.tga");
+	meshList[GEO_SKY_TOP]->textureID = LoadTGA("Image//Skybox//bluecloud_up.tga");
+	meshList[GEO_SKY_BOTTOM]->textureID = LoadTGA("Image//Skybox//bluecloud_dn.tga");
+	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//Skybox//bluecloud_ft.tga");
+	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//Skybox//bluecloud_bk.tga");
+
+	meshList[GEO_GUNSHOP_LEFT] = MeshBuilder::GenerateQuad("left", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_RIGHT] = MeshBuilder::GenerateQuad("right", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_TOP] = MeshBuilder::GenerateQuad("top", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(0.545, 0.271, 0.075));
+	meshList[GEO_GUNSHOP_FRONT] = MeshBuilder::GenerateQuad("front", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_BACK] = MeshBuilder::GenerateQuad("back", Color(0.871f, 0.722f, 0.529f));
+
+	meshList[GEO_GUNSHOP_TOP]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
+	meshList[GEO_GUNSHOP_TOP]->material.kDiffuse.Set(0.2, 0.2, 0.2);
 
 	//NON-OBJS
-
-
+	meshList[GEO_WIREMESH] = MeshBuilder::GenerateQuad("wiremesh", Color(1, 1, 1), 10, 10);
+	meshList[GEO_WIREMESH]->textureID = LoadTGA("Image//GunShop//WireMesh.tga");
 	//Materials
 
 	/*Material mat;

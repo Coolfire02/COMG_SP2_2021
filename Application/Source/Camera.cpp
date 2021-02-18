@@ -40,7 +40,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->target = target;
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up).Normalized();
-	this->up = right.Cross(view).Normalized();
+	this->up = this->defaultUp = right.Cross(view).Normalized();
 	test_pitch = 0;
 }
 
@@ -73,64 +73,12 @@ void Camera::Update(double dt)
 	right.Normalize();
 	static const float CAMERA_SPEED = 100.f;
 
+	float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
+	float pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
+
 	switch (camType) {
 	case FIRSTPERSON:
-
-		if (Application::IsKeyPressed(VK_LEFT))
-		{
-			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(CAMERA_SPEED * (float)dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			view = rotation * view;
-			target = position + view;
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-		}
-		if (Application::IsKeyPressed(VK_RIGHT))
-		{
-			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(-CAMERA_SPEED * (float)dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			view = rotation * view;
-			target = position + view;
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-		}
-		if (Application::IsKeyPressed(VK_UP))
-		{
-			float pitch = (float)(CAMERA_SPEED * (float)dt);
-			Vector3 view = (target - position).Normalized();
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-			Mtx44 rotation;
-			rotation.SetToRotation(pitch, right.x, right.y, right.z);
-			view = rotation * view;
-			target = position + view;
-		}
-		if (Application::IsKeyPressed(VK_DOWN))
-		{
-			float pitch = (float)(-CAMERA_SPEED * (float)dt);
-			Vector3 view = (target - position).Normalized();
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-			Mtx44 rotation;
-			rotation.SetToRotation(pitch, right.x, right.y, right.z);
-			view = rotation * view;
-			target = position + view;
-		}
-		//Update the camera direction based on mouse move
-		// left-right rotate
-		{
+		/*{
 			Vector3 view = (target - position).Normalized();
 			float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			Mtx44 rotation;
@@ -152,7 +100,6 @@ void Camera::Update(double dt)
 				test_pitch = -60.f;
 				return;
 			}
-		
 			
 			float pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
 
@@ -165,33 +112,62 @@ void Camera::Update(double dt)
 			right.y = 0;
 			right.Normalize();
 			up = right.Cross(view).Normalized();
-		}
-		break;
-	case THIRDPERSON:
-	{
-		Vector3 view = (target - position).Normalized();
-		Vector3 right = view.Cross(up);
-		right.Normalize();
-
+		}*/
+		double x, y;
+		Application::GetCursorPos(&x, &y);
+		if (yaw != 0)
 		{
-			float pitch = -Application::camera_pitch * CAMERA_SPEED * static_cast<float>(dt);
+			Vector3 view = (target - position).Normalized();
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			view = rotation * view;
+			target = position + view;
+			up = rotation * up;
+		}
+		if (pitch != 0)
+		{
+			test_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
+			if (test_pitch > 80.f) {
+				test_pitch = 80.f;
+				return;
+			}
+			if (test_pitch < -80.f) {
+				test_pitch = -80.f;
+				return;
+			}
+
 			Vector3 view = (target - position).Normalized();
 			Vector3 right = view.Cross(up);
-			right.y = 0;
 			right.Normalize();
 			up = right.Cross(view).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(pitch, right.x, right.y, right.z);
-			position = rotation * position;
-			TPSPositionVector = rotation * TPSPositionVector;
+			view = rotation * view;
+			target = position + view;
 		}
+		if (Application::IsKeyPressed('R'))
 		{
-			float yaw = -Application::camera_yaw * CAMERA_SPEED * static_cast<float>(dt);
+			Reset();
+		}
+
+		break;
+	case THIRDPERSON:
+	{
+		right.y = 0;
+		right.Normalize();
+		up = right.Cross(view).Normalized();
+		{
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
 			position = rotation * position;
 			TPSPositionVector = rotation * TPSPositionVector;
 			up = rotation * up;
+		}
+		{
+			Mtx44 rotation;
+			rotation.SetToRotation(pitch, right.x, right.y, right.z);
+			position = rotation * position;
+			TPSPositionVector = rotation * TPSPositionVector;
 		}
 
 		position = carPtr->getEntityData()->Translate + TPSPositionVector;

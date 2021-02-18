@@ -26,7 +26,7 @@ private:
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
-	float		  rotation;
+	float		  acceleration;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
 	
@@ -38,12 +38,14 @@ public:
 	 
 	void     Init();
 	void     setSpeed(float speed);
+	void	 setAccel(float a);
 	void     setPlayer(Player*);
+	float	 getAccel();
 	float    getSpeed();
 
-	float  Interpolate(float, float, double);
 	CAR_TYPE getCartype();
 	Player* getPlayer();
+	void Drive(double);
 
 	void Update(double);
 	void Render();

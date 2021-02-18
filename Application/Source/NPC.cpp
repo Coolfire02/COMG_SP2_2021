@@ -12,7 +12,7 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYP
 	default:
 		this->associatedNPCMesh = nullptr;
 	}
-	this->hitBox = new HitBox(new Box(associatedNPCMesh->botLeftPos, associatedNPCMesh->topRightPos));
+	this->hitBox = new HitBox(new Box(*associatedNPCMesh->botLeftPos, *associatedNPCMesh->topRightPos));
 }
 
 NPC::~NPC() {

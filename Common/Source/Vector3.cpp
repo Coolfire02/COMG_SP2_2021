@@ -346,6 +346,11 @@ Vector3 Vector3::Normalized( void ) const throw( DivideByZero )
 	return Vector3(x / d, y / d, z / d);
 }
 
+Vector3 Vector3::GetMidpoint(const Vector3& lhs, const Vector3& rhs) const
+{
+	return Vector3((lhs.x + rhs.x) / 2.0f, (lhs.y + rhs.y) / 2.0f, (lhs.z + rhs.z) / 2.0f);
+}
+
 float Vector3::Magnitude() {
 	return sqrtf(pow(x, 2) + pow(y, 2) + pow(z, 2));
 }

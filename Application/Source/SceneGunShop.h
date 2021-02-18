@@ -1,5 +1,5 @@
-#ifndef SCENE_ASSIGNMENT2_H
-#define SCENE_ASSIGNMENT2_H
+#ifndef SCENE_GUNSHOP_H
+#define SCENE_GUNSHOP_H
 
 #include <map>
 
@@ -14,7 +14,6 @@
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
-#include "ButtonManager.h"
 
 //Entities
 #include "NPC.h"
@@ -31,7 +30,7 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
-class SceneAssignment2 : public Scene
+class SceneGunShop : public Scene
 {
 	enum INTERACTION_TYPE {
 		TEST,
@@ -43,8 +42,6 @@ private:
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
-	ButtonManager bManager;
-
 
 	//Game Variables
 	Player* player;
@@ -54,6 +51,9 @@ private:
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen
 	float showNotifUntil; //Shows notification until time;
+
+	//Buttons held
+	bool eHeld;
 
 	//Interaction
 	bool isInteracting;
@@ -77,20 +77,17 @@ private:
 	bool hitboxEnable;
 	float fps;
 
-	float toggleTimer = 0; //Used for toggling between items
+	float toggleTimer = 0;
 
 	void RenderSkybox();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 
 	//topdown cam map
 	bool camMap;
-	
-	float CameraBobber = 0;
-	double bobTime = 0;
 
 public:
-	SceneAssignment2();
-	~SceneAssignment2();
+	SceneGunShop();
+	~SceneGunShop();
 
 	//Notifications
 	void sendNotification(std::string msg, double duration);

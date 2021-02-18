@@ -37,24 +37,20 @@ void Entity::cancelNextMovement() {
 }
 
 void Entity::loadOriginTRSIntoStacknHitBox() {
-	if (useNewData) {
-		this->scene->modelStack.Translate(data->Translate.x, data->Translate.y, data->Translate.z);
-		this->scene->modelStack.Rotate(data->Rotation.x, 1.f, 0.f, 0.f);
-		this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
-		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
-		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(data, this->scene->modelStack.Top());
+	EntityData* toUse = (useNewData ? data : oldData);
+	this->scene->modelStack.Translate(toUse->Translate.x, toUse->Translate.y, toUse->Translate.z);
+	this->scene->modelStack.Rotate(toUse->Rotation.x, 1.f, 0.f, 0.f);
+	this->scene->modelStack.Rotate(toUse->Rotation.y, 0.f, 1.f, 0.f);
+	this->scene->modelStack.Rotate(toUse->Rotation.z, 0.f, 0.f, 1.f);
+	this->scene->modelStack.Scale(toUse->Scale.x, toUse->Scale.y, toUse->Scale.z);
+
+	this->scene->modelStack.PushMatrix();
+		this->scene->modelStack.Translate(this->hitBox->getThisTickBox()->originalCenterOffset.x, this->hitBox->getThisTickBox()->originalCenterOffset.y, this->hitBox->getThisTickBox()->originalCenterOffset.z);
 		this->currentMtx = this->scene->modelStack.Top();
-	}
-	else {
-		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
-		this->scene->modelStack.Rotate(oldData->Rotation.x, 1.f, 0.f, 0.f);
-		this->scene->modelStack.Rotate(oldData->Rotation.y, 0.f, 1.f, 0.f);
-		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
-		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
-		this->hitBox->update(oldData, this->scene->modelStack.Top());
-		this->currentMtx = this->scene->modelStack.Top();
-	}
+	this->scene->modelStack.PopMatrix();
+
+	this->hitBox->update(toUse, currentMtx);
+	
 }
 
 

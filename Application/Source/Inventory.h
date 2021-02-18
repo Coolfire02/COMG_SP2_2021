@@ -35,6 +35,7 @@ public:
 	//Getters
 	void getGarageInventory();
 	ItemInventory* getItemInventory();
+	std::vector<Item*> getItemVector();
 
 	CAR_TYPE getCurrentCarType();
 	ITEM_TYPE getCurrentItemType();

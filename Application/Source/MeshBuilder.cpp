@@ -848,6 +848,41 @@ Mesh* MeshBuilder::GenerateTetahedron(const std::string& meshName, Color color) 
 
 }
 
+Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color, float texCoordx, float texCoordy)
+{
+	float length = 1.0f;
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+	v.normal.Set(0, 0, 1);
+	v.pos.set(0.5f * length, 0.5f * length, 0.f);	v.color = color; v.texCoord.Set(texCoordx, texCoordy);	vertex_buffer_data.push_back(v); //v0
+	v.pos.set(-0.5f * length, 0.5f * length, 0.f);	v.color = color; v.texCoord.Set(0, texCoordy);	vertex_buffer_data.push_back(v); //v1
+	v.pos.set(-0.5f * length, -0.5f * length, 0.f);	v.color = color; v.texCoord.Set(0, 0);	vertex_buffer_data.push_back(v); //v2
+	v.pos.set(0.5f * length, -0.5f * length, 0.f);	v.color = color; v.texCoord.Set(texCoordx, 0); vertex_buffer_data.push_back(v); //v3
+
+	//tri1
+	index_buffer_data.push_back(0);
+	index_buffer_data.push_back(1);
+	index_buffer_data.push_back(2);
+	//tri2
+	index_buffer_data.push_back(0);
+	index_buffer_data.push_back(2);
+	index_buffer_data.push_back(3);
+
+	Mesh* mesh = new Mesh(meshName);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
+
+	calcMinMaxPosnMeshCenter(mesh, vertex_buffer_data);
+	return mesh;
+}
+
 Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color)
 {
 	float length = 1.0f;
@@ -1088,6 +1123,6 @@ void MeshBuilder::calcMinMaxPosnMeshCenter(Mesh* mesh, std::vector<Vertex> verte
 		if (pos.z < lowZ) lowZ = pos.z;
 		else if (pos.z > highZ) highZ = pos.z;
 	}
-	mesh->botLeftPos = new Position3D(lowX, lowY, highZ);
-	mesh->topRightPos = new Position3D(highX, highY, lowZ);
+	mesh->botLeftPos = new Vector3(lowX, lowY, highZ);
+	mesh->topRightPos = new Vector3(highX, highY, lowZ);
 }

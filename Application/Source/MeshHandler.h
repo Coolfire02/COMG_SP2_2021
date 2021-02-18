@@ -5,7 +5,9 @@
 
 enum GEOMETRY_TYPE {
 	//General
-	GEO_AXES = 0,
+	EMPTY = 0,
+
+	GEO_AXES,
 	GEO_LIGHTBALL,
 	GEO_TEXT,
 
@@ -39,6 +41,7 @@ enum GEOMETRY_TYPE {
 
 
 	//Misc
+	GEO_WIREMESH,
 
 	//Skybox
 	GEO_SKY_LEFT,
@@ -48,10 +51,17 @@ enum GEOMETRY_TYPE {
 	GEO_SKY_FRONT,
 	GEO_SKY_BACK,
 
+	GEO_GUNSHOP_LEFT,
+	GEO_GUNSHOP_RIGHT,
+	GEO_GUNSHOP_TOP,
+	GEO_GUNSHOP_BOTTOM,
+	GEO_GUNSHOP_FRONT,
+	GEO_GUNSHOP_BACK,
 	//General UI
 	UI_BLACK,
 	UI_BLUE,
 	UI_WINDOW,
+	UI_EMPTY,
 
 	//UI Items
 	UI_EGGPLANT,
@@ -62,8 +72,16 @@ enum GEOMETRY_TYPE {
 	UI_SEDAN,
 	UI_SUV,
 
+	//UI Weapons
+	UI_PISTOL,
+	UI_SILENCER,
+
+	//Garage
+	GARAGE_WALL,
+	GARAGE_DOOR,
+
 	//Textured Quads
-	
+
 
 	//For non-OBJs
 
@@ -83,4 +101,3 @@ public:
 	
 	static Mesh* getMesh(GEOMETRY_TYPE);
 };
-

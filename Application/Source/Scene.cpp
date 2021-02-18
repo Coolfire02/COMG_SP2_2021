@@ -7,6 +7,7 @@
 
 #include "shader.hpp"
 #include "Utility.h"
+#include "Application.h"
 
 void Scene::elapser(double dt) {
 	elapsed += dt;
@@ -58,6 +59,50 @@ void Scene::RenderMesh(Mesh* mesh, bool enableLight)
 	else {
 		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
 	}
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	mesh->Render();
+	if (mesh->textureID > 0) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+}
+
+void Scene::RenderMesh(Mesh* mesh, bool enableLight, GLint param)
+{
+	Mtx44 MVP, modelView, modelView_inverse_transpose;
+
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	modelView = viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+	if (enableLight)
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
+
+		//load material
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+	}
+	if (mesh->textureID > 0)
+	{
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	}
+	else {
+		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+	}
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, param);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, param);
 	mesh->Render();
 	if (mesh->textureID > 0) {
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -68,7 +113,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 128, 0, 72, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::GetWindowWidth()/10, 0, Application::GetWindowHeight()/10, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -112,7 +157,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 void Scene::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizeX, int sizeY) {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::GetWindowWidth()/10, 0, Application::GetWindowHeight()/10, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();

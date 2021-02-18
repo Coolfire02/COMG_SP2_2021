@@ -1,10 +1,13 @@
 #include "Button.h"
+#include "Application.h"
 
-Button::Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSize, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
+Button::Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
 	this->scene = scene;
+	this->text = nullptr;
 	this->UIInfo.originX = originX;
 	this->UIInfo.originY = originY;
-	this->UIInfo.sizeOfQuad = quadSize;
+	this->UIInfo.sizeX = quadSizeX;
+	this->UIInfo.sizeY = quadSizeY;
 	this->quadTexture = quadTexture;
 }
 
@@ -41,16 +44,24 @@ void Button::spawnTextObject(std::string text, Color txtColor, FONTTYPE type, fl
 	this->text->setText(text);
 }
 
+bool Button::hasText() {
+	return !(this->text == nullptr);
+}
+
 void Button::Render() {
-	// this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeOfQuad, UIInfo.sizeOfQuad);
+	this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeX, UIInfo.sizeY);
 	if (text != nullptr) {
 		text->Render();
 	}
 }
 
+std::string Button::getName() {
+	return buttonName;
+}
+
 bool Button::isInRange(double x, double y) {
-	if(UIInfo.originX >= x && x < (UIInfo.originX + UIInfo.sizeOfQuad)
-		&& UIInfo.originY >= y && y < (UIInfo.originY + UIInfo.sizeOfQuad)) {
+	if(x >= UIInfo.originX - UIInfo.sizeX/2.0 && x < (UIInfo.originX + UIInfo.sizeX/2.0)
+		&& y >= UIInfo.originY - UIInfo.sizeY / 2.0 && y < (UIInfo.originY + UIInfo.sizeY/2.0) ){
 		return true;
 	}
 	return false;

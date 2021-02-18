@@ -27,6 +27,7 @@ public:
 	static Mesh* GenerateQuaterSphere(const std::string& meshName, Color color);
 	static Mesh* GenerateCube(const std::string &meshName, Color color);
 	static Mesh* GenerateQuad(const std::string& meshName, Color color);
+	static Mesh* GenerateQuad(const std::string& meshName, Color color, float texCoordx, float texCoordy);
 	static Mesh* GenerateTetahedron(const std::string& meshName, Color color);
 	static Mesh* GenerateTorus(const std::string& meshName, Color color, float innerR, float outterR);
 	static Mesh* GenerateHalfTorus(const std::string& meshName, Color color, float innerR, float outterR);

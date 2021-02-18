@@ -1,4 +1,4 @@
-#include "SceneAssignment2.h"
+#include "SceneGunShop.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -11,8 +11,8 @@
 #include "Utility.h"
 #include "Car.h"
 
-SceneAssignment2::SceneAssignment2() : 
-	eManager(this), bManager(this)
+SceneGunShop::SceneGunShop() :
+	eManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -32,13 +32,15 @@ SceneAssignment2::SceneAssignment2() :
 	isInteracting = false;
 }
 
-SceneAssignment2::~SceneAssignment2()
+SceneGunShop::~SceneGunShop()
 {
 
 }
 
-void SceneAssignment2::Init() {
+void SceneGunShop::Init() {
 	
+	eHeld = false;
+
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -138,11 +140,6 @@ void SceneAssignment2::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
-	pistol->getEntityData()->SetTransform(20, 5, 0);
-	pistol->getEntityData()->SetScale(10, 10, 10);
-	eManager.spawnWorldEntity(pistol);
-
 	Entity* building = new WorldObject(this, GEO_TREE, "building1");
 	building->getEntityData()->SetTransform(40, 0, 0);
 	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
@@ -190,14 +187,6 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
 	eManager.spawnMovingEntity(car);*/
 
-	//Buttons
-
-	Button* button;
-	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
-	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
-	button->getTextObject()->setText("Test");
-	bManager.addButton(button);
-
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
@@ -208,9 +197,9 @@ void SceneAssignment2::Init() {
 
 	//Light init
 	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 40, 0);
+	light[0].position.set(0, 5, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 1;
+	light[0].power = 5;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -220,23 +209,23 @@ void SceneAssignment2::Init() {
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	//2nd light
-	light[1].type = Light::LIGHT_SPOT;
-	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.0f, 0.0f, 0.0f); //set to white light
-	light[1].power = 0;
+	light[1].type = Light::LIGHT_DIRECTIONAL;
+	light[1].position.set(0, 1, 0);
+	light[1].color.set(1.f, 1.f, 1.f); //set to white light
+	light[1].power = 1;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;
 	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[1].cosInner = cos(Math::DegreeToRadian(30));
 	light[1].exponent = 3.f;
-	light[1].spotDirection.Set(0, 0, 1);
+	light[1].spotDirection.Set(0, 1, 0);
 
 	//3rd light
 	light[2].type = Light::LIGHT_SPOT;
-	light[2].position.set(0, 50, 100);
-	light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	light[2].power = 2;
+	light[2].position.set(0, 0, 0);
+	light[2].color.set(0.5f, 0.5f, 1.f); //set to white light
+	light[2].power = 0;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
@@ -281,7 +270,7 @@ void SceneAssignment2::Init() {
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	//Practical 10a
 	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
@@ -293,12 +282,8 @@ void SceneAssignment2::Init() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-
-bool eHeld = false;
-
-void SceneAssignment2::Update(double dt)
+void SceneGunShop::Update(double dt)
 {
-	
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
@@ -306,44 +291,28 @@ void SceneAssignment2::Update(double dt)
 	//{
 	//	inv.addItem(BURGER, 1);
 	//	inv.addItem(EGGPLANT, 2);
-	//	
-	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
-	//	inv.addCar(SUV);
+	//	inv.addItem(CORN, 3);
+	//	//inv.addCar(SUV);
 	//}
 	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
 	//{
 	//	toggleTimer = 0;
 	//	inv.toggleItem();
-	//	if (inv.getCurrentCarType() == SEDAN)
+	//	/*if (inv.getCurrentCarType() == SEDAN)
 	//		inv.switchCar(SUV);
 	//	else
-	//		inv.switchCar(SEDAN);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	//{
-	//	inv.addItem(CORN, 3);
+	//		inv.switchCar(SEDAN);*/
 	//}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
 
 	if (!ePressed)
 		eHeld = false;
 
-	//Button Interaction Handling
-	bManager.Update(dt);
-	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			std::cout << "Clicked" << std::endl;
-		}
-	}
-	if (pPressed) Application::setCursorEnabled(true);
-
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
-	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
@@ -351,7 +320,7 @@ void SceneAssignment2::Update(double dt)
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -372,7 +341,6 @@ void SceneAssignment2::Update(double dt)
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.test_pitch = 0;
 						camera.target = camera.defaultTarget;
@@ -419,9 +387,7 @@ void SceneAssignment2::Update(double dt)
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				// entry->attacker->cancelNextMovement();
-				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
-				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->cancelNextMovement();
 				std::cout << "Car Collided" << std::endl;
 			}
 
@@ -440,54 +406,10 @@ void SceneAssignment2::Update(double dt)
 	}
 
 	camera.Update(dt);
-	
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
 
 	camera2.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
 		0,
 		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		break;
-	}
-
 
 	eManager.postCollisionUpdate();
 
@@ -512,8 +434,8 @@ void SceneAssignment2::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('4') & 0x8001) {
-		game.switchScene(S_2021);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		// game.switchScene(S_MAINWORLD);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -527,23 +449,15 @@ void SceneAssignment2::Update(double dt)
 	Vector3 oldLoc = Vector3(pLoc);
 
 	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
+	const float playerSpeed = 15.0;
+
 	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
-
 		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
-				playerSpeed = 25.f;
-			}
-
+			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc += view * (float)dt * playerSpeed;
-
 		}
 		if (Application::IsKeyPressed('A')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
 			Vector3 right = view.Cross(camera.up);
 			right.y = 0;
 			right.Normalize();
@@ -552,10 +466,12 @@ void SceneAssignment2::Update(double dt)
 		}
 
 		if (Application::IsKeyPressed('S')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc -= view * (float)dt * playerSpeed;
 		}
 
 		if (Application::IsKeyPressed('D')) {
+			Vector3 view = (camera.target - camera.position).Normalized();
 			Vector3 right = view.Cross(camera.up);
 			right.y = 0;
 			right.Normalize();
@@ -563,25 +479,18 @@ void SceneAssignment2::Update(double dt)
 			pLoc += right * (float)dt * playerSpeed;
 		}
 		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+		pLoc.x = Math::Clamp(pLoc.x, -10.f, 10.f);
+		pLoc.z = Math::Clamp(pLoc.z, -10.f, 10.f);
 
 		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 		player->getEntityData()->Translate.x = pLoc.x;
 		// Skip y since we want level ground
 		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
-	}
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
 	}
 }
 
 
-void SceneAssignment2::Render()
+void SceneGunShop::Render()
 {
 
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
@@ -616,11 +525,6 @@ void SceneAssignment2::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();	
-
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
@@ -639,89 +543,20 @@ void SceneAssignment2::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
 	}
 
-	if (light[2].type == Light::LIGHT_DIRECTIONAL) {
-		Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
-		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
-
-	}
-	else if (light[2].type == Light::LIGHT_SPOT) {
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-		Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-	}
-	else { //Point light
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-	}
-
-
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	case TOPDOWN_THIRDPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	default:
-		break;
-	}
-
 	this->RenderSkybox();
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Scale(1000, 1000, 1000);
-	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), true);
 	modelStack.PopMatrix();
 
+	// wire mesh
 	modelStack.PushMatrix();
-	modelStack.Rotate(0, 1, 0, 0);
-	modelStack.Scale(10, 10, 10);
-	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
+	modelStack.Translate(0.0f, 0.0f, -11.f);
+	modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_WIREMESH), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
@@ -729,22 +564,16 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			//modelStack.Translate(entity->getHitBox()->getThisTickBox()->currentPos.x, entity->getHitBox()->getThisTickBox()->currentPos.z, entity->getHitBox()->getThisTickBox()->currentPos.x);
 			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
 		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-		   // modelStack.Translate(-entity->getHitBox()->getThisTickBox()->currentPos.x, -entity->getHitBox()->getThisTickBox()->currentPos.z, -entity->getHitBox()->getThisTickBox()->currentPos.x);
 			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;
 		}
-	}
-
-	for (auto& button : bManager.getButtons()) {
-		button->Render();
 	}
 
 	std::ostringstream ss;
@@ -770,128 +599,100 @@ void SceneAssignment2::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
 
-	//UI Testing Health
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
-
-	ss.str("");
-	ss.clear();
-	ss << "6/30";
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
-
-	if (inv.getItemInventory() != nullptr)
-	{
-		ss.str("");
-		ss.clear();
-		ss << inv.getCurrentItemAmt();
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 10);
-	}
-	
-
 	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 114, 10, 10, 10);
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 114, 10, 10, 10);
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 10, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 10, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 10, 10, 10);
+	switch (inv.getCurrentItemType())
+	{
+	case BURGER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+		//std::cout << "Burger";
+		break;
+	case CORN:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+		//std::cout << "Corn";
+		break;
+	case EGGPLANT:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+		//std::cout << "Eggplant";
+		break;
+	default:
+		break;
+	}
 	////test garage inv
 	//switch (inv.getCurrentCarType())
 	//{
 	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 20, 30, 10, 10);
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
 	//	break;
 	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 20, 30, 10, 10);
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
 	//	break;
 	//default:
 	//	break;
 	//}
-
-	//switch (inv.getActiveWeapon()->weaponType)
-	//{
-	//case FIST:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-	//	break;
-	//case PISTOL:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-	//	break;
-	//case SILENCER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 	
 	//FPS UI
 	ss.str("");
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
+	Position lightPosition_cameraspace = viewStack.Top() * light[1].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
 }
 
-void SceneAssignment2::RenderSkybox() {
+void SceneGunShop::RenderSkybox() {
 	modelStack.PushMatrix();
-	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+	modelStack.Translate(0, -6, 0);
+	modelStack.Scale(0.75, 0.75, 0.75);
 		modelStack.PushMatrix();
-		modelStack.Translate(-250.0f, 0.0f, 0.0f);
+		modelStack.Translate(-15.f, 0.0f, 0.0f);
 		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_LEFT), lightEnable);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(250.0f, 0.0f, 0.0f);
+		modelStack.Translate(15.f, 0.0f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_RIGHT), lightEnable);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 250.0f, 0.0f);
+		modelStack.Translate(0.0f, 15.f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_TOP), lightEnable);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, -250.0f, 0.0f);
+		modelStack.Translate(0.0f, -15.f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, -250.0f);
+		modelStack.Translate(0.0f, 0.0f, -15.f);
 		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BACK), lightEnable);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, 250.0f);
+		modelStack.Translate(0.0f, 0.0f, 15.f);
 		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
+		modelStack.Scale(30.0f, 30.0f, 30.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_FRONT), lightEnable);
 		modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
 }
 
-bool SceneAssignment2::passedInteractCooldown() {
+bool SceneGunShop::passedInteractCooldown() {
 	const float INTERACTION_COOLDOWN = 0.5f;
 	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
 		return true;
@@ -899,12 +700,12 @@ bool SceneAssignment2::passedInteractCooldown() {
 	return false;
 }
 
-void SceneAssignment2::sendNotification(std::string msg, double duration) {
+void SceneGunShop::sendNotification(std::string msg, double duration) {
 	showNotifUntil = (float)(elapsed + duration);
 	notificationMessage = msg;
 }
 
-void SceneAssignment2::split(std::string txt, char delim, std::vector<std::string>& out) {
+void SceneGunShop::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
 	while (std::getline(iss, item, delim)) {
@@ -912,7 +713,7 @@ void SceneAssignment2::split(std::string txt, char delim, std::vector<std::strin
 	}
 }
 
-bool SceneAssignment2::runCommand(std::string cmd) {
+bool SceneGunShop::runCommand(std::string cmd) {
 	std::vector<std::string> splitVar;
 	split(cmd, ' ', splitVar);
 
@@ -933,7 +734,7 @@ bool SceneAssignment2::runCommand(std::string cmd) {
 	return true;
 }
 
-bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
+bool SceneGunShop::loadInteractions(INTERACTION_TYPE type) {
 	if (!isInteracting) {
 
 		switch (type) {
@@ -996,7 +797,7 @@ bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
 	return false;
 }
 
-void SceneAssignment2::nextInteraction() {
+void SceneGunShop::nextInteraction() {
 	if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
 		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
 			this->runCommand(entry);
@@ -1016,7 +817,7 @@ void SceneAssignment2::nextInteraction() {
 	}
 }
 
-void SceneAssignment2::EndInteraction() {
+void SceneGunShop::EndInteraction() {
 	if (isInteracting) {
 
 		completedInteractionsCount[currentInteractionType]++;
@@ -1032,7 +833,7 @@ void SceneAssignment2::EndInteraction() {
 	}
 }
 
-void SceneAssignment2::Exit()
+void SceneGunShop::Exit()
 {
 	// Cleanup VBO here
 	this->EndInteraction(); //To clear up queuedMessages pointers

@@ -12,13 +12,13 @@ ButtonManager::~ButtonManager() {
 	this->buttons.clear();
 }
 
-void ButtonManager::update(double dt) {
+void ButtonManager::Update(double dt) {
 	double xPos, yPos;
 	Application::GetCursorPos(&xPos, &yPos);
-	
+
 	//Check later
 	xPos /= 10.0;
-	yPos /= 10.0;
+	yPos = (Application::GetWindowHeight() - yPos) / 10.0;
 
 	std::vector<Button*> thisTickInteractedButtons;
 
@@ -52,7 +52,15 @@ void ButtonManager::update(double dt) {
 	}
 }
 
+std::vector<ButtonCollide*> ButtonManager::getButtonsInteracted() {
+	return this->buttonsInteractedThisTick;
+}
+
 void ButtonManager::addButton(Button* button) {
 	buttons.push_back(button);
+}
+
+std::vector<Button*> ButtonManager::getButtons() {
+	return buttons;
 }
 

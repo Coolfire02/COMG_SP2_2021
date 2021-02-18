@@ -66,6 +66,9 @@ struct Vector3
 	//Throw a divide by zero exception if normalizing a zero vector
 	Vector3& Normalize( void ) throw( DivideByZero );
 
+	//Get midpoint of 2 vectors;
+	Vector3 GetMidpoint(const Vector3& lhs, const Vector3& rhs) const;
+
 	//Magnitude
 	float Magnitude();
 	
