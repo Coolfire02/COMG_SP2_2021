@@ -38,7 +38,6 @@ public:
 	bool GetMouseUpdate();
 
 private:
-	static int mainScene;
 	//Declare a window object
 	StopWatch m_timer;
 };

@@ -21,7 +21,7 @@ void Car::Init() {
 
 	switch (carType) {
 	case SEDAN:
-		this->maxCarSpeed = 0.5f;
+		this->carSpeed = 5.f;
 		this->associatedType = GEO_SEDAN;
 		break;
 	case SEDAN_SPORTS:

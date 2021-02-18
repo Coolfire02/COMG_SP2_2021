@@ -20,11 +20,37 @@ bool MeshHandler::loadMeshes() {
 
 	//OBJS
 	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building1.obj", "MTL//Buildings//1.mtl");
+	meshList[GEO_BUILDING_2] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building2.obj", "MTL//Buildings//2.mtl");
+	meshList[GEO_BUILDING_3] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building4.obj", "MTL//Buildings//4.mtl");
+	meshList[GEO_BUILDING_4] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building5.obj", "MTL//Buildings//5.mtl");
+	meshList[GEO_BUILDING_5] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building6.obj", "MTL//Buildings//6.mtl");
+	meshList[GEO_BUILDING_6] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building7.obj", "MTL//Buildings//7.mtl");
+	meshList[GEO_BUILDING_7] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building9.obj", "MTL//Buildings//9.mtl");
+	
 	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_2]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_3]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_4]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_5]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_6]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BUILDING_7]->textureID = LoadTGA("Image//Building1Texture.tga");
+
+	//Roads
+	meshList[GEO_ROAD_CROSSING] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_crossing.obj", "MTL//Roads//road_crossing.mtl");
+	meshList[GEO_ROAD_TILE] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//tile_low.obj", "MTL//Roads//tile_low.mtl");
+	meshList[GEO_ROAD] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_straight.obj", "MTL//Roads//road_straight.mtl");
+	meshList[GEO_ROAD_INTERSECTION_PATH] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_intersectionPath.obj", "MTL//Roads//road_intersectionPath.mtl");
+	meshList[GEO_ROAD_ROUNDABOUT] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_roundabout.obj", "MTL//Roads//road_roundabout.mtl");
+	meshList[GEO_ROAD_BEND] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_bend.obj", "MTL//Roads//road_bend.mtl");
+	meshList[GEO_ROAD_END] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_end.obj", "MTL//Roads//road_end.mtl");
+	meshList[GEO_ROAD_STREET_LAMP] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//light_curved.obj", "MTL//Roads//light_curved.mtl");
+
 	
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 
+	//Weapons
+	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");
 	////Sonic characters
 	//meshList[GEO_SONIC_EGGMAN] = MeshBuilder::GenerateOBJMTL("Eggman", "OBJ//Eggman.obj", "MTL//Eggman.mtl");
 	//meshList[GEO_SONIC_TAILS] = MeshBuilder::GenerateOBJMTL("Tails", "OBJ//Tails.obj", "MTL//Tails.mtl");
