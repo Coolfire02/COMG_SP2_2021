@@ -185,8 +185,6 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
 	eManager.spawnMovingEntity(car);*/
 
-
-
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
