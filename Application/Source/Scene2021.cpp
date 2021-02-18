@@ -179,10 +179,10 @@ void Scene2021::Init() {
 		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
 
 		int random5 = (rand() % 7) + 3;
-		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
+		RenderBuildings(Vector3(-50 * i - 50, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
 
 		int random6 = (rand() % 7) + 3;
-		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
+		RenderBuildings(Vector3(50 * i + 50, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
 	}
 
 	Entity* car = new Car(SEDAN, this, "car");
@@ -258,10 +258,10 @@ void Scene2021::Init() {
 	light[1].spotDirection.Set(0, 0, 1);
 
 	//3rd light
-	light[2].type = Light::LIGHT_DIRECTIONAL;
-	light[2].position.set(0, 100, 150);
-	light[2].color.set(1.f,1.f,1.f); //set to white light
-	light[2].power = 0.5;
+	light[2].type = Light::LIGHT_SPOT;
+	light[2].position.set(0, 0, 0);
+	light[2].color.set(0.5f, 0.7f, 1.f); //set to white light
+	light[2].power = 5;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
@@ -435,7 +435,7 @@ void Scene2021::Update(double dt)
 	}
 
 	camera.Update(dt);
-	
+
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
 		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
@@ -481,6 +481,10 @@ void Scene2021::Update(double dt)
 	case TOPDOWN_THIRDPERSON:
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	case THIRDPERSON:
+		light[2].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[2].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		break;
 	}
 
@@ -599,11 +603,6 @@ void Scene2021::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
 	RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
@@ -622,24 +621,6 @@ void Scene2021::Render()
 	else { //Point light
 		Position lightPos_cameraSpace = viewStack.Top() * light[0].position;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
-	}
-
-	if (light[2].type == Light::LIGHT_DIRECTIONAL) {
-		Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
-		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
-
-	}
-	else if (light[2].type == Light::LIGHT_SPOT) {
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-		Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-	}
-	else { //Point light
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
 	}
 
 	switch (camera.camType)
@@ -687,6 +668,25 @@ void Scene2021::Render()
 		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
 		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 		modelStack.PopMatrix();
+		break;
+	case THIRDPERSON:
+		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[2].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+		}
 		break;
 	default:
 		break;
@@ -897,6 +897,26 @@ void Scene2021::RenderRoads()
 	modelStack.Translate(-4, 0, 0);
 	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
 
+	modelStack.PushMatrix();
+	modelStack.Translate(5, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-6, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(7, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-8, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
