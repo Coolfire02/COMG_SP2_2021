@@ -76,6 +76,14 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_ENDRACE] = MeshBuilder::GenerateQuad("EndRace", Color(1, 1, 1));
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
 	
+	//General UI
+	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("shapeUI", Color(1, 1, 1));
+	meshList[UI_BLACK]->textureID = LoadTGA("Image//shapeUI.tga");
+	meshList[UI_BLUE] = MeshBuilder::GenerateQuad("shapeUI2", Color(1, 1, 1));
+	meshList[UI_BLUE]->textureID = LoadTGA("Image//shapeUI2.tga");
+	meshList[UI_WINDOW] = MeshBuilder::GenerateQuad("panelUI", Color(1, 1, 1));
+	meshList[UI_WINDOW]->textureID = LoadTGA("Image//panelUI.tga");
+
 	//UI Items
 	meshList[UI_EGGPLANT] = MeshBuilder::GenerateQuad("eggplantUI", Color(1, 1, 1));
 	meshList[UI_EGGPLANT]->textureID = LoadTGA("Image//eggplantUI.tga");

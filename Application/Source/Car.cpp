@@ -3,6 +3,8 @@
 
 Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTYPE::CAR, name)
 {
+	this->maxCarSpeed = 0.5f;
+	this->carSpeedGoal = this->carSpeed = 0.f;
 	this->carType = type;
 	this->scene = scene;
 	this->name = name;
@@ -25,26 +27,31 @@ void Car::Init() {
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case SEDAN_SPORTS:
+		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_SEDAN_SPORTS;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case RACER:
+		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_RACER;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case POLICE:
+		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_POLICE;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case AMBULANCE:
+		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_AMBULANCE;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case SUV:
+		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_SUV;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));

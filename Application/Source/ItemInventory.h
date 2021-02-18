@@ -1,23 +1,29 @@
 #pragma once
 #include "Item.h"
+#include <vector>
 //ItemInventory class created by Ridwan on 16/2/2021
 
 class ItemInventory //Inventory slot
 {
 private:
-	Item item;
-	int amtOfItems;
+	std::vector<Item*> itemInv;
+	Item* currentItem;
 public:
 	ItemInventory();
 	ItemInventory(ITEM_TYPE itemtype, int amt);
 	~ItemInventory();
 
-	//Setters
-	void setItemType(ITEM_TYPE itemtype);
-	void setAmtOfItems(int amt);
+	void addItem(ITEM_TYPE itemtype, int amt);
+	void toggleItem();
+	void usingItem();
+	void negativeAmtCheckAndSetter(Item* item, int number);
 
-	//Getters
-	ITEM_TYPE getItemType();
-	int getAmtOfItems();
+	//Setters
+	void setAmtOfItems(ITEM_TYPE itemtype, int amt);
+
+	//Getter
+	int getCurrentItemAmt();
+	ITEM_TYPE getCurrenItemType();
+	Item* getCurrentItem();
 };
 

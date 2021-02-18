@@ -158,7 +158,7 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->SetTransform(0, 0, 60);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnWorldEntity(car);
+	eManager.spawnMovingEntity(car);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -189,8 +189,6 @@ void SceneAssignment2::Init() {
 	/*Entity* car = new Car(SEDAN, this, "sedan");
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
 	eManager.spawnMovingEntity(car);*/
-
-
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -296,22 +294,22 @@ void SceneAssignment2::Update(double dt)
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
-	/*if (Application::IsKeyPressed('F'))
-	{
-		inv.addItem(BURGER, 1);
-		inv.addItem(EGGPLANT, 1);
-		inv.addItem(CORN, 1);
-		inv.addCar(SUV);
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	{
-		toggleTimer = 0;
-		inv.toggleItem();
-		if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);
-	}*/
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	inv.addItem(BURGER, 1);
+	//	inv.addItem(EGGPLANT, 2);
+	//	inv.addItem(CORN, 3);
+	//	//inv.addCar(SUV);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	//{
+	//	toggleTimer = 0;
+	//	inv.toggleItem();
+	//	/*if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);*/
+	//}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -324,8 +322,8 @@ void SceneAssignment2::Update(double dt)
 
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			entry->getEntityData()->Rotation.x += 2 * dt;
-			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
+			// entry->getEntityData()->Rotation.x += 2 * dt;
+			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
@@ -392,6 +390,14 @@ void SceneAssignment2::Update(double dt)
 					}
 				}
 			}
+		}
+
+		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				entry->attacker->cancelNextMovement();
+				std::cout << "Car Collided" << std::endl;
+			}
+
 		}
 		
 	}
@@ -682,6 +688,7 @@ void SceneAssignment2::Render()
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
+			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;
@@ -710,6 +717,14 @@ void SceneAssignment2::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
+
+	////UI Testing Health
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+
+	//ss.str("");
+	//ss.clear();
+	//ss << "6/30";
+	//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 102, 18);
 
 	////UI inventory testing
 	//switch (inv.getCurrentItemType())

@@ -78,6 +78,10 @@ struct Box {
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.yAxis), otherBox) ||
 			hasSeparatingPlane(vector, this->zAxis.Cross(otherBox.zAxis), otherBox));
 		collider.collided = collided;
+
+		if (collider.collided) {
+			std::cout << "yea" << std::endl;
+		}
 		return collider;
 	}
 
