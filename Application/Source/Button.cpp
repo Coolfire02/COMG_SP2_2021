@@ -48,6 +48,14 @@ void Button::Render() {
 	}
 }
 
+bool Button::isInRange(double x, double y) {
+	if(UIInfo.originX >= x && x < (UIInfo.originX + UIInfo.sizeOfQuad)
+		&& UIInfo.originY >= y && y < (UIInfo.originY + UIInfo.sizeOfQuad)) {
+		return true;
+	}
+	return false;
+}
+
 void Button::setQuadImage(GEOMETRY_TYPE type) {
 	this->quadTexture = type;
 }

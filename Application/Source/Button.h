@@ -18,6 +18,7 @@ public:
 	Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSize, GEOMETRY_TYPE quadTexture);
 	void spawnTextObject(std::string text, Color txtColor, FONTTYPE type, float textSize);
 
+	bool isInRange(double, double);
 	void setTextObject(Text* textPtr);
 	void setText(std::string text);
 	void setText(std::ostringstream text);
