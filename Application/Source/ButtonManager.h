@@ -7,6 +7,9 @@ struct ButtonCollide {
 	Button* buttonClicked;
 	bool justClicked;
 	float firstClickTime;
+
+	bool justHovered;
+	bool hovering;
 	ButtonCollide(Button* button, float firstClickTime) : buttonClicked(button), justClicked(true), firstClickTime(firstClickTime) {}
 };
 
@@ -22,7 +25,7 @@ public:
 	ButtonManager(Scene*);
 	~ButtonManager();
 
-	void update(double dt);
+	void Update(double dt);
 
 	void addButton(Button* button);
 	void deleteButton(Button* button);

@@ -7,6 +7,7 @@
 
 #include "shader.hpp"
 #include "Utility.h"
+#include "Application.h"
 
 void Scene::elapser(double dt) {
 	elapsed += dt;
@@ -68,7 +69,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 128, 0, 72, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::GetWindowWidth()/10, 0, Application::GetWindowHeight()/10, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -112,7 +113,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 void Scene::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizeX, int sizeY) {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::GetWindowWidth()/10, 0, Application::GetWindowHeight()/10, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();

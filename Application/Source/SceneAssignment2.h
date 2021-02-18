@@ -14,6 +14,7 @@
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
+#include "ButtonManager.h"
 
 //Entities
 #include "NPC.h"
@@ -42,6 +43,8 @@ private:
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
+	ButtonManager bManager;
+
 
 	//Game Variables
 	Player* player;
