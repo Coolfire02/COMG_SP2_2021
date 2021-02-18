@@ -500,7 +500,7 @@ void SceneAssignment2::Update(double dt)
 	Vector3 oldLoc = Vector3(pLoc);
 
 	//Requires Implementation of Velocity by Joash
-	const float playerSpeed = 15.0;
+	float playerSpeed = 15.0;
 	if (!((Player*)player)->isDriving()) {
 
 		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {

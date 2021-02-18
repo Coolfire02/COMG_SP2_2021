@@ -59,7 +59,7 @@ void Car::Init() {
 	default:
 		break;
 	}
-	this->maxCarSpeed = 5.f;
+	this->maxCarSpeed = 2.f;
 	this->carSpeedGoal = this->carSpeed = 0.f;
 }
 
@@ -155,7 +155,7 @@ void Car::Update(double dt) {
 
 
 	if (Application::IsKeyPressed('S')) {
-		carSpeedGoal = - maxCarSpeed * 0.75f;
+		carSpeedGoal = - maxCarSpeed * 0.25f;
 		if (carSpeed > 0) //added test case for if car is braking, still allow steering controls till car completely stops
 		{
 			if (Application::IsKeyPressed('D'))

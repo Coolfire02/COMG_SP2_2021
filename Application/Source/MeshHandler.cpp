@@ -40,6 +40,10 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_ROAD_TILE] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//tile_low.obj", "MTL//Roads//tile_low.mtl");
 	meshList[GEO_ROAD] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_straight.obj", "MTL//Roads//road_straight.mtl");
 	meshList[GEO_ROAD_INTERSECTION_PATH] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_intersectionPath.obj", "MTL//Roads//road_intersectionPath.mtl");
+	meshList[GEO_ROAD_ROUNDABOUT] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_roundabout.obj", "MTL//Roads//road_roundabout.mtl");
+	meshList[GEO_ROAD_BEND] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_bend.obj", "MTL//Roads//road_bend.mtl");
+	meshList[GEO_ROAD_END] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_end.obj", "MTL//Roads//road_end.mtl");
+	meshList[GEO_ROAD_STREET_LAMP] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//light_curved.obj", "MTL//Roads//light_curved.mtl");
 
 	
 	//Cars

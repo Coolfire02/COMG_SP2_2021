@@ -78,14 +78,20 @@ private:
 
 	void RenderSkybox();
 	void RenderRoads();
-	void RenderBuildings(Vector3 v3, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
+	void initBuildings(Vector3 v3, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
+	void initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
+	void SpawnBuildings();
+	void SpawnStreetLamps();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 
 	//topdown cam map
 	bool camMap;
 
 	bool eHeld = false;
-	int random = rand() % 9 + 3;
+
+	float CameraBobber = 0;
+	double bobTime = 0;
+
 public:
 	Scene2021();
 	~Scene2021();
