@@ -169,6 +169,7 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\SceneGunShop.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\UIItem.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneGunShop.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\UIManager.h" />
     <ClInclude Include="Source\Utility.h" />

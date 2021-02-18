@@ -82,16 +82,26 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SKY_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1));
 	meshList[GEO_SKY_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1));
 
-	meshList[GEO_SKY_LEFT]->textureID = LoadTGA("Image//bluecloud_lf.tga");
-	meshList[GEO_SKY_RIGHT]->textureID = LoadTGA("Image//bluecloud_rt.tga");
-	meshList[GEO_SKY_TOP]->textureID = LoadTGA("Image//bluecloud_up.tga");
-	meshList[GEO_SKY_BOTTOM]->textureID = LoadTGA("Image//bluecloud_dn.tga");
-	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//bluecloud_ft.tga");
-	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//bluecloud_bk.tga");
+	meshList[GEO_SKY_LEFT]->textureID = LoadTGA("Image//Skybox//bluecloud_lf.tga");
+	meshList[GEO_SKY_RIGHT]->textureID = LoadTGA("Image//Skybox//bluecloud_rt.tga");
+	meshList[GEO_SKY_TOP]->textureID = LoadTGA("Image//Skybox//bluecloud_up.tga");
+	meshList[GEO_SKY_BOTTOM]->textureID = LoadTGA("Image//Skybox//bluecloud_dn.tga");
+	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//Skybox//bluecloud_ft.tga");
+	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//Skybox//bluecloud_bk.tga");
+
+	meshList[GEO_GUNSHOP_LEFT] = MeshBuilder::GenerateQuad("left", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_RIGHT] = MeshBuilder::GenerateQuad("right", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_TOP] = MeshBuilder::GenerateQuad("top", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(0.545, 0.271, 0.075));
+	meshList[GEO_GUNSHOP_FRONT] = MeshBuilder::GenerateQuad("front", Color(0.871f, 0.722f, 0.529f));
+	meshList[GEO_GUNSHOP_BACK] = MeshBuilder::GenerateQuad("back", Color(0.871f, 0.722f, 0.529f));
+
+	meshList[GEO_GUNSHOP_TOP]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
+	meshList[GEO_GUNSHOP_TOP]->material.kDiffuse.Set(0.2, 0.2, 0.2);
 
 	//NON-OBJS
-
-
+	meshList[GEO_WIREMESH] = MeshBuilder::GenerateQuad("wiremesh", Color(1, 1, 1), 10, 10);
+	meshList[GEO_WIREMESH]->textureID = LoadTGA("Image//GunShop//WireMesh.tga");
 	//Materials
 
 	/*Material mat;

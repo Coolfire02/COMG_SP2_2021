@@ -23,42 +23,36 @@ void Car::Init() {
 	case SEDAN:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_SEDAN;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case SEDAN_SPORTS:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_SEDAN_SPORTS;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case RACER:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_RACER;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case POLICE:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_POLICE;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case AMBULANCE:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_AMBULANCE;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	case SUV:
 		this->maxCarSpeed = 0.5f;
 		this->associatedType = GEO_SUV;
-		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
 		break;
 	default:
 		break;
 	}
+
+	if (associatedType != 0) {
+		theMesh = MeshHandler::getMesh(associatedType);
+		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
+	}
+
 }
 
 Car::Car()
@@ -95,36 +89,31 @@ Player* Car::getPlayer()
 	return this->plr;
 }
 
-float Car::Interpolate(float GoalVelocity, float CurrentVelocity, double dt) {
-	float flDifference = GoalVelocity - CurrentVelocity;
-
-	if (flDifference > dt)
-		return CurrentVelocity + dt;
-
-	if (flDifference < -dt)
-		return CurrentVelocity - dt;
-
-	return GoalVelocity;
-}
-
 void Car::Update(double dt) {
 
 	if (!plr)
 		return;
 
+	if (carSpeed > 0)
+		carSpeed -= dt * 0.3;
+
+	if (carSpeed < 0) {
+		carSpeed += dt * 0.3;
+	}
+
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 
 	if (Application::IsKeyReleased('S')) {
-		carSpeedGoal = 0;
+		acceleration = 0;
 	}
 
 	if (Application::IsKeyReleased('W')) {
-		carSpeedGoal = 0;
+		acceleration = 0;
 	}
 
 	if (Application::IsKeyPressed('W')) {
-		carSpeedGoal = maxCarSpeed;
+		acceleration = maxCarSpeed;
 	}
 
 	if (Application::IsKeyPressed('D')) {
@@ -145,7 +134,7 @@ void Car::Update(double dt) {
 
 
 	if (Application::IsKeyPressed('S')) {
-		carSpeedGoal = - maxCarSpeed * 0.25f;
+		acceleration = - maxCarSpeed * 0.75f;
 		// this->velocity = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
 	}
 
@@ -154,7 +143,11 @@ void Car::Update(double dt) {
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
 		this->getEntityData()->Rotation.y = 0;
 
-	carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
+	// carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
+	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f) {
+		carSpeed = carSpeed + acceleration * dt;
+	}
+
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 	this->getEntityData()->Translate += this->velocity;
