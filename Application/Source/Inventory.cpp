@@ -102,8 +102,9 @@ void Inventory::getGarageInventory()
 {
 }
 
-void Inventory::getItemInventory()
+ItemInventory* Inventory::getItemInventory()
 {
+	return this->itemInventory;
 }
 
 CAR_TYPE Inventory::getCurrentCarType()

@@ -74,7 +74,7 @@ private:
 	bool hitboxEnable;
 	float fps;
 
-	float toggleTimer = 0;
+	float toggleTimer = 0; //Used for toggling between items
 
 	void RenderSkybox();
 	void split(std::string txt, char delim, std::vector<std::string>& out);

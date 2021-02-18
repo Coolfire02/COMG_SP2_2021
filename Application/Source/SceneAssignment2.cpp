@@ -688,24 +688,32 @@ void SceneAssignment2::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
 
+	////UI Testing Health
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+
+	//ss.str("");
+	//ss.clear();
+	//ss << "6/30";
+	//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 102, 18);
+
 	////UI inventory testing
-	switch (inv.getCurrentItemType())
-	{
-	case BURGER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-		//std::cout << "Burger";
-		break;
-	case CORN:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-		//std::cout << "Corn";
-		break;
-	case EGGPLANT:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-		//std::cout << "Eggplant";
-		break;
-	default:
-		break;
-	}
+	//switch (inv.getCurrentItemType())
+	//{
+	//case BURGER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+	//	//std::cout << "Burger";
+	//	break;
+	//case CORN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+	//	//std::cout << "Corn";
+	//	break;
+	//case EGGPLANT:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+	//	//std::cout << "Eggplant";
+	//	break;
+	//default:
+	//	break;
+	//}
 	////test garage inv
 	//switch (inv.getCurrentCarType())
 	//{

@@ -33,6 +33,11 @@ enum GEOMETRY_TYPE {
 	GEO_SKY_FRONT,
 	GEO_SKY_BACK,
 
+	//General UI
+	UI_BLACK,
+	UI_BLUE,
+	UI_WINDOW,
+
 	//UI Items
 	UI_EGGPLANT,
 	UI_CORN,

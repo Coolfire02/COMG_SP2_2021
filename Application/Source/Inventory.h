@@ -34,7 +34,7 @@ public:
 
 	//Getters
 	void getGarageInventory();
-	void getItemInventory();
+	ItemInventory* getItemInventory();
 
 	CAR_TYPE getCurrentCarType();
 	ITEM_TYPE getCurrentItemType();
