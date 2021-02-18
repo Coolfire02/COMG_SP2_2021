@@ -42,9 +42,9 @@ void HitBox::UpdateAxis(Vector3 xAxis, Vector3 zAxis) {
 void HitBox::RotateAxis(float degree, Vector3 rotateAxis) {
 	this->hitBox->Rotate.SetToIdentity();
 	this->hitBox->Rotate.SetToRotation(degree, rotateAxis.x, rotateAxis.y, rotateAxis.z);
-	this->hitBox->xAxis = this->hitBox->Rotate * Vector3(1, 0, 0);
-	this->hitBox->yAxis = this->hitBox->Rotate * Vector3(0, 1, 0);
-	this->hitBox->zAxis = this->hitBox->Rotate * Vector3(0, 0, 1);
+	this->hitBox->xAxis = this->hitBox->Rotate * this->hitBox->xAxis;
+	this->hitBox->yAxis = this->hitBox->Rotate * this->hitBox->yAxis;
+	this->hitBox->zAxis = this->hitBox->Rotate * this->hitBox->zAxis;
 }
 
 HitBox::~HitBox() {

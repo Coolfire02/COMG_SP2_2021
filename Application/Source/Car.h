@@ -38,7 +38,9 @@ public:
 	 
 	void     Init();
 	void     setSpeed(float speed);
+	void	 setAccel(float a);
 	void     setPlayer(Player*);
+	float	 getAccel();
 	float    getSpeed();
 
 	CAR_TYPE getCartype();

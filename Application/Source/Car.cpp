@@ -70,8 +70,16 @@ void Car::setSpeed(float speed)
 	this->carSpeed = speed;
 }
 
+void Car::setAccel(float a) {
+	acceleration = a;
+}
+
 void Car::setPlayer(Player* player) {
 	this->plr = player;
+}
+
+float Car::getAccel() {
+	return acceleration;
 }
 
 float Car::getSpeed()

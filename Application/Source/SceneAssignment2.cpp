@@ -341,12 +341,12 @@ void SceneAssignment2::Update(double dt)
 	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			entry->getEntityData()->Rotation.x += 2 * dt;
-			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
+			// entry->getEntityData()->Rotation.x += 2 * dt;
+			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -414,7 +414,9 @@ void SceneAssignment2::Update(double dt)
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				entry->attacker->cancelNextMovement();
+				// entry->attacker->cancelNextMovement();
+				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				std::cout << "Car Collided" << std::endl;
 			}
 
@@ -697,13 +699,13 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			modelStack.Translate(entity->getHitBox()->getThisTickBox()->currentPos.x, entity->getHitBox()->getThisTickBox()->currentPos.z, entity->getHitBox()->getThisTickBox()->currentPos.x);
-			//modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
-		    //modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
-			//modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
-			//modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
-			//modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-		    modelStack.Translate(-entity->getHitBox()->getThisTickBox()->currentPos.x, -entity->getHitBox()->getThisTickBox()->currentPos.z, -entity->getHitBox()->getThisTickBox()->currentPos.x);
+			//modelStack.Translate(entity->getHitBox()->getThisTickBox()->currentPos.x, entity->getHitBox()->getThisTickBox()->currentPos.z, entity->getHitBox()->getThisTickBox()->currentPos.x);
+			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
+		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
+			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
+			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
+		   // modelStack.Translate(-entity->getHitBox()->getThisTickBox()->currentPos.x, -entity->getHitBox()->getThisTickBox()->currentPos.z, -entity->getHitBox()->getThisTickBox()->currentPos.x);
 			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
