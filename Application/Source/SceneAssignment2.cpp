@@ -153,7 +153,7 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->SetTransform(0, 0, 60);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnWorldEntity(car);
+	eManager.spawnMovingEntity(car);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -317,8 +317,8 @@ void SceneAssignment2::Update(double dt)
 
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			entry->getEntityData()->Rotation.x += 2 * dt;
-			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
+			// entry->getEntityData()->Rotation.x += 2 * dt;
+			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
@@ -385,6 +385,14 @@ void SceneAssignment2::Update(double dt)
 					}
 				}
 			}
+		}
+
+		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				entry->attacker->cancelNextMovement();
+				std::cout << "Car Collided" << std::endl;
+			}
+
 		}
 		
 	}
@@ -650,6 +658,7 @@ void SceneAssignment2::Render()
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
+			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;

@@ -53,6 +53,23 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 			}
 		}
 	}
+
+	for (auto& movingE : movingEntities) {
+		for (auto& movingE2 : movingEntities) {
+			if (movingE == movingE2)
+				continue;
+
+			Collider c = movingE->getHitBox()->collidedWith(movingE2->getHitBox());
+			if (c.collided) {
+				//std::cout << "Collision detected!" << std::endl;
+				thisTick.push_back(new CollidedWith(movingE, movingE2, true, c.plane));
+			}
+			else {
+				/*std::cout << "No Collision detected!" << std::endl;
+				std::cout << "" << std::endl;*/
+			}
+		}
+	}
 	return thisTick;
 }
 
