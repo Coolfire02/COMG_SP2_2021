@@ -12,7 +12,7 @@
 #include "Car.h"
 
 SceneAssignment2::SceneAssignment2() : 
-	eManager(this)
+	eManager(this), bManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -185,6 +185,14 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
 	eManager.spawnMovingEntity(car);*/
 
+	//Buttons
+
+	Button* button;
+	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
+	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
+	button->getTextObject()->setText("Test");
+	bManager.addButton(button);
+
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
@@ -289,22 +297,26 @@ void SceneAssignment2::Update(double dt)
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	inv.addItem(BURGER, 1);
-	//	inv.addItem(EGGPLANT, 2);
-	//	inv.addItem(CORN, 3);
-	//	//inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	//{
-	//	toggleTimer = 0;
-	//	inv.toggleItem();
-	//	/*if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);*/
-	//}
+	if (Application::IsKeyPressed('F'))
+	{
+		inv.addItem(BURGER, 1);
+		inv.addItem(EGGPLANT, 2);
+		inv.addItem(CORN, 3);
+		//inv.addWeap(PISTOL); //Error if you try to add weapons
+		//inv.addCar(SUV);
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	{
+		toggleTimer = 0;
+		inv.toggleItem();
+		/*if (inv.getCurrentCarType() == SEDAN)
+			inv.switchCar(SUV);
+		else
+			inv.switchCar(SEDAN);*/
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	{
+	}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -312,9 +324,19 @@ void SceneAssignment2::Update(double dt)
 	if (!ePressed)
 		eHeld = false;
 
+	//Button Interaction Handling
+	bManager.Update(dt);
+	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
+			std::cout << "Clicked" << std::endl;
+		}
+	}
+	if (ePressed) Application::setCursorEnabled(true);
+
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
+	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
@@ -495,12 +517,22 @@ void SceneAssignment2::Update(double dt)
 	Vector3 oldLoc = Vector3(pLoc);
 
 	//Requires Implementation of Velocity by Joash
-	const float playerSpeed = 15.0;
-
+	float playerSpeed = 15.0;
 	if (!((Player*)player)->isDriving()) {
+
+		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+			camera.position.y += CameraBobber;
+		}
+
 		if (Application::IsKeyPressed('W')) {
+
+			if (Application::IsKeyPressed(VK_LSHIFT)) {
+				playerSpeed = 25.f;
+			}
+
 			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc += view * (float)dt * playerSpeed;
+
 		}
 		if (Application::IsKeyPressed('A')) {
 			Vector3 view = (camera.target - camera.position).Normalized();
@@ -532,6 +564,9 @@ void SceneAssignment2::Update(double dt)
 		player->getEntityData()->Translate.x = pLoc.x;
 		// Skip y since we want level ground
 		player->getEntityData()->Translate.z = pLoc.z;
+
+		bobTime += dt;
+		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
 }
 
@@ -665,6 +700,10 @@ void SceneAssignment2::Render()
 		}
 	}
 
+	for (auto& button : bManager.getButtons()) {
+		button->Render();
+	}
+
 	std::ostringstream ss;
 
 	//Coins UI
@@ -688,36 +727,60 @@ void SceneAssignment2::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
 
-	////UI inventory testing
+	//UI Testing Health
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+
+	ss.str("");
+	ss.clear();
+	ss << "6/30";
+	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
+
+	//UI inventory testing
 	switch (inv.getCurrentItemType())
 	{
 	case BURGER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-		//std::cout << "Burger";
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 70, 10, 10, 10);
 		break;
 	case CORN:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-		//std::cout << "Corn";
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 70, 10, 10, 10);
 		break;
 	case EGGPLANT:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-		//std::cout << "Eggplant";
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 10, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 10, 10, 10);
+		break;
+	}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 10, 10, 10);
+	//test garage inv
+	/*switch (inv.getCurrentCarType())
+	{
+	case SEDAN:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
+		break;
+	case SUV:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
 		break;
 	default:
 		break;
+	}*/
+
+	switch (inv.getActiveWeapon()->weaponType)
+	{
+	case FIST:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 20, 10, 10);
+		break;
+	case PISTOL:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 70, 20, 10, 10);
+		break;
+	case SILENCER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 70, 20, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 20, 10, 10);
+		break;
 	}
-	////test garage inv
-	//switch (inv.getCurrentCarType())
-	//{
-	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
-	//	break;
-	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
-	//	break;
-	//default:
-	//	break;
-	//}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 20, 10, 10);
 	
 	//FPS UI
 	ss.str("");

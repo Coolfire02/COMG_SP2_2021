@@ -14,6 +14,7 @@
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
+#include "ButtonManager.h"
 
 //Entities
 #include "NPC.h"
@@ -42,6 +43,8 @@ private:
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
+	ButtonManager bManager;
+
 
 	//Game Variables
 	Player* player;
@@ -74,13 +77,16 @@ private:
 	bool hitboxEnable;
 	float fps;
 
-	float toggleTimer = 0;
+	float toggleTimer = 0; //Used for toggling between items
 
 	void RenderSkybox();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 
 	//topdown cam map
 	bool camMap;
+	
+	float CameraBobber = 0;
+	double bobTime = 0;
 
 public:
 	SceneAssignment2();

@@ -70,10 +70,6 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 	return;
 }
 
-void Inventory::deleteItem(ITEM_TYPE itemtype)
-{
-}
-
 void Inventory::switchCar(CAR_TYPE cartype)
 {
 	for (int i = 0; i < garageInv.size(); i++)
@@ -100,10 +96,17 @@ void Inventory::toggleItem()
 
 void Inventory::getGarageInventory()
 {
+	//blank for now
 }
 
-void Inventory::getItemInventory()
+ItemInventory* Inventory::getItemInventory()
 {
+	return this->itemInventory;
+}
+
+std::vector<Item*> Inventory::getItemVector()
+{
+	return itemInventory->getItemVect();
 }
 
 CAR_TYPE Inventory::getCurrentCarType()

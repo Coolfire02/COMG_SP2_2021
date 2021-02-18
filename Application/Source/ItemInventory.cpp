@@ -110,4 +110,9 @@ Item* ItemInventory::getCurrentItem()
 	return this->currentItem;
 }
 
+std::vector<Item*> ItemInventory::getItemVect()
+{
+	return this->itemInv;
+}
+
 

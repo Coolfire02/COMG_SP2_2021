@@ -58,7 +58,8 @@ Text::Text(Scene* scene, Color color, float originX, float originY, float quadSi
     this->color = color;
     UIInfo.originX = originX;
     UIInfo.originY = originY;
-    UIInfo.sizeOfQuad = quadSize;
+    UIInfo.sizeX = quadSize;
+    UIInfo.sizeY = quadSize;
     textFont = loadedFonts[font];
     this->size = size;
     this->visible = true;
@@ -104,7 +105,7 @@ void Text::changeFont(FONTTYPE type) {
 }
 
 void Text::Render() {
-    scene->RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), this->text.str(), color, UIInfo.sizeOfQuad, UIInfo.originX, UIInfo.originY);
+    scene->RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), this->text.str(), color, UIInfo.sizeX, UIInfo.originX, UIInfo.originY);
 }
 
 Text::~Text() {

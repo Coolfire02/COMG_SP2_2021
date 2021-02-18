@@ -42,6 +42,11 @@ enum GEOMETRY_TYPE {
 	GEO_GUNSHOP_BOTTOM,
 	GEO_GUNSHOP_FRONT,
 	GEO_GUNSHOP_BACK,
+	//General UI
+	UI_BLACK,
+	UI_BLUE,
+	UI_WINDOW,
+	UI_EMPTY,
 
 	//UI Items
 	UI_EGGPLANT,
@@ -52,8 +57,12 @@ enum GEOMETRY_TYPE {
 	UI_SEDAN,
 	UI_SUV,
 
+	//UI Weapons
+	UI_PISTOL,
+	UI_SILENCER,
+
 	//Textured Quads
-	
+
 
 	//For non-OBJs
 
@@ -73,4 +82,3 @@ public:
 
 	static Mesh* getMesh(GEOMETRY_TYPE);
 };
-

@@ -25,5 +25,6 @@ public:
 	int getCurrentItemAmt();
 	ITEM_TYPE getCurrenItemType();
 	Item* getCurrentItem();
+	std::vector<Item*> getItemVect();
 };
 
