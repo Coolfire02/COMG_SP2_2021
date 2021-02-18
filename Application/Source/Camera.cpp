@@ -153,7 +153,9 @@ void Camera::Update(double dt)
 		break;
 	case THIRDPERSON:
 	{
+		right.y = 0;
 		right.Normalize();
+		up = right.Cross(view).Normalized();
 		{
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
@@ -162,9 +164,6 @@ void Camera::Update(double dt)
 			up = rotation * up;
 		}
 		{
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(pitch, right.x, right.y, right.z);
 			position = rotation * position;

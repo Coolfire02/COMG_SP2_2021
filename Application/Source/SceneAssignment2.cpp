@@ -319,6 +319,7 @@ void SceneAssignment2::Update(double dt)
 	}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
 
 	if (!ePressed)
@@ -331,7 +332,7 @@ void SceneAssignment2::Update(double dt)
 			std::cout << "Clicked" << std::endl;
 		}
 	}
-	if (ePressed) Application::setCursorEnabled(true);
+	if (pPressed) Application::setCursorEnabled(true);
 
 	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
@@ -519,7 +520,7 @@ void SceneAssignment2::Update(double dt)
 	//Requires Implementation of Velocity by Joash
 	float playerSpeed = 15.0;
 	if (!((Player*)player)->isDriving()) {
-
+		Vector3 view = (camera.target - camera.position).Normalized();
 		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
 			camera.position.y += CameraBobber;
 		}
@@ -530,12 +531,10 @@ void SceneAssignment2::Update(double dt)
 				playerSpeed = 25.f;
 			}
 
-			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc += view * (float)dt * playerSpeed;
 
 		}
 		if (Application::IsKeyPressed('A')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
 			Vector3 right = view.Cross(camera.up);
 			right.y = 0;
 			right.Normalize();
@@ -544,12 +543,10 @@ void SceneAssignment2::Update(double dt)
 		}
 
 		if (Application::IsKeyPressed('S')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc -= view * (float)dt * playerSpeed;
 		}
 
 		if (Application::IsKeyPressed('D')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
 			Vector3 right = view.Cross(camera.up);
 			right.y = 0;
 			right.Normalize();

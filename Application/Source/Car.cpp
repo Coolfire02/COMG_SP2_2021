@@ -94,44 +94,25 @@ void Car::Update(double dt) {
 	if (!plr)
 		return;
 
-	if (carSpeed > 0)
-		carSpeed -= dt * 0.3;
-
-	if (carSpeed < 0) {
-		carSpeed += dt * 0.3;
-	}
-
-	Mtx44 rotation;
-	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
-
-	if (Application::IsKeyReleased('S')) {
-		acceleration = 0;
-	}
-
-	if (Application::IsKeyReleased('W')) {
-		acceleration = 0;
-	}
+	acceleration = 0;
+	if (carSpeed > 0) carSpeed -= dt * 0.3;
+	if (carSpeed < 0) carSpeed += dt * 0.3;
 
 	if (Application::IsKeyPressed('W')) {
 		acceleration = maxCarSpeed;
 	}
 
+	Mtx44 rotation;
+	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 	if (Application::IsKeyPressed('D')) {
-		if (Application::IsKeyPressed('W'))
-			this->getEntityData()->Rotation.y -= dt * 80;
-		
-		if (Application::IsKeyPressed('S'))
-			this->getEntityData()->Rotation.y += dt * 80;
+		if (Application::IsKeyPressed('W')) this->getEntityData()->Rotation.y -= dt * 80;
+		if (Application::IsKeyPressed('S')) this->getEntityData()->Rotation.y += dt * 80;
 	}
 
 	if (Application::IsKeyPressed('A')) {
-		if (Application::IsKeyPressed('W'))
-			this->getEntityData()->Rotation.y += dt * 80;
-
-		if (Application::IsKeyPressed('S'))
-			this->getEntityData()->Rotation.y -= dt * 80;
+		if (Application::IsKeyPressed('W')) this->getEntityData()->Rotation.y += dt * 80;
+		if (Application::IsKeyPressed('S')) this->getEntityData()->Rotation.y -= dt * 80;
 	}
-
 
 	if (Application::IsKeyPressed('S')) {
 		acceleration = - maxCarSpeed * 0.75f;
@@ -144,9 +125,8 @@ void Car::Update(double dt) {
 		this->getEntityData()->Rotation.y = 0;
 
 	// carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
-	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f) {
+	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)
 		carSpeed = carSpeed + acceleration * dt;
-	}
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;

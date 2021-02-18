@@ -3,6 +3,7 @@
 
 #include "MatrixStack.h"
 #include "MeshBuilder.h"
+#include "GL/glew.h"
 
 class Scene
 {
@@ -112,7 +113,8 @@ public:
 	MS modelStack, viewStack, projectionStack;
 	
 	void ReceiveMessage(Scene* scene, std::string message);
-	void RenderMesh(Mesh* mesh, bool lightEnabled);
+	void RenderMesh(Mesh* mesh, bool enableLight);
+	void RenderMesh(Mesh* mesh, bool enableLight, GLint param);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);

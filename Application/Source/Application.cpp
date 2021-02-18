@@ -186,7 +186,7 @@ void Application::Run()
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Init();
 	}*/
-	g.addScene(new SceneAssignment2);
+	g.addScene(new SceneGunShop);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))

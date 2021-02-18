@@ -556,7 +556,7 @@ void SceneGunShop::Render()
 	modelStack.Translate(0.0f, 0.0f, -11.f);
 	modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
 	modelStack.Scale(30.0f, 30.0f, 30.0f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_WIREMESH), lightEnable);
+	this->RenderMesh(MeshHandler::getMesh(GEO_WIREMESH), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
