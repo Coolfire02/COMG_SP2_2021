@@ -107,6 +107,9 @@ void Car::Drive(double dt) {
 
 	if (Application::IsKeyPressed('W')) {
 		acceleration = maxCarSpeed;
+		if (Application::IsKeyPressed(VK_LSHIFT)) {
+			acceleration = maxCarSpeed / 2.0f;
+		}
 	}
 
 	Mtx44 rotation;
