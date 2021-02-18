@@ -40,7 +40,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->target = target;
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up).Normalized();
-	this->up = right.Cross(view).Normalized();
+	this->up = this->defaultUp = right.Cross(view).Normalized();
 	test_pitch = 0;
 }
 

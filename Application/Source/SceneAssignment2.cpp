@@ -367,6 +367,7 @@ void SceneAssignment2::Update(double dt)
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.test_pitch = 0;
 						camera.target = camera.defaultTarget;

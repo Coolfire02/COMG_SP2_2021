@@ -23,7 +23,7 @@ public:
 
 	Vector3 position, TPSPositionVector;
 	Vector3 target, defaultTarget;
-	Vector3 up;
+	Vector3 up, defaultUp;
 
 	float test_pitch;
 
