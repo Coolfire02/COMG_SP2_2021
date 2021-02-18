@@ -89,8 +89,7 @@ Player* Car::getPlayer()
 	return this->plr;
 }
 
-void Car::Update(double dt) {
-
+void Car::Drive(double dt) {
 	if (!plr)
 		return;
 
@@ -115,7 +114,7 @@ void Car::Update(double dt) {
 	}
 
 	if (Application::IsKeyPressed('S')) {
-		acceleration = - maxCarSpeed * 0.75f;
+		acceleration = -maxCarSpeed * 0.75f;
 		// this->velocity = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
 	}
 
@@ -131,6 +130,9 @@ void Car::Update(double dt) {
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 	this->getEntityData()->Translate += this->velocity;
+}
+
+void Car::Update(double dt) {
 }
 
 void Car::Render()

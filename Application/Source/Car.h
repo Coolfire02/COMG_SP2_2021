@@ -43,6 +43,7 @@ public:
 
 	CAR_TYPE getCartype();
 	Player* getPlayer();
+	void Drive(double);
 
 	void Update(double);
 	void Render();

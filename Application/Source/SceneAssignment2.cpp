@@ -567,6 +567,10 @@ void SceneAssignment2::Update(double dt)
 		bobTime += dt;
 		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
+
+	if (player->isDriving()) {
+		player->getCar()->Drive(dt);
+	}
 }
 
 
