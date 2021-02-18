@@ -102,8 +102,8 @@ void Car::Drive(double dt) {
 		return;
 
 	acceleration = 0;
-	if (carSpeed > 0) carSpeed -= dt * 0.3;
-	if (carSpeed < 0) carSpeed += dt * 0.3;
+	float friction = carSpeed * -0.5;
+	carSpeed += friction * dt * 2.f;
 
 	if (Application::IsKeyPressed('W')) {
 		acceleration = maxCarSpeed;
@@ -112,13 +112,13 @@ void Car::Drive(double dt) {
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 	if (Application::IsKeyPressed('D')) {
-		if (Application::IsKeyPressed('W')) this->getEntityData()->Rotation.y -= dt * 80;
-		if (Application::IsKeyPressed('S')) this->getEntityData()->Rotation.y += dt * 80;
+		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * 80;
+		if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * 80;
 	}
 
 	if (Application::IsKeyPressed('A')) {
-		if (Application::IsKeyPressed('W')) this->getEntityData()->Rotation.y += dt * 80;
-		if (Application::IsKeyPressed('S')) this->getEntityData()->Rotation.y -= dt * 80;
+		if ((carSpeed > 0.05)) this->getEntityData()->Rotation.y += dt * 80;
+		if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * 80;
 	}
 
 	if (Application::IsKeyPressed('S')) {
