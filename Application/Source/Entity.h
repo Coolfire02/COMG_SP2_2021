@@ -34,7 +34,8 @@ protected:
 	//Side note, if u want to calculate hitboxes with multiple "Boxes" u can do it in construct of Entity sub-types when u specify the geometries you plan to use.
 	
 	//std::multimap<GEOMETRY_TYPE, EntityMeshData*>(); ? why do u need this wtf comment out
-	void loadOriginTRSIntoStacknHitBox();
+	void loadOriginTRS();
+	void loadHitBoxTRS();
 
 public:
 	Entity();

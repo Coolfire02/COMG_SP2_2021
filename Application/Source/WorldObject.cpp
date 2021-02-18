@@ -13,7 +13,11 @@ void WorldObject::Update(double dt) {
 
 void WorldObject::Render() {
 	this->scene->modelStack.PushMatrix();
-		this->loadOriginTRSIntoStacknHitBox();
+		this->loadOriginTRS();
 		if(this->isVisible()) this->scene->RenderMesh(MeshHandler::getMesh(associatedType), this->scene->isLightEnabled());
+	this->scene->modelStack.PopMatrix();
+
+	this->scene->modelStack.PushMatrix();
+		this->loadHitBoxTRS();
 	this->scene->modelStack.PopMatrix();
 }

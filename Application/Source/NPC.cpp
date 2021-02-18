@@ -29,7 +29,11 @@ void NPC::Update(double dt) {
 
 void NPC::Render() {
 	this->scene->modelStack.PushMatrix();
-	this->loadOriginTRSIntoStacknHitBox();
+	this->loadOriginTRS();
 	if (this->isVisible()) this->scene->RenderMesh(associatedNPCMesh, this->scene->isLightEnabled());
+	this->scene->modelStack.PopMatrix();
+
+	this->scene->modelStack.PushMatrix();
+		this->loadHitBoxTRS();
 	this->scene->modelStack.PopMatrix();
 }

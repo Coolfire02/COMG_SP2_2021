@@ -36,20 +36,24 @@ void Entity::cancelNextMovement() {
 	useNewData = false;
 }
 
-void Entity::loadOriginTRSIntoStacknHitBox() {
+void Entity::loadOriginTRS() {
 	if (useNewData) {
 		this->scene->modelStack.Translate(data->Translate.x, data->Translate.y, data->Translate.z);
 		this->scene->modelStack.Rotate(data->Rotation.x, 1.f, 0.f, 0.f);
 		this->scene->modelStack.Rotate(data->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(data->Rotation.z, 0.f, 0.f, 1.f);
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
+<<<<<<< Updated upstream
 		
+=======
+>>>>>>> Stashed changes
 	}
 	else {
 		this->scene->modelStack.Translate(oldData->Translate.x, oldData->Translate.y, oldData->Translate.z);
 		this->scene->modelStack.Rotate(oldData->Rotation.x, 1.f, 0.f, 0.f);
 		this->scene->modelStack.Rotate(oldData->Rotation.y, 0.f, 1.f, 0.f);
 		this->scene->modelStack.Rotate(oldData->Rotation.z, 0.f, 0.f, 1.f);
+<<<<<<< Updated upstream
 		this->scene->modelStack.Scale(data->Scale.x, data->Scale.y, data->Scale.z);
 
 	}
@@ -79,6 +83,25 @@ void Entity::RenderHitbox() {
 	this->scene->modelStack.PopMatrix();
 }
 
+=======
+		this->scene->modelStack.Scale(oldData->Scale.x, oldData->Scale.y, oldData->Scale.z);
+	}
+}
+
+void Entity::loadHitBoxTRS() {
+	EntityData* toUse(useNewData ? data : oldData);
+	Vector3 centerOffset = Vector3(this->hitBox->getThisTickBox()->centerOffset);
+	this->scene->modelStack.Translate(centerOffset.x, centerOffset.y, centerOffset.z);
+	this->scene->modelStack.Translate(toUse->Translate.x, toUse->Translate.y, toUse->Translate.z);
+	this->scene->modelStack.Rotate(toUse->Rotation.x, 1.f, 0.f, 0.f);
+	this->scene->modelStack.Rotate(toUse->Rotation.y, 0.f, 1.f, 0.f);
+	this->scene->modelStack.Rotate(toUse->Rotation.z, 0.f, 0.f, 1.f);
+	this->scene->modelStack.Translate(-toUse->Translate.x, -toUse->Translate.y, -toUse->Translate.z);
+	this->scene->modelStack.Translate(-centerOffset.x, -centerOffset.y, -centerOffset.z);
+	this->currentMtx = Mtx44(this->scene->modelStack.Top());
+	this->hitBox->update(data, this->currentMtx);
+}
+>>>>>>> Stashed changes
 
 
 const Scene* Entity::getAssociatedScene() {

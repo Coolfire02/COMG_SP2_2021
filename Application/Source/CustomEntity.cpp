@@ -15,7 +15,11 @@ void CustomEntity::Update(double dt) {
 
 void CustomEntity::Render() {
 	this->scene->modelStack.PushMatrix();
-		this->loadOriginTRSIntoStacknHitBox();
+		this->loadOriginTRS();
+	this->scene->modelStack.PopMatrix();
+
+	this->scene->modelStack.PushMatrix();
+		this->loadHitBoxTRS();
 	this->scene->modelStack.PopMatrix();
 }
 

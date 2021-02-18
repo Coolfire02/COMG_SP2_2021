@@ -24,7 +24,29 @@
     <ClCompile Include="Source\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="Source\main.cpp">
+=======
+    <ClCompile Include="Source\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ButtonManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+>>>>>>> Stashed changes
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\shader.cpp">
@@ -63,6 +85,7 @@
     <ClCompile Include="Source\MeshHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="Source\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -71,6 +94,10 @@
     </ClCompile>
     <ClCompile Include="Source\CustomEntity.cpp">
       <Filter>Source Files\Entities</Filter>
+=======
+    <ClCompile Include="Source\Position3D.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> Stashed changes
     </ClCompile>
     <ClCompile Include="Source\WorldObject.cpp">
       <Filter>Source Files\Entities</Filter>
@@ -96,6 +123,7 @@
     <ClCompile Include="Source\Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     <ClCompile Include="Source\Car.cpp">
       <Filter>Source Files\Entities</Filter>
@@ -106,9 +134,23 @@
     <ClCompile Include="Source\ItemInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> Stashed changes
     <ClCompile Include="Source\WeaponInventory.cpp">
       <Filter>Source Files</Filter>
 >>>>>>> 18fabba4b4796bf548d2bca1aabc2e1bf6d73ebb
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WorldObject.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,5 +255,22 @@
       <Filter>Header Files</Filter>
 >>>>>>> 18fabba4b4796bf548d2bca1aabc2e1bf6d73ebb
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="Source\WorldObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{555e8cab-2484-42b6-b409-b0912d534cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{085218a3-5c45-4560-bfd7-ea08bbbd60e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{b9c0616f-1cc0-480f-b540-7cbd9e9bb8ca}</UniqueIdentifier>
+    </Filter>
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

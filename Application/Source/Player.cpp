@@ -17,7 +17,12 @@ void Player::Update(double dt) {
 
 void Player::Render() {
 	this->scene->modelStack.PushMatrix();
-		this->loadOriginTRSIntoStacknHitBox();
+		this->loadOriginTRS();
 	this->scene->modelStack.PopMatrix();
+
+	this->scene->modelStack.PushMatrix();
+		this->loadHitBoxTRS();
+	this->scene->modelStack.PopMatrix();
+	
 }
  

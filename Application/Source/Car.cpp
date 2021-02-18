@@ -99,7 +99,11 @@ void Car::Update(double) {
 void Car::Render()
 {
 	this->scene->modelStack.PushMatrix();
-	this->loadOriginTRSIntoStacknHitBox();
+	this->loadOriginTRS();
 	if (this->isVisible()) this->scene->RenderMesh(MeshHandler::getMesh(associatedType), this->scene->isLightEnabled());
+	this->scene->modelStack.PopMatrix();
+	
+	this->scene->modelStack.PushMatrix();
+		this->loadHitBoxTRS();
 	this->scene->modelStack.PopMatrix();
 }
