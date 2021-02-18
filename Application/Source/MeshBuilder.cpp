@@ -1123,6 +1123,6 @@ void MeshBuilder::calcMinMaxPosnMeshCenter(Mesh* mesh, std::vector<Vertex> verte
 		if (pos.z < lowZ) lowZ = pos.z;
 		else if (pos.z > highZ) highZ = pos.z;
 	}
-	mesh->botLeftPos = new Position3D(lowX, lowY, highZ);
-	mesh->topRightPos = new Position3D(highX, highY, lowZ);
+	mesh->botLeftPos = new Vector3(lowX, lowY, highZ);
+	mesh->topRightPos = new Vector3(highX, highY, lowZ);
 }

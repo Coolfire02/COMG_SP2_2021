@@ -43,8 +43,14 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 	this->scene->modelStack.Rotate(toUse->Rotation.y, 0.f, 1.f, 0.f);
 	this->scene->modelStack.Rotate(toUse->Rotation.z, 0.f, 0.f, 1.f);
 	this->scene->modelStack.Scale(toUse->Scale.x, toUse->Scale.y, toUse->Scale.z);
-	this->hitBox->update(toUse, this->scene->modelStack.Top());
-	this->currentMtx = this->scene->modelStack.Top();
+
+	this->scene->modelStack.PushMatrix();
+		this->scene->modelStack.Translate(this->hitBox->getThisTickBox()->originalCenterOffset.x, this->hitBox->getThisTickBox()->originalCenterOffset.y, this->hitBox->getThisTickBox()->originalCenterOffset.z);
+		this->currentMtx = this->scene->modelStack.Top();
+	this->scene->modelStack.PopMatrix();
+
+	this->hitBox->update(toUse, currentMtx);
+	
 }
 
 

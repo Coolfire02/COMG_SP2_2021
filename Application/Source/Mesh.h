@@ -47,7 +47,7 @@ public:
 	unsigned indexSize;
 	unsigned textureID;
 
-	Position3D *botLeftPos, *topRightPos, *meshCenter;
+	Vector3 *botLeftPos, *topRightPos, *meshCenter;
 };
 
 #endif

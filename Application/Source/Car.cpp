@@ -50,7 +50,7 @@ void Car::Init() {
 
 	if (associatedType != 0) {
 		theMesh = MeshHandler::getMesh(associatedType);
-		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
+		this->hitBox = new HitBox(new Box(*theMesh->botLeftPos, *theMesh->topRightPos));
 	}
 
 }
