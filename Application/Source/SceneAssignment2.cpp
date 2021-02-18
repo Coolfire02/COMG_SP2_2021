@@ -289,22 +289,22 @@ void SceneAssignment2::Update(double dt)
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
-	/*if (Application::IsKeyPressed('F'))
-	{
-		inv.addItem(BURGER, 1);
-		inv.addItem(EGGPLANT, 1);
-		inv.addItem(CORN, 1);
-		inv.addCar(SUV);
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	{
-		toggleTimer = 0;
-		inv.toggleItem();
-		if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);
-	}*/
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	inv.addItem(BURGER, 1);
+	//	inv.addItem(EGGPLANT, 2);
+	//	inv.addItem(CORN, 3);
+	//	//inv.addCar(SUV);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	//{
+	//	toggleTimer = 0;
+	//	inv.toggleItem();
+	//	/*if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);*/
+	//}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -689,23 +689,23 @@ void SceneAssignment2::Render()
 	}
 
 	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-	//	//std::cout << "Burger";
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-	//	//std::cout << "Corn";
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-	//	//std::cout << "Eggplant";
-	//	break;
-	//default:
-	//	break;
-	//}
+	switch (inv.getCurrentItemType())
+	{
+	case BURGER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+		//std::cout << "Burger";
+		break;
+	case CORN:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+		//std::cout << "Corn";
+		break;
+	case EGGPLANT:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+		//std::cout << "Eggplant";
+		break;
+	default:
+		break;
+	}
 	////test garage inv
 	//switch (inv.getCurrentCarType())
 	//{

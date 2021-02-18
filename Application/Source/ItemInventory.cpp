@@ -2,14 +2,15 @@
 
 ItemInventory::ItemInventory()
 {
-	this->item = EMPTY;
-	this->amtOfItems = 0;
+	currentItem = nullptr;
+
+	
 }
 
 ItemInventory::ItemInventory(ITEM_TYPE itemtype, int amt)
 {
-	this->item = itemtype;
-	this->amtOfItems = amt;
+	currentItem = new Item(itemtype, amt);
+	itemInv.push_back(currentItem);
 }
 
 ItemInventory::~ItemInventory()
@@ -17,22 +18,96 @@ ItemInventory::~ItemInventory()
 	//blank on purpose
 }
 
-void ItemInventory::setItemType(ITEM_TYPE itemtype)
+void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 {
-	this->item = itemtype;
+	if (itemInv[0] == nullptr) //If player does not have any item yet
+	{
+		currentItem = new Item(itemtype, amt);
+		itemInv.push_back(currentItem);
+	}
+	else
+	{
+		for (int i = 0; i < itemInv.size(); i++) //If player owns item already
+		{
+			if (itemInv[i]->getType() == itemtype)
+			{
+				negativeAmtCheckAndSetter(itemInv[i], amt);
+				return;
+			}
+		}
+
+		Item* addingItem; //If player does not own a specific item yet
+		addingItem = new Item(itemtype, amt);
+		itemInv.push_back(addingItem);
+	}
 }
 
-void ItemInventory::setAmtOfItems(int amt)
+void ItemInventory::toggleItem()
 {
-	this->amtOfItems = amt;
+	for (int i = 0; i < itemInv.size(); i++)
+	{
+		if (currentItem == itemInv[i])
+		{
+			if ((i + 1) < itemInv.size()) //Go to next item when not at last slot
+			{
+				currentItem = itemInv[i + 1];
+			}
+			else //If item is at last slot then go to first slot
+			{
+				currentItem = itemInv[0];
+			}
+			return;
+		}
+	}
 }
 
-ITEM_TYPE ItemInventory::getItemType()
+void ItemInventory::usingItem()
 {
-	return this->item.getType();
+	for (int i = 0; i < itemInv.size(); i++)
+	{
+		if (itemInv[i]->getType() == currentItem->getType())
+		{
+			itemInv[i]->setAmt(itemInv[i]->getAmt() - 1);
+			return;
+		}
+	}
 }
 
-int ItemInventory::getAmtOfItems()
+void ItemInventory::negativeAmtCheckAndSetter(Item* item, int number)
 {
-	return this->amtOfItems;
+	if (item == nullptr)
+		return;
+	if ((item->getAmt() + number) <= 0)
+		item->setAmt(0);
+	else
+		item->setAmt(item->getAmt() + number);
 }
+
+void ItemInventory::setAmtOfItems(ITEM_TYPE itemtype, int amt)
+{
+	for (int i = 0; i < itemInv.size(); i++) //If player owns item already
+	{
+		if (itemInv[i]->getType() == itemtype)
+		{
+			negativeAmtCheckAndSetter(itemInv[i], amt);
+			return;
+		}
+	}
+}
+
+int ItemInventory::getCurrentItemAmt()
+{
+	return this->currentItem->getAmt();
+}
+
+ITEM_TYPE ItemInventory::getCurrenItemType()
+{
+	return this->currentItem->getType();
+}
+
+Item* ItemInventory::getCurrentItem()
+{
+	return this->currentItem;
+}
+
+
