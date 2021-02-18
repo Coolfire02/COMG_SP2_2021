@@ -26,11 +26,12 @@ protected:
 	std::string name;
 	bool dead;
 	ENTITYTYPE type;
+	EntityData* data;
 	EntityData* oldData;
 	bool visible;
 	Mtx44 currentMtx;
 	bool useNewData;
-	EntityData *data;
+	
 	HitBox *hitBox; //Gets updated based on Position, defaultMin and defaultMax scaled on scale.
 	//Side note, if u want to calculate hitboxes with multiple "Boxes" u can do it in construct of Entity sub-types when u specify the geometries you plan to use.
 	

@@ -84,6 +84,12 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_SILENCER] = MeshBuilder::GenerateQuad("silencerUI", Color(1, 1, 1));
 	meshList[UI_SILENCER]->textureID = LoadTGA("Image//silencerUI.tga");
 
+	//Garage
+	meshList[GARAGE_WALL] = MeshBuilder::GenerateQuad("garageWall", Color(1, 1, 1));
+	meshList[GARAGE_WALL]->textureID = LoadTGA("Image//garageWall.tga");
+	meshList[GARAGE_DOOR] = MeshBuilder::GenerateQuad("garageDoor", Color(1, 1, 1));
+	meshList[GARAGE_DOOR]->textureID = LoadTGA("Image//garageDoor.tga");
+
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
 

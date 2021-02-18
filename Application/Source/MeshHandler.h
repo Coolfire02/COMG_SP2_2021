@@ -61,6 +61,10 @@ enum GEOMETRY_TYPE {
 	UI_PISTOL,
 	UI_SILENCER,
 
+	//Garage
+	GARAGE_WALL,
+	GARAGE_DOOR,
+
 	//Textured Quads
 
 
