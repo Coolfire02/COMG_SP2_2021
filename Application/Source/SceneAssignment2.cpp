@@ -496,11 +496,21 @@ void SceneAssignment2::Update(double dt)
 
 	//Requires Implementation of Velocity by Joash
 	const float playerSpeed = 15.0;
-
 	if (!((Player*)player)->isDriving()) {
+
+		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+			camera.position.y += CameraBobber;
+		}
+
 		if (Application::IsKeyPressed('W')) {
+
+			if (Application::IsKeyPressed(VK_LSHIFT)) {
+				playerSpeed = 25.f;
+			}
+
 			Vector3 view = (camera.target - camera.position).Normalized();
 			pLoc += view * (float)dt * playerSpeed;
+
 		}
 		if (Application::IsKeyPressed('A')) {
 			Vector3 view = (camera.target - camera.position).Normalized();
@@ -532,6 +542,9 @@ void SceneAssignment2::Update(double dt)
 		player->getEntityData()->Translate.x = pLoc.x;
 		// Skip y since we want level ground
 		player->getEntityData()->Translate.z = pLoc.z;
+
+		bobTime += dt;
+		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
 }
 
