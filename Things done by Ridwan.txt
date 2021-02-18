@@ -1,1 +1,5 @@
-Interaction Stack
+Interaction Stack.
+Garage Inventory.
+Item Inventory.
+Inventory Class.
+UI.

@@ -297,26 +297,27 @@ void SceneAssignment2::Update(double dt)
 	bool foundInteractionZone = false;
 	toggleTimer += dt;
 	//UI item adding testing
-	if (Application::IsKeyPressed('F'))
-	{
-		inv.addItem(BURGER, 1);
-		inv.addItem(EGGPLANT, 2);
-		inv.addItem(CORN, 3);
-		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		//inv.addCar(SUV);
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	{
-		toggleTimer = 0;
-		inv.toggleItem();
-		/*if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);*/
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	{
-	}
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	inv.addItem(BURGER, 1);
+	//	inv.addItem(EGGPLANT, 2);
+	//	
+	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
+	//	inv.addCar(SUV);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	//{
+	//	toggleTimer = 0;
+	//	inv.toggleItem();
+	//	if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	//{
+	//	inv.addItem(CORN, 3);
+	//}
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -683,6 +684,12 @@ void SceneAssignment2::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Rotate(0, 1, 0, 0);
+	modelStack.Scale(10, 10, 10);
+	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
+	modelStack.PopMatrix();
+
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
@@ -735,52 +742,61 @@ void SceneAssignment2::Render()
 	ss << "6/30";
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
 
-	//UI inventory testing
-	switch (inv.getCurrentItemType())
+	if (inv.getItemInventory() != nullptr)
 	{
-	case BURGER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 70, 10, 10, 10);
-		break;
-	case CORN:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 70, 10, 10, 10);
-		break;
-	case EGGPLANT:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 10, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 10, 10, 10);
-		break;
+		ss.str("");
+		ss.clear();
+		ss << inv.getCurrentItemAmt();
+		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 10);
 	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 10, 10, 10);
-	//test garage inv
-	/*switch (inv.getCurrentCarType())
-	{
-	case SEDAN:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
-		break;
-	case SUV:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
-		break;
-	default:
-		break;
-	}*/
+	
 
-	switch (inv.getActiveWeapon()->weaponType)
-	{
-	case FIST:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 70, 20, 10, 10);
-		break;
-	case PISTOL:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 70, 20, 10, 10);
-		break;
-	case SILENCER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 70, 20, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 70, 20, 10, 10);
-		break;
-	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 70, 20, 10, 10);
+	////UI inventory testing
+	//switch (inv.getCurrentItemType())
+	//{
+	//case BURGER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 114, 10, 10, 10);
+	//	break;
+	//case CORN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 114, 10, 10, 10);
+	//	break;
+	//case EGGPLANT:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 10, 10, 10);
+	//	break;
+	//default:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 10, 10, 10);
+	//	break;
+	//}
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 10, 10, 10);
+	////test garage inv
+	//switch (inv.getCurrentCarType())
+	//{
+	//case SEDAN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 20, 30, 10, 10);
+	//	break;
+	//case SUV:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 20, 30, 10, 10);
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	//switch (inv.getActiveWeapon()->weaponType)
+	//{
+	//case FIST:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
+	//	break;
+	//case PISTOL:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
+	//	break;
+	//case SILENCER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
+	//	break;
+	//default:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
+	//	break;
+	//}
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 	
 	//FPS UI
 	ss.str("");
