@@ -1,0 +1,106 @@
+#ifndef SCENE_2021_H
+#define SCENE_2021_H
+
+#include <map>
+
+#include "Scene.h"
+#include "Camera.h"
+#include "Game.h"
+#include "Inventory.h"
+#include "MeshBuilder.h"
+#include "MatrixStack.h"
+#include "Light.h"
+#include "Interactions.h"
+
+#include "EntityManager.h"
+#include "MeshHandler.h"
+
+//Entities
+#include "NPC.h"
+#include "CustomEntity.h"
+#include "WorldObject.h"
+
+/*
+* Scene Setup
+* In Init, 
+Change Scene Name Accordingly
+Init the Player Entity
+
+TODOs:
+Migrate Most Interaction Handling to Interaction Manager
+*/
+
+class Scene2021 : public Scene
+{
+	enum INTERACTION_TYPE {
+		TEST,
+		INTERACTION_COUNT,
+	};
+
+private:
+
+	Camera camera;
+	Camera camera2;
+	EntityManager eManager;
+
+	//Game Variables
+	Player* player;
+	Game game;
+	Inventory inv;
+
+	//Notification Channel
+	std::string notificationMessage; //Appears on the top of the screen
+	float showNotifUntil; //Shows notification until time;
+
+	//Interaction
+	bool isInteracting;
+	float interactionElapsed; //Total time spent in Interaction instance
+	bool canInteractWithSomething;
+	int completedInteractionsCount[INTERACTION_COUNT]; //Everytime you finish one interaction of any type, it'll add 1 to here.
+
+		//Queued Message, commands to execute when message is brought up
+	std::vector<Interaction*> queuedMessages;
+	int currentMessage;
+
+	INTERACTION_TYPE currentInteractionType;
+	GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
+
+	double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
+	bool passedInteractCooldown(); //Checks if cooldown is reached;
+	void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
+	
+	Light light[3];
+
+	bool hitboxEnable;
+	float fps;
+
+	float toggleTimer = 0;
+
+	void RenderSkybox();
+	void RenderRoads();
+	void RenderBuildings(Vector3 v3, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
+	void split(std::string txt, char delim, std::vector<std::string>& out);
+
+	//topdown cam map
+	bool camMap;
+
+	bool eHeld = false;
+	int random = rand() % 9 + 3;
+public:
+	Scene2021();
+	~Scene2021();
+
+	//Notifications
+	void sendNotification(std::string msg, double duration);
+
+	bool runCommand(std::string cmd);
+	bool loadInteractions(INTERACTION_TYPE type);
+	void EndInteraction();
+
+	virtual void Init();
+	virtual void Update(double dt);
+	virtual void Render();
+	virtual void Exit();
+};
+
+#endif

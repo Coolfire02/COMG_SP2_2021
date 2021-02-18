@@ -19,7 +19,7 @@ void Car::Init() {
 
 	switch (carType) {
 	case SEDAN:
-		this->carSpeed = 1.f;
+		this->carSpeed = 5.f;
 		this->associatedType = GEO_SEDAN;
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(theMesh->botLeftPos, theMesh->topRightPos));
@@ -52,7 +52,7 @@ void Car::Init() {
 	default:
 		break;
 	}
-	this->maxCarSpeed = 0.5f;
+	this->maxCarSpeed = 5.f;
 	this->carSpeedGoal = this->carSpeed = 0.f;
 }
 
@@ -116,6 +116,14 @@ void Car::Update(double dt) {
 
 	if (Application::IsKeyReleased('W')) {
 		carSpeedGoal = 0;
+		if (carSpeed > 0) //added test case for if car is decelerating, still allow steering controls till car completely stops
+		{
+			if (Application::IsKeyPressed('D'))
+				this->getEntityData()->Rotation.y -= dt * 80;
+
+			if (Application::IsKeyPressed('A'))
+				this->getEntityData()->Rotation.y += dt * 80;
+		}
 	}
 
 	if (Application::IsKeyPressed('W')) {
@@ -140,7 +148,15 @@ void Car::Update(double dt) {
 
 
 	if (Application::IsKeyPressed('S')) {
-		carSpeedGoal = - maxCarSpeed * 0.25f;
+		carSpeedGoal = - maxCarSpeed * 0.75f;
+		if (carSpeed > 0) //added test case for if car is braking, still allow steering controls till car completely stops
+		{
+			if (Application::IsKeyPressed('D'))
+				this->getEntityData()->Rotation.y -= dt * 80;
+
+			if (Application::IsKeyPressed('A'))
+				this->getEntityData()->Rotation.y += dt * 80;
+		}
 		// this->velocity = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
 	}
 

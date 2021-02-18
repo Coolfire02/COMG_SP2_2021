@@ -1,4 +1,4 @@
-#include "SceneAssignment2.h"
+#include "Scene2021.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -11,7 +11,7 @@
 #include "Utility.h"
 #include "Car.h"
 
-SceneAssignment2::SceneAssignment2() : 
+Scene2021::Scene2021() : 
 	eManager(this)
 {
 	//Scene
@@ -32,12 +32,12 @@ SceneAssignment2::SceneAssignment2() :
 	isInteracting = false;
 }
 
-SceneAssignment2::~SceneAssignment2()
+Scene2021::~Scene2021()
 {
 
 }
 
-void SceneAssignment2::Init() {
+void Scene2021::Init() {
 	
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -138,24 +138,55 @@ void SceneAssignment2::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
-	pistol->getEntityData()->SetTransform(20, 5, 0);
-	pistol->getEntityData()->SetScale(10, 10, 10);
-	eManager.spawnWorldEntity(pistol);
+	//init of buildings 
+	srand(time(NULL));
 
-	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(40, 0, 0);
-	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building);
+	//main road buildings
+	int random = (rand() % 7) + 3;
+	RenderBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
-	building2->getEntityData()->SetTransform(-40, 0, 0);
-	building2->getEntityData()->SetRotate(0, 60, 0);
-	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building2);
+	int random2 = (rand() % 7) + 3;
+	RenderBuildings(Vector3(-50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+
+	for (int i = 1; i < 6; i++) //(main road)
+	{
+		int random = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+
+		int random3 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+
+		int random4 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+	}
+
+	//left and right of (positive z axis) side road buildings
+	for (int i = 2; i < 4; i++) 
+	{
+		int random = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
+
+		int random3 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
+
+		int random4 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
+
+		int random5 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
+
+		int random6 = (rand() % 7) + 3;
+		RenderBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
+	}
 
 	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0, 60);
+	car->getEntityData()->SetTransform(0, 0, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnWorldEntity(car);
@@ -201,10 +232,10 @@ void SceneAssignment2::Init() {
 		Vector3(0, 1, 0));
 
 	//Light init
-	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 40, 0);
+	light[0].type = Light::LIGHT_DIRECTIONAL;
+	light[0].position.set(0, 100, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 1;
+	light[0].power = 0.5;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -216,8 +247,8 @@ void SceneAssignment2::Init() {
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.0f, 0.0f, 0.0f); //set to white light
-	light[1].power = 0;
+	light[1].color.set(0.5f,0.5f,1.f); //set to white light
+	light[1].power = 15;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;
@@ -227,10 +258,10 @@ void SceneAssignment2::Init() {
 	light[1].spotDirection.Set(0, 0, 1);
 
 	//3rd light
-	light[2].type = Light::LIGHT_SPOT;
-	light[2].position.set(0, 50, 100);
-	light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	light[2].power = 2;
+	light[2].type = Light::LIGHT_DIRECTIONAL;
+	light[2].position.set(0, 100, 150);
+	light[2].color.set(1.f,1.f,1.f); //set to white light
+	light[2].power = 0.5;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
@@ -287,10 +318,7 @@ void SceneAssignment2::Init() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-
-bool eHeld = false;
-
-void SceneAssignment2::Update(double dt)
+void Scene2021::Update(double dt)
 {
 	
 	bool foundInteractionZone = false;
@@ -323,10 +351,10 @@ void SceneAssignment2::Update(double dt)
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
 	for (auto& entry : eManager.getEntities()) {
-		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
+		/*if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			entry->getEntityData()->Rotation.x += 2 * dt;
 			if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
-		}
+		}*/
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
@@ -421,6 +449,7 @@ void SceneAssignment2::Update(double dt)
 				camera.camType = TOPDOWN_THIRDPERSON;
 				break;
 			}
+			light[1].color.set(0.5f,0.5f,1.f); //set to white light
 			camMap = true;
 		}
 		else
@@ -434,6 +463,7 @@ void SceneAssignment2::Update(double dt)
 				camera.camType = THIRDPERSON;
 				break;
 			}
+			light[1].color.set(0.f,0.f,0.f);
 			camMap = false;
 		}
 	}
@@ -450,7 +480,6 @@ void SceneAssignment2::Update(double dt)
 		break;
 	case TOPDOWN_THIRDPERSON:
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		break;
 	}
@@ -535,7 +564,7 @@ void SceneAssignment2::Update(double dt)
 }
 
 
-void SceneAssignment2::Render()
+void Scene2021::Render()
 {
 
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
@@ -573,7 +602,9 @@ void SceneAssignment2::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();	
+	modelStack.PopMatrix();
+
+	RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -611,7 +642,6 @@ void SceneAssignment2::Render()
 		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
 	}
 
-
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
@@ -619,14 +649,12 @@ void SceneAssignment2::Render()
 			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
 			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
 		}
 		else if (light[1].type == Light::LIGHT_SPOT) {
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
 			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
 		}
 		else { //Point light
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
@@ -749,7 +777,7 @@ void SceneAssignment2::Render()
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 }
 
-void SceneAssignment2::RenderSkybox() {
+void Scene2021::RenderSkybox() {
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.PushMatrix();
@@ -799,7 +827,93 @@ void SceneAssignment2::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-bool SceneAssignment2::passedInteractCooldown() {
+void Scene2021::RenderRoads()
+{
+	//road floor
+	modelStack.PushMatrix();
+	modelStack.Scale(1000, 1, 1000);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
+	modelStack.PopMatrix();
+
+	//main road stretch
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0.05, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 1, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_CROSSING), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-4, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(5, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-6, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	//left road stretch
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0.05, 244);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(61, 1, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-4, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+}
+
+void Scene2021::RenderBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+{
+	Entity* building = new WorldObject(this, geoType, "building");
+	building->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
+	building->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
+	building->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
+	eManager.spawnWorldEntity(building);
+}
+
+bool Scene2021::passedInteractCooldown() {
 	const float INTERACTION_COOLDOWN = 0.5f;
 	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
 		return true;
@@ -807,12 +921,12 @@ bool SceneAssignment2::passedInteractCooldown() {
 	return false;
 }
 
-void SceneAssignment2::sendNotification(std::string msg, double duration) {
+void Scene2021::sendNotification(std::string msg, double duration) {
 	showNotifUntil = (float)(elapsed + duration);
 	notificationMessage = msg;
 }
 
-void SceneAssignment2::split(std::string txt, char delim, std::vector<std::string>& out) {
+void Scene2021::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
 	while (std::getline(iss, item, delim)) {
@@ -820,7 +934,7 @@ void SceneAssignment2::split(std::string txt, char delim, std::vector<std::strin
 	}
 }
 
-bool SceneAssignment2::runCommand(std::string cmd) {
+bool Scene2021::runCommand(std::string cmd) {
 	std::vector<std::string> splitVar;
 	split(cmd, ' ', splitVar);
 
@@ -841,7 +955,7 @@ bool SceneAssignment2::runCommand(std::string cmd) {
 	return true;
 }
 
-bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
+bool Scene2021::loadInteractions(INTERACTION_TYPE type) {
 	if (!isInteracting) {
 
 		switch (type) {
@@ -904,7 +1018,7 @@ bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
 	return false;
 }
 
-void SceneAssignment2::nextInteraction() {
+void Scene2021::nextInteraction() {
 	if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
 		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
 			this->runCommand(entry);
@@ -924,7 +1038,7 @@ void SceneAssignment2::nextInteraction() {
 	}
 }
 
-void SceneAssignment2::EndInteraction() {
+void Scene2021::EndInteraction() {
 	if (isInteracting) {
 
 		completedInteractionsCount[currentInteractionType]++;
@@ -940,7 +1054,7 @@ void SceneAssignment2::EndInteraction() {
 	}
 }
 
-void SceneAssignment2::Exit()
+void Scene2021::Exit()
 {
 	// Cleanup VBO here
 	this->EndInteraction(); //To clear up queuedMessages pointers

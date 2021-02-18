@@ -8,7 +8,7 @@
 enum SCENES
 {
 	S_2051 = 0,
-	S_MAINWORLD,
+	S_2021,
 	S_COUNT
 };
 

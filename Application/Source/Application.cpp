@@ -13,6 +13,7 @@
 
 #include "MeshHandler.h"
 #include "SceneAssignment2.h"
+#include "Scene2021.h"
 #include "Game.h"
 Game g;
 
@@ -26,10 +27,6 @@ double Application::mouse_last_x = 0.0, Application::mouse_last_y = 0.0,
 		Application::mouse_current_x = 0.0, Application::mouse_current_y = 0.0,
 		Application::mouse_diff_x = 0.0, Application::mouse_diff_y = 0.0;
 double Application::camera_yaw = 0.0, Application::camera_pitch = 0.0;
-
-//Scenes
-Scene* Application::scenes[1] = { new SceneAssignment2 };
-int Application::mainScene = 0;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -177,16 +174,12 @@ void Application::Run()
 		scenes[i]->Init();
 	}*/
 	g.addScene(new SceneAssignment2);
-	g.addScene(new SceneAssignment2);
+	g.addScene(new Scene2021);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
 		GetMouseUpdate();
-		if(IsKeyPressed(VK_F1))
-			mainScene = 0;
-		else if (IsKeyPressed(VK_F2))
-			mainScene = 1;
 		double dt = m_timer.getElapsedTime();
 		g.getScene()->elapser(dt);
 		g.getScene()->Update(dt);
@@ -204,31 +197,6 @@ void Application::Run()
 		scenes[i]->Exit();
 		delete scenes[i];
 	}*/
-}
-
-bool Application::changeToScene(std::string sceneName, std::string msg) {
-	for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
-		if (scenes[i]->getName() == sceneName) {
-			if (mainScene != i) {
-				if (sceneName == "RunningScene") {
-					// static_cast<MainWorld*>(scenes[i])->StartRacingSession();
-					// static_cast<MainWrol*>(scenes[i])->setPlayerSpeed(std::stof(msg));
-				}
-					
-				mainScene = i;
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-Scene* Application::getSceneByName(std::string sceneName) {
-	for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
-		if (scenes[i]->getName().compare(sceneName) == 0) {
-			return scenes[i];
-		}
-	}
 }
 
 void Application::Exit()

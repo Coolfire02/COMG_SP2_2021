@@ -18,7 +18,6 @@ public:
 	void Run();
 	void Exit();
 
-	static Scene* scenes[1];
 	static bool changeToScene(std::string, std::string);
 	static Scene* getSceneByName(std::string);
 	static bool IsMousePressed(unsigned short key);
@@ -37,7 +36,6 @@ public:
 	bool GetMouseUpdate();
 
 private:
-	static int mainScene;
 	//Declare a window object
 	StopWatch m_timer;
 };
