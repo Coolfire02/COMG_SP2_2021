@@ -394,7 +394,7 @@ void SceneAssignment2::Update(double dt)
 		game.switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
+	else if (GetAsyncKeyState('6') & 0x8001) {
 		game.switchScene(S_GUNSHOP);
 	}
 

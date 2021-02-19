@@ -69,6 +69,7 @@ Car::Car(float speed, CAR_TYPE type)
 
 void Car::setSpeed(float speed)
 {
+	driftVector = -velocity * 0.2f;
 	this->carSpeed = speed;
 }
 
@@ -116,13 +117,13 @@ void Car::Drive(double dt) {
 		RotateSpeed = 80.f;
 		drifting = false; 
 		carSpeed = 0;
-		velocity = driftVector.Magnitude() * velocity.Normalized();
+		velocity = driftVector.Magnitude() * velocity * 2.f;
 		// velocity = carSpeed * velocity.Normalized() * dt;
 	}
 	
 	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
 
-	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.6 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
+	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
 		RotateSpeed = 100.f;
 		drifting = true;
 		driftVector = Vector3(velocity);
@@ -140,18 +141,13 @@ void Car::Drive(double dt) {
 
 	if (Application::IsKeyPressed('S')) {
 		acceleration = -maxCarSpeed * 0.5f;
-		// this->velocity = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
 	}
 
-	// this->velocity.x = Interpolate(velocityGoal.x, this->velocity.x, dt);
-	// this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
 		this->getEntityData()->Rotation.y = 0;
 
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
-
-	// carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
 	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)
 		carSpeed = carSpeed + acceleration * dt;
 
