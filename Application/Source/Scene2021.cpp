@@ -321,44 +321,6 @@ void Scene2021::Update(double dt)
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
 
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("interaction") != std::string::npos) {
-					foundInteractionZone = true;
-					if (!canInteractWithSomething)
-						canInteractWithSomething = true;
-					else if (passedInteractCooldown()) {
-						std::string name = entry->victim->getName();
-						if (ePressed) {
-							if (name.compare("interaction_test") == 0) {
-								loadInteractions(TEST);
-							}
-						}
-					}
-				}
-			}
-		}
-		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
-			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				// entry->attacker->cancelNextMovement();
-				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
-				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				std::cout << "Car Collided" << std::endl;
-			}
-		}
-	}
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
-	eManager.collisionUpdate(dt);
-
-	if (player->usingNewData()) { //Aka movement not cancelled
-		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
-			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-	}
-
-	camera.Update(dt);
-
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
 		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
