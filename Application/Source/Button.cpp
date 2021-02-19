@@ -4,6 +4,7 @@
 Button::Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
 	this->scene = scene;
 	this->text = nullptr;
+	this->enabled = true;
 	this->UIInfo.originX = originX;
 	this->UIInfo.originY = originY;
 	this->UIInfo.sizeX = quadSizeX;
@@ -25,11 +26,11 @@ void Button::setTextObject(Text* textPtr) {
 }
 
 void Button::setText(std::string text) {
-	this->text->setText(text);
+	this->text->setTextString(text);
 }
 
 void Button::setText(std::ostringstream text) {
-	this->text->setText(text.str());
+	this->text->setTextString(text.str());
 }
 
 Text* Button::getTextObject() {
@@ -41,7 +42,7 @@ void Button::spawnTextObject(std::string text, Color txtColor, FONTTYPE type, fl
 		delete this->text;
 	}
 	this->text = new Text(scene, txtColor, UIInfo, type, textSize);
-	this->text->setText(text);
+	this->text->setTextString(text);
 }
 
 bool Button::hasText() {
@@ -49,10 +50,16 @@ bool Button::hasText() {
 }
 
 void Button::Render() {
-	this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeX, UIInfo.sizeY);
-	if (text != nullptr) {
-		text->Render();
+	if (enabled) {
+		this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeX, UIInfo.sizeY);
+		if (text != nullptr) {
+			text->Render();
+		}
 	}
+}
+
+bool Button::isEnabled() {
+	return enabled;
 }
 
 std::string Button::getName() {
@@ -60,11 +67,20 @@ std::string Button::getName() {
 }
 
 bool Button::isInRange(double x, double y) {
+	if (!enabled) return false;
 	if(x >= UIInfo.originX - UIInfo.sizeX/2.0 && x < (UIInfo.originX + UIInfo.sizeX/2.0)
 		&& y >= UIInfo.originY - UIInfo.sizeY / 2.0 && y < (UIInfo.originY + UIInfo.sizeY/2.0) ){
 		return true;
 	}
 	return false;
+}
+
+void Button::disable() {
+	enabled = false;
+}
+
+void Button::enable() {
+	enabled = true;
 }
 
 void Button::setQuadImage(GEOMETRY_TYPE type) {

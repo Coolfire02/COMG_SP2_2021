@@ -15,8 +15,16 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("axes", 1, 1, 1);
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightbulll", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
+	
+	//Text	
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Fonts//calibri.tga");
+
+	meshList[GEO_TEXT_CALIBRI] = MeshBuilder::GenerateText("text", 16, 16);
+	meshList[GEO_TEXT_CALIBRI]->textureID = LoadTGA("Image//Fonts//calibri.tga");
+
+	meshList[GEO_TEXT_SUPERMARIO] = MeshBuilder::GenerateText("text", 16, 16);
+	meshList[GEO_TEXT_SUPERMARIO]->textureID = LoadTGA("Image//Fonts//supermario.tga");
 
 	meshList[TAILSS] = MeshBuilder::GenerateOBJMTL("testnpc", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 

@@ -8,12 +8,20 @@ Font Text::loadedFonts[FONT_COUNT];
 
 bool Text::loadFonts() {
 	if (fontsLoaded == false) {
+        //Calibri
 		loadedFonts[CALIBRI].type = FONTTYPE::CALIBRI;
+        loadedFonts[CALIBRI].geoType = GEOMETRY_TYPE::GEO_TEXT_CALIBRI;
 		loadedFonts[CALIBRI].verticalOffset = 1.0;
-        LoadTextData(loadedFonts[CALIBRI].textWidth, "TextData//Calibri.csv");
-        loadedFonts[CALIBRI].verticalOffset = loadedFonts[CALIBRI].textWidth[0];
+        LoadTextData(loadedFonts[CALIBRI].textWidth, "TextData//calibri.csv");
+
+        //SuperMario
+        loadedFonts[SUPERMARIO].type = FONTTYPE::SUPERMARIO;
+        loadedFonts[SUPERMARIO].geoType = GEOMETRY_TYPE::GEO_TEXT_SUPERMARIO;
+        loadedFonts[SUPERMARIO].verticalOffset = 1.0;
+        LoadTextData(loadedFonts[SUPERMARIO].textWidth, "TextData//supermario.csv");
 		return true;
 	}
+
 	return false;
 }
 
@@ -61,6 +69,8 @@ Text::Text(Scene* scene, Color color, float originX, float originY, float quadSi
     UIInfo.sizeX = quadSize;
     UIInfo.sizeY = quadSize;
     textFont = loadedFonts[font];
+    this->xOffset = 0.f;
+    this->yOffset = 0.f;
     this->size = size;
     this->visible = true;
 }
@@ -74,16 +84,21 @@ Text::Text(Scene* scene, Color color, UIItem UIInfo, FONTTYPE font, float size) 
     this->visible = true;
 }
 
-void Text::setText(std::string txt) {
+void Text::setTextString(std::string txt) {
     text.str("");
     text.clear();
     text << txt;
 }
 
-void Text::setText(std::ostringstream txt) {
+void Text::setTextStringStream(std::ostringstream txt) {
     text.str("");
     text.clear();
     text << txt.str();
+}
+
+void Text::setTextOffsetFromTopLeft(float x, float y) {
+    this->xOffset = x;
+    this->yOffset = y;
 }
 
 bool Text::isVisible() {
@@ -105,9 +120,35 @@ void Text::changeFont(FONTTYPE type) {
 }
 
 void Text::Render() {
-    scene->RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), this->text.str(), color, UIInfo.sizeX, UIInfo.originX, UIInfo.originY);
+    float size = Math::Min(UIInfo.sizeX, UIInfo.sizeY);
+
+    std::vector<std::string> splitVar;
+    splitText(this->text.str(), '\n', splitVar);
+    int i = 0;
+    std::ostringstream ss;
+    this->yOffset = 1;
+    int startX, startY;
+    startX = UIInfo.originX - UIInfo.sizeX * 0.5 + xOffset;
+    startY = UIInfo.originY + UIInfo.sizeY * 0.5 - yOffset;
+    for (auto& entry : splitVar) {
+        ss.str("");
+        ss.clear();
+        ss << entry;
+        this->scene->RenderTextOnScreen(MeshHandler::getMesh(this->textFont.geoType), ss.str(), color, size, startX, startY - this->textFont.verticalOffset * size * i);
+        i++;
+    }
+
+    //scene->RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), this->text.str(), color, size, UIInfo.originX, UIInfo.originY);
 }
 
 Text::~Text() {
     //Intentionally left blank
+}
+
+void Text::splitText(std::string txt, char delim, std::vector<std::string>& out) {
+    std::istringstream iss(txt);
+    std::string item;
+    while (std::getline(iss, item, delim)) {
+        out.push_back(item);
+    }
 }
