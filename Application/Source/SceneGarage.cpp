@@ -712,16 +712,16 @@ void SceneGarage::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(200, 200, 200);
-	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	modelStack.Scale(100, 200, 200);
+	RenderMesh(MeshHandler::getMesh(GARAGE_FLOOR), true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 22, 99.99); 
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
-	RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 22, 99); 
+	//modelStack.Rotate(180, 0, 1, 0);
+	//modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
+	//RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
+	//modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(20, 0, 0);
@@ -1071,6 +1071,7 @@ void SceneGarage::SpawnWalls()
 	initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
 	initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
 	initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 }
 //
 //void SceneGarage::SpawnBuildings()
