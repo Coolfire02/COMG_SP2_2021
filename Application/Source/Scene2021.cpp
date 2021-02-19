@@ -1,4 +1,4 @@
-#include "SceneAssignment2.h"
+#include "Scene2021.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -11,8 +11,9 @@
 #include "Utility.h"
 #include "Car.h"
 
-SceneAssignment2::SceneAssignment2() : 
-	eManager(this), bManager(this)
+Scene2021::Scene2021() :
+	eManager(this),
+	bManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -32,13 +33,13 @@ SceneAssignment2::SceneAssignment2() :
 	isInteracting = false;
 }
 
-SceneAssignment2::~SceneAssignment2()
+Scene2021::~Scene2021()
 {
 
 }
 
-void SceneAssignment2::Init() {
-	
+void Scene2021::Init()
+{
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -107,10 +108,8 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
-
-	MeshHandler::loadMeshes();
 
 	//Mesh* coinMesh;
 	//Entity* newCoin;
@@ -138,22 +137,26 @@ void SceneAssignment2::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(40, 0, 0);
-	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building);
-
-	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
-	building2->getEntityData()->SetTransform(-40, 0, 0);
-	building2->getEntityData()->SetRotate(0, 60, 0);
-	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building2);
-
 	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0, 60);
+	car->getEntityData()->SetTransform(0, 0.25, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
+
+	Entity* car2 = new Car(SEDAN_SPORTS, this, "car");
+	car2->getEntityData()->SetTransform(5, 0.25, 20);
+	car2->getEntityData()->SetRotate(0, 0, 0);
+	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car2);
+
+	Entity* car3 = new Car(RACER, this, "car");
+	car3->getEntityData()->SetTransform(-5, 0.25, 20);
+	car3->getEntityData()->SetRotate(0, 0, 0);
+	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car3);
+
+	SpawnBuildings();
+	SpawnStreetLamps();
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -174,8 +177,9 @@ void SceneAssignment2::Init() {
 
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0, 0), "player");
+	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
-	
+
 	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
 	//tree->getEntityData()->Translate.Set(60, 1, -30);
 	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
@@ -185,13 +189,7 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
 	eManager.spawnMovingEntity(car);*/
 
-	//Buttons
 
-	Button* button;
-	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
-	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
-	button->getTextObject()->setText("Test");
-	bManager.addButton(button);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -202,10 +200,10 @@ void SceneAssignment2::Init() {
 		Vector3(0, 1, 0));
 
 	//Light init
-	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 40, 0);
+	light[0].type = Light::LIGHT_DIRECTIONAL;
+	light[0].position.set(0, 100, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 1;
+	light[0].power = 0.5;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -217,7 +215,7 @@ void SceneAssignment2::Init() {
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.5f, 0.5f, 1.f); //set to white light
+	light[1].color.set(0.5f,0.5f,1.f); //set to white light
 	light[1].power = 15;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
@@ -230,8 +228,8 @@ void SceneAssignment2::Init() {
 	//3rd light
 	light[2].type = Light::LIGHT_SPOT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0.5f, 0.5f, 1.f); //set to white light
-	light[2].power = 0;
+	light[2].color.set(0.5f, 0.7f, 1.f); //set to white light
+	light[2].power = 5;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
@@ -288,20 +286,18 @@ void SceneAssignment2::Init() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-
-bool eHeld = false;
-
-void SceneAssignment2::Update(double dt)
+void Scene2021::Update(double dt)
 {
-	
-	bool foundInteractionZone = false;
-	toggleTimer += dt;
+	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
+	bool tPressed = Application::IsKeyPressed('T');
+
 	//UI item adding testing
 	//if (Application::IsKeyPressed('F'))
 	//{
 	//	inv.addItem(BURGER, 1);
 	//	inv.addItem(EGGPLANT, 2);
-	//	
+	//
 	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
 	//	inv.addCar(SUV);
 	//}
@@ -318,124 +314,11 @@ void SceneAssignment2::Update(double dt)
 	//{
 	//	inv.addItem(CORN, 3);
 	//}
+
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
 
-	if (!ePressed)
-		eHeld = false;
-
-	//Button Interaction Handling
-	bManager.Update(dt);
-	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			std::cout << "Clicked" << std::endl;
-		}
-	}
-	if (pPressed) Application::setCursorEnabled(true);
-
-	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
-	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
-
-	//Entity Collision Handling
-	for (auto& entry : eManager.getEntities()) {
-		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			// entry->getEntityData()->Rotation.x += 2 * dt;
-			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
-		}
-
-		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
-				std::cout << "In Range" << std::endl;
-				// Show interaction UI
-				if (ePressed && !eHeld) {
-					eHeld = true;
-					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
-						player->setDriving((Car*)entry, true);
-						((Car*)entry)->setPlayer(player);
-						camera.carPtr = entry;
-						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
-					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
-						player->setDriving(nullptr, false);
-						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
-						((Car*)entry)->setPlayer(nullptr);
-						camera.carPtr = nullptr;
-						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
-						player->PostUpdate(); // set old data to new data, lazy fix for now
-						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
-						camera.position.y += 2;
-						camera.test_pitch = 0;
-						camera.target = camera.defaultTarget;
-					}
-				}
-			}
-		}
-	}
-
-	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				player->getEntityData()->Translate += entry->plane * 2;
-				player->cancelNextMovement();
-				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
-			}
-
-			if (entry->victim->getType() == ENTITYTYPE::CAR) {
-				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
-				}
-				else {
-					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
-				}
-			}
-
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("interaction") != std::string::npos) {
-					foundInteractionZone = true;
-					if (!canInteractWithSomething)
-						canInteractWithSomething = true;
-					else if (passedInteractCooldown()) {
-						std::string name = entry->victim->getName();
-						if (ePressed) {
-							if (name.compare("interaction_test") == 0) {
-								loadInteractions(TEST);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
-			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				// entry->attacker->cancelNextMovement();
-				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
-				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				std::cout << "Car Collided" << std::endl;
-			}
-
-		}
-		
-	}
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
-	eManager.collisionUpdate(dt);
-
-	if (player->usingNewData()) { //Aka movement not cancelled
-		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
-			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-	}
-
-	camera.Update(dt);
-	
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
 		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
@@ -483,20 +366,6 @@ void SceneAssignment2::Update(double dt)
 		break;
 	}
 
-
-	eManager.postCollisionUpdate();
-
-	fps = (float)1 / dt;
-
-	if (isInteracting && passedInteractCooldown()) {
-		if (ePressed) {
-			nextInteraction();
-
-		}
-		latestInteractionSwitch = this->elapsed;
-	}
-
-
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
 	}
@@ -507,7 +376,7 @@ void SceneAssignment2::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('4') & 0x8001) {
-		game.switchScene(S_MAINWORLD);
+		game.switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
@@ -535,7 +404,7 @@ void SceneAssignment2::Update(double dt)
 				playerSpeed = 25.f;
 			}
 
-			player->getEntityData()->Translate += Vector3(view.x, 0, view.z) * (float)dt * playerSpeed;
+			pLoc += view * (float)dt * playerSpeed;
 
 		}
 		if (Application::IsKeyPressed('A')) {
@@ -543,11 +412,11 @@ void SceneAssignment2::Update(double dt)
 			right.y = 0;
 			right.Normalize();
 			Vector3 up = right.Cross(view).Normalized();
-			player->getEntityData()->Translate -= right * (float)dt * playerSpeed;
+			pLoc -= right * (float)dt * playerSpeed;
 		}
 
 		if (Application::IsKeyPressed('S')) {
-			player->getEntityData()->Translate -= Vector3(view.x, 0, view.z) * (float)dt * playerSpeed;
+			pLoc -= view * (float)dt * playerSpeed;
 		}
 
 		if (Application::IsKeyPressed('D')) {
@@ -555,16 +424,16 @@ void SceneAssignment2::Update(double dt)
 			right.y = 0;
 			right.Normalize();
 			Vector3 up = right.Cross(view).Normalized();
-			player->getEntityData()->Translate += right * (float)dt * playerSpeed;
+			pLoc += right * (float)dt * playerSpeed;
 		}
 		// SCENE WORLD BOUNDARIES
 		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
 		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
 
 		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		//player->getEntityData()->Translate.x = pLoc.x;
+		player->getEntityData()->Translate.x = pLoc.x;
 		// Skip y since we want level ground
-		//player->getEntityData()->Translate.z = pLoc.z;
+		player->getEntityData()->Translate.z = pLoc.z;
 
 		bobTime += dt;
 		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
@@ -573,12 +442,9 @@ void SceneAssignment2::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 	}
-
 }
 
-<<<<<<< Updated upstream
-=======
-void SceneAssignment2::ButtonUpdate(double dt) {
+void Scene2021::ButtonUpdate(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -592,17 +458,12 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
 			std::cout << "Clicked" << std::endl;
 		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-			std::cout << "IS Clicking" << std::endl;
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-			std::cout << "Hovered" << std::endl;
-		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
 }
 
-void SceneAssignment2::CollisionHandler(double dt) {
+
+void Scene2021::CollisionHandler(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -649,11 +510,13 @@ void SceneAssignment2::CollisionHandler(double dt) {
 	}
 
 	for (auto& entry : collided) {
+		Vector3 offset = entry->attacker->getHitBox()->getThisTickBox()->getCollisionResponse(entry->victim->getHitBox()->getThisTickBox());
+		offset.y = 0;
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+				entry->attacker->getEntityData()->Translate -= offset;
 				// player->getEntityData()->Translate += entry->plane * 2;
 				// player->cancelNextMovement();
-				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
@@ -689,25 +552,12 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
-				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
 
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-				float backwardsMomentum = 0.f;
-				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
-				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
-				resultantVec.y = resultantForce * 0.2f;
-				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
-				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
-				std::cout << "Car Collided" << std::endl;
-			}
 		}
 
 	}
-
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
@@ -732,9 +582,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		latestInteractionSwitch = this->elapsed;
 	}
 }
->>>>>>> Stashed changes
 
-void SceneAssignment2::Render()
+void Scene2021::Render()
 {
 
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
@@ -759,7 +608,7 @@ void SceneAssignment2::Render()
 
 	}
 
-	
+
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
@@ -768,6 +617,8 @@ void SceneAssignment2::Render()
 	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
+
+	RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -786,6 +637,7 @@ void SceneAssignment2::Render()
 		Position lightPos_cameraSpace = viewStack.Top() * light[0].position;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
 	}
+
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
@@ -793,14 +645,12 @@ void SceneAssignment2::Render()
 			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
 			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
 		}
 		else if (light[1].type == Light::LIGHT_SPOT) {
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
 			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
 		}
 		else { //Point light
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
@@ -834,6 +684,25 @@ void SceneAssignment2::Render()
 		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 		modelStack.PopMatrix();
 		break;
+	case THIRDPERSON:
+		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[2].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		break;
 	default:
 		break;
 	}
@@ -841,15 +710,10 @@ void SceneAssignment2::Render()
 	this->RenderSkybox();
 
 	modelStack.PushMatrix();
+	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Scale(1000, 1000, 1000);
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Rotate(0, 1, 0, 0);
-	modelStack.Scale(10, 10, 10);
-	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
@@ -857,29 +721,22 @@ void SceneAssignment2::Render()
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			//modelStack.Translate(entity->getHitBox()->getThisTickBox()->currentPos.x, entity->getHitBox()->getThisTickBox()->currentPos.z, entity->getHitBox()->getThisTickBox()->currentPos.x);
 			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
 		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-		   // modelStack.Translate(-entity->getHitBox()->getThisTickBox()->currentPos.x, -entity->getHitBox()->getThisTickBox()->currentPos.z, -entity->getHitBox()->getThisTickBox()->currentPos.x);
-			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
 			this->RenderMesh(mesh, lightEnable);
 			modelStack.PopMatrix();
 			delete mesh;
 		}
 	}
 
-	for (auto& button : bManager.getButtons()) {
-		button->Render();
-	}
-
 	std::ostringstream ss;
 
 	//Coins UI
 	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-	
+
 	/*ss.str("");
 	ss.clear();
 	std::string bal = std::to_string(coinBalance);
@@ -889,7 +746,7 @@ void SceneAssignment2::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	
+
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
 		ss.str("");
@@ -898,78 +755,31 @@ void SceneAssignment2::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
 
-	//UI Testing Health
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
-
-	ss.str("");
-	ss.clear();
-	ss << "6/30";
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
-
-	if (inv.getItemInventory() != nullptr)
-	{
-		ss.str("");
-		ss.clear();
-		ss << inv.getCurrentItemAmt();
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 10);
-	}
-	
-
-	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 114, 10, 10, 10);
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 114, 10, 10, 10);
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 10, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 10, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 10, 10, 10);
-	////test garage inv
-	//switch (inv.getCurrentCarType())
-	//{
-	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 20, 30, 10, 10);
-	//	break;
-	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 20, 30, 10, 10);
-	//	break;
-	//default:
-	//	break;
-	//}
-
-	//switch (inv.getActiveWeapon()->weaponType)
-	//{
-	//case FIST:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-	//	break;
-	//case PISTOL:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-	//	break;
-	//case SILENCER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
-	
 	//FPS UI
 	ss.str("");
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
+	switch (inv.getActiveWeapon()->weaponType)
+	{
+	case FIST:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
+		break;
+	case PISTOL:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
+		break;
+	case SILENCER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
+		break;
+	}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
-void SceneAssignment2::RenderSkybox() {
+void Scene2021::RenderSkybox() {
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.PushMatrix();
@@ -1019,7 +829,423 @@ void SceneAssignment2::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-bool SceneAssignment2::passedInteractCooldown() {
+void Scene2021::RenderRoads()
+{
+	//road floor
+	modelStack.PushMatrix();
+	modelStack.Translate(0, -0.05, 0);
+	modelStack.Scale(1000, 1, 1000);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
+	modelStack.PopMatrix();
+
+	//main road stretch
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_CROSSING), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-4, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(5, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-6, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	for (int i = 0; i < 7; i++)
+		modelStack.PopMatrix();
+
+	//left road stretch
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 244);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-4, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(5, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-6, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(7, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-8, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	for (int i = 0; i < 9; i++)
+		modelStack.PopMatrix();
+
+	//left road stretch
+	modelStack.PushMatrix();
+	modelStack.Translate(244, 0, 183);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
+
+	for (int i = 0; i < 4; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(1, 0, 0);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
+
+	for (int i = 0; i < 3; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(-1, 0, 0);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
+
+	for (int i = 0; i < 12; i++)
+		modelStack.PopMatrix();
+
+	//left road roundabout stretch (right)
+	modelStack.PushMatrix();
+	modelStack.Translate(366, 0, 61);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_ROUNDABOUT), true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(366, 0, 183);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-1, 0, 0);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	//str road roundabout
+	modelStack.PushMatrix();
+	modelStack.Translate(488, 0, 61);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_END), true);
+	modelStack.PopMatrix();
+
+	//left road roundabout
+	modelStack.PushMatrix();
+	modelStack.Translate(366, 0, -61);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(61, 30, 61);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+	for (int i = 0; i < 4; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(1, 0, 0);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 0, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
+
+	for (int i = 0; i < 9; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(-1, 0, 0);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-1, 0, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
+
+	for (int i = 0; i < 9; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(-1, 0, 0);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-1, 0, -1);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_ROAD_END), true);
+
+	for (int i = 0; i < 26; i++)
+		modelStack.PopMatrix();
+}
+
+
+void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+{
+	Entity* building = new WorldObject(this, geoType, "building");
+	building->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
+	building->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
+	building->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
+	eManager.spawnWorldEntity(building);
+}
+
+void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+{
+	Entity* lamp = new WorldObject(this, geoType, "lamp");
+	lamp->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
+	lamp->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
+	lamp->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
+	eManager.spawnWorldEntity(lamp);
+}
+
+void Scene2021::SpawnBuildings()
+{
+	//init of buildings
+	srand(time(NULL));
+
+	//main road buildings
+	int random = (rand() % 6) + 4;
+	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+
+	int random2 = (rand() % 6) + 4;
+	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+
+	for (int i = 1; i < 6; i++) //(main road)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+
+		int random3 = (rand() % 6) + 4;
+		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+
+		int random4 = (rand() % 6) + 4;
+		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+	}
+
+	//left and right of (positive z axis) side road buildings
+	for (int i = 2; i < 4; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
+
+		int random3 = (rand() % 6) + 4;
+		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
+
+		int random4 = (rand() % 6) + 4;
+		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
+
+		int random5 = (rand() % 6) + 4;
+		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
+
+		int random6 = (rand() % 6) + 4;
+		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
+	}
+
+	//left side left building
+	for (int i = 0; i < 4; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+	}
+
+	for (int i = 6; i < 7; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+	}
+
+	int random3 = (rand() % 6) + 4;
+	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+
+	int random4 = (rand() % 6) + 4;
+	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+
+	for (int i = 0; i < 8; i++)
+	{
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+
+		if (i < 7)
+		{
+			int random = (rand() % 6) + 4;
+			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
+		}
+
+		if (i < 2)
+		{
+			int random3 = (rand() % 6) + 4;
+			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+		}
+	}
+
+	//outside buildings
+	for (int i = 0; i < 8; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
+	}
+
+	//front row
+	for (int i = 0; i < 6; i++)
+	{
+		if (i < 4)
+		{
+			int random = (rand() % 6) + 4;
+			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
+		}
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
+
+		int random3 = (rand() % 6) + 4;
+		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
+
+		int random4 = (rand() % 6) + 4;
+		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
+	}
+
+	//front left row
+	for (int i = 0; i < 8; i++)
+	{
+		if (i < 6)
+		{
+			int random = (rand() % 6) + 4;
+			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
+		}
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
+
+		if (i < 7)
+		{
+			int random3 = (rand() % 6) + 4;
+			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
+
+			int random4 = (rand() % 6) + 4;
+			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
+		}
+	}
+
+	int random5 = (rand() % 6) + 4;
+	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
+
+	int random6 = (rand() % 6) + 4;
+	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
+
+	for (int i = 1; i < 2; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
+
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
+	}
+
+	int random7 = (rand() % 6) + 4;
+	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
+
+	int random8 = (rand() % 6) + 4;
+	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
+
+	int random9 = (rand() % 6) + 4;
+	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
+
+	for (int i = 1; i < 7; i++)
+	{
+		int random = (rand() % 6) + 4;
+		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
+	}
+
+}
+
+void Scene2021::SpawnStreetLamps()
+{
+	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-27.5, 0, -200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-27.5, 0, 200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+}
+
+bool Scene2021::passedInteractCooldown() {
 	const float INTERACTION_COOLDOWN = 0.5f;
 	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
 		return true;
@@ -1027,12 +1253,12 @@ bool SceneAssignment2::passedInteractCooldown() {
 	return false;
 }
 
-void SceneAssignment2::sendNotification(std::string msg, double duration) {
+void Scene2021::sendNotification(std::string msg, double duration) {
 	showNotifUntil = (float)(elapsed + duration);
 	notificationMessage = msg;
 }
 
-void SceneAssignment2::split(std::string txt, char delim, std::vector<std::string>& out) {
+void Scene2021::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
 	while (std::getline(iss, item, delim)) {
@@ -1040,7 +1266,7 @@ void SceneAssignment2::split(std::string txt, char delim, std::vector<std::strin
 	}
 }
 
-bool SceneAssignment2::runCommand(std::string cmd) {
+bool Scene2021::runCommand(std::string cmd) {
 	std::vector<std::string> splitVar;
 	split(cmd, ' ', splitVar);
 
@@ -1061,7 +1287,7 @@ bool SceneAssignment2::runCommand(std::string cmd) {
 	return true;
 }
 
-bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
+bool Scene2021::loadInteractions(INTERACTION_TYPE type) {
 	if (!isInteracting) {
 
 		switch (type) {
@@ -1072,7 +1298,7 @@ bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
 				inter = new Interaction();
 				inter->interactionText = "Hey There!";
 				queuedMessages.push_back(inter);
-				
+
 				inter = new Interaction();
 				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
 				queuedMessages.push_back(inter);
@@ -1107,7 +1333,7 @@ bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
 
 			break;
 		}
-		
+
 		default:
 			return false;
 		}
@@ -1124,7 +1350,7 @@ bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
 	return false;
 }
 
-void SceneAssignment2::nextInteraction() {
+void Scene2021::nextInteraction() {
 	if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
 		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
 			this->runCommand(entry);
@@ -1144,7 +1370,7 @@ void SceneAssignment2::nextInteraction() {
 	}
 }
 
-void SceneAssignment2::EndInteraction() {
+void Scene2021::EndInteraction() {
 	if (isInteracting) {
 
 		completedInteractionsCount[currentInteractionType]++;
@@ -1160,7 +1386,7 @@ void SceneAssignment2::EndInteraction() {
 	}
 }
 
-void SceneAssignment2::Exit()
+void Scene2021::Exit()
 {
 	// Cleanup VBO here
 	this->EndInteraction(); //To clear up queuedMessages pointers
