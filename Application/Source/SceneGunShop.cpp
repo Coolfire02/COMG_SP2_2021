@@ -16,7 +16,7 @@ SceneGunShop::SceneGunShop() :
 	bManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "GunShop";
 
 	//Game
 	fps = 0;
@@ -424,8 +424,8 @@ void SceneGunShop::Update(double dt)
 			pLoc += right * (float)dt * playerSpeed;
 		}
 		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+		pLoc.x = Math::Clamp(pLoc.x, -10.75f, 10.75f);
+		pLoc.z = Math::Clamp(pLoc.z, -10.75f, 10.75f);
 
 		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 		player->getEntityData()->Translate.x = pLoc.x;

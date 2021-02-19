@@ -8,6 +8,7 @@ Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTY
 	this->carType = type;
 	this->scene = scene;
 	this->name = name;
+	this->drifting = false;
 	this->Init();
 }
 
@@ -110,8 +111,20 @@ void Car::Drive(double dt) {
 	float friction = carSpeed * -0.5;
 	carSpeed += friction * dt * 2.f;
 
+	if (Application::IsKeyReleased(VK_LSHIFT) && drifting) { 
+		RotateSpeed = 80.f;
+		drifting = false; 
+		carSpeed = 0.f;
+		acceleration = 0.f;
+	}
+	
 	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
-	if (Application::IsKeyPressed(VK_LSHIFT)) RotateSpeed = 120.f;
+
+	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() != 0 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
+		RotateSpeed = 100.f;
+		drifting = true;
+		driftVector = Vector3(velocity);
+	}
 
 	if (Application::IsKeyPressed('D')) {
 		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
@@ -124,7 +137,7 @@ void Car::Drive(double dt) {
 	}
 
 	if (Application::IsKeyPressed('S')) {
-		acceleration = -maxCarSpeed * 0.75f;
+		acceleration = -maxCarSpeed * 0.5f;
 		// this->velocity = rotation * Vector3(0, 0, 1) * -carSpeed * 0.25;
 	}
 
@@ -141,8 +154,13 @@ void Car::Drive(double dt) {
 		carSpeed = carSpeed + acceleration * dt;
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
+	this->driftVector = driftVector - driftVector * dt;
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
-	this->getEntityData()->Translate += this->velocity;
+	if (drifting)
+		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector;
+	else
+		this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
+
 }
 
 void Car::Update(double dt) {

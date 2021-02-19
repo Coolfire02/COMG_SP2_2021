@@ -26,9 +26,11 @@ private:
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
+	Vector3       driftVector;
 	float		  acceleration;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
+	bool		  drifting;
 	
 public:
 	Car(CAR_TYPE, Scene* ,std::string);

@@ -284,7 +284,7 @@ void SceneAssignment2::Init() {
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 
 	//Practical 10a
 	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
@@ -391,6 +391,9 @@ void SceneAssignment2::Update(double dt)
 	else if (GetAsyncKeyState('4') & 0x8001) {
 		game.switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (GetAsyncKeyState('5') & 0x8001) {
+		game.switchScene(S_GUNSHOP);
 	}
 
 	if (Application::IsKeyPressed('9')) {

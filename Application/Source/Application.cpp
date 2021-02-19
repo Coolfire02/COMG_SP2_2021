@@ -188,6 +188,7 @@ void Application::Run()
 
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
+	g.addScene(new SceneGunShop);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
