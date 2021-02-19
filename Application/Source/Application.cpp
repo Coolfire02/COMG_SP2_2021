@@ -183,6 +183,9 @@ void Application::Run()
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Init();
 	}*/
+	MeshHandler::loadMeshes();
+	Text::loadFonts();
+
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
 

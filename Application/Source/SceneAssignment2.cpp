@@ -110,8 +110,6 @@ void SceneAssignment2::Init() {
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
 
-	MeshHandler::loadMeshes();
-
 	//Mesh* coinMesh;
 	//Entity* newCoin;
 
@@ -200,7 +198,7 @@ void SceneAssignment2::Init() {
 	Button* button;
 	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
-	button->getTextObject()->setText("Test");
+	button->getTextObject()->setTextString("Test");
 	bManager.addButton(button);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
@@ -472,6 +470,12 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
 			std::cout << "Clicked" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
+			std::cout << "IS Clicking" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
+			std::cout << "Hovered" << std::endl;
 		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);

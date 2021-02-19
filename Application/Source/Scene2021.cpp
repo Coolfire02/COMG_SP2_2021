@@ -111,8 +111,6 @@ void Scene2021::Init()
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
 	projectionStack.LoadMatrix(projection);
 
-	MeshHandler::loadMeshes();
-
 	//Mesh* coinMesh;
 	//Entity* newCoin;
 
