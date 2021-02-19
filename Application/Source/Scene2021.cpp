@@ -108,7 +108,7 @@ void Scene2021::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
 
 	//Mesh* coinMesh;
@@ -1048,7 +1048,7 @@ void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TY
 
 void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
-	Entity* lamp = new WorldObject(this, geoType, "building");
+	Entity* lamp = new WorldObject(this, geoType, "lamp");
 	lamp->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
 	lamp->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
 	lamp->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
