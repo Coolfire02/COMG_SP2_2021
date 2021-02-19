@@ -102,26 +102,21 @@ void Car::Drive(double dt) {
 		return;
 
 	acceleration = 0;
+	float RotateSpeed = 80.f;
 	float friction = carSpeed * -0.5;
 	carSpeed += friction * dt * 2.f;
 
-	if (Application::IsKeyPressed('W')) {
-		acceleration = maxCarSpeed;
-		if (Application::IsKeyPressed(VK_LSHIFT)) {
-			acceleration = maxCarSpeed / 2.0f;
-		}
-	}
+	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
+	if (Application::IsKeyPressed(VK_LSHIFT)) RotateSpeed = 120.f;
 
-	Mtx44 rotation;
-	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 	if (Application::IsKeyPressed('D')) {
-		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * 80;
-		if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * 80;
+		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
+		if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * RotateSpeed;
 	}
 
 	if (Application::IsKeyPressed('A')) {
-		if ((carSpeed > 0.05)) this->getEntityData()->Rotation.y += dt * 80;
-		if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * 80;
+		if ((carSpeed > 0.05)) this->getEntityData()->Rotation.y += dt * RotateSpeed;
+		if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
 	}
 
 	if (Application::IsKeyPressed('S')) {
@@ -133,6 +128,9 @@ void Car::Drive(double dt) {
 	// this->velocity.z = Interpolate(velocityGoal.z, this->velocity.z, dt);
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
 		this->getEntityData()->Rotation.y = 0;
+
+	Mtx44 rotation;
+	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
 
 	// carSpeed = Interpolate(carSpeedGoal, carSpeed, dt);
 	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)

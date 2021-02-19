@@ -2,7 +2,7 @@
 
 
 Player::Player(Scene* scene, Vector3 position, std::string name) : Entity(scene, ENTITYTYPE::CUSTOM, name) {
-	Box* box = new Box(Vector3(-1.5, 0, 1.5), Vector3(1.5, 5, -1.5));
+	Box* box = new Box(Vector3(-1.5, 0, 1.5), Vector3(1.5, 3, -1.5));
 	this->driving = false;
 	this->hitBox = new HitBox(box);
 	this->type = PLAYER;
