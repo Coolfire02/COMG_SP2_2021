@@ -590,6 +590,13 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			}
 		}
 
+		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+			}
+
+		}
+
 	}
 
 	if (foundInteractionZone == false) {
