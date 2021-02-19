@@ -145,6 +145,28 @@
     <ClCompile Include="Source\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\conio.h" />
+    <ClInclude Include="Source\ik_ESoundEngineOptions.h" />
+    <ClInclude Include="Source\ik_ESoundOutputDrivers.h" />
+    <ClInclude Include="Source\ik_EStreamModes.h" />
+    <ClInclude Include="Source\ik_IAudioRecorder.h" />
+    <ClInclude Include="Source\ik_IAudioStream.h" />
+    <ClInclude Include="Source\ik_IAudioStreamLoader.h" />
+    <ClInclude Include="Source\ik_IFileFactory.h" />
+    <ClInclude Include="Source\ik_IFileReader.h" />
+    <ClInclude Include="Source\ik_IRefCounted.h" />
+    <ClInclude Include="Source\ik_irrKlangTypes.h" />
+    <ClInclude Include="Source\ik_ISound.h" />
+    <ClInclude Include="Source\ik_ISoundDeviceList.h" />
+    <ClInclude Include="Source\ik_ISoundEffectControl.h" />
+    <ClInclude Include="Source\ik_ISoundEngine.h" />
+    <ClInclude Include="Source\ik_ISoundMixedOutputReceiver.h" />
+    <ClInclude Include="Source\ik_ISoundSource.h" />
+    <ClInclude Include="Source\ik_ISoundStopEventReceiver.h" />
+    <ClInclude Include="Source\ik_IVirtualRefCounted.h" />
+    <ClInclude Include="Source\ik_SAudioStreamFormat.h" />
+    <ClInclude Include="Source\ik_vec3d.h" />
+    <ClInclude Include="Source\irrKlang.h" />
     <ClInclude Include="Source\MatrixStack.h" />
     <ClInclude Include="Source\Mtx44.h" />
     <ClInclude Include="Source\MyMath.h" />
