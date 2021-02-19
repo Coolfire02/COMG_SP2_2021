@@ -166,6 +166,7 @@ void Scene2021::Init()
 
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0, 0), "player");
+	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
 	
 	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
@@ -313,7 +314,7 @@ void Scene2021::Update(double dt)
 		}*/
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -321,19 +322,18 @@ void Scene2021::Update(double dt)
 					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
-						camera.carPtr = entry;
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
 					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
+					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
-						camera.position = camera.carPtr->getEntityData()->Translate - camera.TPSPositionVector;
+						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 						((Car*)entry)->setPlayer(nullptr);
-						camera.carPtr = nullptr;
 						camera.camType = FIRSTPERSON;
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.test_pitch = 0;
 						camera.target = camera.defaultTarget;
@@ -344,21 +344,11 @@ void Scene2021::Update(double dt)
 	}
 
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				player->getEntityData()->Translate += entry->plane * 2;
 				player->cancelNextMovement();
 				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
-			}
-
-			if (entry->victim->getType() == ENTITYTYPE::CAR) {
-				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
-				}
-				else {
-					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
-				}
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
@@ -375,6 +365,14 @@ void Scene2021::Update(double dt)
 						}
 					}
 				}
+			}
+		}
+		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				// entry->attacker->cancelNextMovement();
+				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				std::cout << "Car Collided" << std::endl;
 			}
 		}
 		
@@ -531,6 +529,10 @@ void Scene2021::Update(double dt)
 
 		bobTime += dt;
 		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+	}
+
+	if (player->isDriving()) {
+		player->getCar()->Drive(dt);
 	}
 }
 

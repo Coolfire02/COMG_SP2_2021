@@ -21,7 +21,7 @@ void Car::Init() {
 
 	switch (carType) {
 	case SEDAN:
-		this->carSpeed = 5.f;
+		this->maxCarSpeed = 5.f;
 		this->associatedType = GEO_SEDAN;
 		break;
 	case SEDAN_SPORTS:
@@ -107,6 +107,9 @@ void Car::Drive(double dt) {
 
 	if (Application::IsKeyPressed('W')) {
 		acceleration = maxCarSpeed;
+		if (Application::IsKeyPressed(VK_LSHIFT)) {
+			acceleration = maxCarSpeed / 2.0f;
+		}
 	}
 
 	Mtx44 rotation;

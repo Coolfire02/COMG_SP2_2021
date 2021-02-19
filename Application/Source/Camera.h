@@ -19,7 +19,7 @@ class Camera
 {
 public:
 	CAMERATYPE camType;
-	Entity*    carPtr;
+	Entity*	   playerPtr;
 
 	Vector3 position, TPSPositionVector;
 	Vector3 target, defaultTarget;
