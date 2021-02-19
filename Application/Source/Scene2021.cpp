@@ -1005,6 +1005,7 @@ void Scene2021::RenderRoads()
 		modelStack.PopMatrix();
 }
 
+
 void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
 	Entity* building = new WorldObject(this, geoType, "building");
