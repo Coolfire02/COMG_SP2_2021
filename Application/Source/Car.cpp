@@ -87,6 +87,10 @@ float Car::getSpeed()
 	return this->carSpeed;
 }
 
+Vector3 Car::getVelocity() {
+	return this->velocity;
+}
+
 CAR_TYPE Car::getCartype()
 {
 	return this->carType;

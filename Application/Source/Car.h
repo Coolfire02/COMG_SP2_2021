@@ -42,6 +42,7 @@ public:
 	void     setPlayer(Player*);
 	float	 getAccel();
 	float    getSpeed();
+	Vector3  getVelocity();
 
 	CAR_TYPE getCartype();
 	Player* getPlayer();

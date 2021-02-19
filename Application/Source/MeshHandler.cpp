@@ -18,7 +18,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 
-	meshList[TAILSS] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Tails.obj", "MTL//Tails.mtl");
+	meshList[TAILSS] = MeshBuilder::GenerateOBJMTL("testnpc", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 
 	//OBJS
 	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building1.obj", "MTL//Buildings//1.mtl");

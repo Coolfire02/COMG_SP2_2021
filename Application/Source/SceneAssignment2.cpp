@@ -154,7 +154,9 @@ void SceneAssignment2::Init() {
 	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building2);
 
-	// Entity* testNPC = new NPC();
+	Entity* testNPC = new NPC(this, TESTNPC, "test");
+	testNPC->getEntityData()->SetTransform(10, 0, 0);
+	eManager.spawnMovingEntity(testNPC);
 
 	Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, 60);
@@ -564,6 +566,15 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				std::cout << "Car Collided" << std::endl;
 			}
 
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
+				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
+				resultantVec.y = resultantForce * 0.2f;
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				std::cout << "Car Collided" << std::endl;
+			}
 		}
 
 	}
