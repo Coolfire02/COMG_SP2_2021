@@ -154,7 +154,7 @@ void Car::Drive(double dt) {
 	std::cout << velocity.Magnitude() << std::endl;
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
-	this->driftVector = driftVector - driftVector * dt;
+	this->driftVector = (driftVector - driftVector * dt);
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;

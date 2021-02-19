@@ -523,9 +523,10 @@ void SceneGunShop::CollisionHandler(double dt) {
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				player->getEntityData()->Translate += entry->plane * 2;
-				player->cancelNextMovement();
-				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
+				// player->getEntityData()->Translate += entry->plane * 2;
+				// player->cancelNextMovement();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -560,6 +561,8 @@ void SceneGunShop::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
 
@@ -568,13 +571,15 @@ void SceneGunShop::CollisionHandler(double dt) {
 				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;
-				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}
 		}
 
 	}
+
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
