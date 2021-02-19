@@ -5,9 +5,10 @@ WeaponInventory::WeaponInventory()
 	activeWeapon = nullptr;
 }
 
-WeaponInventory::WeaponInventory(Weapon* weapon, WEAPON_TYPE wType)
+WeaponInventory::WeaponInventory(WEAPON_TYPE wType)
 {
-	addWeapon(weapon, wType);
+	activeWeapon = new Weapon(wType);
+	weaponList.push_back(activeWeapon);
 }
 
 WeaponInventory::~WeaponInventory()

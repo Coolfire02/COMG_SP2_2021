@@ -19,16 +19,8 @@ Inventory::~Inventory()
 
 void Inventory::addWeap(WEAPON_TYPE weapontype)
 {
-	if (weaponInv == nullptr) //If there are no weapons in the inventory
-	{
-		Weapon* temp = new Weapon();
-		weaponInv = new WeaponInventory(temp, weapontype);
-	}
-	else
-	{
-		Weapon* temp = new Weapon();
-		weaponInv->addWeapon(temp, weapontype);
-	}
+	Weapon* temp = new Weapon();
+	weaponInv->addWeapon(temp, weapontype);
 }
 
 void Inventory::addCar(CAR_TYPE cartype)
