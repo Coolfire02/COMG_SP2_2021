@@ -30,6 +30,7 @@ private:
 	float		  acceleration;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
+	float         driftFalloff;
 	bool		  drifting;
 	
 public:
