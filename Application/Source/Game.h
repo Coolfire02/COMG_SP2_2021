@@ -10,6 +10,7 @@ enum SCENES
 	S_2051 = 0,
 	S_2021,
 	S_GUNSHOP,
+	S_GARAGE,
 	S_COUNT
 };
 

@@ -61,6 +61,10 @@ void ButtonManager::Update(double dt) {
 			}
 			
 		}
+		else if (collisionEntry != nullptr && !mousePressed) {
+			collisionEntry->isClicking = false;
+			collisionEntry->clickTally = 0;
+		}
 	}
 	buttonsInteractedThisTick.erase(std::remove(buttonsInteractedThisTick.begin(), buttonsInteractedThisTick.end(), nullptr), buttonsInteractedThisTick.end());
 	
