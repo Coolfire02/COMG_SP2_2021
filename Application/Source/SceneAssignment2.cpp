@@ -199,6 +199,7 @@ void SceneAssignment2::Init() {
 	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
 	button->getTextObject()->setTextString("Test");
+	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
 	bManager.addButton(button);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
@@ -797,7 +798,7 @@ void SceneAssignment2::Render()
 	}
 
 	//UI Testing Health
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
 
 	ss.str("");
 	ss.clear();

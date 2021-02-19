@@ -165,7 +165,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Translate(x, y, 0);
+	modelStack.Translate(x, y, 1);
 	modelStack.Scale(size, size, size);
 
 	glDisable(GL_DEPTH_TEST);
