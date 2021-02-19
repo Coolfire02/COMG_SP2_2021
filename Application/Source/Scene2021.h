@@ -13,6 +13,7 @@
 #include "Interactions.h"
 
 #include "EntityManager.h"
+#include "ButtonManager.h"
 #include "MeshHandler.h"
 
 //Entities
@@ -42,6 +43,7 @@ private:
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
+	ButtonManager bManager;
 
 	//Game Variables
 	Player* player;
@@ -105,6 +107,8 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
+	virtual void ButtonUpdate(double dt);
+	virtual void CollisionHandler(double dt);
 	virtual void Render();
 	virtual void Exit();
 };

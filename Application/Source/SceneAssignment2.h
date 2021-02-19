@@ -101,6 +101,8 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
+	virtual void CollisionHandler(double dt);
+	virtual void ButtonUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
 };
