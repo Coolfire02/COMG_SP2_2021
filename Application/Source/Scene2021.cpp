@@ -317,51 +317,28 @@ void Scene2021::Update(double dt)
 	//	inv.addItem(CORN, 3);
 	//}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
-
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("interaction") != std::string::npos) {
-					foundInteractionZone = true;
-					if (!canInteractWithSomething)
-						canInteractWithSomething = true;
-					else if (passedInteractCooldown()) {
-						std::string name = entry->victim->getName();
-						if (ePressed) {
-							if (name.compare("interaction_test") == 0) {
-								loadInteractions(TEST);
-							}
-						}
-					}
-				}
-			}
-		}
-		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
-			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				// entry->attacker->cancelNextMovement();
-				float backwardsMomentum = (0 - ((Car*)entry->attacker)->getSpeed() * 0.75f);
-				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				std::cout << "Car Collided" << std::endl;
-			}
-		}
+	//weapon inventory
+	if (Application::IsKeyPressed('E')) //pick up weapon
+		inv.addWeap(PISTOL);
+	if (Application::IsKeyPressed('F')) //pick up weapon
+		inv.addWeap(SILENCER);
+	if (Application::IsKeyPressed('1')) //weapon slot 1
+		inv.switchWeapon(0);
+	if (Application::IsKeyPressed('2')) //weapon slot 2
+		inv.switchWeapon(1);
+	if (Application::IsKeyPressed('3')) //weapon slot 3
+		inv.switchWeapon(2);
+	if (Application::IsKeyPressed('4')) //weapon slot 4
+		inv.switchWeapon(3);
+	if (toggleTimer > 1 && Application::IsKeyPressed('5')) //delete equipped weapon
+	{
+		toggleTimer = 0;
+		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
 	}
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
-	eManager.collisionUpdate(dt);
-
-	if (player->usingNewData()) { //Aka movement not cancelled
-		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
-			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-	}
-
-	camera.Update(dt);
 
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
-		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
+		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5.25))
 		{
 			switch (camera.camType)
 			{
@@ -426,6 +403,11 @@ void Scene2021::Update(double dt)
 	if (Application::IsKeyPressed('0')) {
 		lightEnable = !lightEnable;
 	}
+
+
+	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -783,7 +765,8 @@ void Scene2021::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	
+	RenderUI();
+
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
 		ss.str("");
@@ -798,22 +781,6 @@ void Scene2021::Render()
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 
-	switch (inv.getActiveWeapon()->weaponType)
-	{
-	case FIST:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-		break;
-	case PISTOL:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-		break;
-	case SILENCER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-		break;
-	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
 void Scene2021::RenderSkybox() {
@@ -1403,6 +1370,34 @@ void Scene2021::nextInteraction() {
 	else {
 		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
 			this->runCommand(entry);
+		}
+	}
+}
+
+void Scene2021::RenderUI()
+{
+	//weapons UI
+	for (int i = 0; i < 4; i++) //limit to displaying 4
+	{
+		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			return;
+
+		switch (inv.getWeaponVector()[i]->getWeaponType())
+		{
+		case PISTOL:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
+			break;
+		case SILENCER:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
+			break;
+		default:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
+			break;
+		}
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
+		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		{
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
 	}
 }
