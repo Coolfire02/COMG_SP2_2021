@@ -3,11 +3,8 @@
 
 NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYPE::LIVE_NPC, name) , npcType(npcType) {
 	switch (type) {
-	case EGGMAN:
-		// this->associatedNPCMesh = MeshHandler::getMesh(GEO_SONIC_EGGMAN);
-		break;
-	case TAILS:
-		// this->associatedNPCMesh = MeshHandler::getMesh(GEO_SONIC_TAILS);
+	case TESTNPC:
+		this->associatedNPCMesh = MeshHandler::getMesh(TAILSS);
 		break;
 	default:
 		this->associatedNPCMesh = nullptr;

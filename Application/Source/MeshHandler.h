@@ -82,7 +82,7 @@ enum GEOMETRY_TYPE {
 
 	//Textured Quads
 
-
+	TAILSS,
 	//For non-OBJs
 
 

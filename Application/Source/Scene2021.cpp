@@ -143,7 +143,7 @@ void Scene2021::Init()
 	car->getEntityData()->SetTransform(0, 0.25, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnWorldEntity(car);
+	eManager.spawnWorldEntity(car);	
 
 	SpawnBuildings();
 	SpawnStreetLamps();

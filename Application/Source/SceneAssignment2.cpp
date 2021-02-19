@@ -107,7 +107,7 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
 
 	MeshHandler::loadMeshes();
@@ -153,6 +153,8 @@ void SceneAssignment2::Init() {
 	building2->getEntityData()->SetRotate(0, 60, 0);
 	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building2);
+
+	// Entity* testNPC = new NPC();
 
 	Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, 60);

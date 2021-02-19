@@ -4,6 +4,7 @@
 enum NPCTYPE {
 	EGGMAN,
 	TAILS,
+	TESTNPC,
 
 	NPC_TYPECOUNT
 };
