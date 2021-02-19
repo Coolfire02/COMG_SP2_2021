@@ -22,7 +22,7 @@ struct RigidBody {
 		else velocity = velocity + gravity * dt;
 		velocity = velocity + (-1 * velocity * airResistanceFactor);
 
-		std::cout << data->Translate.x << " " << data->Translate.y << " " << data->Translate.z << std::endl;
+		//std::cout << data->Translate.x << " " << data->Translate.y << " " << data->Translate.z << std::endl;
 		grounded = false;
 	}
 };

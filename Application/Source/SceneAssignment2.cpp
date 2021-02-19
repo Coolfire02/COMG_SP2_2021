@@ -216,8 +216,8 @@ void SceneAssignment2::Init() {
 	light[0].color.set(1, 1, 1); //set to white light
 	light[0].power = 1;
 	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
+	light[0].kL = 0.1f;
+	light[0].kQ = 0.01f;
 	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
 	light[0].exponent = 3.f;
@@ -285,7 +285,7 @@ void SceneAssignment2::Init() {
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 
 	//Practical 10a
 	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
@@ -572,7 +572,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
+				float backwardsMomentum = 0.f;
 				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;

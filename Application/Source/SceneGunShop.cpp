@@ -12,7 +12,8 @@
 #include "Car.h"
 
 SceneGunShop::SceneGunShop() :
-	eManager(this)
+	eManager(this),
+	bManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -284,35 +285,196 @@ void SceneGunShop::Init() {
 
 void SceneGunShop::Update(double dt)
 {
-	bool foundInteractionZone = false;
-	toggleTimer += dt;
+	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
+	bool tPressed = Application::IsKeyPressed('T');
+
 	//UI item adding testing
 	//if (Application::IsKeyPressed('F'))
 	//{
 	//	inv.addItem(BURGER, 1);
 	//	inv.addItem(EGGPLANT, 2);
-	//	inv.addItem(CORN, 3);
-	//	//inv.addCar(SUV);
+	//	
+	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
+	//	inv.addCar(SUV);
 	//}
 	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
 	//{
 	//	toggleTimer = 0;
 	//	inv.toggleItem();
-	//	/*if (inv.getCurrentCarType() == SEDAN)
+	//	if (inv.getCurrentCarType() == SEDAN)
 	//		inv.switchCar(SUV);
 	//	else
-	//		inv.switchCar(SEDAN);*/
+	//		inv.switchCar(SEDAN);
 	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	//{
+	//	inv.addItem(CORN, 3);
+	//}
+
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
+
+	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
+	{
+		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
+		{
+			switch (camera.camType)
+			{
+			case FIRSTPERSON:
+				camera.camType = TOPDOWN_FIRSTPERSON;
+				break;
+			case THIRDPERSON:
+				camera.camType = TOPDOWN_THIRDPERSON;
+				break;
+			}
+			camMap = true;
+		}
+		else
+		{
+			switch (camera.camType)
+			{
+			case TOPDOWN_FIRSTPERSON:
+				camera.camType = FIRSTPERSON;
+				break;
+			case TOPDOWN_THIRDPERSON:
+				camera.camType = THIRDPERSON;
+				break;
+			}
+			camMap = false;
+		}
+	}
+
+	camera2.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
+		0,
+		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+
+	switch (camera.camType)
+	{
+	case TOPDOWN_FIRSTPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
+		break;
+	case TOPDOWN_THIRDPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+
+		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	}
+
+	if (GetAsyncKeyState('1') & 0x8001) {
+		glEnable(GL_CULL_FACE);
+	}
+	else if (GetAsyncKeyState('2') & 0x8001) {
+		glDisable(GL_CULL_FACE);
+	}
+	else if (GetAsyncKeyState('3') & 0x8001) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('4') & 0x8001) {
+		game.switchScene(S_2021);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	if (Application::IsKeyPressed('9')) {
+		hitboxEnable = !hitboxEnable;
+	}
+	if (Application::IsKeyPressed('0')) {
+		lightEnable = !lightEnable;
+	}
+
+	Vector3 pLoc = player->getEntityData()->Translate;
+	Vector3 oldLoc = Vector3(pLoc);
+
+	//Requires Implementation of Velocity by Joash
+	float playerSpeed = 15.0;
+	if (!((Player*)player)->isDriving()) {
+		Vector3 view = (camera.target - camera.position).Normalized();
+		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+			camera.position.y += CameraBobber;
+		}
+
+		if (Application::IsKeyPressed('W')) {
+
+			if (Application::IsKeyPressed(VK_LSHIFT)) {
+				playerSpeed = 25.f;
+			}
+
+			pLoc += view * (float)dt * playerSpeed;
+
+		}
+		if (Application::IsKeyPressed('A')) {
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc -= right * (float)dt * playerSpeed;
+		}
+
+		if (Application::IsKeyPressed('S')) {
+			pLoc -= view * (float)dt * playerSpeed;
+		}
+
+		if (Application::IsKeyPressed('D')) {
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc += right * (float)dt * playerSpeed;
+		}
+		// SCENE WORLD BOUNDARIES
+		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+		player->getEntityData()->Translate.x = pLoc.x;
+		// Skip y since we want level ground
+		player->getEntityData()->Translate.z = pLoc.z;
+
+		bobTime += dt;
+		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+	}
+
+	if (player->isDriving()) {
+		player->getCar()->Drive(dt);
+	}
+}
+
+void SceneGunShop::ButtonUpdate(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
 
 	if (!ePressed)
 		eHeld = false;
 
-	//This is where CollidedWiths are handled. You may cancel movement, and do so much more here.
+	//Button Interaction Handling
+	bManager.Update(dt);
+	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
+			std::cout << "Clicked" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
+			std::cout << "IS Clicking" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
+			std::cout << "Hovered" << std::endl;
+		}
+	}
+	if (pPressed) Application::setCursorEnabled(true);
+}
+
+void SceneGunShop::CollisionHandler(double dt) {
+	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
+	bool tPressed = Application::IsKeyPressed('T');
+
+	bool foundInteractionZone = false;
+
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
+	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
@@ -320,7 +482,7 @@ void SceneGunShop::Update(double dt)
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 4) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -331,7 +493,7 @@ void SceneGunShop::Update(double dt)
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
 					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()){
+					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
 						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 						((Car*)entry)->setPlayer(nullptr);
@@ -339,6 +501,7 @@ void SceneGunShop::Update(double dt)
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.test_pitch = 0;
 						camera.target = camera.defaultTarget;
@@ -349,8 +512,8 @@ void SceneGunShop::Update(double dt)
 	}
 
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				player->getEntityData()->Translate += entry->plane * 2;
 				player->cancelNextMovement();
 				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
@@ -385,12 +548,23 @@ void SceneGunShop::Update(double dt)
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				entry->attacker->cancelNextMovement();
+				// entry->attacker->cancelNextMovement();
+				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				std::cout << "Car Collided" << std::endl;
 			}
 
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+				float backwardsMomentum = 0.f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
+				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
+				resultantVec.y = resultantForce * 0.2f;
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				std::cout << "Car Collided" << std::endl;
+			}
 		}
-		
+
 	}
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
@@ -404,11 +578,6 @@ void SceneGunShop::Update(double dt)
 	}
 
 	camera.Update(dt);
-
-	camera2.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-		0,
-		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
-
 	eManager.postCollisionUpdate();
 
 	fps = (float)1 / dt;
@@ -419,71 +588,6 @@ void SceneGunShop::Update(double dt)
 
 		}
 		latestInteractionSwitch = this->elapsed;
-	}
-
-
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('3') & 0x8001) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
-		// game.switchScene(S_MAINWORLD);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	if (Application::IsKeyPressed('9')) {
-		hitboxEnable = !hitboxEnable;
-	}
-	if (Application::IsKeyPressed('0')) {
-		lightEnable = !lightEnable;
-	}
-
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
-
-	//Requires Implementation of Velocity by Joash
-	const float playerSpeed = 15.0;
-
-	if (!((Player*)player)->isDriving()) {
-		if (Application::IsKeyPressed('W')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			pLoc += view * (float)dt * playerSpeed;
-		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('S')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			pLoc -= view * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('D')) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
-		}
-		// SCENE WORLD BOUNDARIES
-		pLoc.x = Math::Clamp(pLoc.x, -10.f, 10.f);
-		pLoc.z = Math::Clamp(pLoc.z, -10.f, 10.f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
 	}
 }
 
