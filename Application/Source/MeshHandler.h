@@ -81,6 +81,7 @@ enum GEOMETRY_TYPE {
 	//Garage
 	GARAGE_WALL,
 	GARAGE_DOOR,
+	CONCRETE_WALL,
 
 	//Textured Quads
 

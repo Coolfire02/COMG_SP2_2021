@@ -14,6 +14,7 @@
 #include "MeshHandler.h"
 #include "SceneAssignment2.h"
 #include "Scene2021.h"
+#include "SceneGarage.h"
 #include "Game.h"
 #include "SceneGunShop.h"
 
@@ -188,6 +189,7 @@ void Application::Run()
 
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
+	g.addScene(new SceneGarage);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
