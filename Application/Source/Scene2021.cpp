@@ -142,7 +142,19 @@ void Scene2021::Init()
 	car->getEntityData()->SetTransform(0, 0.25, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnWorldEntity(car);
+	eManager.spawnMovingEntity(car);
+
+	Entity* car2 = new Car(SEDAN_SPORTS, this, "car");
+	car2->getEntityData()->SetTransform(5, 0.25, 20);
+	car2->getEntityData()->SetRotate(0, 0, 0);
+	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car2);
+
+	Entity* car3 = new Car(RACER, this, "car");
+	car3->getEntityData()->SetTransform(-5, 0.25, 20);
+	car3->getEntityData()->SetRotate(0, 0, 0);
+	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car3);
 
 	SpawnBuildings();
 	SpawnStreetLamps();
@@ -375,7 +387,6 @@ void Scene2021::Update(double dt)
 				std::cout << "Car Collided" << std::endl;
 			}
 		}
-		
 	}
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
@@ -708,43 +719,29 @@ void Scene2021::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
-
-	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-	//	//std::cout << "Burger";
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-	//	//std::cout << "Corn";
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-	//	//std::cout << "Eggplant";
-	//	break;
-	//default:
-	//	break;
-	//}
-	////test garage inv
-	//switch (inv.getCurrentCarType())
-	//{
-	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 40, 30, 30, 30);
-	//	break;
-	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 40, 30, 30, 30);
-	//	break;
-	//default:
-	//	break;
-	//}
 	
 	//FPS UI
 	ss.str("");
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
+	switch (inv.getActiveWeapon()->weaponType)
+	{
+	case FIST:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
+		break;
+	case PISTOL:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
+		break;
+	case SILENCER:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
+		break;
+	default:
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
+		break;
+	}
+	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
 void Scene2021::RenderSkybox() {
@@ -1032,88 +1029,88 @@ void Scene2021::SpawnBuildings()
 	srand(time(NULL));
 
 	//main road buildings
-	int random = (rand() % 7) + 3;
+	int random = (rand() % 6) + 4;
 	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-	int random2 = (rand() % 7) + 3;
-	initBuildings(Vector3(-50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+	int random2 = (rand() % 6) + 4;
+	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
 	for (int i = 1; i < 6; i++) //(main road)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 7) + 3;
+		int random3 = (rand() % 6) + 4;
 		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 7) + 3;
+		int random4 = (rand() % 6) + 4;
 		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
 	}
 
 	//left and right of (positive z axis) side road buildings
 	for (int i = 2; i < 4; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 7) + 3;
+		int random3 = (rand() % 6) + 4;
 		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 7) + 3;
+		int random4 = (rand() % 6) + 4;
 		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
 
-		int random5 = (rand() % 7) + 3;
+		int random5 = (rand() % 6) + 4;
 		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
 
-		int random6 = (rand() % 7) + 3;
+		int random6 = (rand() % 6) + 4;
 		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
 	}
 
 	//left side left building
 	for (int i = 0; i < 4; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 	}
 
 	for (int i = 6; i < 7; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 	}
 
-	int random3 = (rand() % 7) + 3;
+	int random3 = (rand() % 6) + 4;
 	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 
-	int random4 = (rand() % 7) + 3;
+	int random4 = (rand() % 6) + 4;
 	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
 
 	for (int i = 0; i < 8; i++)
 	{
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
 		if (i < 7)
 		{
-			int random = (rand() % 7) + 3;
+			int random = (rand() % 6) + 4;
 			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
 		}
 
 		if (i < 2)
 		{
-			int random3 = (rand() % 7) + 3;
+			int random3 = (rand() % 6) + 4;
 			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 		}	
 	}
@@ -1121,10 +1118,10 @@ void Scene2021::SpawnBuildings()
 	//outside buildings
 	for (int i = 0; i < 8; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
 	}
 
@@ -1133,17 +1130,17 @@ void Scene2021::SpawnBuildings()
 	{
 		if (i < 4)
 		{
-			int random = (rand() % 7) + 3;
+			int random = (rand() % 6) + 4;
 			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
 		}
 
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 7) + 3;
+		int random3 = (rand() % 6) + 4;
 		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 7) + 3;
+		int random4 = (rand() % 6) + 4;
 		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
 	}
 
@@ -1152,50 +1149,50 @@ void Scene2021::SpawnBuildings()
 	{
 		if (i < 6)
 		{
-			int random = (rand() % 7) + 3;
-			initBuildings(Vector3(-55 * i, 0, 300), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
+			int random = (rand() % 6) + 4;
+			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
 		}
 
-		int random2 = (rand() % 7) + 3;
-		initBuildings(Vector3(65 * i, 0, 300), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
+		int random2 = (rand() % 6) + 4;
+		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
 
 		if (i < 7)
 		{
-			int random3 = (rand() % 7) + 3;
-			initBuildings(Vector3(-80 * i, 0, 360), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
+			int random3 = (rand() % 6) + 4;
+			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
 
-			int random4 = (rand() % 7) + 3;
-			initBuildings(Vector3(80 * i, 0, 360), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
+			int random4 = (rand() % 6) + 4;
+			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
 		}
 	}
 
-	int random5 = (rand() % 7) + 3;
+	int random5 = (rand() % 6) + 4;
 	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
 
-	int random6 = (rand() % 7) + 3;
+	int random6 = (rand() % 6) + 4;
 	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
 
 	for (int i = 1; i < 2; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
 		
-		int random2 = (rand() % 7) + 3;
+		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
 	}
 
-	int random7 = (rand() % 7) + 3;
+	int random7 = (rand() % 6) + 4;
 	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
 
-	int random8 = (rand() % 7) + 3;
+	int random8 = (rand() % 6) + 4;
 	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
 
-	int random9 = (rand() % 7) + 3;
+	int random9 = (rand() % 6) + 4;
 	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
 
 	for (int i = 1; i < 7; i++)
 	{
-		int random = (rand() % 7) + 3;
+		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
 	}
 
@@ -1207,6 +1204,10 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-27.5, 0, -200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-27.5, 0, 200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 }
 
 bool Scene2021::passedInteractCooldown() {

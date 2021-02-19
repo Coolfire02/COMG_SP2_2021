@@ -48,6 +48,8 @@ bool MeshHandler::loadMeshes() {
 	
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
+	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
+	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
 
 	//Weapons
 	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");

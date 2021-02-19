@@ -10,7 +10,7 @@ private:
 	std::vector<Weapon*> weaponList; //vector to store player's owned Weapons
 public:
 	WeaponInventory();
-	WeaponInventory(Weapon* weapon, WEAPON_TYPE wType);
+	WeaponInventory(WEAPON_TYPE wType);
 	~WeaponInventory();
 
 	void addWeapon(Weapon* weapon, WEAPON_TYPE wType);
