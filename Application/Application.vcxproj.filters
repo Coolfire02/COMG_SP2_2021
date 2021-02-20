@@ -4,239 +4,239 @@
     <ClCompile Include="Source\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ButtonManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CustomEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GarageInventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HitBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\InteractionStack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ItemInventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadOBJ.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadTGA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MeshBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MeshHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\NPC.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Position3D.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Scene2021.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneAssignment2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UIItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\UIManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WorldObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WeaponInventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneGunShop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2021.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneGarage.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGunShop.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Button.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ButtonManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GarageInventory.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InteractionStack.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Inventory.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Item.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemInventory.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshHandler.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Position3D.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Text.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIItem.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UIManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WeaponInventory.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WorldObject.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CustomEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HitBox.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\NPC.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Source\AudioHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\shader.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Button.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\shader.hpp">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\ButtonManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CustomEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EntityDataHandler.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Button.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GarageInventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HitBox.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Interactions.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\InteractionStack.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Inventory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Item.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\ItemInventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadOBJ.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadTGA.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshBuilder.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\NPC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Position3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneAssignment2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Text.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\UIItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\UIManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Weapon.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\WeaponInventory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Car.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CustomEntity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityDataHandler.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HitBox.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NPC.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\WorldObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2021.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGunShop.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGarage.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneAssignment2.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene2021.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GarageInventory.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadOBJ.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadTGA.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game.h">
+      <Filter>Source Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\AudioHandler.h" />
   </ItemGroup>
@@ -246,6 +246,24 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{085218a3-5c45-4560-bfd7-ea08bbbd60e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{f7002a19-21a8-47c2-81c7-e99d3ee1acd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{6a3f4c2d-4cdb-48bb-bef8-b8065090606a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{0ebd7bf3-4fbe-48f7-8212-ec2a03cd2779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{89f86587-81e7-47f6-aebe-534e7702fc32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{cdf66352-85d1-4546-9b65-5a58d62d10b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{97e8f530-d2d8-4c02-a74a-de1e70d55007}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
