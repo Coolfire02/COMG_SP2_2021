@@ -315,13 +315,10 @@ void Scene2021::Update(double dt)
 	//	inv.addItem(CORN, 3);
 	//}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
-
+	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
-		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5.25))
+		if (!camMap)
 		{
 			switch (camera.camType)
 			{
@@ -349,9 +346,11 @@ void Scene2021::Update(double dt)
 		}
 	}
 
-	camera2.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
-		0,
-		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+	camera2.position.Set(player->getEntityData()->Translate.x,
+		100,
+		player->getEntityData()->Translate.z);
+
+	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
 
 	switch (camera.camType)
 	{
@@ -361,8 +360,11 @@ void Scene2021::Update(double dt)
 		break;
 	case TOPDOWN_THIRDPERSON:
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	default:
+		light[1].power = 0;
+		light[1].spotDirection.Set(0, 0, 0);
 		break;
 	}
 

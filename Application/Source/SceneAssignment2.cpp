@@ -392,8 +392,12 @@ void SceneAssignment2::Update(double dt)
 		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
 		break;
 	case TOPDOWN_THIRDPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x, 1, player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	default:
+		light[1].power = 0;
+		light[1].spotDirection.Set(0,0,0);
 		break;
 	}
 
