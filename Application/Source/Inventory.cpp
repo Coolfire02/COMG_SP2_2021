@@ -3,7 +3,6 @@
 Inventory::Inventory()
 {
 	currentCar = nullptr;
-	weaponInv = nullptr;
 
 	//Create garage inventory
 	currentCar = new GarageInventory(SEDAN);
@@ -11,16 +10,22 @@ Inventory::Inventory()
 
 	//For item inventory
 	itemInventory = nullptr;
+
+	//for weapon inven
+	weaponInv = nullptr;
+	addWeap(SILENCER);
 }
 
 Inventory::~Inventory()
 {
 }
 
-void Inventory::addWeap(WEAPON_TYPE weapontype)
+void Inventory::addWeap(WEAPON_TYPE weaponType)
 {
-	Weapon* temp = new Weapon();
-	weaponInv->addWeapon(temp, weapontype);
+	if (weaponInv == nullptr)
+		weaponInv = new WeaponInventory(weaponType);
+	else
+		weaponInv->addWeapon(weaponType);
 }
 
 void Inventory::addCar(CAR_TYPE cartype)
@@ -62,6 +67,11 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 	return;
 }
 
+void Inventory::deleteWeapon(WEAPON_TYPE wType)
+{
+	this->weaponInv->delWeapon(wType);
+}
+
 void Inventory::switchCar(CAR_TYPE cartype)
 {
 	for (int i = 0; i < garageInv.size(); i++)
@@ -74,9 +84,9 @@ void Inventory::switchCar(CAR_TYPE cartype)
 	}
 }
 
-void Inventory::switchWeapon(WEAPON_TYPE wType)
+void Inventory::switchWeapon(int index)
 {
-	weaponInv->setActiveWeapon(wType);
+	weaponInv->switchActiveWeapon(index);
 }
 
 void Inventory::toggleItem()
@@ -94,6 +104,11 @@ void Inventory::getGarageInventory()
 ItemInventory* Inventory::getItemInventory()
 {
 	return this->itemInventory;
+}
+
+std::vector<Weapon*> Inventory::getWeaponVector()
+{
+	return weaponInv->getWeaponList();
 }
 
 std::vector<Item*> Inventory::getItemVector()
@@ -124,4 +139,10 @@ Weapon* Inventory::getActiveWeapon()
 		return nullptr;
 	else
 		return weaponInv->getActiveWeapon();
+}
+
+WEAPON_TYPE Inventory::getCurrentWeaponType()
+{
+	if (weaponInv != nullptr)
+		return weaponInv->getActiveWeapon()->getWeaponType();
 }

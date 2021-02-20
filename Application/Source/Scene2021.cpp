@@ -321,7 +321,7 @@ void Scene2021::Update(double dt)
 
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
-		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
+		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5.25))
 		{
 			switch (camera.camType)
 			{
@@ -395,6 +395,11 @@ void Scene2021::Update(double dt)
 	if (Application::IsKeyPressed('0')) {
 		lightEnable = !lightEnable;
 	}
+
+
+	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -521,9 +526,10 @@ void Scene2021::CollisionHandler(double dt) {
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				player->getEntityData()->Translate += entry->plane * 2;
-				player->cancelNextMovement();
-				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
+				// player->getEntityData()->Translate += entry->plane * 2;
+				// player->cancelNextMovement();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -558,12 +564,38 @@ void Scene2021::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
+			}
+
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+				float backwardsMomentum = 0.f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
+				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
+				resultantVec.y = resultantForce * 0.2f;
+				Math::Clamp(resultantVec.y, 0.f, 1.0f);
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				std::cout << "Car Collided" << std::endl;
+			}
+		}
+
+		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				Vector3 resultantVec;
+				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
+				Vector3 n = entry->normal;
+				resultantVec = d - 2 * d.Dot(n) * n;
+				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 			}
 
 		}
 
 	}
+
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
@@ -752,6 +784,7 @@ void Scene2021::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
+	RenderUI();
 
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
@@ -767,22 +800,6 @@ void Scene2021::Render()
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 
-	switch (inv.getActiveWeapon()->weaponType)
-	{
-	case FIST:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-		break;
-	case PISTOL:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-		break;
-	case SILENCER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-		break;
-	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
 void Scene2021::RenderSkybox() {
@@ -1372,6 +1389,34 @@ void Scene2021::nextInteraction() {
 	else {
 		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
 			this->runCommand(entry);
+		}
+	}
+}
+
+void Scene2021::RenderUI()
+{
+	//weapons UI
+	for (int i = 0; i < 4; i++) //limit to displaying 4
+	{
+		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			return;
+
+		switch (inv.getWeaponVector()[i]->getWeaponType())
+		{
+		case PISTOL:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
+			break;
+		case SILENCER:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
+			break;
+		default:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
+			break;
+		}
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
+		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		{
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #include "WeaponInventory.h"
-
+#include <iostream>
 WeaponInventory::WeaponInventory()
 {
 	activeWeapon = nullptr;
@@ -7,39 +7,62 @@ WeaponInventory::WeaponInventory()
 
 WeaponInventory::WeaponInventory(WEAPON_TYPE wType)
 {
-	activeWeapon = new Weapon(wType);
-	weaponList.push_back(activeWeapon);
+	activeWeapon = new Weapon(wType); //add new weapon with corresponding weaponType to argument
+	weaponList.push_back(activeWeapon); //push back new weapon into weapon inventory vector
 }
 
 WeaponInventory::~WeaponInventory()
 {
 }
 
-void WeaponInventory::addWeapon(Weapon* weapon, WEAPON_TYPE wType)
+void WeaponInventory::addWeapon(WEAPON_TYPE wType)
 {
-	weapon = new Weapon(wType); //add new weapon with corresponding weaponType to argument
-	weaponList.push_back(weapon); //push back new weapon into weapon inventory vector
-	activeWeapon = weapon; //set activeWeapon to new weapon
+	for (int i = 0; i < weaponList.size(); i++) //check if player owns weapon
+		if (weaponList[i]->getWeaponType() == wType) //if yes return and cancel adding of weapon to prevent duplicate
+			return;
+
+	//add weapons to vector
+	Weapon* temp = new Weapon(wType);
+	weaponList.push_back(temp);
+	activeWeapon = temp;
+}
+
+void WeaponInventory::delWeapon(WEAPON_TYPE wType)
+{
+	for (int i = 0; i < weaponList.size(); i++)
+	{
+		if (weaponList[i]->getWeaponType() == wType) //cycle through the vector and find the weapon type to be removed
+		{
+			delete weaponList[i]; //del weapon
+			weaponList[i] = nullptr; //set to nullptr
+		}
+	}
+
+	weaponList.erase(std::remove(weaponList.begin(), weaponList.end(), nullptr), weaponList.end()); //remove any nullptr from vector
+
+	for (int i = 0; i < weaponList.size(); i++)
+	{
+		if (weaponList[i] != nullptr)
+		{
+			activeWeapon = weaponList[i]; //set nearest slot weapon to active weapon
+		}
+	}
 }
 
 Weapon* WeaponInventory::getActiveWeapon()
 {
-	return weaponList[activeWeapon->weaponType]; //return activeWeapon
+	return this->activeWeapon; //return activeWeapon
 }
 
 std::vector<Weapon*> WeaponInventory::getWeaponList()
 {
-	return this->weaponList;
+	return this->weaponList; //return weaponList vector
 }
 
-void WeaponInventory::setActiveWeapon(WEAPON_TYPE wType)
+void WeaponInventory::switchActiveWeapon(int index)
 {
-	for (int i = 0; i < weaponList.size(); ++i) //loop through whole vector to see if player owns the weapon
-	{
-		if (weaponList[i]->weaponType == wType) //if yes then
-		{
-			activeWeapon = weaponList[i]; //set active weapon
-		}
-	}		
-	return;
+	if (this->weaponList.size() > index) //switch active weapon to index of vector
+		activeWeapon = weaponList[index];
+	else
+		return;
 }

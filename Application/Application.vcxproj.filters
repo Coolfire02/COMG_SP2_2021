@@ -112,6 +112,7 @@
     <ClCompile Include="Source\LoadTGA.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\AudioHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -237,6 +238,7 @@
     <ClInclude Include="Source\Game.h">
       <Filter>Source Files\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\AudioHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

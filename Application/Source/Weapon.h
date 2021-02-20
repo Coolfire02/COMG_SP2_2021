@@ -3,8 +3,7 @@
 
 enum WEAPON_TYPE
 {
-	FIST = 0,
-	PISTOL,
+	PISTOL = 0,
 	SILENCER,
 	WEAPON_COUNT
 };
@@ -14,17 +13,16 @@ class Weapon
 private:
 	int magazineSize;
 	int damage;
-
+	WEAPON_TYPE weaponType;
 public:
 	Weapon();
 	Weapon(WEAPON_TYPE wType);
 	~Weapon();
 
-	static WEAPON_TYPE weaponType;
-
-	void initFist();
 	void initPistol();
 	void initSilencer();
 
 	void initWeapon(WEAPON_TYPE wType, int ammos, int damages);
+
+	WEAPON_TYPE getWeaponType();
 };

@@ -70,7 +70,8 @@ private:
 	double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
 	bool passedInteractCooldown(); //Checks if cooldown is reached;
 	void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
-	
+	void RenderUI();
+
 	Light light[3];
 
 	bool hitboxEnable;

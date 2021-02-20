@@ -15,7 +15,7 @@ SceneAssignment2::SceneAssignment2() :
 	eManager(this), bManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "TestScene";
 
 	//Game
 	fps = 0;
@@ -305,7 +305,7 @@ void SceneAssignment2::Update(double dt)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-
+	toggleTimer += dt;
 	//UI item adding testing
 	//if (Application::IsKeyPressed('F'))
 	//{
@@ -329,13 +329,29 @@ void SceneAssignment2::Update(double dt)
 	//	inv.addItem(CORN, 3);
 	//}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
+	//weapon inventory
+	if (Application::IsKeyPressed('E')) //pick up weapon
+		inv.addWeap(PISTOL);
+	if (Application::IsKeyPressed('F')) //pick up weapon
+		inv.addWeap(SILENCER);
+	if (Application::IsKeyPressed('1')) //weapon slot 1
+		inv.switchWeapon(0);
+	if (Application::IsKeyPressed('2')) //weapon slot 2
+		inv.switchWeapon(1);
+	if (Application::IsKeyPressed('3')) //weapon slot 3
+		inv.switchWeapon(2);
+	if (Application::IsKeyPressed('4')) //weapon slot 4
+		inv.switchWeapon(3);
+	if (toggleTimer > 1 && Application::IsKeyPressed('5')) //delete equipped weapon
+	{
+		toggleTimer = 0;
+		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
+	}
 
+	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
-		if (!camMap && ((camera.target.y > 2 && camera.target.y < 2.5) || camera.target.y == 5))
+		if (!camMap)
 		{
 			switch (camera.camType)
 			{
@@ -367,6 +383,7 @@ void SceneAssignment2::Update(double dt)
 		0,
 		player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
 
+	light[1].position.set(10000000, 0, 100000000);
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
@@ -375,7 +392,6 @@ void SceneAssignment2::Update(double dt)
 		break;
 	case TOPDOWN_THIRDPERSON:
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		break;
 	}
@@ -409,6 +425,10 @@ void SceneAssignment2::Update(double dt)
 	if (Application::IsKeyPressed('0')) {
 		lightEnable = !lightEnable;
 	}
+
+	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -540,9 +560,10 @@ void SceneAssignment2::CollisionHandler(double dt) {
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				player->getEntityData()->Translate += entry->plane * 2;
-				player->cancelNextMovement();
-				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
+				// player->getEntityData()->Translate += entry->plane * 2;
+				// player->cancelNextMovement();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -577,21 +598,38 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 				float backwardsMomentum = 0.f;
-				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;
-				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}
 		}
 
+		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				Vector3 resultantVec;
+				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
+				Vector3 n = entry->normal;
+				resultantVec = d - 2 * d.Dot(n) * n;
+				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+			}
+
+		}
+
 	}
+
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
@@ -822,53 +860,8 @@ void SceneAssignment2::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 10);
 	}
 	
+	RenderUI();
 
-	////UI inventory testing
-	//switch (inv.getCurrentItemType())
-	//{
-	//case BURGER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 114, 10, 10, 10);
-	//	break;
-	//case CORN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 114, 10, 10, 10);
-	//	break;
-	//case EGGPLANT:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 10, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 10, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 10, 10, 10);
-	////test garage inv
-	//switch (inv.getCurrentCarType())
-	//{
-	//case SEDAN:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SEDAN), 20, 30, 10, 10);
-	//	break;
-	//case SUV:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SUV), 20, 30, 10, 10);
-	//	break;
-	//default:
-	//	break;
-	//}
-
-	//switch (inv.getActiveWeapon()->weaponType)
-	//{
-	//case FIST:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-	//	break;
-	//case PISTOL:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-	//	break;
-	//case SILENCER:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-	//	break;
-	//default:
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-	//	break;
-	//}
-	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 	
 	//FPS UI
 	ss.str("");
@@ -1048,6 +1041,34 @@ void SceneAssignment2::nextInteraction() {
 	else {
 		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
 			this->runCommand(entry);
+		}
+	}
+}
+
+void SceneAssignment2::RenderUI()
+{
+	//weapons UI
+	for (int i = 0; i < 4; i++) //limit to displaying 4
+	{
+		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			return;
+
+		switch (inv.getWeaponVector()[i]->getWeaponType())
+		{
+		case PISTOL:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
+			break;
+		case SILENCER:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
+			break;
+		default:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
+			break;
+		}
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
+		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		{
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
 	}
 }

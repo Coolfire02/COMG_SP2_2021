@@ -16,7 +16,7 @@ SceneGarage::SceneGarage() :
 	bManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "GarageScene";
 
 	//Game
 	fps = 0;
@@ -524,9 +524,10 @@ void SceneGarage::CollisionHandler(double dt) {
 	for (auto& entry : collided) {
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				player->getEntityData()->Translate += entry->plane * 2;
-				player->cancelNextMovement();
-				std::cout << "Collided " << entry->plane.x << " " << entry->plane.y << " " << entry->plane.z << std::endl;
+				// player->getEntityData()->Translate += entry->plane * 2;
+				// player->cancelNextMovement();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -561,12 +562,38 @@ void SceneGarage::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
+			}
+
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+				float backwardsMomentum = 0.f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
+				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
+				resultantVec.y = resultantForce * 0.2f;
+				Math::Clamp(resultantVec.y, 0.f, 1.0f);
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				std::cout << "Car Collided" << std::endl;
+			}
+		}
+
+		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				Vector3 resultantVec;
+				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
+				Vector3 n = entry->normal;
+				resultantVec = d - 2 * d.Dot(n) * n;
+				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 			}
 
 		}
 
 	}
+
 	if (foundInteractionZone == false) {
 		canInteractWithSomething = false;
 	}
@@ -721,16 +748,16 @@ void SceneGarage::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(200, 200, 200);
-	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	modelStack.Scale(100, 200, 200);
+	RenderMesh(MeshHandler::getMesh(GARAGE_FLOOR), true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 22, 99.99); 
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
-	RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 22, 99); 
+	//modelStack.Rotate(180, 0, 1, 0);
+	//modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
+	//RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
+	//modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(20, 0, 0);
@@ -783,23 +810,6 @@ void SceneGarage::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
-
-	switch (inv.getActiveWeapon()->weaponType)
-	{
-	case FIST:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-		break;
-	case PISTOL:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-		break;
-	case SILENCER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-		break;
-	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
 void SceneGarage::RenderSkybox() {
@@ -1080,6 +1090,7 @@ void SceneGarage::SpawnWalls()
 	initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
 	initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
 	initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 }
 //
 //void SceneGarage::SpawnBuildings()

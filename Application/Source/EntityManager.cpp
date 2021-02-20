@@ -45,7 +45,7 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 			Collider c = movingE->getHitBox()->collidedWith(worldE->getHitBox());
 			if (c.collided) {
 				//std::cout << "Collision detected!" << std::endl;
-				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.plane));
+				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.translationVector, c.normal));
 			}
 			else {
 				/*std::cout << "No Collision detected!" << std::endl;
@@ -62,7 +62,7 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 			Collider c = movingE->getHitBox()->collidedWith(movingE2->getHitBox());
 			if (c.collided) {
 				//std::cout << "Collision detected!" << std::endl;
-				thisTick.push_back(new CollidedWith(movingE, movingE2, true, c.plane));
+				thisTick.push_back(new CollidedWith(movingE, movingE2, true, c.translationVector, c.normal));
 			}
 			else {
 				/*std::cout << "No Collision detected!" << std::endl;

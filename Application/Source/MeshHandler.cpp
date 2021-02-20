@@ -129,6 +129,10 @@ bool MeshHandler::loadMeshes() {
 	meshList[GARAGE_DOOR]->textureID = LoadTGA("Image//Garage//garageDoor.tga");
 	meshList[CONCRETE_WALL] = MeshBuilder::GenerateQuad("concreteWall", Color(1, 1, 1));
 	meshList[CONCRETE_WALL]->textureID = LoadTGA("Image//Garage//concreteWall.tga");
+	meshList[GARAGE_FLOOR] = MeshBuilder::GenerateQuad("woodFloor", Color(1, 1, 1));
+	meshList[GARAGE_FLOOR]->textureID = LoadTGA("Image//Garage//woodFloor.tga");
+
+
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
 
