@@ -407,7 +407,7 @@ void SceneAssignment2::Update(double dt)
 	}
 	else if (GetAsyncKeyState('5') & 0x8001) {
 		//game.switchScene(S_2021);
-		game.switchScene(S_GARAGE);
+		//game.switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	else if (GetAsyncKeyState('6') & 0x8001) {
