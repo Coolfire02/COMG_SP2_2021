@@ -4,7 +4,7 @@
 Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTYPE::CAR, name)
 {
 	this->maxCarSpeed = 0.5f;
-	this->carSpeedGoal = this->carSpeed = 0.f;
+	this->carSpeed = 0.f;
 	this->driftFalloff = 0.f;
 	this->carType = type;
 	this->scene = scene;
@@ -50,7 +50,7 @@ void Car::Init() {
 		break;
 	}
 
-	if (associatedType != 0) {
+	if (associatedType) {
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(*theMesh->botLeftPos, *theMesh->topRightPos));
 	}
@@ -59,12 +59,6 @@ void Car::Init() {
 
 Car::Car()
 {
-}
-
-Car::Car(float speed, CAR_TYPE type)
-{
-	this->carSpeed = speed;
-	this->carType = type;
 }
 
 void Car::setSpeed(float speed)

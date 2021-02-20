@@ -316,8 +316,6 @@ void Scene2021::Update(double dt)
 	//}
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
 
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
@@ -400,7 +398,6 @@ void Scene2021::Update(double dt)
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
-
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
 
@@ -564,7 +561,7 @@ void Scene2021::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
 				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
@@ -576,7 +573,7 @@ void Scene2021::CollisionHandler(double dt) {
 				resultantVec.y = resultantForce * 0.2f;
 				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}

@@ -167,7 +167,7 @@ void SceneAssignment2::Init() {
 	light[0].kQ = 0.001f;
 	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
+	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	//2nd light

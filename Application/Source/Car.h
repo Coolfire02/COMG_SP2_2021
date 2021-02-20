@@ -19,21 +19,21 @@ class Player;
 class Car : public Entity
 {
 private:
-	float         carSpeed;
-	Player*       plr;
-	CAR_TYPE      carType;
 	GEOMETRY_TYPE associatedType;
+	CAR_TYPE      carType;
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
 	Vector3       driftVector;
 	Vector3       bounceVector;
 	
-	float		  acceleration;
-	float		  carSpeedGoal;
+	float         carSpeed;
 	float		  maxCarSpeed;
+	float		  acceleration;
 	float         driftFalloff;
 	bool		  drifting;
+
+	Player*		  plr;
 	
 public:
 	Car(CAR_TYPE, Scene* ,std::string);
@@ -50,10 +50,9 @@ public:
 	Vector3  getVelocity();
 
 	CAR_TYPE getCartype();
-	Player* getPlayer();
-	void Drive(double dt);
+	Player*  getPlayer();
+	void     Drive(double dt); 
 
-	void Update(double);
-	void Render();
+	void     Update(double);
+	void     Render();
 };
-

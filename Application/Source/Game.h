@@ -19,7 +19,6 @@ class Game
 public:
 	Game();
 	~Game();
-
 	static SCENES activeScene;
 	std::vector<Scene*> SceneList;
 
