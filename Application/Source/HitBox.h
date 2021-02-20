@@ -8,6 +8,7 @@
 struct Collider {
 	bool collided;
 	Vector3 translationVector;
+	Vector3 normal;
 };
 
 struct Box {
@@ -82,11 +83,59 @@ struct Box {
 		collider.collided = collided;
 
 		if (collided) {
+			collider.normal = getCollisionPlaneNormal(&otherBox);
 			collider.translationVector = getCollisionResponse(&otherBox);
 			collider.translationVector.y = 0;
 		}
 
 		return collider;
+	}
+
+	Vector3 getCollisionPlaneNormal(Box* otherBox) {
+		Vector3 RPos;
+		RPos = otherBox->currentPos - this->currentPos;
+		float lowestOverlap = 0;
+		int axisNumber = 0;
+
+		int minmax = 1;
+
+		float offset[4] =
+		{
+			getOverlap(RPos, otherBox->xAxis, otherBox) * (1.f / (2 * otherBox->halfSize.x)) * (1.f / (2 * halfSize.x)),
+			getOverlap(RPos, otherBox->zAxis, otherBox) * (1.f / (2 * otherBox->halfSize.z)) * (1.f / (2 * halfSize.z)),
+			getOverlap(RPos, otherBox->xAxis, otherBox) * (1.f / (2 * otherBox->halfSize.x)) * (1.f / (2 * halfSize.x)),
+			getOverlap(RPos, otherBox->zAxis, otherBox) * (1.f / (2 * otherBox->halfSize.z)) * (1.f / (2 * halfSize.z)),
+		};
+
+		for (int i = 0; i < 4; ++i)
+		{
+			if (Math::FAbs(offset[i]) > Math::FAbs(lowestOverlap))
+			{
+				axisNumber = i;
+				lowestOverlap = offset[i];
+			}
+		}
+
+		Vector3 normal;
+		Vector3 translationalVector;
+
+		switch (axisNumber)
+		{
+		case 0:
+			normal = otherBox->xAxis;
+			break;
+		case 1:
+			normal = otherBox->zAxis;
+			break;
+		case 2:
+			normal = otherBox->xAxis;
+			break;
+		case 3:
+			normal = otherBox->zAxis;
+			break;
+		}
+
+		return normal;
 	}
 
 	Vector3 getCollisionResponse(Box* otherBox) {
@@ -97,7 +146,7 @@ struct Box {
 
 		int minmax = 1;
 
-		float offset[6] =
+		float offset[4] =
 		{
 			getOverlap(RPos, otherBox->xAxis, otherBox) * (1.f / (2 * otherBox->halfSize.x)) * (1.f / (2 * halfSize.x)),
 			//getOverlap(RPos, otherBox->yAxis, otherBox) * (1.f / (2 * otherBox->halfSize.y)) * (1.f / (2 * halfSize.y)),
