@@ -14,6 +14,7 @@
 #include "MeshHandler.h"
 #include "SceneAssignment2.h"
 #include "Scene2021.h"
+#include "SceneGarage.h"
 #include "Game.h"
 #include "SceneGunShop.h"
 
@@ -71,7 +72,7 @@ bool Application::GetMouseUpdate()
 {
 	if (glfwGetInputMode(m_window, GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
 		return false;
-	
+
 	glfwGetCursorPos(m_window, &mouse_current_x, &mouse_current_y);
 
 	// Calculate the difference in positions
@@ -138,7 +139,7 @@ void Application::Init()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //Request a specific OpenGL version
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
 	m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
@@ -152,7 +153,7 @@ void Application::Init()
 		exit(EXIT_FAILURE);
 	}
 
-	//This function makes the context of the specified window current on the calling thread. 
+	//This function makes the context of the specified window current on the calling thread.
 	glfwMakeContextCurrent(m_window);
 
 	//Sets the key callback
@@ -163,7 +164,7 @@ void Application::Init()
 	GLenum err = glewInit();
 
 	//If GLEW hasn't initialized
-	if (err != GLEW_OK) 
+	if (err != GLEW_OK)
 	{
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		//return -1;
@@ -183,8 +184,13 @@ void Application::Run()
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Init();
 	}*/
+	MeshHandler::loadMeshes();
+	Text::loadFonts();
+
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
+	g.addScene(new SceneGunShop);
+	g.addScene(new SceneGarage);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -199,10 +205,10 @@ void Application::Run()
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
-        m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+        m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.
 
 	} //Check if the ESC key had been pressed or if the window had been closed
-	
+
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
 		scenes[i]->Exit();
 		delete scenes[i];

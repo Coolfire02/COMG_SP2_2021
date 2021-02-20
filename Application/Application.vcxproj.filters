@@ -109,6 +109,10 @@
     <ClCompile Include="Source\Scene2021.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneGarage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AudioHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\shader.hpp">
@@ -231,6 +235,10 @@
     <ClInclude Include="Source\SceneGunShop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneGarage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AudioHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

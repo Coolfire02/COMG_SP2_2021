@@ -11,7 +11,7 @@
 #include "Utility.h"
 #include "Car.h"
 
-Scene2021::Scene2021() : 
+Scene2021::Scene2021() :
 	eManager(this),
 	bManager(this)
 {
@@ -38,7 +38,7 @@ Scene2021::~Scene2021()
 
 }
 
-void Scene2021::Init() 
+void Scene2021::Init()
 {
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -108,10 +108,8 @@ void Scene2021::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
-
-	MeshHandler::loadMeshes();
 
 	//Mesh* coinMesh;
 	//Entity* newCoin;
@@ -181,7 +179,7 @@ void Scene2021::Init()
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
-	
+
 	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
 	//tree->getEntityData()->Translate.Set(60, 1, -30);
 	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
@@ -299,7 +297,7 @@ void Scene2021::Update(double dt)
 	//{
 	//	inv.addItem(BURGER, 1);
 	//	inv.addItem(EGGPLANT, 2);
-	//	
+	//
 	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
 	//	inv.addCar(SUV);
 	//}
@@ -317,24 +315,9 @@ void Scene2021::Update(double dt)
 	//	inv.addItem(CORN, 3);
 	//}
 
-	//weapon inventory
-	if (Application::IsKeyPressed('E')) //pick up weapon
-		inv.addWeap(PISTOL);
-	if (Application::IsKeyPressed('F')) //pick up weapon
-		inv.addWeap(SILENCER);
-	if (Application::IsKeyPressed('1')) //weapon slot 1
-		inv.switchWeapon(0);
-	if (Application::IsKeyPressed('2')) //weapon slot 2
-		inv.switchWeapon(1);
-	if (Application::IsKeyPressed('3')) //weapon slot 3
-		inv.switchWeapon(2);
-	if (Application::IsKeyPressed('4')) //weapon slot 4
-		inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('5')) //delete equipped weapon
-	{
-		toggleTimer = 0;
-		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
-	}
+	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	ButtonUpdate(dt);
+	CollisionHandler(dt);
 
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
@@ -627,7 +610,7 @@ void Scene2021::Render()
 
 	}
 
-	
+
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
@@ -755,7 +738,7 @@ void Scene2021::Render()
 
 	//Coins UI
 	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-	
+
 	/*ss.str("");
 	ss.clear();
 	std::string bal = std::to_string(coinBalance);
@@ -774,7 +757,7 @@ void Scene2021::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
-	
+
 	//FPS UI
 	ss.str("");
 	ss.clear();
@@ -1033,7 +1016,7 @@ void Scene2021::RenderRoads()
 		modelStack.Translate(-1, 0, 0);
 		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
 	}
-	
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-1, 0, -1);
 	modelStack.Rotate(-90, 0, 1, 0);
@@ -1055,7 +1038,7 @@ void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TY
 
 void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
-	Entity* lamp = new WorldObject(this, geoType, "building");
+	Entity* lamp = new WorldObject(this, geoType, "lamp");
 	lamp->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
 	lamp->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
 	lamp->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
@@ -1064,7 +1047,7 @@ void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_
 
 void Scene2021::SpawnBuildings()
 {
-	//init of buildings 
+	//init of buildings
 	srand(time(NULL));
 
 	//main road buildings
@@ -1151,7 +1134,7 @@ void Scene2021::SpawnBuildings()
 		{
 			int random3 = (rand() % 6) + 4;
 			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-		}	
+		}
 	}
 
 	//outside buildings
@@ -1215,7 +1198,7 @@ void Scene2021::SpawnBuildings()
 	{
 		int random = (rand() % 6) + 4;
 		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
-		
+
 		int random2 = (rand() % 6) + 4;
 		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
 	}
@@ -1302,7 +1285,7 @@ bool Scene2021::loadInteractions(INTERACTION_TYPE type) {
 				inter = new Interaction();
 				inter->interactionText = "Hey There!";
 				queuedMessages.push_back(inter);
-				
+
 				inter = new Interaction();
 				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
 				queuedMessages.push_back(inter);
@@ -1337,7 +1320,7 @@ bool Scene2021::loadInteractions(INTERACTION_TYPE type) {
 
 			break;
 		}
-		
+
 		default:
 			return false;
 		}

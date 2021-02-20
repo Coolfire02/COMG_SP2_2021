@@ -11,7 +11,7 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "Interactions.h"
-
+#include "ButtonManager.h"
 #include "EntityManager.h"
 #include "MeshHandler.h"
 
@@ -42,6 +42,7 @@ private:
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
+	ButtonManager bManager;
 
 	//Game Variables
 	Player* player;
@@ -84,6 +85,8 @@ private:
 
 	//topdown cam map
 	bool camMap;
+	float CameraBobber = 0;
+	double bobTime = 0;
 
 public:
 	SceneGunShop();
@@ -98,6 +101,8 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
+	virtual void CollisionHandler(double dt);
+	virtual void ButtonUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
 };

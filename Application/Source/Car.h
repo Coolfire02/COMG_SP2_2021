@@ -26,9 +26,12 @@ private:
 
 	Vector3       velocity;
 	Vector3		  velocityGoal;
+	Vector3       driftVector;
 	float		  acceleration;
 	float		  carSpeedGoal;
 	float		  maxCarSpeed;
+	float         driftFalloff;
+	bool		  drifting;
 	
 public:
 	Car(CAR_TYPE, Scene* ,std::string);
@@ -42,6 +45,7 @@ public:
 	void     setPlayer(Player*);
 	float	 getAccel();
 	float    getSpeed();
+	Vector3  getVelocity();
 
 	CAR_TYPE getCartype();
 	Player* getPlayer();

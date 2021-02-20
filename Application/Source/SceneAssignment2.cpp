@@ -15,7 +15,7 @@ SceneAssignment2::SceneAssignment2() :
 	eManager(this), bManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "TestScene";
 
 	//Game
 	fps = 0;
@@ -107,10 +107,8 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 1000.0f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
-
-	MeshHandler::loadMeshes();
 
 	//Mesh* coinMesh;
 	//Entity* newCoin;
@@ -154,6 +152,10 @@ void SceneAssignment2::Init() {
 	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building2);
 
+	Entity* testNPC = new NPC(this, TESTNPC, "test");
+	testNPC->getEntityData()->SetTransform(10, 0, 0);
+	eManager.spawnMovingEntity(testNPC);
+
 	Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, 60);
 	car->getEntityData()->SetRotate(0, 0, 0);
@@ -196,7 +198,8 @@ void SceneAssignment2::Init() {
 	Button* button;
 	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
-	button->getTextObject()->setText("Test");
+	button->getTextObject()->setTextString("Test");
+	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
 	bManager.addButton(button);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
@@ -213,8 +216,8 @@ void SceneAssignment2::Init() {
 	light[0].color.set(1, 1, 1); //set to white light
 	light[0].power = 1;
 	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
+	light[0].kL = 0.1f;
+	light[0].kQ = 0.01f;
 	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
 	light[0].exponent = 3.f;
@@ -402,9 +405,13 @@ void SceneAssignment2::Update(double dt)
 	else if (GetAsyncKeyState('3') & 0x8001) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
-		game.switchScene(S_2021);
+	else if (GetAsyncKeyState('5') & 0x8001) {
+		//game.switchScene(S_2021);
+		game.switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (GetAsyncKeyState('6') & 0x8001) {
+		game.switchScene(S_GUNSHOP);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -488,6 +495,12 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
 			std::cout << "Clicked" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
+			std::cout << "IS Clicking" << std::endl;
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
+			std::cout << "Hovered" << std::endl;
 		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
@@ -582,6 +595,15 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				std::cout << "Car Collided" << std::endl;
 			}
 
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+				float backwardsMomentum = 0.f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
+				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
+				resultantVec.y = resultantForce * 0.2f;
+				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
+				std::cout << "Car Collided" << std::endl;
+			}
 		}
 
 	}
@@ -800,7 +822,7 @@ void SceneAssignment2::Render()
 	}
 
 	//UI Testing Health
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
+	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
 
 	ss.str("");
 	ss.clear();
