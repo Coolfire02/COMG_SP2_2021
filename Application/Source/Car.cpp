@@ -118,6 +118,7 @@ void Car::Drive(double dt) {
 	float friction = carSpeed * -0.5;
 	carSpeed += friction * dt * 2.f;
 
+	// Set the drift vector to the velocity when started drifting
 	if (Application::IsKeyReleased(VK_LSHIFT) && drifting) { 
 		RotateSpeed = 80.f;
 		drifting = false; 
@@ -153,14 +154,12 @@ void Car::Drive(double dt) {
 
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
-	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)
-		carSpeed = carSpeed + acceleration * dt;
-
-	std::cout << velocity.Magnitude() << std::endl;
+	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f) carSpeed = carSpeed + acceleration * dt;
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	this->driftVector = (driftVector - driftVector * dt);
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
+
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
