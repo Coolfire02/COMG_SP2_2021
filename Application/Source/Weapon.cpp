@@ -1,5 +1,4 @@
 #include "Weapon.h"
-WEAPON_TYPE Weapon::weaponType;
 
 Weapon::Weapon() //set damage and magSize to 0
 {
@@ -15,10 +14,6 @@ Weapon::Weapon(WEAPON_TYPE wType)
 {
 	switch (wType) //based on new weaponType, init the dmg and magSize
 	{
-	case FIST:
-		initFist();
-		break;
-
 	case PISTOL:
 		initPistol();
 		break;
@@ -28,14 +23,8 @@ Weapon::Weapon(WEAPON_TYPE wType)
 		break;
 
 	default:
-		initFist();
 		break;
 	}
-}
-
-void Weapon::initFist() //init fist with 0 dmg, 0 magSize
-{
-	initWeapon(FIST, 0, 0);
 }
 
 void Weapon::initPistol() //init fist with 20 dmg, 10 magSize
@@ -53,4 +42,9 @@ void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weap
 	this->weaponType = wType;
 	this->damage = damages;
 	this->magazineSize = magSize;
+}
+
+WEAPON_TYPE Weapon::getWeaponType()
+{
+	return this->weaponType;
 }

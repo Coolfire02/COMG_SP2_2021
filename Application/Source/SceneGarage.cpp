@@ -16,7 +16,7 @@ SceneGarage::SceneGarage() :
 	bManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "GarageScene";
 
 	//Game
 	fps = 0;
@@ -801,23 +801,6 @@ void SceneGarage::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
-
-	switch (inv.getActiveWeapon()->weaponType)
-	{
-	case FIST:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 114, 20, 10, 10);
-		break;
-	case PISTOL:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 114, 20, 10, 10);
-		break;
-	case SILENCER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 114, 20, 10, 10);
-		break;
-	default:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 114, 20, 10, 10);
-		break;
-	}
-	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 114, 20, 10, 10);
 }
 
 void SceneGarage::RenderSkybox() {

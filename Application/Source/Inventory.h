@@ -12,7 +12,6 @@ private:
 	GarageInventory* currentCar;
 	
 	ItemInventory* itemInventory;
-
 	WeaponInventory* weaponInv;
 public:
 	Inventory();
@@ -26,14 +25,16 @@ public:
 	//Changing Item Amount
 	void changeItemAmt(ITEM_TYPE itemtype, int amt);
 	void deleteItem(ITEM_TYPE itemtype);
+	void deleteWeapon(WEAPON_TYPE wType);
 
 	//Switching Cars/Items/Weapons
 	void switchCar(CAR_TYPE cartype);
-	void switchWeapon(WEAPON_TYPE wType);
+	void switchWeapon(int index);
 	void toggleItem();
 
 	//Getters
 	void getGarageInventory();
+	std::vector<Weapon*> getWeaponVector();
 	ItemInventory* getItemInventory();
 	std::vector<Item*> getItemVector();
 
@@ -41,5 +42,6 @@ public:
 	ITEM_TYPE getCurrentItemType();
 	int getCurrentItemAmt();
 	Weapon* getActiveWeapon();
+	WEAPON_TYPE getCurrentWeaponType();
 };
 
