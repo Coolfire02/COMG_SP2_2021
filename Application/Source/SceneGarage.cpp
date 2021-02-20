@@ -560,14 +560,27 @@ void SceneGarage::CollisionHandler(double dt) {
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 				float backwardsMomentum = 0.f;
-				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 2.5f;
+				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;
+				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}
+		}
+
+		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
+			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				Vector3 resultantVec;
+				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
+				Vector3 n = entry->normal;
+				resultantVec = d - 2 * d.Dot(n) * n;
+				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+			}
+
 		}
 
 	}
