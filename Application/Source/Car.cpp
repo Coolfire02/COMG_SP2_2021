@@ -90,6 +90,11 @@ float Car::getSpeed()
 	return this->carSpeed;
 }
 
+void Car::setVelocity(Vector3 velocity)
+{
+	this->velocity = velocity;
+}
+
 Vector3 Car::getVelocity() {
 	return this->velocity;
 }

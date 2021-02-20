@@ -342,7 +342,7 @@ void SceneAssignment2::Update(double dt)
 		inv.switchWeapon(2);
 	if (Application::IsKeyPressed('4')) //weapon slot 4
 		inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('5')) //delete equipped weapon
+	if (toggleTimer > 1 && Application::IsKeyPressed('o')) //delete equipped weapon
 	{
 		toggleTimer = 0;
 		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
@@ -402,20 +402,20 @@ void SceneAssignment2::Update(double dt)
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
 	}
-	else if (GetAsyncKeyState('3') & 0x8001) {
+	else if (GetAsyncKeyState('5') & 0x8001) {
 		game.switchScene(S_2051);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
+	else if (GetAsyncKeyState('6') & 0x8001) {
 		game.switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
+	else if (GetAsyncKeyState('7') & 0x8001) {
 		//game.switchScene(S_2021);
 		game.switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
+	else if (GetAsyncKeyState('8') & 0x8001) {
 		game.switchScene(S_GUNSHOP);
 	}
 
@@ -598,7 +598,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
 				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
@@ -610,7 +610,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				resultantVec.y = resultantForce * 0.2f;
 				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}
