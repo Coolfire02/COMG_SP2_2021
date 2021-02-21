@@ -125,7 +125,7 @@ void SceneAssignment2::Init() {
 	eManager.spawnWorldEntity(building2);
 
 	Entity* testNPC = new NPC(this, TESTNPC, "test");
-	testNPC->getEntityData()->SetTransform(10, 0, 0);
+	testNPC->getEntityData()->SetTransform(0, 0, 10);
 	eManager.spawnMovingEntity(testNPC);
 
 	Entity* car = new Car(SEDAN, this, "car");
@@ -298,59 +298,6 @@ void SceneAssignment2::Update(double dt)
 		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
 	}
 
-	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}	
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		100,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0,0,0);
-		break;
-	}
-
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
 	}
@@ -382,6 +329,7 @@ void SceneAssignment2::Update(double dt)
 	}
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	TopDownMapUpdate(dt);
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
 
@@ -466,6 +414,61 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 	if (pPressed) Application::setCursorEnabled(true);
 }
 
+void SceneAssignment2::TopDownMapUpdate(double dt)
+{
+	//top down camera map
+	if (GetAsyncKeyState('Q') & 0x0001) //toggle between topdown map view
+	{
+		if (!camMap)
+		{
+			switch (camera.camType)
+			{
+			case FIRSTPERSON:
+				camera.camType = TOPDOWN_FIRSTPERSON;
+				break;
+			case THIRDPERSON:
+				camera.camType = TOPDOWN_THIRDPERSON;
+				break;
+			}
+			camMap = true;
+		}
+		else
+		{
+			switch (camera.camType)
+			{
+			case TOPDOWN_FIRSTPERSON:
+				camera.camType = FIRSTPERSON;
+				break;
+			case TOPDOWN_THIRDPERSON:
+				camera.camType = THIRDPERSON;
+				break;
+			}
+			camMap = false;
+		}
+	}
+
+	camera2.position.Set(player->getEntityData()->Translate.x,
+		100,
+		player->getEntityData()->Translate.z);
+
+	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
+	switch (camera.camType)
+	{
+	case TOPDOWN_FIRSTPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[1].spotDirection.Set(-camera.up.x * dt, 0, -camera.up.z * dt);
+		break;
+	case TOPDOWN_THIRDPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	default:
+		light[1].power = 0;
+		light[1].spotDirection.Set(0, 0, 0);
+		break;
+	}
+}
+
 void SceneAssignment2::CollisionHandler(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -483,7 +486,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {

@@ -86,7 +86,7 @@ private:
 	void SpawnBuildings();
 	void SpawnStreetLamps();
 	void split(std::string txt, char delim, std::vector<std::string>& out);
-
+	
 	//topdown cam map
 	bool camMap;
 
@@ -110,6 +110,7 @@ public:
 	virtual void Update(double dt);
 	virtual void ButtonUpdate(double dt);
 	virtual void CollisionHandler(double dt);
+	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
 };

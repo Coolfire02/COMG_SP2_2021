@@ -315,65 +315,6 @@ void Scene2021::Update(double dt)
 	//	inv.addItem(CORN, 3);
 	//}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-
-	//top down camera map
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
-
-
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		100,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		break;
-	}
-
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
 	}
@@ -404,10 +345,11 @@ void Scene2021::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+	TopDownMapUpdate(dt);
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
+
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
 
@@ -499,9 +441,8 @@ void Scene2021::CollisionHandler(double dt) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
-
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -625,6 +566,62 @@ void Scene2021::CollisionHandler(double dt) {
 
 		}
 		latestInteractionSwitch = this->elapsed;
+	}
+}
+
+void Scene2021::TopDownMapUpdate(double dt)
+{
+	//top down camera map
+	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
+	{
+		if (!camMap)
+		{
+			switch (camera.camType)
+			{
+			case FIRSTPERSON:
+				camera.camType = TOPDOWN_FIRSTPERSON;
+				break;
+			case THIRDPERSON:
+				camera.camType = TOPDOWN_THIRDPERSON;
+				break;
+			}
+			camMap = true;
+		}
+		else
+		{
+			switch (camera.camType)
+			{
+			case TOPDOWN_FIRSTPERSON:
+				camera.camType = FIRSTPERSON;
+				break;
+			case TOPDOWN_THIRDPERSON:
+				camera.camType = THIRDPERSON;
+				break;
+			}
+			camMap = false;
+		}
+	}
+
+	camera2.position.Set(player->getEntityData()->Translate.x,
+		100,
+		player->getEntityData()->Translate.z);
+
+	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
+
+	switch (camera.camType)
+	{
+	case TOPDOWN_FIRSTPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[1].spotDirection.Set(-camera.up.x * dt, 0, -camera.up.z * dt);
+		break;
+	case TOPDOWN_THIRDPERSON:
+		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
+		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		break;
+	default:
+		light[1].power = 0;
+		light[1].spotDirection.Set(0, 0, 0);
+		break;
 	}
 }
 
@@ -1094,88 +1091,88 @@ void Scene2021::SpawnBuildings()
 	srand(time(NULL));
 
 	//main road buildings
-	int random = (rand() % 6) + 4;
+	int random = (rand() % 6) + 6;
 	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-	int random2 = (rand() % 6) + 4;
+	int random2 = (rand() % 6) + 6;
 	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
 	for (int i = 1; i < 6; i++) //(main road)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 6) + 4;
+		int random3 = (rand() % 6) + 6;
 		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 6) + 4;
+		int random4 = (rand() % 6) + 6;
 		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
 	}
 
 	//left and right of (positive z axis) side road buildings
 	for (int i = 2; i < 4; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 6) + 4;
+		int random3 = (rand() % 6) + 6;
 		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 6) + 4;
+		int random4 = (rand() % 6) + 6;
 		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
 
-		int random5 = (rand() % 6) + 4;
+		int random5 = (rand() % 6) + 6;
 		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
 
-		int random6 = (rand() % 6) + 4;
+		int random6 = (rand() % 6) + 6;
 		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
 	}
 
 	//left side left building
 	for (int i = 0; i < 4; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 	}
 
 	for (int i = 6; i < 7; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 	}
 
-	int random3 = (rand() % 6) + 4;
+	int random3 = (rand() % 6) + 6;
 	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 
-	int random4 = (rand() % 6) + 4;
+	int random4 = (rand() % 6) + 6;
 	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
 
 	for (int i = 0; i < 8; i++)
 	{
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
 
 		if (i < 7)
 		{
-			int random = (rand() % 6) + 4;
+			int random = (rand() % 6) + 6;
 			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
 		}
 
 		if (i < 2)
 		{
-			int random3 = (rand() % 6) + 4;
+			int random3 = (rand() % 6) + 6;
 			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 		}
 	}
@@ -1183,10 +1180,10 @@ void Scene2021::SpawnBuildings()
 	//outside buildings
 	for (int i = 0; i < 8; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
 	}
 
@@ -1195,17 +1192,17 @@ void Scene2021::SpawnBuildings()
 	{
 		if (i < 4)
 		{
-			int random = (rand() % 6) + 4;
+			int random = (rand() % 6) + 6;
 			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
 		}
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
 
-		int random3 = (rand() % 6) + 4;
+		int random3 = (rand() % 6) + 6;
 		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
 
-		int random4 = (rand() % 6) + 4;
+		int random4 = (rand() % 6) + 6;
 		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
 	}
 
@@ -1214,50 +1211,50 @@ void Scene2021::SpawnBuildings()
 	{
 		if (i < 6)
 		{
-			int random = (rand() % 6) + 4;
+			int random = (rand() % 6) + 6;
 			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
 		}
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
 
 		if (i < 7)
 		{
-			int random3 = (rand() % 6) + 4;
+			int random3 = (rand() % 6) + 6;
 			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
 
-			int random4 = (rand() % 6) + 4;
+			int random4 = (rand() % 6) + 6;
 			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
 		}
 	}
 
-	int random5 = (rand() % 6) + 4;
+	int random5 = (rand() % 6) + 6;
 	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
 
-	int random6 = (rand() % 6) + 4;
+	int random6 = (rand() % 6) + 6;
 	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
 
 	for (int i = 1; i < 2; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
 
-		int random2 = (rand() % 6) + 4;
+		int random2 = (rand() % 6) + 6;
 		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
 	}
 
-	int random7 = (rand() % 6) + 4;
+	int random7 = (rand() % 6) + 6;
 	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
 
-	int random8 = (rand() % 6) + 4;
+	int random8 = (rand() % 6) + 6;
 	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
 
-	int random9 = (rand() % 6) + 4;
+	int random9 = (rand() % 6) + 6;
 	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
 
 	for (int i = 1; i < 7; i++)
 	{
-		int random = (rand() % 6) + 4;
+		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
 	}
 
