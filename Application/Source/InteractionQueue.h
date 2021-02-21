@@ -7,15 +7,8 @@ struct Command {
 	std::string command;
 	Scene* scene;
 
-	Command(std::string cmd) {
-		this->command = cmd;
-	}
-
-	Command(std::string cmd, Scene* scene) {
-		this->command = cmd;
-		this->scene = scene;
-	}
-
+	Command(std::string cmd) { this->command = cmd; }
+	Command(std::string cmd, Scene* scene) { this->command = cmd; this->scene = scene; }
 };
 
 struct Interaction {

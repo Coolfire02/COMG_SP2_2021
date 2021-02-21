@@ -1,23 +1,34 @@
 #include "Car.h"
 #include "Application.h"
-
+/******************************************************************************/
+/*!
+\brief
+Calls the Init() function to initialise the car
+*/
+/******************************************************************************/
 Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTYPE::CAR, name)
 {
-	this->maxCarSpeed = 0.5f;
-	this->carSpeed = 0.f;
-	this->driftFalloff = 0.f;
-	this->carType = type;
-	this->scene = scene;
-	this->name = name;
-	this->drifting = false;
-	this->Init();
+	this->Init(type, scene, name);
 }
 
 Car::~Car()
 {
 }
 
-void Car::Init() {
+/******************************************************************************/
+/*!
+\brief
+Initialise all parameters of the car here. e.g. carSpeed, carType, etc.
+*/
+/******************************************************************************/
+void Car::Init(CAR_TYPE type, Scene* scene, std::string name) {
+
+	this->maxCarSpeed = 0.5f;
+	this->carSpeed = 0.f;
+	this->drifting = false;
+	this->carType = type;
+	this->scene = scene;
+	this->name = name;
 
 	Mesh* theMesh;
 
@@ -61,48 +72,109 @@ Car::Car()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the car's speed to a float value.
+*/
+/******************************************************************************/
 void Car::setSpeed(float speed)
 {
 	driftVector = -velocity * 0.2f;
 	this->carSpeed = speed;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the car's acceleration to a float value.
+*/
+/******************************************************************************/
 void Car::setAccel(float a) {
 	acceleration = a;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the player pointer in Car to the player.
+*/
+/******************************************************************************/
 void Car::setPlayer(Player* player) {
 	this->plr = player;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the acceleration value.
+*/
+/******************************************************************************/
 float Car::getAccel() {
 	return acceleration;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the car's speed value.
+*/
+/******************************************************************************/
 float Car::getSpeed()
 {
 	return this->carSpeed;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the velocity vector.
+*/
+/******************************************************************************/
 void Car::setVelocity(Vector3 velocity)
 {
 	this->velocity = velocity;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the velocity vector.
+*/
+/******************************************************************************/
 Vector3 Car::getVelocity() {
 	return this->velocity;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the car's enum type.
+*/
+/******************************************************************************/
 CAR_TYPE Car::getCartype()
 {
 	return this->carType;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the player pointer.
+*/
+/******************************************************************************/
 Player* Car::getPlayer()
 {
 	return this->plr;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Updates the car's position.
+velocity = acceleration / time
+*/
+/******************************************************************************/
 void Car::Drive(double dt) {
 	if (!plr)
 		return;
@@ -157,14 +229,19 @@ void Car::Drive(double dt) {
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
-	else
-		this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
+	else this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
 
 }
 
 void Car::Update(double dt) {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Pushes a matrix onto the car's scene's modelStack, loads its Transformation matrix and renders the car.
+*/
+/******************************************************************************/
 void Car::Render()
 {
 	this->scene->modelStack.PushMatrix();

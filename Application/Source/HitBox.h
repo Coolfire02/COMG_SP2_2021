@@ -1,24 +1,42 @@
 #pragma once
 #include "Vector3.h"
 #include "EntityDataHandler.h"
-#include "Position3D.h"
 #include "Mtx44.h"
 #include <vector>
 
+/******************************************************************************/
+/*!
+		Class Hitbox:
+\file	Hitbox.h
+\author Tan Yong Hong
+\author Joash Foo
+\brief
+Handles all the collision checks in this class
+*/
+/******************************************************************************/
+
 struct Collider {
-	bool collided;
-	Vector3 translationVector;
-	Vector3 normal;
+	bool collided; // checks if the collider has collided with other colliders
+	Vector3 translationVector; // translation vector to push out the object if collided.
+	Vector3 normal; // normal of the collided plane used for bounce physics.
 };
 
 struct Box {
 
-	Vector3 originalhalfSize, originalCenterOffset;
-	Vector3 currentPos;
-	Vector3 xAxis, yAxis, zAxis;
-	Vector3 halfSize, centerOffset;
-	Mtx44   Rotate;
+	Vector3 originalhalfSize; // original half size of the mesh.
+	Vector3 originalCenterOffset; // original center offset from the origin of the mesh.
+	Vector3 currentPos; // current position of the hitbox.
+	Vector3 xAxis, yAxis, zAxis; // x, y, z Axis for OBB collision.
+	Vector3 halfSize; // new half size after scaling.
+	Vector3	centerOffset; // new center offeset after scaling.
+	Mtx44   Rotate; // rotation matrix.
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Intialises the hitbox using bottom left position and top right positions of the mesh to find the respective values of the hitbox.
+	*/
+	/******************************************************************************/
 	Box(Vector3 botLeftPos, Vector3 topRightPos) {
 		Vector3 center = Vector3(botLeftPos.GetMidpoint(botLeftPos, topRightPos));
 		this->originalCenterOffset = Vector3(center.x, center.y, center.z);
@@ -36,6 +54,12 @@ struct Box {
 		this->Rotate.SetToIdentity();
 	}
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Checks if there is a separating plane between 2 vectors.
+	*/
+	/******************************************************************************/
 	bool hasSeparatingPlane(Vector3 RPos, Vector3 Plane, Box otherBox) {
 		return (fabs(RPos.Dot(Plane)) >
 			(
@@ -48,6 +72,14 @@ struct Box {
 				));
 	}
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Checks for collision between 2 Boxes.
+	\return
+	Returns true if box1 has collided with box2.
+	*/
+	/******************************************************************************/
 	Collider isCollidedWith(Box otherBox) {
 		Vector3 RPos = Vector3(otherBox.currentPos - this->currentPos);
 		Collider collider;
@@ -80,6 +112,12 @@ struct Box {
 		return collider;
 	}
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Returns the normal of the collided plane.
+	*/
+	/******************************************************************************/
 	Vector3 getCollisionPlaneNormal(Box* otherBox) {
 		Vector3 RPos;
 		RPos = otherBox->currentPos - this->currentPos;
@@ -127,6 +165,14 @@ struct Box {
 		return normal;
 	}
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Gets the response when object has collided with otherBox.
+	\return
+	Returns the translation vector which is used to push the object out of the other object.
+	*/
+	/******************************************************************************/
 	Vector3 getCollisionResponse(Box* otherBox) {
 		Vector3 RPos;
 		RPos = otherBox->currentPos - this->currentPos;
@@ -135,6 +181,7 @@ struct Box {
 
 		int minmax = 1;
 
+		// get overlap values of each face of the objects.
 		float offset[4] =
 		{
 			getOverlap(RPos, otherBox->xAxis, otherBox) * (1.f / (2 * otherBox->halfSize.x)) * (1.f / (2 * halfSize.x)),
@@ -198,6 +245,14 @@ struct Box {
 		return translationalVector;
 	}
 
+	/******************************************************************************/
+	/*!
+	\brief
+	Gets the overlap value of the 2 planes.
+	\return
+	Returns the overlap value of the Distance in between the two boxes dot product of the plane of collision.
+	*/
+	/******************************************************************************/
 	float getOverlap(Vector3& RPos, Vector3 Plane, Box* OtherBox) {
 		return RPos.Dot(Plane);
 	}

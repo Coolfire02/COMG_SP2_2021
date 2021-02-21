@@ -4,6 +4,16 @@
 // Car class created by Ridwan on 16/2/21
 // Optimized by Joash on 16/2/21
 
+/******************************************************************************/
+/*!
+		Class Car:
+\file	Car.h
+\author Joash Foo
+\brief
+Car class for car movement
+*/
+/******************************************************************************/
+
 enum CAR_TYPE
 {
 	SEDAN = 0,
@@ -19,28 +29,26 @@ class Player;
 class Car : public Entity
 {
 private:
-	GEOMETRY_TYPE associatedType;
-	CAR_TYPE      carType;
+	GEOMETRY_TYPE associatedType; // associated Mesh for the car
+	CAR_TYPE      carType; // type to generate car Mesh and set max speed
 
 	Vector3       velocity;
-	Vector3		  velocityGoal;
 	Vector3       driftVector;
-	Vector3       bounceVector;
 	
-	float         carSpeed;
-	float		  maxCarSpeed;
-	float		  acceleration;
-	float         driftFalloff;
-	bool		  drifting;
+	float         carSpeed; // current car speed
+	float		  maxCarSpeed; // max car speed
+	float		  acceleration; // acceleration
+	bool		  drifting; // is drifting
 
-	Player*		  plr;
+	Player*		  plr; // pointer to player to check if player is in car.
 	
 public:
 	Car(CAR_TYPE, Scene* ,std::string);
 	Car(float, CAR_TYPE);
 	Car();
 	~Car();
-	void     Init();
+
+	void     Init(CAR_TYPE type, Scene* scene, std::string name);
 	void     setSpeed(float speed);
 	void	 setAccel(float a);
 	void     setVelocity(Vector3);
