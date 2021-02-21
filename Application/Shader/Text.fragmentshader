@@ -104,7 +104,7 @@ void main(){
 			float cosTheta = clamp( dot( N, L ), 0, 1 );
 			
 			vec3 R = reflect(-L, N);
-			float cosAlpha = clamp( dot( N, L ), 0, 1 );
+			float cosAlpha = clamp( dot( E, R ), 0, 1 );
 			
 			color += 
 				// Diffuse : "color" of the object

@@ -19,17 +19,6 @@ struct Box {
 	Vector3 halfSize, centerOffset;
 	Mtx44   Rotate;
 
-	static enum selfAxis {
-		RIGHT = 1,
-		TOP = 2,
-		FRONT = 3,
-		LEFT = -1,
-		BOTTOM = -2,
-		BACK = -3,
-	};
-
-	selfAxis axisCollided;
-
 	Box(Vector3 botLeftPos, Vector3 topRightPos) {
 		Vector3 center = Vector3(botLeftPos.GetMidpoint(botLeftPos, topRightPos));
 		this->originalCenterOffset = Vector3(center.x, center.y, center.z);

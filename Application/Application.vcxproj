@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,6 +151,7 @@
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\CustomEntity.cpp" />
     <ClCompile Include="Source\GarageInventory.cpp" />
+    <ClCompile Include="Source\InteractionManager.cpp" />
     <ClCompile Include="Source\InteractionStack.cpp" />
     <ClCompile Include="Source\Inventory.cpp" />
     <ClCompile Include="Source\Item.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\GarageInventory.h" />
+    <ClInclude Include="Source\InteractionManager.h" />
     <ClInclude Include="Source\Interactions.h" />
     <ClInclude Include="Source\CustomEntity.h" />
     <ClInclude Include="Source\InteractionStack.h" />

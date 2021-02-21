@@ -34,9 +34,9 @@ struct Material
 	unsigned size; //indexSize
 	float kShininess;
 	Material() {
-		kAmbient = Component();
-		kDiffuse = Component();
-		kSpecular = Component();
+		kAmbient = Component(0.1f, 0.1f, 0.1f);
+		kDiffuse = Component(0.6f, 0.6f, 0.6f);
+		kSpecular = Component(0.3f, 0.3f, 0.3f);
 		size = 0;
 		kShininess = 1.0f;
 	};

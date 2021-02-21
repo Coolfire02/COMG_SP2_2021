@@ -4,7 +4,7 @@
 Car::Car(CAR_TYPE type, Scene* scene, std::string name) : Entity(scene, ENTITYTYPE::CAR, name)
 {
 	this->maxCarSpeed = 0.5f;
-	this->carSpeedGoal = this->carSpeed = 0.f;
+	this->carSpeed = 0.f;
 	this->driftFalloff = 0.f;
 	this->carType = type;
 	this->scene = scene;
@@ -50,7 +50,7 @@ void Car::Init() {
 		break;
 	}
 
-	if (associatedType != 0) {
+	if (associatedType) {
 		theMesh = MeshHandler::getMesh(associatedType);
 		this->hitBox = new HitBox(new Box(*theMesh->botLeftPos, *theMesh->topRightPos));
 	}
@@ -59,12 +59,6 @@ void Car::Init() {
 
 Car::Car()
 {
-}
-
-Car::Car(float speed, CAR_TYPE type)
-{
-	this->carSpeed = speed;
-	this->carType = type;
 }
 
 void Car::setSpeed(float speed)
@@ -90,6 +84,11 @@ float Car::getSpeed()
 	return this->carSpeed;
 }
 
+void Car::setVelocity(Vector3 velocity)
+{
+	this->velocity = velocity;
+}
+
 Vector3 Car::getVelocity() {
 	return this->velocity;
 }
@@ -113,6 +112,7 @@ void Car::Drive(double dt) {
 	float friction = carSpeed * -0.5;
 	carSpeed += friction * dt * 2.f;
 
+	// Set the drift vector to the velocity when started drifting
 	if (Application::IsKeyReleased(VK_LSHIFT) && drifting) { 
 		RotateSpeed = 80.f;
 		drifting = false; 
@@ -148,14 +148,12 @@ void Car::Drive(double dt) {
 
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
-	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)
-		carSpeed = carSpeed + acceleration * dt;
-
-	std::cout << velocity.Magnitude() << std::endl;
+	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f) carSpeed = carSpeed + acceleration * dt;
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	this->driftVector = (driftVector - driftVector * dt);
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
+
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}

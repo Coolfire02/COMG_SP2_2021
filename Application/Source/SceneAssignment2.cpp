@@ -97,8 +97,6 @@ void SceneAssignment2::Init() {
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
 
-	glUseProgram(m_programID);
-
 	// Set background color to dark blue
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -109,32 +107,6 @@ void SceneAssignment2::Init() {
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
 	projectionStack.LoadMatrix(projection);
-
-	//Mesh* coinMesh;
-	//Entity* newCoin;
-
-	//for (int i = 0; i < 10; i++) {
-	//	coinMesh = MeshHandler::getMesh(GEOMETRY_TYPE::GEO_COIN);
-	//	newCoin = new Coin(this, new Box(coinMesh->botLeftPos, coinMesh->topRightPos), "Coin");
-	//	newCoin->getEntityData()->rotXMag = 90.f;
-	//	newCoin->getEntityData()->transX = 0.0f;
-	//	newCoin->getEntityData()->transY = 1.6f;
-	//	newCoin->getEntityData()->transZ = -55.f - i * 5;
-	//	newCoin->getEntityData()->scaleX = 0.3f;
-	//	newCoin->getEntityData()->scaleY = 0.3f;
-	//	newCoin->getEntityData()->scaleZ = 0.3f;
-	//	eManager.spawnWorldEntity(newCoin);
-	//}
-
-	//Entity* eggman = new NPC(this, NPCTYPE::EGGMAN, "Eggman");
-	//eggman->getEntityData()->scaleX = 0.04;
-	//eggman->getEntityData()->scaleY = 0.04;
-	//eggman->getEntityData()->scaleZ = 0.04;
-	//eggman->getEntityData()->transX = 11;
-	//eggman->getEntityData()->transY = 0;
-	//eggman->getEntityData()->transZ = -22;
-	//eggman->getEntityData()->rotYMag = -27.f;
-	//eManager.spawnWorldEntity(eggman);
 
 	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
 	pistol->getEntityData()->SetTransform(20, 5, 0);
@@ -162,36 +134,11 @@ void SceneAssignment2::Init() {
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
 
-	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
-	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
-	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
-	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(eggmanInteractZone);
-
-	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
-	//shopBase->getEntityData()->transX = -30.0f;
-	//shopBase->getEntityData()->transZ = 33.0f;
-	//shopBase->getEntityData()->scaleX = 6;
-	//shopBase->getEntityData()->scaleY = 3;
-	//shopBase->getEntityData()->scaleZ = 6;
-	//shoeShopX = shopBase->getEntityData()->transX;
-	//shoeShopY = shopBase->getEntityData()->transY;
-	//shoeShopZ = shopBase->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(shopBase);
-
 	//Camera init(starting pos, where it looks at, up
+
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
-	
-	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
-	//tree->getEntityData()->Translate.Set(60, 1, -30);
-	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
-	//eManager.spawnWorldEntity(tree);
-
-	/*Entity* car = new Car(SEDAN, this, "sedan");
-	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
-	eManager.spawnMovingEntity(car);*/
 
 	//Buttons
 
@@ -214,13 +161,13 @@ void SceneAssignment2::Init() {
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 40, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 1;
+	light[0].power = 10;
 	light[0].kC = 1.f;
-	light[0].kL = 0.1f;
-	light[0].kQ = 0.01f;
+	light[0].kL = 0.01f;
+	light[0].kQ = 0.001f;
 	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
+	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	//2nd light
@@ -237,7 +184,7 @@ void SceneAssignment2::Init() {
 	light[1].spotDirection.Set(0, 0, 1);
 
 	//3rd light
-	light[2].type = Light::LIGHT_SPOT;
+	light[2].type = Light::LIGHT_POINT;
 	light[2].position.set(0, 50, 100);
 	light[2].color.set(1.f, 1.f, 1.f); //set to white light
 	light[2].power = 2;
@@ -251,6 +198,9 @@ void SceneAssignment2::Init() {
 
 
 	// Make sure you pass uniform parameters after glUseProgram()
+
+	glUseProgram(m_programID);
+
 	//week7
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	//week6
@@ -342,7 +292,7 @@ void SceneAssignment2::Update(double dt)
 		inv.switchWeapon(2);
 	if (Application::IsKeyPressed('4')) //weapon slot 4
 		inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('5')) //delete equipped weapon
+	if (toggleTimer > 1 && Application::IsKeyPressed('o')) //delete equipped weapon
 	{
 		toggleTimer = 0;
 		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
@@ -407,20 +357,20 @@ void SceneAssignment2::Update(double dt)
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
 	}
-	else if (GetAsyncKeyState('3') & 0x8001) {
+	else if (GetAsyncKeyState('5') & 0x8001) {
 		game.switchScene(S_2051);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
+	else if (GetAsyncKeyState('6') & 0x8001) {
 		game.switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
+	else if (GetAsyncKeyState('7') & 0x8001) {
 		//game.switchScene(S_2021);
 		game.switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
+	else if (GetAsyncKeyState('8') & 0x8001) {
 		game.switchScene(S_GUNSHOP);
 	}
 
@@ -603,7 +553,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
 				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}
@@ -615,7 +565,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				resultantVec.y = resultantForce * 0.2f;
 				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				std::cout << "Car Collided" << std::endl;
 			}
@@ -873,6 +823,13 @@ void SceneAssignment2::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
+	//Position light0Position_cameraspace = viewStack.Top() * light[0].position;
+	//glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &light0Position_cameraspace.x);
+	//Position light1Position_cameraspace = viewStack.Top() * light[1].position;
+	//glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &light1Position_cameraspace.x);
+	//Position light2Position_cameraspace = viewStack.Top() * light[2].position;
+	//glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &light2Position_cameraspace.x);
 }
 
 void SceneAssignment2::RenderSkybox() {
