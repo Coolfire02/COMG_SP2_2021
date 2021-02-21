@@ -20,7 +20,7 @@ public:
 	Game();
 	~Game();
 	static SCENES activeScene;
-	std::vector<Scene*> SceneList;
+	static std::vector<Scene*> SceneList;
 
 
 	virtual void Init();

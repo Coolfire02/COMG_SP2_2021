@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "Vertex.h"
-#include "Position3D.h"
 #include "Material.h"
 
 /******************************************************************************/

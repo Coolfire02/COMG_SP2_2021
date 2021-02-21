@@ -152,7 +152,7 @@
     <ClCompile Include="Source\CustomEntity.cpp" />
     <ClCompile Include="Source\GarageInventory.cpp" />
     <ClCompile Include="Source\InteractionManager.cpp" />
-    <ClCompile Include="Source\InteractionStack.cpp" />
+    <ClCompile Include="Source\InteractionQueue.cpp" />
     <ClCompile Include="Source\Inventory.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\ItemInventory.cpp" />
@@ -163,7 +163,6 @@
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\HitBox.cpp" />
-    <ClCompile Include="Source\Position3D.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -192,9 +191,9 @@
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\GarageInventory.h" />
     <ClInclude Include="Source\InteractionManager.h" />
+    <ClInclude Include="Source\InteractionQueue.h" />
     <ClInclude Include="Source\Interactions.h" />
     <ClInclude Include="Source\CustomEntity.h" />
-    <ClInclude Include="Source\InteractionStack.h" />
     <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\ItemInventory.h" />
@@ -205,7 +204,6 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\HitBox.h" />
     <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Position3D.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />

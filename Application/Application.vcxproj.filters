@@ -37,9 +37,6 @@
     <ClCompile Include="Source\GarageInventory.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InteractionStack.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Inventory.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Source\MeshHandler.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Position3D.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Source\shader.cpp">
@@ -114,6 +108,12 @@
     </ClCompile>
     <ClCompile Include="Source\AudioHandler.cpp" />
     <ClCompile Include="Source\InteractionManager.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Source\InteractionQueue.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+>>>>>>> b225af563eaa0c52089f299d5d67f514cd153d2c
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -134,9 +134,6 @@
     <ClInclude Include="Source\Interactions.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InteractionStack.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Inventory.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
@@ -150,9 +147,6 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshHandler.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Position3D.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Text.h">
@@ -241,6 +235,12 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\InteractionManager.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="Source\InteractionQueue.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+>>>>>>> b225af563eaa0c52089f299d5d67f514cd153d2c
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

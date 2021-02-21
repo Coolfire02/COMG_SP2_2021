@@ -10,6 +10,7 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Car.h"
+#include "InteractionManager.h"
 
 SceneGarage::SceneGarage() : 
 	eManager(this),
@@ -499,14 +500,14 @@ void SceneGarage::CollisionHandler(double dt) {
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)
 						canInteractWithSomething = true;
-					else if (passedInteractCooldown()) {
+					/*else if (passedInteractCooldown()) {
 						std::string name = entry->victim->getName();
 						if (ePressed) {
 							if (name.compare("interaction_test") == 0) {
 								loadInteractions(TEST);
 							}
 						}
-					}
+					}*/
 				}
 			}
 		}
@@ -564,13 +565,13 @@ void SceneGarage::CollisionHandler(double dt) {
 
 	fps = (float)1 / dt;
 
-	if (isInteracting && passedInteractCooldown()) {
+	/*if (isInteracting && passedInteractCooldown()) {
 		if (ePressed) {
 			nextInteraction();
 
 		}
 		latestInteractionSwitch = this->elapsed;
-	}
+	}*/
 }
 
 void SceneGarage::TopDownMapUpdate(double dt)
@@ -1290,151 +1291,38 @@ void SceneGarage::SpawnWalls()
 //	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 //}
 
-bool SceneGarage::passedInteractCooldown() {
-	const float INTERACTION_COOLDOWN = 0.5f;
-	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
-		return true;
-	}
-	return false;
-}
+void SceneGarage::RenderUI()
+{
+	//weapons UI
+	for (int i = 0; i < 4; i++) //limit to displaying 4
+	{
+		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			return;
 
-void SceneGarage::sendNotification(std::string msg, double duration) {
-	showNotifUntil = (float)(elapsed + duration);
-	notificationMessage = msg;
-}
-
-void SceneGarage::split(std::string txt, char delim, std::vector<std::string>& out) {
-	std::istringstream iss(txt);
-	std::string item;
-	while (std::getline(iss, item, delim)) {
-		out.push_back(item);
-	}
-}
-
-bool SceneGarage::runCommand(std::string cmd) {
-	std::vector<std::string> splitVar;
-	split(cmd, ' ', splitVar);
-
-	if (splitVar.size() == 1) {
-
-		if (splitVar.at(0) == "/endinteraction") {
-			EndInteraction();
-			return true;
-		}
-	}
-	else if (splitVar.size() >= 2) {
-		if (splitVar.at(0) == "/givecoin") {
-			//this->addCoins(stoi(splitVar.at(1)));
-			return true;
-		}
-	}
-
-	return true;
-}
-
-bool SceneGarage::loadInteractions(INTERACTION_TYPE type) {
-	if (!isInteracting) {
-
-		switch (type) {
-		case TEST:
+		switch (inv.getWeaponVector()[i]->getWeaponType())
 		{
-			Interaction* inter;
-			if (completedInteractionsCount[TEST] == 0) {
-				inter = new Interaction();
-				inter->interactionText = "Hey There!";
-				queuedMessages.push_back(inter);
-				
-				inter = new Interaction();
-				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
-				queuedMessages.push_back(inter);
-				if (completedInteractionsCount[EGGMAN] > 0) {
-					inter = new Interaction();
-					inter->interactionText = "Don't worry about Eggman\nHe's such a sob. Could\nnever beat me";
-					queuedMessages.push_back(inter);
-
-					inter = new Interaction();
-					inter->interactionText = "Explains why he's mad\nas he sees potential in you.";
-					queuedMessages.push_back(inter);
-				}
-			}
-			else {
-				inter = new Interaction();
-				inter->interactionText = "Hey there again!";
-				queuedMessages.push_back(inter);
-			}
-			inter = new Interaction();
-			inter->interactionText = "Oh, you wanna know my\nTiming for the race?";
-			queuedMessages.push_back(inter);
-
-			inter = new Interaction();
-			inter->interactionText = "I ran and completed it in...\n";
-			queuedMessages.push_back(inter);
-
-			inter = new Interaction();
-			inter->interactionText = "0 minutes and 8 seconds!";
-			queuedMessages.push_back(inter);
-
-
-
+		case PISTOL:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
+			break;
+		case SILENCER:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
+			break;
+		default:
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
 			break;
 		}
-		
-		default:
-			return false;
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
+		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		{
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
-
-		currentInteractionType = type;
-		interactionElapsed = 0;
-		latestInteractionSwitch = this->elapsed;
-		isInteracting = true;
-		currentMessage = -1; //Used to call first Interaction's precmds too. by Using nextInteraction();
-		nextInteraction();
-
-		return true;
-	}
-	return false;
-}
-
-void SceneGarage::nextInteraction() {
-	if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
-		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
-			this->runCommand(entry);
-		}
-	}
-	currentMessage += 1;
-	if (queuedMessages.size() < (unsigned) currentMessage + 1) {
-		for (auto& entry : queuedMessages.at(currentMessage-1)->postInteractionCMD) {
-			this->runCommand(entry);
-		}
-		EndInteraction();
-	}
-	else {
-		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
-			this->runCommand(entry);
-		}
-	}
-}
-
-void SceneGarage::EndInteraction() {
-	if (isInteracting) {
-
-		completedInteractionsCount[currentInteractionType]++;
-
-		isInteracting = false;
-		currentMessage = 0;
-		for (auto& entry : queuedMessages) { //clears all pointers
-			delete entry;
-		}
-		queuedMessages.clear();
-		interactionElapsed = 0;
-		currentInteractionType = INTERACTION_COUNT;
 	}
 }
 
 void SceneGarage::Exit()
 {
 	// Cleanup VBO here
-	this->EndInteraction(); //To clear up queuedMessages pointers
+	//this->EndInteraction(); //To clear up queuedMessages pointers
 
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

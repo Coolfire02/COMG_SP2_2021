@@ -14,6 +14,7 @@
 
 #include "EntityManager.h"
 #include "ButtonManager.h"
+#include "InteractionManager.h"
 #include "MeshHandler.h"
 
 //Entities
@@ -67,11 +68,6 @@ private:
 	INTERACTION_TYPE currentInteractionType;
 	GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
 
-	double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
-	bool passedInteractCooldown(); //Checks if cooldown is reached;
-	void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
-	void RenderUI();
-
 	Light light[3];
 
 	bool hitboxEnable;
@@ -81,12 +77,11 @@ private:
 
 	void RenderSkybox();
 	void RenderRoads();
+	void RenderUI();
 	void initBuildings(Vector3 v3, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
 	void initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
 	void SpawnBuildings();
 	void SpawnStreetLamps();
-	void split(std::string txt, char delim, std::vector<std::string>& out);
-	
 	//topdown cam map
 	bool camMap;
 
@@ -100,11 +95,6 @@ public:
 	~Scene2021();
 
 	//Notifications
-	void sendNotification(std::string msg, double duration);
-
-	bool runCommand(std::string cmd);
-	bool loadInteractions(INTERACTION_TYPE type);
-	void EndInteraction();
 
 	virtual void Init();
 	virtual void Update(double dt);
