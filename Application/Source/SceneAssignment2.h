@@ -15,6 +15,7 @@
 #include "EntityManager.h"
 #include "MeshHandler.h"
 #include "ButtonManager.h"
+#include "InteractionManager.h"
 
 //Entities
 #include "NPC.h"
@@ -69,8 +70,8 @@ private:
 	GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
 
 	double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
-	bool passedInteractCooldown(); //Checks if cooldown is reached;
-	void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
+	//bool passedInteractCooldown(); //Checks if cooldown is reached;
+	//void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
 	void RenderUI(); //Handles the next interaction (May end interaction if there is no more to go through0
 	
 	Light light[3];
@@ -81,7 +82,7 @@ private:
 	float toggleTimer = 0; //Used for toggling between items
 
 	void RenderSkybox();
-	void split(std::string txt, char delim, std::vector<std::string>& out);
+	// void split(std::string txt, char delim, std::vector<std::string>& out);
 
 	//topdown cam map
 	bool camMap;
@@ -94,11 +95,11 @@ public:
 	~SceneAssignment2();
 
 	//Notifications
-	void sendNotification(std::string msg, double duration);
+	//void sendNotification(std::string msg, double duration);
 
-	bool runCommand(std::string cmd);
-	bool loadInteractions(INTERACTION_TYPE type);
-	void EndInteraction();
+	//bool runCommand(std::string cmd);
+	//bool loadInteractions(INTERACTION_TYPE type);
+	//void EndInteraction();
 
 	virtual void Init();
 	virtual void Update(double dt);

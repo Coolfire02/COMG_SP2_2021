@@ -21,7 +21,7 @@ void AudioHandler::loadGameAudioFiles() {
 }
 
 void AudioHandler::addNew2DSound(SOUNDTYPE type, std::string name, bool autoPlay) {
-	soundMap.insert(name, engine->play2D(fileLocation[type]) );
+	// soundMap.insert(name, engine->play2D(fileLocation[type]) );
 }
 
 void AudioHandler::cleanup() {
