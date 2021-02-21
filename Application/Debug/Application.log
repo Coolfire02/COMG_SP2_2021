@@ -1,0 +1,176 @@
+﻿  Application.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Button.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Button.cpp(54,122): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Button.cpp(54,108): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Button.cpp(54,92): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Button.cpp(54,76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  ButtonManager.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\ButtonManager.cpp(81,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Camera.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+  Car.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(112,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(113,33): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(133,77): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(134,78): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(138,79): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(139,80): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(151,85): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(154,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Car.cpp(158,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  CustomEntity.cpp
+  Entity.cpp
+  EntityManager.cpp
+  Game.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.cpp(34,43): warning C4042: 'scene': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.cpp(41,20): warning C4018: '<': signed/unsigned mismatch
+  GarageInventory.cpp
+  HitBox.cpp
+  InteractionManager.cpp
+  Inventory.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Inventory.cpp(39,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Inventory.cpp(77,20): warning C4018: '<': signed/unsigned mismatch
+  MeshBuilder.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(216,68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(221,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(231,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(235,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(240,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(241,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(242,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(269,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(274,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(281,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(285,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(291,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(296,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(326,61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(331,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(339,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(343,61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(348,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(381,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(386,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(396,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(401,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(412,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshBuilder.cpp(417,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  MeshHandler.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(160,94): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(165,64): warning C4305: 'argument': truncation from 'double' to 'float'
+  NPC.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Player.cpp
+  Scene.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+  Scene2021.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(402,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(561,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(615,65): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(615,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(619,131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(619,76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(755,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(863,34): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1091,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1103,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1106,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1109,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1112,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1119,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1119,81): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1122,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1122,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1125,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1125,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1128,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1128,81): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1131,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1134,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1141,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1144,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1150,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1153,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1165,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1170,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1170,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1176,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1184,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1184,82): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1187,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1187,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1196,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1196,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1200,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1200,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1203,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1206,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1215,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1215,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1219,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1219,81): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1224,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1224,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1227,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1232,77): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1235,77): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1240,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1243,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1258,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1258,83): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Scene2021.cpp(1405,9): warning C4018: '>=': signed/unsigned mismatch
+  SceneAssignment2.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(258,19): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(385,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(459,65): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(459,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(463,131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(463,76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(614,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneAssignment2.cpp(1027,9): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Inventory.cpp(128): warning C4715: 'Inventory::getCurrentItemType': not all control paths return a value
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Inventory.cpp(134): warning C4715: 'Inventory::getCurrentItemAmt': not all control paths return a value
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Inventory.cpp(148): warning C4715: 'Inventory::getCurrentWeaponType': not all control paths return a value
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.cpp(44): warning C4715: 'Game::getSceneByName': not all control paths return a value
+  Compiling...
+  SceneGarage.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(405,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(565,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(619,63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(619,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(623,131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(623,76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(759,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGarage.cpp(879,34): warning C4305: 'argument': truncation from 'double' to 'float'
+  SceneGunShop.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(399,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(474,63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(474,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(478,131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(478,76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(620,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Text.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(131,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(132,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(137,110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  WorldObject.cpp
+  main.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Game.h(32,32): warning C4042: 'unnamed-parameter': has bad storage class
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Application.vcxproj -> C:\Users\tanyo\source\repos\COMG_SP2_2021\Debug\Application.exe

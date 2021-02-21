@@ -1,4 +1,4 @@
-Debug/
+Debug/*
 Release/
 bin/
 .vs/
@@ -9,9 +9,9 @@ bin/
 *.suo
 *.user
 ipch/
-!*Debug/irrKlang.dll
-!*Debug/ikpMP3.dll
-!*Debug/ikpFlac.dll
-!*Debug/glew32.dll
-!*Debug/irrKlang.exp
-!*Debug/irrKlang.lib
+!Debug/irrKlang.dll
+!Debug/ikpMP3.dll
+!Debug/ikpFlac.dll
+!Debug/glew32.dll
+!Debug/irrKlang.exp
+!Debug/irrKlang.lib
