@@ -22,6 +22,7 @@ public:
 	static SCENES activeScene;
 	std::vector<Scene*> SceneList;
 
+
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();

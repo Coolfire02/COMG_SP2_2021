@@ -9,6 +9,10 @@ struct Collider {
 	bool collided;
 	Vector3 translationVector;
 	Vector3 normal;
+	Collider() {};
+	Collider(bool collided) {
+		this->collided = collided;
+	}
 };
 
 struct Box {
@@ -209,11 +213,10 @@ struct Box {
 class HitBox
 {
 	Box* hitBox;
-
+	bool loaded; //Hitbox isnt loaded till First Render, will return false to collidedWith when hitBox not loaded.
 public:
 	HitBox(Box* box);
 	~HitBox();
-
 	Box* getThisTickBox();
 	void update(EntityData* data, Mtx44 matrix);
 	void UpdatePos(Vector3 pos);

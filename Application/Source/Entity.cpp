@@ -10,6 +10,13 @@ Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name) : scen
 	this->oldData = new EntityData();
 }
 
+Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, Vector3 pos) : scene(associatedScene), type(type), dead(false), name(name), useNewData(true), visible(true) {
+	this->data = new EntityData();
+	this->oldData = new EntityData();
+	this->data->Translate = pos;
+	this->oldData->Translate = pos;
+}
+
 Entity::~Entity() {
 	delete data;
 	delete oldData;
@@ -50,10 +57,7 @@ void Entity::loadOriginTRSIntoStacknHitBox() {
 	this->scene->modelStack.PopMatrix();
 
 	this->hitBox->update(toUse, currentMtx);
-	
 }
-
-
 
 const Scene* Entity::getAssociatedScene() {
 	return scene;

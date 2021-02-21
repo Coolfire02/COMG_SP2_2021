@@ -185,6 +185,7 @@ void Application::Run()
 		scenes[i]->Init();
 	}*/
 	MeshHandler::loadMeshes();
+	AudioHandler::load();
 	Text::loadFonts();
 
 	g.addScene(new SceneAssignment2);
@@ -218,6 +219,8 @@ void Application::Run()
 void Application::Exit()
 {
 	MeshHandler::unloadMeshes();
+	AudioHandler::cleanup();
+
 	//Close OpenGL window and terminate GLFW
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW

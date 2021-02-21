@@ -15,6 +15,7 @@
 #include "EntityManager.h"
 #include "MeshHandler.h"
 #include "ButtonManager.h"
+#include "AudioHandler.h"
 
 //Entities
 #include "NPC.h"

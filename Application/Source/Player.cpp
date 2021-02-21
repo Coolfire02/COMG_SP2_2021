@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(Scene* scene, Vector3 position, std::string name) : Entity(scene, ENTITYTYPE::CUSTOM, name) {
+Player::Player(Scene* scene, Vector3 position, std::string name) : Entity(scene, ENTITYTYPE::CUSTOM, name, position) {
 	Box* box = new Box(Vector3(-1, 0, 1), Vector3(1, 3, -1));
 	this->driving = false;
 	this->hitBox = new HitBox(box);

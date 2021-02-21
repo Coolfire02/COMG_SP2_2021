@@ -20,9 +20,14 @@ using namespace irrklang;
 
 #pragma comment(lib, "irrKlang.lib")
 
+enum LOOPED {
+	NOLOOP = 0,
+	LOOP = 1
+};
+
 enum SOUNDTYPE {
-	CAR_RADIO_1,
-	SOUNT_COUNT
+	CAR_CRASH,
+	SOUND_COUNT
 };
 
 class AudioHandler
@@ -30,17 +35,16 @@ class AudioHandler
 private:
 	static bool loaded;
 	static ISoundEngine* engine;
-	//static std::map<std::string, ISound*> soundMap;
-	static std::string fileLocation[SOUNDTYPE::SOUNT_COUNT];
+	static std::string fileLocation[SOUNDTYPE::SOUND_COUNT];
+	static ISoundSource* soundSource[SOUNDTYPE::SOUND_COUNT];
 public:
-	static void addNew3DSound(SOUNDTYPE type, std::string name, bool autoPlay);
-	static void addNew2DSound(SOUNDTYPE type, std::string name, bool autoPlay);
-	static void set3DSoundPosition(std::string soundName, Vector3 pos);
-	static ISound* getSoundByName(std::string soundName);
-	static void removeSoundByName(std::string soundName);
+	static ISoundEngine* getEngine();
+	static const char* getFileLocation(SOUNDTYPE);
+	static ISoundSource* getSoundSource(SOUNDTYPE);
 
+	static vec3df to_vec3df(Vector3 vec);
 
-	static void loadGameAudioFiles();
+	static void load();
 	static bool isLoaded();
 	static void cleanup();
 };

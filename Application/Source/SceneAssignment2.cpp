@@ -551,12 +551,21 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			}
 		}
 
+		//Car Interact with World Object
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				// entry->attacker->cancelNextMovement();
+
+				ISound* crash = AudioHandler::getEngine()->play3D(
+					AudioHandler::getSoundSource(CAR_CRASH),
+					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate), 
+					LOOPED::NOLOOP);
+				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
+
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
+
 				std::cout << backwardsMomentum << std::endl;
 				std::cout << "Car Collided" << std::endl;
 			}

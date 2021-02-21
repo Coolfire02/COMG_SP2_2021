@@ -9,6 +9,7 @@ HitBox::HitBox(Box* box) {
 }
 
 Collider HitBox::collidedWith(HitBox* other) {
+	if (!loaded) return Collider(false);
 	return hitBox->isCollidedWith(*other->hitBox);
 }
 
@@ -17,7 +18,6 @@ Box* HitBox::getThisTickBox() {
 }
 
 void HitBox::update(EntityData* data, Mtx44 mtx) {
-
 	UpdatePos(Vector3(mtx.a[12], mtx.a[13], mtx.a[14]));
 	UpdateAxis(Vector3(1, 0, 0), Vector3(0, 0, 1));
 	RotateAxis(data->Rotation.x, Vector3(1, 0, 0));
@@ -27,6 +27,7 @@ void HitBox::update(EntityData* data, Mtx44 mtx) {
 	this->hitBox->halfSize.x = this->hitBox->originalhalfSize.x * data->Scale.x;
 	this->hitBox->halfSize.y = this->hitBox->originalhalfSize.y * data->Scale.y;
 	this->hitBox->halfSize.z = this->hitBox->originalhalfSize.z * data->Scale.z;
+	if (!loaded) loaded = true;
 }
 
 void HitBox::UpdatePos(Vector3 pos) {
