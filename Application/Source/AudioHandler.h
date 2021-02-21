@@ -30,7 +30,7 @@ class AudioHandler
 private:
 	static bool loaded;
 	static ISoundEngine* engine;
-	static std::map<std::string, ISound*> soundMap;
+	//static std::map<std::string, ISound*> soundMap;
 	static std::string fileLocation[SOUNDTYPE::SOUNT_COUNT];
 public:
 	static void addNew3DSound(SOUNDTYPE type, std::string name, bool autoPlay);

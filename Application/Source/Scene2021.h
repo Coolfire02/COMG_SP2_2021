@@ -82,7 +82,6 @@ private:
 	void initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
 	void SpawnBuildings();
 	void SpawnStreetLamps();
-
 	//topdown cam map
 	bool camMap;
 
@@ -101,6 +100,7 @@ public:
 	virtual void Update(double dt);
 	virtual void ButtonUpdate(double dt);
 	virtual void CollisionHandler(double dt);
+	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
 };
