@@ -10,7 +10,7 @@ class InteractionManager {
 		INTERACTION_COUNT,
 	};
 
-	std::queue<Command> interactionQueue;
+	InteractionQueue interactionQueue;
 	INTERACTION_TYPE currentInteractionType;
 
 	int completedInteractionsCount[INTERACTION_COUNT];
@@ -26,9 +26,11 @@ public:
 	InteractionManager();
 	~InteractionManager();
 
-	std::queue<Command>& getQueue();
+	InteractionQueue& getQueue();
 	bool runCommand(Command cmd);
-	bool loadInteractions(const std::string interactionsFilePath);
+	bool loadInteractions();
+	bool loadMessages(const std::string msgFilePath);
+	bool loadCommands(const std::string cmdFilePath);
 	void sendNotification(std::string msg, double duration);
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 	void EndInteraction();

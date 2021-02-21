@@ -21,6 +21,7 @@ struct Command {
 struct Interaction {
 	//Read up runCommand function for Command Params.
 	//e.g. cmd: /givecoin 1 (Gives player 1 coin)
+	int ID;
 	std::vector<Command*> preInteractionCMD;
 	std::string interactionText;
 	std::vector<Command*> postInteractionCMD;
@@ -32,6 +33,7 @@ public:
 	InteractionQueue();
 	~InteractionQueue();
 
+	std::vector<Interaction*>& getQueue();
 	void pushInteraction(Interaction* interaction);
 	void pushInteraction(std::vector<Command*> preInteractionCMD, std::string interactionText, std::vector<Command*> postInteractionCMD);
 	void popInteraction();

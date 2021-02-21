@@ -1,6 +1,9 @@
 #include "InteractionManager.h"
+#include "Game.h"
 #include <sstream>
 #include <iomanip>
+#include <iostream>
+#include <fstream>
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), isInteracting(false), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
@@ -13,7 +16,7 @@ InteractionManager::~InteractionManager()
 	// do nothing
 }
 
-std::queue<Command>& InteractionManager::getQueue()
+InteractionQueue& InteractionManager::getQueue()
 {
 	return this->interactionQueue;
 }
@@ -47,9 +50,91 @@ void InteractionManager::split(std::string txt, char delim, std::vector<std::str
 	}
 }
 
-bool InteractionManager::loadInteractions(const std::string interactionsFilePath)
+bool InteractionManager::loadInteractions()
 {
-	return false;
+	bool success = loadMessages("") && loadCommands("");
+	return success;
+}
+
+bool InteractionManager::loadMessages(const std::string msgFilePath)
+{
+	std::ifstream interactionData;
+	interactionData.open(msgFilePath);
+
+	if (!interactionData) {
+		std::cout << "Error opening file" << std::endl;
+		return false;
+	}
+
+	std::string interactionID;
+	std::string message;
+
+	while (!interactionData.eof()) {
+		try {
+			std::getline(interactionData, interactionID, ';');
+			std::getline(interactionData, message);
+
+			Interaction* temp = new Interaction;
+			temp->ID = stoi(interactionID);
+			temp->interactionText = message;
+			interactionQueue.pushInteraction(temp);
+		}
+		catch (...) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool InteractionManager::loadCommands(const std::string cmdFilePath)
+{
+	std::ifstream interactionData;
+	interactionData.open(cmdFilePath);
+
+	if (!interactionData) {
+		std::cout << "Error opening file" << std::endl;
+		return false;
+	}
+
+	std::string interactionID;
+	std::string cmdType;
+	std::string cmd;
+	std::string sceneName;
+
+	while (!interactionData.eof()) {
+		try {
+			std::getline(interactionData, interactionID, ';');
+			std::getline(interactionData, cmdType, ';');
+			std::getline(interactionData, cmd, ';');
+			std::getline(interactionData, sceneName);
+
+			Command* temp;
+
+			if (sceneName.empty()) temp = new Command(cmd);
+			else {
+				for (auto& entry : Game::SceneList) {
+					if (entry->getName() == sceneName) {
+						new Command(cmd, entry);
+						break;
+					}					
+				}
+			}
+
+			for (auto& entry : interactionQueue.getQueue()) {
+				if (entry->ID == stoi(interactionID)) {
+					if (cmdType == "pre") entry->preInteractionCMD.push_back(temp);
+					else if (cmdType == "post") entry->postInteractionCMD.push_back(temp);
+					break;
+				}
+			}
+		}
+		catch (...) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 void InteractionManager::sendNotification(std::string msg, double duration) {

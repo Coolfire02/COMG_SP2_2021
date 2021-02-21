@@ -8,6 +8,11 @@ InteractionQueue::~InteractionQueue()
 {
 }
 
+std::vector<Interaction*>& InteractionQueue::getQueue()
+{
+	return queue;
+}
+
 void InteractionQueue::pushInteraction(Interaction* interaction) {
 	queue.push_back(interaction);
 }
