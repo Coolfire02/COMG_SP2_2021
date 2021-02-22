@@ -5,6 +5,8 @@ E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(389,24): warning
 E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(472,131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(472,76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(616,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(699,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(846,9): warning C4018: '>=': signed/unsigned mismatch
+E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(692,17): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(696,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(711,12): warning C4305: '=': truncation from 'double' to 'float'
+E:\School\SP2\COMG_SP2_2021\Application\Source\SceneGunShop.cpp(861,9): warning C4018: '>=': signed/unsigned mismatch
   Application.vcxproj -> E:\School\SP2\COMG_SP2_2021\Debug\Application.exe

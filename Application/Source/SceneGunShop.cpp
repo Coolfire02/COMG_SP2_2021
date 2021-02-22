@@ -686,6 +686,32 @@ void SceneGunShop::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
 
+
+	// render guns here
+	float col = -10.75;
+	float row = 4.6;
+	for (int x = 0; x < 9; x++) {
+		for (int y = 0; y < 4; y++) {
+			modelStack.PushMatrix();
+			modelStack.Translate(col + 1.25, row, -11);
+			modelStack.Rotate(-40, 0, 0, 1);
+			modelStack.Rotate(-90, 0, 1, 0);
+			modelStack.Scale(18, 18, 18);
+			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL_S), lightEnable);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(col, row, -11);
+			modelStack.Rotate(-40, 0, 0, 1);
+			modelStack.Rotate(-90, 0, 1, 0);
+			modelStack.Scale(18, 18, 18);
+			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
+			modelStack.PopMatrix();
+			row -= 1.25;
+		}
+		row = 4.6;
+		col += 2.5;
+	}
+
 	// wire mesh
 	modelStack.PushMatrix();
 	modelStack.Translate(0.0f, 0.0f, -11.f);
@@ -693,17 +719,6 @@ void SceneGunShop::Render()
 	modelStack.Scale(30.0f, 30.0f, 30.0f);
 	this->RenderMesh(MeshHandler::getMesh(GEO_WIREMESH), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
-
-	// render guns here
-	int row = 4;
-	int col = -9.5;
-		modelStack.PushMatrix();
-		modelStack.Translate(-9, 2, -7);
-		//modelStack.Rotate(-40, 0, 0, 1);
-		//modelStack.Rotate(-90, 0, 1, 0);
-		modelStack.Scale(10, 10, 10);
-		this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
-		modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();

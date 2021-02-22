@@ -173,7 +173,7 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_MACHINE_GUN] = MeshBuilder::GenerateOBJMTL("machine gun", "OBJ//Weapons//machinegun.obj", "MTL//Weapons//machinegun.mtl" );
 	//meshList[GEO_MACHINE_GUN_LAUNCHER] = MeshBuilder::GenerateOBJMTL("machine gun launcher", "OBJ//Weapons//machinegunLauncher.obj", "MTL//Weapons//machinegunLauncher.mtl");
 	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("pistol", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");
-	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJMTL("pistolSilencer", "OBJ//Weapons//pistolSilencerpistolSilencer.obj", "MTL//Weapons//pistolSilencer.mtl");
+	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJMTL("pistolSilencer", "OBJ//Weapons//pistolSilencer.obj", "MTL//Weapons//pistolSilencer.mtl");
 	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
 	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
 	//meshList[GEO_SHOTGUN_S] = MeshBuilder::GenerateOBJMTL("shotgunShort", "OBJ//Weapons//shotgunShort.obj", "MTL//Weapons//shotgunShort.mtl");
