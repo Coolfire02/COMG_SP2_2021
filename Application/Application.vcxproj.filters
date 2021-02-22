@@ -111,6 +111,8 @@
     <ClCompile Include="Source\InteractionQueue.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Mission.cpp" />
+    <ClCompile Include="Source\MissionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -234,6 +236,11 @@
     <ClInclude Include="Source\InteractionManager.h" />
     <ClInclude Include="Source\InteractionQueue.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mission.h" />
+    <ClInclude Include="Source\MissionManager.h" />
+    <ClInclude Include="Source\Debug.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,4 @@
+#ENUM:Objective;Mission Complete Message
+========================================
+
+MISSION_EXTINGUISH_FIRE:Extinguish the fire;Fire Fighter

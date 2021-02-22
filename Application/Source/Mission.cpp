@@ -1,1 +1,42 @@
-#include "MissionManager.h"
+#include "Mission.h"
+
+Mission::Mission(MISSIONTYPE type, MissionInfo missionMsg, GEOMETRY_TYPE previewType) :
+type(type), progress(0.f), complete(false), missionMsg(missionMsg),
+missionPreviewImage(previewType) {}
+
+Mission::~Mission() {
+	//Intentionally left blank
+}
+
+void Mission::addProgress(float prog) {
+	this->progress += progress;
+	if (this->progress > 100.0) {
+		this->progress = 100.0;
+		this->complete = true;
+	}
+}
+
+void Mission::setProgress(float prog) {
+	this->progress = progress;
+	if (complete && this->progress < 100.0) complete = false;
+	else if (!complete && this->progress >= 100) {
+		complete = true;
+		this->progress = 100.0;
+	}
+}
+
+bool Mission::isCompleted() {
+	return complete;
+}
+
+float Mission::getProgress() {
+	return progress;
+}
+
+GEOMETRY_TYPE Mission::getPreviewImage() {
+	return missionPreviewImage;
+}
+
+MissionInfo Mission::getMissionInfo() {
+	return missionMsg;
+}
