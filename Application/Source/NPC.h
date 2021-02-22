@@ -6,12 +6,14 @@ struct RigidBody {
 	Vector3 gravity;
 	float   airResistanceFactor;
 	bool    grounded;
+	bool	hit;
 
 	RigidBody() {
 		velocity.SetZero();
 		gravity.Set(0, -0.981f, 0);
 		airResistanceFactor = 0.035f;
 		grounded = true;
+		hit = false;
 	}
 
 	void Update(EntityData* data, double dt) {
@@ -28,6 +30,10 @@ struct RigidBody {
 		//clamp NPCs location to within map
 		data->Translate.x = Math::Clamp(data->Translate.x, -327.f, 421.f);
 		data->Translate.z = Math::Clamp(data->Translate.z, -365.f, 289.f);
+		if (hit) 
+			velocity = velocity + (-1 * velocity * airResistanceFactor);
+		if (velocity.Magnitude() < 0.02) 
+			hit = false;
 
 		//velocity = velocity + (-1 * velocity * airResistanceFactor);
 

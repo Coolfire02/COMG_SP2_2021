@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "MeshHandler.h"
 
 enum WEAPON_TYPE
 {
@@ -11,9 +12,12 @@ enum WEAPON_TYPE
 class Weapon
 {
 private:
+	GEOMETRY_TYPE associatedMeshType;
+	WEAPON_TYPE weaponType;
+
 	int magazineSize;
 	int damage;
-	WEAPON_TYPE weaponType;
+
 public:
 	Weapon();
 	Weapon(WEAPON_TYPE wType);
@@ -24,5 +28,6 @@ public:
 
 	void initWeapon(WEAPON_TYPE wType, int ammos, int damages);
 
+	GEOMETRY_TYPE getMeshType();
 	WEAPON_TYPE getWeaponType();
 };

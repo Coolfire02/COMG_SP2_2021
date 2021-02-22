@@ -200,7 +200,6 @@ void Car::Drive(double dt) {
 		RotateSpeed = 100.f;
 		drifting = true;
 		driftVector = Vector3(velocity);
-		driftRotation.SetToRotation(this->getEntityData()->Rotation.y * 0.2f, 0, 1, 0);
 	}
 
 	// the car's velocity is based on rotation of the car
@@ -231,7 +230,7 @@ void Car::Drive(double dt) {
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 
 	if (drifting) {
-		this->getEntityData()->Translate = this->getEntityData()->Translate + driftRotation * driftVector + velocity * dt;
+		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
 	else this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
 

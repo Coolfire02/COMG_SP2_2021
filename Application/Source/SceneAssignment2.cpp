@@ -678,7 +678,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 						camera.position.y += 2;
 						camera.total_pitch = 0;
 						camera.total_yaw = 0;
-						camera.target = Vector3(0, 0, 1);
+						camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
 			}
@@ -756,6 +756,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
+				((NPC*)entry->victim)->getRigidBody().hit = true;
 				std::cout << "Car Collided" << std::endl;
 			}
 		}
@@ -984,11 +985,13 @@ void SceneAssignment2::Render()
 		modelStack.Translate(0.175, -0.1, -0.35);
 		modelStack.Rotate(185, 0, 1, 0);
 		modelStack.Scale(0.8, 0.8, 0.8);
-		RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
+		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
 		modelStack.PopMatrix();
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
+
+
 	RenderUI();
 
 	for (auto& button : bManager.getButtons()) {

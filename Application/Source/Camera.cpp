@@ -93,12 +93,12 @@ void Camera::Update(double dt)
 		if (pitch != 0)
 		{
 			total_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
-			if (total_pitch > 80.f) {
-				total_pitch = 80.f;
+			if (total_pitch > 79.f) {
+				total_pitch = 79.f;
 				return;
 			}
-			if (total_pitch < -80.f) {
-				total_pitch = -80.f;
+			if (total_pitch < -79.f) {
+				total_pitch = -79.f;
 				return;
 			}
 
