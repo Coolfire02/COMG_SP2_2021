@@ -105,6 +105,7 @@ enum GEOMETRY_TYPE {
 
 	TAILSS,
 	//For non-OBJs
+	UI_CROSSHAIR,
 
 
 	//END

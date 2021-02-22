@@ -49,7 +49,6 @@ private:
 	//Game Variables
 	Player* player;
 	Game game;
-	Inventory inv;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen

@@ -1,6 +1,7 @@
 #include "Game.h"
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
+Inventory Game::inv;
 
 Game::Game()
 {

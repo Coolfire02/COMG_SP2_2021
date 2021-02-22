@@ -3,7 +3,9 @@
 #include <iostream>
 #include <vector>
 #include "Weapon.h"
+#include "Inventory.h"
 #include "MissionManager.h"
+#include "InteractionManager.h"
 
 enum SCENES
 {
@@ -26,7 +28,9 @@ public:
 	static std::vector<Scene*> SceneList;
 
 	static MissionManager mManager;
-	
+	static InteractionManager iManager;
+	static Inventory inv;
+
 	static void Init();
 	static void Update(double dt);
 	static void Render();

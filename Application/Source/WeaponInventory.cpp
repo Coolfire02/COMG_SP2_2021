@@ -40,13 +40,14 @@ void WeaponInventory::delWeapon(WEAPON_TYPE wType)
 
 	weaponList.erase(std::remove(weaponList.begin(), weaponList.end(), nullptr), weaponList.end()); //remove any nullptr from vector
 
-	for (int i = 0; i < weaponList.size(); i++)
-	{
-		if (weaponList[i] != nullptr)
+	if (!weaponList.empty()) {
+		for (int i = 0; i < weaponList.size(); i++)
 		{
 			activeWeapon = weaponList[i]; //set nearest slot weapon to active weapon
+			return;
 		}
 	}
+	else activeWeapon = nullptr;
 }
 
 Weapon* WeaponInventory::getActiveWeapon()

@@ -286,21 +286,21 @@ void SceneAssignment2::Update(double dt)
 
 	//weapon inventory
 	if (Application::IsKeyPressed('E')) //pick up weapon
-		inv.addWeap(PISTOL);
+		Game::inv.addWeap(PISTOL);
 	if (Application::IsKeyPressed('F')) //pick up weapon
-		inv.addWeap(SILENCER);
+		Game::inv.addWeap(SILENCER);
 	if (Application::IsKeyPressed('1')) //weapon slot 1
-		inv.switchWeapon(0);
+		Game::inv.switchWeapon(0);
 	if (Application::IsKeyPressed('2')) //weapon slot 2
-		inv.switchWeapon(1);
+		Game::inv.switchWeapon(1);
 	if (Application::IsKeyPressed('3')) //weapon slot 3
-		inv.switchWeapon(2);
+		Game::inv.switchWeapon(2);
 	if (Application::IsKeyPressed('4')) //weapon slot 4
-		inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('o')) //delete equipped weapon
+		Game::inv.switchWeapon(3);
+	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
 	{
 		toggleTimer = 0;
-		inv.deleteWeapon(inv.getActiveWeapon()->getWeaponType());
+		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
 	}
 
 	if (GetAsyncKeyState('1') & 0x8001) {
@@ -520,8 +520,9 @@ void SceneAssignment2::CollisionHandler(double dt) {
 						camera.position = player->getEntityData()->Translate;
 						camera.up = camera.defaultUp;
 						camera.position.y += 2;
-						camera.test_pitch = 0;
-						camera.target = camera.defaultTarget;
+						camera.total_pitch = 0;
+						camera.total_yaw = 0;
+						camera.target = Vector3(0, 0, 1);
 					}
 				}
 			}
@@ -612,12 +613,17 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 
-				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y;
-				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1));
-				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude();
-				if (magnitude != 0)
-					angle = acos(velo / magnitude);
-				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle;
+				if (((NPC*)entry->attacker)->getRigidBody().grounded == true) {
+					float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y;
+					float magnitude = resultantVec.Magnitude();
+					if (magnitude != 0) {
+					//	float velo = d.Dot(resultantVec);
+					//	angle = 180 - acos(velo / magnitude);
+					//	((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle;
+						angle = atan(resultantVec.y / resultantVec.x);
+						((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle;
+					}
+				}
 			}
 		}
 	}
@@ -690,7 +696,7 @@ void SceneAssignment2::Render()
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);			
 
 	}
 	else if (light[0].type == Light::LIGHT_SPOT) {
@@ -809,6 +815,25 @@ void SceneAssignment2::Render()
 		}
 	}
 
+
+	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Vector3 right = view.Cross(camera.up);
+		right.Normalize();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
+		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
+		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Rotate(185, 0, 1, 0);
+		modelStack.Scale(0.8, 0.8, 0.8);
+		RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
+		modelStack.PopMatrix();
+
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
+	}
+
 	for (auto& button : bManager.getButtons()) {
 		button->Render();
 	}
@@ -844,11 +869,11 @@ void SceneAssignment2::Render()
 	ss << "6/30";
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
 
-	if (inv.getItemInventory() != nullptr)
+	if (Game::inv.getItemInventory() != nullptr)
 	{
 		ss.str("");
 		ss.clear();
-		ss << inv.getCurrentItemAmt();
+		ss << Game::inv.getCurrentItemAmt();
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 10);
 	}
 	
@@ -1049,10 +1074,10 @@ void SceneAssignment2::RenderUI()
 	//weapons UI
 	for (int i = 0; i < 4; i++) //limit to displaying 4
 	{
-		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
 			return;
 
-		switch (inv.getWeaponVector()[i]->getWeaponType())
+		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
 		{
 		case PISTOL:
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
@@ -1065,7 +1090,7 @@ void SceneAssignment2::RenderUI()
 			break;
 		}
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
 		{
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
@@ -1083,7 +1108,7 @@ void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType
 	int randomRotation = rand() % 359 + 1;
 
 	Entity* testNPC = new NPC(this, geoType, "test");
-	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
+	testNPC->getEntityData()->SetTransform(randomX, 0, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);
 	eManager.spawnMovingEntity(testNPC);
