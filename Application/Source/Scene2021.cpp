@@ -216,7 +216,7 @@ void Scene2021::Init()
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.5f,0.5f,1.f); //set to white light
+	light[1].color.set(1.f,1.f,1.f); //set to white light
 	light[1].power = 0;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
@@ -229,14 +229,14 @@ void Scene2021::Init()
 	//3rd light
 	light[2].type = Light::LIGHT_SPOT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0.5f, 0.7f, 1.f); //set to white light
-	light[2].power = 5;
+	light[2].color.set(1.f, 1.f, 1.f); //set to white light
+	light[2].power = 1;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
 	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 3.f;
+	light[2].exponent = 1.f;
 	light[2].spotDirection.Set(0, 0, 1);
 
 

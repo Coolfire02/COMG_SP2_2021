@@ -35,4 +35,6 @@ public:
 	void nextInteraction();
 	bool isInteracting();
 	bool passedInteractionCooldown();
+
+	void Update(double);
 };

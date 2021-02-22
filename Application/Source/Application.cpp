@@ -188,8 +188,8 @@ void Application::Run()
 	AudioHandler::load();
 	Text::loadFonts();
 
-	g.addScene(new SceneAssignment2);
 	g.addScene(new SceneGunShop);
+	g.addScene(new SceneAssignment2);
 	g.addScene(new SceneGarage);
 	g.addScene(new Scene2021);
 

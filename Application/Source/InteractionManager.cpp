@@ -170,7 +170,7 @@ void InteractionManager::nextInteraction()
 }
 
 bool InteractionManager::isInteracting() {
-	return false;
+	return (!interactionQueue.getQueue().size() == 0);
 }
 
 bool InteractionManager::passedInteractionCooldown()
@@ -180,4 +180,10 @@ bool InteractionManager::passedInteractionCooldown()
 		return true;
 	}
 	return false;
+}
+
+void InteractionManager::Update(double dt) {
+	if (isInteracting()) {
+		this->interactionElapsed += dt;
+	}
 }

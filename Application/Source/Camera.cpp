@@ -78,41 +78,6 @@ void Camera::Update(double dt)
 
 	switch (camType) {
 	case FIRSTPERSON:
-		/*{
-			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			view = rotation * view;
-			target = position + view;
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-		}
-		{
-			test_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
-			if (test_pitch > 60.f) {
-				test_pitch = 60.f;
-				return;
-			}
-			if (test_pitch < -60.f) {
-				test_pitch = -60.f;
-				return;
-			}
-			
-			float pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
-
-			Vector3 view = (target - position).Normalized();
-			Mtx44 rotation;
-			rotation.SetToRotation(pitch, right.x, right.y, right.z);
-			view = rotation * view;
-			target = position + view;
-			Vector3 right = view.Cross(up);
-			right.y = 0;
-			right.Normalize();
-			up = right.Cross(view).Normalized();
-		}*/
 		double x, y;
 		Application::GetCursorPos(&x, &y);
 		if (yaw != 0)

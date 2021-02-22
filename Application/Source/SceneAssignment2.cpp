@@ -332,8 +332,7 @@ void SceneAssignment2::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
+	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
 
@@ -488,6 +487,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 	bool foundInteractionZone = false;
 
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
+
+	TopDownMapUpdate(dt);
 
 	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
