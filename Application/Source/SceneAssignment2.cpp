@@ -332,11 +332,11 @@ void SceneAssignment2::Update(double dt)
 	//UI item adding testing
 	if (Application::IsKeyPressed('F'))
 	{
-		inv.addItem(BURGER, 1);
-		inv.addItem(EGGPLANT, 2);
+		Game::inv.addItem(BURGER, 1);
+		Game::inv.addItem(EGGPLANT, 2);
 		
 		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		inv.addCar(SUV);
+		Game::inv.addCar(SUV);
 	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
 	{
@@ -362,7 +362,7 @@ void SceneAssignment2::Update(double dt)
 	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
 	{
-		inv.addItem(CORN, 3);
+		Game::inv.addItem(CORN, 3);
 	}
 
 	//weapon inventory
@@ -1225,8 +1225,8 @@ void SceneAssignment2::RenderUI()
 	std::ostringstream ss;
 	switch (uiManager.getCurrentMenu())
 	{
-		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-			return;
+		//if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			//return;
 
 	case GENERAL_UI:
 		//GUI
@@ -1237,16 +1237,16 @@ void SceneAssignment2::RenderUI()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
 
 		//Current Item Amount
-		if (inv.getItemInventory() != nullptr)
+		if (Game::inv.getItemInventory() != nullptr)
 		{
 			ss.str("");
 			ss.clear();
-			ss << inv.getCurrentItemAmt();
+			ss << Game::inv.getCurrentItemAmt();
 			RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
 		}
 
 		//Item UI
-		switch (inv.getCurrentItemType())
+		switch (Game::inv.getCurrentItemType())
 		{
 		case BURGER:
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 120, 20, 10, 10);
@@ -1266,10 +1266,10 @@ void SceneAssignment2::RenderUI()
 		//Weapons UI
 		for (int i = 0; i < 4; i++) //limit to displaying 4
 		{
-			if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+			if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
 				return;
 
-			switch (inv.getWeaponVector()[i]->getWeaponType())
+			switch (Game::inv.getWeaponVector()[i]->getWeaponType())
 			{
 			case PISTOL:
 				RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
@@ -1282,7 +1282,7 @@ void SceneAssignment2::RenderUI()
 				break;
 			}
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-			if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+			if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
 			{
 				RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 			}
