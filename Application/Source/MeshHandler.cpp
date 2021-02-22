@@ -10,11 +10,12 @@ std::unordered_map<std::string, GEOMETRY_TYPE> const MeshHandler::geoTypeTable =
 };
 
 GEOMETRY_TYPE MeshHandler::getGeoTypeByName(std::string name) {
-	std::unordered_map<std::string, GEOMETRY_TYPE>::const_iterator key = geoTypeTable.find(name);
-	if (key != geoTypeTable.end())
-		return GEOMETRY_TYPE::EMPTY;
-	else
-		return key->second;
+	for (auto& kV : geoTypeTable) {
+		if (kV.first == name) {
+			return kV.second;
+		}
+	}
+	return GEOMETRY_TYPE::EMPTY;
 }
 
 bool MeshHandler::loadMeshes() {

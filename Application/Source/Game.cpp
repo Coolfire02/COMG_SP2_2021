@@ -1,6 +1,7 @@
 #include "Game.h"
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
+MissionManager Game::mManager;
 
 Game::Game()
 {
@@ -12,6 +13,7 @@ Game::~Game()
 
 void Game::Init()
 {
+
 }
 
 void Game::Update(double dt)

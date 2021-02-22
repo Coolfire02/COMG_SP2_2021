@@ -6,11 +6,11 @@
 std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = {
 	{"MISSION_EXTINGUISH_FIRE",MISSIONTYPE::MISSION_EXTINGUISH_FIRE},
 	{"MISSION_ENTER_TIMEPORTAL",MISSIONTYPE::MISSION_ENTER_TIMEPORTAL},
-	{"MISSION_FIND_GUNSHOP",MISSIONTYPE::MISSION_FIND_GUNSHOP},
-	{"MISSION_CALL_RICHARD",MISSIONTYPE::MISSION_CALL_RICHARD},
-	{"MISSION_FINALE_ANGERY",MISSIONTYPE::MISSION_FINALE_ANGERY},
-	{"MISSION_FINALE_PEACEFUL",MISSIONTYPE::MISSION_FINALE_PEACEFUL},
-	{"MISSION_FINALE_REWARDING",MISSIONTYPE::MISSION_FINALE_REWARDING}
+	//{"MISSION_FIND_GUNSHOP",MISSIONTYPE::MISSION_FIND_GUNSHOP},
+	//{"MISSION_CALL_RICHARD",MISSIONTYPE::MISSION_CALL_RICHARD},
+	//{"MISSION_FINALE_ANGERY",MISSIONTYPE::MISSION_FINALE_ANGERY},
+	//{"MISSION_FINALE_PEACEFUL",MISSIONTYPE::MISSION_FINALE_PEACEFUL},
+	//{"MISSION_FINALE_REWARDING",MISSIONTYPE::MISSION_FINALE_REWARDING}
 };
 MissionInfo MissionManager::missionLang[MISSION_COUNT];
 bool MissionManager::loadedLang = false;
@@ -70,11 +70,14 @@ void MissionManager::loadMissionLang() {
 					MissionInfo mI;
 					mI.missionCompletionMessage = completedMessage;
 					mI.missionObjective = objectiveMessage;
-					mI.blackListedPreReqMissions = blackListedPreMissions;
-					mI.requiredPreReqMissions = neededPreMissions;
+					mI.blackListedPreReqMissions = std::vector<MISSIONTYPE>(blackListedPreMissions);
+					mI.missionPreviewImage = geoType;
+					mI.requiredPreReqMissions = std::vector<MISSIONTYPE>(neededPreMissions);
 					missionLang[type] = mI;
 					findingBlackListedMissions = false;
 					findingPreReqMissions = false;
+					neededPreMissions.clear();
+					blackListedPreMissions.clear();
 				}
 				type = MissionManager::getMissionByEnumName(std::string(buf));
 			}
@@ -84,7 +87,7 @@ void MissionManager::loadMissionLang() {
 				DEBUG_MSG(std::string(split));
 				geoType = MeshHandler::getGeoTypeByName(std::string(split));
 			}
-			else if (strncmp("- ObjectiveMessage:", buf, 2) == 0) {
+			else if (strncmp("- ObjectiveMessage:", buf, 19) == 0) {
 				char split[1028];
 				strcpy_s(split, buf + (buf[19] == ' ' ? 19+1 : 19));
 				DEBUG_MSG(std::string(split));
@@ -96,10 +99,10 @@ void MissionManager::loadMissionLang() {
 				DEBUG_MSG(std::string(split));
 				completedMessage = std::string(split);
 			}
-			else if (strncmp("* BlackListedPreRequisiteMissions:", buf, 2) == 0) {
+			else if (strncmp("* BlackListedPreRequisiteMissions:", buf, 34) == 0) {
 				findingBlackListedMissions = true;
 			}
-			else if (strncmp("* PreRequisiteMissions:", buf, 2) == 0) {
+			else if (strncmp("* PreRequisiteMissions:", buf, 23) == 0) {
 				findingBlackListedMissions = false;
 				findingPreReqMissions = true;
 			}
@@ -115,6 +118,17 @@ void MissionManager::loadMissionLang() {
 				}
 			}
 		}
+		if (addedMissions++ > 0) {
+			MissionInfo mI;
+			mI.missionCompletionMessage = completedMessage;
+			mI.missionObjective = objectiveMessage;
+			mI.blackListedPreReqMissions = std::vector<MISSIONTYPE>(blackListedPreMissions);
+			mI.missionPreviewImage = geoType;
+			mI.requiredPreReqMissions = std::vector<MISSIONTYPE>(neededPreMissions);
+			missionLang[type] = mI;
+			findingBlackListedMissions = false;
+			findingPreReqMissions = false;
+		}
 		loadedLang = true;
 	}
 };
@@ -122,14 +136,16 @@ void MissionManager::loadMissionLang() {
 //Statics end
 
 MISSIONTYPE MissionManager::getMissionByEnumName(std::string name) {
-	std::unordered_map<std::string, MISSIONTYPE>::const_iterator key = mTypeTable.find(name);
-	if (key != mTypeTable.end())
-		return MISSIONTYPE::INVALID;
-	else
-		return key->second;
+	for (auto& kV : mTypeTable) {
+		if (kV.first == name) {
+			return kV.second;
+		}
+	}
+	return MISSIONTYPE::INVALID;
 }
 
 MissionManager::MissionManager() {
+	loadMissionLang();
 	for (int i = 0; i < MISSIONTYPE::MISSION_COUNT; i++) {
 		missions[static_cast<MISSIONTYPE>(i)] = new Mission(static_cast<MISSIONTYPE>(i), missionLang[i]);
 	}
@@ -176,7 +192,7 @@ std::vector<MISSIONTYPE> MissionManager::getCompletableMissions() {
 		if (!missions[i]->isCompleted()) {
 			bool canBeDone = true;
 			std::vector<MISSIONTYPE> preReqMissions = missions[i]->getMissionInfo().requiredPreReqMissions;
-			for (auto& completed : getCompletableMissions()) { //Loops through completed missions to check if it is contained in blacklisted/prereq list of Missions.
+			for (auto& completed : getCompletedMissions()) { //Loops through completed missions to check if it is contained in blacklisted/prereq list of Missions.
 				std::vector<MISSIONTYPE> blacklisted = missions[i]->getMissionInfo().blackListedPreReqMissions;
 				if (std::find(blacklisted.begin(), blacklisted.end(), completed) != blacklisted.end()) {
 					canBeDone = false;

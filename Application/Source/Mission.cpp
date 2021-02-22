@@ -7,7 +7,7 @@ Mission::~Mission() {
 	//Intentionally left blank
 }
 
-void Mission::addProgress(float prog) {
+void Mission::addProgress(float progress) {
 	this->progress += progress;
 	if (this->progress > 100.0) {
 		this->progress = 100.0;
@@ -15,7 +15,7 @@ void Mission::addProgress(float prog) {
 	}
 }
 
-void Mission::setProgress(float prog) {
+void Mission::setProgress(float progress) {
 	this->progress = progress;
 	if (complete && this->progress < 100.0) complete = false;
 	else if (!complete && this->progress >= 100) {
@@ -38,4 +38,8 @@ GEOMETRY_TYPE Mission::getPreviewImage() {
 
 MissionInfo Mission::getMissionInfo() {
 	return missionInfo;
+}
+
+MISSIONTYPE Mission::getType() {
+	return type;
 }

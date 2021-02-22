@@ -11,6 +11,7 @@
 #include "Utility.h"
 #include "Car.h"
 #include "InteractionManager.h"
+#include "Debug.h"
 
 SceneAssignment2::SceneAssignment2() : 
 	eManager(this), bManager(this)
@@ -391,6 +392,21 @@ void SceneAssignment2::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
+	}
+
+
+	//MISSION HANDLING
+	for (auto& entry : Game::mManager.getCompletableMissions()) {
+		//DEBUG_MSG("Completable Mission EnumID: " << entry);
+	}
+	if (Application::IsKeyPressed('V')) {
+		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
+	for (auto& entry : justCompletedMissions) {
+		if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+		}
 	}
 }
 
