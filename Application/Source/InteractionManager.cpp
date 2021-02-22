@@ -70,7 +70,7 @@ bool InteractionManager::loadInteractions(const char* filePath)
 				interaction_ID[strlen(interaction_ID) - 1] = '\0';
 
 			interaction = new Interaction();
-			interaction->ID = stoi(std::string(interaction_ID));
+			interaction->key = interaction_ID;
 			interactionQueue.pushInteraction(interaction);
 		}
 		else if ((strncmp("msg ", buf, 4) == 0)) {
@@ -83,7 +83,7 @@ bool InteractionManager::loadInteractions(const char* filePath)
 			}
 		}
 		else if ((strncmp("precmd ", buf, 7) == 0)) {
-			if (command != nullptr && interaction != nullptr) {
+			if (interaction != nullptr) {
 				char cmd[256];
 				strcpy_s(cmd, buf + 7);
 				if (cmd[strlen(cmd) - 1] == '\r')
@@ -109,7 +109,7 @@ bool InteractionManager::loadInteractions(const char* filePath)
 			}
 		}
 		else if ((strncmp("postcmd ", buf, 7) == 0)) {
-			if (command != nullptr && interaction != nullptr) {
+			if (interaction != nullptr) {
 				char cmd[256];
 				strcpy_s(cmd, buf + 7);
 				if (cmd[strlen(cmd) - 1] == '\r')
@@ -131,10 +131,13 @@ bool InteractionManager::loadInteractions(const char* filePath)
 					}
 				}
 
-				interaction->preInteractionCMD.push_back(command);
+				interaction->postInteractionCMD.push_back(command);
 			}
 		}
 	}
+	fileStream.close(); // close file
+
+	return true;
 
 }
 

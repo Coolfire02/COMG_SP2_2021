@@ -1,0 +1,7 @@
+﻿  MatrixStack.cpp
+  Mtx44.cpp
+  timer.cpp
+  Vector3.cpp
+E:\School\SP2\COMG_SP2_2021\Common\Source\Vector3.cpp(355,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Common.vcxproj -> E:\School\SP2\COMG_SP2_2021\Debug\Common.lib
