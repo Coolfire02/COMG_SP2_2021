@@ -2,16 +2,8 @@
 #include "Scene.h"
 #include <iostream>
 #include <vector>
-#include "Scene.h"
 #include "Weapon.h"
-#include "SceneAssignment2.h"
-#include "Scene2021.h"
-#include "SceneGarage.h"
-#include "SceneGunShop.h"
 #include "MissionManager.h"
-#include "InteractionManager.h"
-
-class InteractionManager;
 
 enum SCENES
 {
@@ -21,6 +13,8 @@ enum SCENES
 	S_GARAGE,
 	S_COUNT
 };
+
+//Interface
 
 class Game
 {

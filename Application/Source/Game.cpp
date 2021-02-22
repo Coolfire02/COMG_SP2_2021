@@ -12,10 +12,6 @@ Game::~Game()
 
 void Game::Init()
 {
-	addScene(new SceneAssignment2);
-	addScene(new Scene2021);
-	addScene(new SceneGunShop);
-	addScene(new SceneGarage);
 }
 
 void Game::Update(double dt)
