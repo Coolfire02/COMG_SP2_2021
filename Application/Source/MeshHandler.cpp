@@ -4,6 +4,18 @@
 
 bool MeshHandler::isLoaded = false;
 Mesh* MeshHandler::meshList[NUM_GEOMETRY];
+std::unordered_map<std::string, GEOMETRY_TYPE> const MeshHandler::geoTypeTable = {
+	{"EMPTY",GEOMETRY_TYPE::EMPTY},
+	{"GEO_AXES",GEOMETRY_TYPE::GEO_AXES}
+};
+
+GEOMETRY_TYPE MeshHandler::getGeoTypeByName(std::string name) {
+	std::unordered_map<std::string, GEOMETRY_TYPE>::const_iterator key = geoTypeTable.find(name);
+	if (key != geoTypeTable.end())
+		return GEOMETRY_TYPE::EMPTY;
+	else
+		return key->second;
+}
 
 bool MeshHandler::loadMeshes() {
 	if (isLoaded)
@@ -63,7 +75,6 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
 
 	//Weapons
-	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");
 	////Sonic characters
 	//meshList[GEO_SONIC_EGGMAN] = MeshBuilder::GenerateOBJMTL("Eggman", "OBJ//Eggman.obj", "MTL//Eggman.mtl");
 	//meshList[GEO_SONIC_TAILS] = MeshBuilder::GenerateOBJMTL("Tails", "OBJ//Tails.obj", "MTL//Tails.mtl");
@@ -155,19 +166,39 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//Skybox//bluecloud_ft.tga");
 	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//Skybox//bluecloud_bk.tga");
 
-	meshList[GEO_GUNSHOP_LEFT] = MeshBuilder::GenerateQuad("left", Color(0.871f, 0.722f, 0.529f));
-	meshList[GEO_GUNSHOP_RIGHT] = MeshBuilder::GenerateQuad("right", Color(0.871f, 0.722f, 0.529f));
-	meshList[GEO_GUNSHOP_TOP] = MeshBuilder::GenerateQuad("top", Color(0.871f, 0.722f, 0.529f));
-	meshList[GEO_GUNSHOP_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(0.545, 0.271, 0.075));
-	meshList[GEO_GUNSHOP_FRONT] = MeshBuilder::GenerateQuad("front", Color(0.871f, 0.722f, 0.529f));
-	meshList[GEO_GUNSHOP_BACK] = MeshBuilder::GenerateQuad("back", Color(0.871f, 0.722f, 0.529f));
+	// Gun Shop
+	meshList[GEO_GUNSHOP_LEFT] = MeshBuilder::GenerateQuad("left", Color(0.871f, 0.722f, 0.529f), 10, 10);
+	meshList[GEO_GUNSHOP_RIGHT] = MeshBuilder::GenerateQuad("right", Color(0.871f, 0.722f, 0.529f), 10, 10);
+	meshList[GEO_GUNSHOP_TOP] = MeshBuilder::GenerateQuad("top", Color(0.871f, 0.722f, 0.529f), 10, 10);
+	meshList[GEO_GUNSHOP_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(0.545, 0.271, 0.075), 10, 10);
+	meshList[GEO_GUNSHOP_FRONT] = MeshBuilder::GenerateQuad("front", Color(0.871f, 0.722f, 0.529f), 10, 10);
+	meshList[GEO_GUNSHOP_BACK] = MeshBuilder::GenerateQuad("back", Color(0.871f, 0.722f, 0.529f), 10, 10);
 
-	meshList[GEO_GUNSHOP_TOP]->material.kAmbient.Set(0.4f, 0.4f, 0.4f);
-	meshList[GEO_GUNSHOP_TOP]->material.kDiffuse.Set(0.2, 0.2, 0.2);
-
-	//NON-OBJS
+	meshList[GEO_GUNSHOP_TOP]->textureID = LoadTGA("Image//GunShop//wall.tga");
+	meshList[GEO_GUNSHOP_LEFT]->textureID = LoadTGA("Image//GunShop//wall.tga");
+	meshList[GEO_GUNSHOP_RIGHT]->textureID = LoadTGA("Image//GunShop//wall.tga");
+	meshList[GEO_GUNSHOP_FRONT]->textureID = LoadTGA("Image//GunShop//wall.tga");
+	meshList[GEO_GUNSHOP_BACK]->textureID = LoadTGA("Image//GunShop//gunwall.tga");
+	meshList[GEO_GUNSHOP_BOTTOM]->textureID = LoadTGA("Image//GunShop//carpet.tga");
 	meshList[GEO_WIREMESH] = MeshBuilder::GenerateQuad("wiremesh", Color(1, 1, 1), 10, 10);
 	meshList[GEO_WIREMESH]->textureID = LoadTGA("Image//GunShop//WireMesh.tga");
+
+	//meshList[GEO_MACHINE_GUN] = MeshBuilder::GenerateOBJMTL("machine gun", "OBJ//Weapons//machinegun.obj", "MTL//Weapons//machinegun.mtl" );
+	//meshList[GEO_MACHINE_GUN_LAUNCHER] = MeshBuilder::GenerateOBJMTL("machine gun launcher", "OBJ//Weapons//machinegunLauncher.obj", "MTL//Weapons//machinegunLauncher.mtl");
+	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("pistol", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");
+	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJMTL("pistolSilencer", "OBJ//Weapons//pistolSilencer.obj", "MTL//Weapons//pistolSilencer.mtl");
+	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
+	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
+	//meshList[GEO_SHOTGUN_S] = MeshBuilder::GenerateOBJMTL("shotgunShort", "OBJ//Weapons//shotgunShort.obj", "MTL//Weapons//shotgunShort.mtl");
+//	meshList[GEO_SNIPER] = MeshBuilder::GenerateOBJMTL("sniper", "OBJ//Weapons//sniper.obj", "MTL//Weapons//sniper.mtl");
+	//meshList[GEO_UZI] = MeshBuilder::GenerateOBJMTL("uzi", "OBJ//Weapons//uzi.obj", "MTL//Weapons//uzi.mtl");
+	//meshList[GEO_UZI_L] = MeshBuilder::GenerateOBJMTL("uziLong", "OBJ//Weapons//uziLong.obj", "MTL//Weapons//uziLong.mtl");
+	//meshList[GEO_UZI_L_S] = MeshBuilder::GenerateOBJMTL("uziLongSilencer", "OBJ//Weapons//uziLongSilencer.obj", "MTL//Weapons//uziLongSilencer.mtl");
+	//meshList[GEO_UZI_S] = MeshBuilder::GenerateOBJMTL("uziSilencer", "OBJ//Weapons//uziSilencer.obj", "MTL//Weapons//uziSilencer.mtl");
+
+	meshList[GEO_COUNTER] = MeshBuilder::GenerateOBJMTL("counter", "OBJ//GunShop//Cash_Wrap.obj", "MTL//GunShop//Cash_Wrap.mtl");
+
+
 	//Materials
 
 	/*Material mat;
@@ -205,6 +236,8 @@ bool MeshHandler::loadMeshes() {
 	noseMat.kDiffuse.Set(0.3f, 0.3f, 0.3f);
 	noseMat.kSpecular.Set(0.5f, 0.5f, 0.5f);
 	noseMat.kShininess = 3.5f;*/
+
+
 
 	isLoaded = true;
 	return true;

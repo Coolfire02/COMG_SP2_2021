@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-InteractionManager::InteractionManager() : latestInteractionSwitch(0), isInteracting(false), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
+InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
 		this->completedInteractionsCount[i] = 0;
 	}
@@ -50,91 +50,94 @@ void InteractionManager::split(std::string txt, char delim, std::vector<std::str
 	}
 }
 
-bool InteractionManager::loadInteractions()
+bool InteractionManager::loadInteractions(const char* filePath)
 {
-	bool success = loadMessages("") && loadCommands("");
-	return success;
-}
-
-bool InteractionManager::loadMessages(const std::string msgFilePath)
-{
-	std::ifstream interactionData;
-	interactionData.open(msgFilePath);
-
-	if (!interactionData) {
+	std::ifstream fileStream(filePath, std::ios::binary);
+	if (!fileStream.is_open()) {
 		std::cout << "Error opening file" << std::endl;
 		return false;
 	}
 
-	std::string interactionID;
-	std::string message;
+	Command* command = nullptr;
+	Interaction* interaction = nullptr;
+	while (!fileStream.eof()) {
+		char buf[256];
+		fileStream.getline(buf, 256);
+		if (strncmp("interaction ", buf, 12) == 0) {
+			char interaction_ID[256];
+			strcpy_s(interaction_ID, buf + 12);
+			if (interaction_ID[strlen(interaction_ID) - 1] == '\r')
+				interaction_ID[strlen(interaction_ID) - 1] = '\0';
 
-	while (!interactionData.eof()) {
-		try {
-			std::getline(interactionData, interactionID, ';');
-			std::getline(interactionData, message);
-
-			Interaction* temp = new Interaction;
-			temp->ID = stoi(interactionID);
-			temp->interactionText = message;
-			interactionQueue.pushInteraction(temp);
+			interaction = new Interaction();
+			Interactions.insert(std::pair<std::string, Interaction*>(std::string(interaction_ID), interaction));
 		}
-		catch (...) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool InteractionManager::loadCommands(const std::string cmdFilePath)
-{
-	std::ifstream interactionData;
-	interactionData.open(cmdFilePath);
-
-	if (!interactionData) {
-		std::cout << "Error opening file" << std::endl;
-		return false;
-	}
-
-	std::string interactionID;
-	std::string cmdType;
-	std::string cmd;
-	std::string sceneName;
-
-	while (!interactionData.eof()) {
-		try {
-			std::getline(interactionData, interactionID, ';');
-			std::getline(interactionData, cmdType, ';');
-			std::getline(interactionData, cmd, ';');
-			std::getline(interactionData, sceneName);
-
-			Command* temp;
-
-			if (sceneName.empty()) temp = new Command(cmd);
-			else {
-				for (auto& entry : Game::SceneList) {
-					if (entry->getName() == sceneName) {
-						new Command(cmd, entry);
-						break;
-					}					
-				}
-			}
-
-			for (auto& entry : interactionQueue.getQueue()) {
-				if (entry->ID == stoi(interactionID)) {
-					if (cmdType == "pre") entry->preInteractionCMD.push_back(temp);
-					else if (cmdType == "post") entry->postInteractionCMD.push_back(temp);
-					break;
-				}
+		else if ((strncmp("msg ", buf, 4) == 0)) {
+			if (interaction != nullptr) {
+				char msg[256];
+				strcpy_s(msg, buf + 4);
+				if (msg[strlen(msg) - 1] == '\r')
+					msg[strlen(msg) - 1] = '\0';
+				interaction->interactionText = msg;
 			}
 		}
-		catch (...) {
-			return false;
+		else if ((strncmp("precmd ", buf, 7) == 0)) {
+			if (interaction != nullptr) {
+				char cmd[256];
+				strcpy_s(cmd, buf + 7);
+				if (cmd[strlen(cmd) - 1] == '\r')
+					cmd[strlen(cmd) - 1] = '\0';
+
+				
+				std::string cmdString = cmd;
+				std::vector<std::string> splitVar;
+				split(cmdString, ';', splitVar);
+				if (splitVar.at(0)[0] == '/') {
+					command = new Command(splitVar.at(0));
+				}
+				else { 
+					for (auto& entry : Game::SceneList) {
+						if (entry->getName() == splitVar.at(0)) {
+							command = new Command(splitVar.at(1), entry);
+							break;
+						}
+					}
+				}
+
+				interaction->preInteractionCMD.push_back(command);
+			}
+		}
+		else if ((strncmp("postcmd ", buf, 7) == 0)) {
+			if (interaction != nullptr) {
+				char cmd[256];
+				strcpy_s(cmd, buf + 7);
+				if (cmd[strlen(cmd) - 1] == '\r')
+					cmd[strlen(cmd) - 1] = '\0';
+
+
+				std::string cmdString = cmd;
+				std::vector<std::string> splitVar;
+				split(cmdString, ';', splitVar);
+				if (splitVar.at(0)[0] == '/') {
+					command = new Command(splitVar.at(0));
+				}
+				else {
+					for (auto& entry : Game::SceneList) {
+						if (entry->getName() == splitVar.at(0)) {
+							new Command(splitVar.at(1), entry);
+							break;
+						}
+					}
+				}
+
+				interaction->postInteractionCMD.push_back(command);
+			}
 		}
 	}
+	fileStream.close(); // close file
 
 	return true;
+
 }
 
 void InteractionManager::sendNotification(std::string msg, double duration) {
@@ -143,42 +146,31 @@ void InteractionManager::sendNotification(std::string msg, double duration) {
 }
 
 void InteractionManager::EndInteraction()
-{/*
-	if (isInteracting) {
+{
+	if (isInteracting()) {
 
 		completedInteractionsCount[currentInteractionType]++;
 
-		isInteracting = false;
-		currentMessage = 0;
-		for (auto& entry : queuedMessages) { //clears all pointers
-			delete entry;
+		// isInteracting = false;
+		for (auto& entry : interactionQueue.getQueue()[currentMessage]->postInteractionCMD) {
+			runCommand(*entry);
 		}
-		queuedMessages.clear();
+		interactionQueue.popInteraction();
 		interactionElapsed = 0;
 		currentInteractionType = INTERACTION_COUNT;
-	}*/
+	}
 }
 
 void InteractionManager::nextInteraction()
 {
-	/*if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
-		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
-			//this->runCommand(entry);
-		}
-	}
 	currentMessage += 1;
-	if (queuedMessages.size() < (unsigned)currentMessage + 1) {
-		for (auto& entry : queuedMessages.at(currentMessage - 1)->postInteractionCMD) {
-			//this->runCommand(entry);
-		}
-		EndInteraction();
+	for (auto& entry : interactionQueue.getQueue()[currentMessage]->preInteractionCMD) {
+		runCommand(*entry);
 	}
-	else {
-		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
-			//this->runCommand(entry);
-		}
-	}
-	*/
+}
+
+bool InteractionManager::isInteracting() {
+	return (!interactionQueue.getQueue().size() == 0);
 }
 
 bool InteractionManager::passedInteractionCooldown()
@@ -188,4 +180,10 @@ bool InteractionManager::passedInteractionCooldown()
 		return true;
 	}
 	return false;
+}
+
+void InteractionManager::Update(double dt) {
+	if (isInteracting()) {
+		this->interactionElapsed += dt;
+	}
 }

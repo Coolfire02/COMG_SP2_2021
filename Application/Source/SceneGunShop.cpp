@@ -142,22 +142,11 @@ void SceneGunShop::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(40, 0, 0);
-	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building);
-
-	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
-	building2->getEntityData()->SetTransform(-40, 0, 0);
-	building2->getEntityData()->SetRotate(0, 60, 0);
-	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building2);
-
-	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0, 60);
-	car->getEntityData()->SetRotate(0, 0, 0);
-	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car);
+	Entity* counter = new WorldObject(this, GEO_COUNTER, "counter");
+	counter->getEntityData()->Translate = Vector3(-9.5, 0, -7);
+	//counter->getEntityData()->Scale = Vector3(1, 0.025, 0.025);
+	counter->getEntityData()->Rotation = Vector3(0, 90, 0);
+	eManager.spawnWorldEntity(counter);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -198,16 +187,16 @@ void SceneGunShop::Init() {
 		Vector3(0, 1, 0));
 
 	//Light init
-	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 5, 0);
+	light[0].type = Light::LIGHT_DIRECTIONAL;
+	light[0].position.set(0, 2, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 5;
+	light[0].power = 10;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
 	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
+	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	//2nd light
@@ -226,7 +215,7 @@ void SceneGunShop::Init() {
 	//3rd light
 	light[2].type = Light::LIGHT_SPOT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0.5f, 0.5f, 1.f); //set to white light
+	light[2].color.set(1.f, 1.f, 1.f); //set to white light
 	light[2].power = 0;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
@@ -463,24 +452,30 @@ void SceneGunShop::TopDownMapUpdate(double dt)
 	}
 
 	camera2.position.Set(player->getEntityData()->Translate.x,
-		100,
+		300,
 		player->getEntityData()->Translate.z);
 
 	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
 
+	Vector3 view = (camera.target - camera.position).Normalized();
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
+		light[1].power = 2.5;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
+		light[1].spotDirection.Set(-view.x, 0, -view.z);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	case TOPDOWN_THIRDPERSON:
+		light[1].power = 2.5;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	default:
 		light[1].power = 0;
 		light[1].spotDirection.Set(0, 0, 0);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	}
 }
@@ -660,10 +655,10 @@ void SceneGunShop::Render()
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
 
-	modelStack.PushMatrix();
+	/*modelStack.PushMatrix();
 	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -687,9 +682,35 @@ void SceneGunShop::Render()
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(1000, 1000, 1000);
-	RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), true);
+	modelStack.Scale(30 * 0.75, 30 * 0.75, 30 * 0.75);
+	RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
+
+
+	// render guns here
+	float col = -10.75;
+	float row = 4.6;
+	for (int x = 0; x < 9; x++) {
+		for (int y = 0; y < 4; y++) {
+			modelStack.PushMatrix();
+			modelStack.Translate(col + 1.25, row, -11);
+			modelStack.Rotate(-40, 0, 0, 1);
+			modelStack.Rotate(-90, 0, 1, 0);
+			modelStack.Scale(18, 18, 18);
+			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL_S), lightEnable);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(col, row, -11);
+			modelStack.Rotate(-40, 0, 0, 1);
+			modelStack.Rotate(-90, 0, 1, 0);
+			modelStack.Scale(18, 18, 18);
+			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
+			modelStack.PopMatrix();
+			row -= 1.25;
+		}
+		row = 4.6;
+		col += 2.5;
+	}
 
 	// wire mesh
 	modelStack.PushMatrix();
@@ -789,14 +810,14 @@ void SceneGunShop::RenderSkybox() {
 		modelStack.Translate(-15.f, 0.0f, 0.0f);
 		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_LEFT), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_LEFT), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(15.f, 0.0f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_RIGHT), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_RIGHT), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
@@ -804,7 +825,7 @@ void SceneGunShop::RenderSkybox() {
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_TOP), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_TOP), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
@@ -812,21 +833,21 @@ void SceneGunShop::RenderSkybox() {
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(0.0f, 0.0f, -15.f);
 		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BACK), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BACK), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(0.0f, 0.0f, 15.f);
 		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
 		modelStack.Scale(30.0f, 30.0f, 30.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_FRONT), lightEnable);
+		this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_FRONT), lightEnable, GL_REPEAT);
 		modelStack.PopMatrix();
 
 	modelStack.PopMatrix();

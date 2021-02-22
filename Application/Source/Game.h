@@ -8,6 +8,10 @@
 #include "Scene2021.h"
 #include "SceneGarage.h"
 #include "SceneGunShop.h"
+#include "MissionManager.h"
+#include "InteractionManager.h"
+
+class InteractionManager;
 
 enum SCENES
 {
@@ -23,10 +27,12 @@ class Game
 public:
 	Game();
 	~Game();
+	
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 
-
+	static MissionManager mManager;
+	
 	static void Init();
 	static void Update(double dt);
 	static void Render();

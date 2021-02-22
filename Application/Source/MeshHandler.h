@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "MeshBuilder.h"
 #include "EntityDataHandler.h"
+#include <unordered_map>
 
 enum GEOMETRY_TYPE {
 	//General
@@ -37,14 +38,12 @@ enum GEOMETRY_TYPE {
 	GEO_POLICE,
 	GEO_AMBULANCE,
 	GEO_SUV,
-	GEO_PISTOL,
 
 	//Platform
 	GEO_QUAD,
 
 
 	//Misc
-	GEO_WIREMESH,
 
 	//Skybox
 	GEO_SKY_LEFT,
@@ -54,12 +53,29 @@ enum GEOMETRY_TYPE {
 	GEO_SKY_FRONT,
 	GEO_SKY_BACK,
 
+	// Gun Shop
 	GEO_GUNSHOP_LEFT,
 	GEO_GUNSHOP_RIGHT,
 	GEO_GUNSHOP_TOP,
 	GEO_GUNSHOP_BOTTOM,
 	GEO_GUNSHOP_FRONT,
 	GEO_GUNSHOP_BACK,
+	GEO_WIREMESH,
+	GEO_COUNTER,
+
+	GEO_MACHINE_GUN,
+	GEO_MACHINE_GUN_LAUNCHER,
+	GEO_PISTOL,
+	GEO_PISTOL_S,
+	GEO_RLM,
+	GEO_SHOTGUN,
+	GEO_SHOTGUN_S,
+	GEO_SNIPER,
+	GEO_UZI,
+	GEO_UZI_L,
+	GEO_UZI_L_S,
+	GEO_UZI_S,
+
 	//General UI
 	UI_BLACK,
 	UI_BLUE,
@@ -97,12 +113,13 @@ enum GEOMETRY_TYPE {
 
 class MeshHandler
 {
+	static std::unordered_map<std::string, GEOMETRY_TYPE> const geoTypeTable;
 	static Mesh* meshList[NUM_GEOMETRY];
 	static bool isLoaded;
 
 public:
 	static bool loadMeshes();
 	static bool unloadMeshes();
-	
+	static GEOMETRY_TYPE getGeoTypeByName(std::string geoType);
 	static Mesh* getMesh(GEOMETRY_TYPE);
 };

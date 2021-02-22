@@ -1,43 +1,38 @@
 #pragma once
 #include "ButtonManager.h"
 #include "Mission.h"
-
-enum MISSIONTYPE {
-	MISSION_EXTINGUISH_FIRE,
-	MISSION_ENTERTIMEPORTAl,
-	MISSION_FIND_GUNSHOP,
-	MISSION_CALL_RICHARD,
-	
-	//How these will work: When player interacts with the different interactions in main city scene, depending on the Interaction done,
-	/* One of these will be unlocked. When one of these are unlocked, the final "Date sim" 
-	options will be dependent on which one is unlocked. 
-
-	(Check list of Completable Missions at end of interaction, 
-	if Completed Missions contain any of these finale endings, add to queue the last interaction) 
-	
-	Uses the "Queue System" for Interaction Manager to add Interactions based on the "CheckPoints" in interaction reached.
-	When a mission is complete, Add to Interaction Queue some commands that come with the mission being complete*/
-	MISSION_FINALE_PEACEFUL,
-	MISSION_FINALE_REWARDING,
-	MISSION_FINALE_ANGERY,
-
-	MISSION_COUNT,
-};
-
+#include <unordered_map>
 
 class MissionManager {
-	bool showUI;
 
-	ButtonManager MissionUI; //Use this to work the whole Mission UI Checkpoint System
+
+	//Statics
+	static std::unordered_map<std::string, MISSIONTYPE> const mTypeTable;
+	static MissionInfo missionLang[MISSION_COUNT];
+	static bool loadedLang;
+
+	//Statics end
+	
+	//To be moved to PauseMenu UI, PauseMenu will be a ButtonManager in game.cpp. Where when game is paused, do not update scenes, only update this button manager and GameSettings compoenent in Game class's update.
+	//bool showUI;
+	//ButtonManager MissionUI; //Use this to work the whole Mission UI Checkpoint System
 	Mission* missions[MISSION_COUNT];
-
+	std::vector<Mission*> missionsUpdatedThisTick;
 public:
+	
+	//Statics
+	static void loadMissionLang();
+	static MISSIONTYPE getMissionByEnumName(std::string name);
+	static void split(std::string txt, char delim, std::vector<std::string>& out);
+	static std::string stringTrim(std::string str);
+
+	//Statics end
 	MissionManager();
 	~MissionManager();
 
-	std::vector<Mission*> missionsCompletedThisTick(); //Game will access this, and check what was just completed, and it'll process it thru a switch case
+	std::vector<MISSIONTYPE> getCompletedMissions();
 	std::vector<MISSIONTYPE> getCompletableMissions(); //gets the list of Missions that can be completed currently.
-
-	void Update(double dt);
-	void displayUIOnScreen(); //Accepts mouse swipe movement to move around the background quad, the background quad will be zoomed in. Hover over missions to see if its completed an a preview
+	void addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
+	std::vector<Mission*> Update(double dt); //returns the missions that were completed this tick
+	//void displayUIOnScreen(); //Accepts mouse swipe movement to move around the background quad, the background quad will be zoomed in. Hover over missions to see if its completed an a preview
 };

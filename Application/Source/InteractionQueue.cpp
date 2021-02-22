@@ -28,5 +28,6 @@ void InteractionQueue::pushInteraction(std::vector<Command*> preInteractionCMD, 
 
 void InteractionQueue::popInteraction() {
 	delete this->queue[0];
+	this->queue[0] = nullptr;
 	this->queue.erase(std::remove(queue.begin(), queue.end(), nullptr), queue.end());
 }
