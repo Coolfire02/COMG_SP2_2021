@@ -4,7 +4,7 @@
 NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYPE::LIVE_NPC, name) , npcType(npcType) {
 	switch (type) {
 	case TESTNPC:
-		this->associatedNPCMesh = MeshHandler::getMesh(GEO_SEDAN);
+		this->associatedNPCMesh = MeshHandler::getMesh(GEO_NPC);
 		break;
 	default:
 		this->associatedNPCMesh = nullptr;
