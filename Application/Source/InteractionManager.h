@@ -27,9 +27,7 @@ public:
 
 	InteractionQueue& getQueue();
 	bool runCommand(Command cmd);
-	bool loadInteractions();
-	bool loadMessages(const std::string msgFilePath);
-	bool loadCommands(const std::string cmdFilePath);
+	bool loadInteractions(const char* filePath);
 	void sendNotification(std::string msg, double duration);
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 	void EndInteraction();
