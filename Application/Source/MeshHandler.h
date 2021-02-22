@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "MeshBuilder.h"
 #include "EntityDataHandler.h"
+#include <unordered_map>
 
 enum GEOMETRY_TYPE {
 	//General
@@ -111,12 +112,13 @@ enum GEOMETRY_TYPE {
 
 class MeshHandler
 {
+	static std::unordered_map<std::string, GEOMETRY_TYPE> const geoTypeTable;
 	static Mesh* meshList[NUM_GEOMETRY];
 	static bool isLoaded;
 
 public:
 	static bool loadMeshes();
 	static bool unloadMeshes();
-	
+	static GEOMETRY_TYPE getGeoTypeByName(std::string geoType);
 	static Mesh* getMesh(GEOMETRY_TYPE);
 };
