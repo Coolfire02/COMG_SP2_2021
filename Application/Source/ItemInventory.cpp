@@ -61,18 +61,6 @@ void ItemInventory::toggleItem()
 	}
 }
 
-void ItemInventory::usingItem()
-{
-	for (int i = 0; i < itemInv.size(); i++)
-	{
-		if (itemInv[i]->getType() == currentItem->getType())
-		{
-			itemInv[i]->setAmt(itemInv[i]->getAmt() - 1);
-			return;
-		}
-	}
-}
-
 void ItemInventory::negativeAmtCheckAndSetter(Item* item, int number)
 {
 	if (item == nullptr)

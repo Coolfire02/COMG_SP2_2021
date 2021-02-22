@@ -60,6 +60,5 @@ public:
 	void Update(double);
 	void Render();
 	void Walk(double);
-	void ChangeDir(double);
 };
 
