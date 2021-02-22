@@ -1,10 +1,11 @@
 #pragma once
 #include "ButtonManager.h"
 #include "Mission.h"
+#include <unordered_map>
 
 enum MISSIONTYPE {
 	MISSION_EXTINGUISH_FIRE,
-	MISSION_ENTERTIMEPORTAl,
+	MISSION_ENTER_TIMEPORTAL,
 	MISSION_FIND_GUNSHOP,
 	MISSION_CALL_RICHARD,
 	
@@ -22,20 +23,39 @@ enum MISSIONTYPE {
 	MISSION_FINALE_ANGERY,
 
 	MISSION_COUNT,
+	INVALID
+};
+
+struct MissionInfo {
+	std::string missionObjective;
+	std::string missionCompletionMessage;
 };
 
 
 class MissionManager {
-	bool showUI;
 
+	//Statics
+	static std::unordered_map<std::string, MISSIONTYPE> const mTypeTable;
+	static MissionInfo missionLang[MISSION_COUNT];
+	static bool loadedLang;
+
+	//Statics end
+	bool showUI;
 	ButtonManager MissionUI; //Use this to work the whole Mission UI Checkpoint System
 	Mission* missions[MISSION_COUNT];
 
 public:
+	
+	//Statics
+	static void loadMissionLang();
+	static MISSIONTYPE getMissionByEnumName(std::string name);
+
+	//Statics end
 	MissionManager();
 	~MissionManager();
 
 	std::vector<Mission*> missionsCompletedThisTick(); //Game will access this, and check what was just completed, and it'll process it thru a switch case
+	std::vector<MISSIONTYPE> completedMissions();
 	std::vector<MISSIONTYPE> getCompletableMissions(); //gets the list of Missions that can be completed currently.
 
 	void Update(double dt);

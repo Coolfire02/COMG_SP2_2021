@@ -156,6 +156,8 @@
     <ClCompile Include="Source\Inventory.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\ItemInventory.cpp" />
+    <ClCompile Include="Source\Mission.cpp" />
+    <ClCompile Include="Source\MissionManager.cpp" />
     <ClCompile Include="Source\NPC.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -197,6 +199,8 @@
     <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\ItemInventory.h" />
+    <ClInclude Include="Source\Mission.h" />
+    <ClInclude Include="Source\MissionManager.h" />
     <ClInclude Include="Source\NPC.h" />
     <ClInclude Include="Source\EntityDataHandler.h" />
     <ClInclude Include="Source\MeshHandler.h" />
