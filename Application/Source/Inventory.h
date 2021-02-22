@@ -8,11 +8,11 @@
 class Inventory
 {
 private:
-	std::vector<GarageInventory*> garageInv;
-	GarageInventory* currentCar;
+	std::vector<GarageInventory*> garageInv; //Store cars player owns
+	GarageInventory* currentCar; //Points to current car
 	
-	ItemInventory* itemInventory;
-	WeaponInventory* weaponInv;
+	ItemInventory* itemInventory; //To get item Inventory
+	WeaponInventory* weaponInv;//To get Weapon Inventory
 public:
 	Inventory();
 	~Inventory();

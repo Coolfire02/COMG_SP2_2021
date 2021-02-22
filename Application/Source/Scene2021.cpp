@@ -469,7 +469,7 @@ void Scene2021::CollisionHandler(double dt) {
 						camera.position = player->getEntityData()->Translate;
 						camera.up = camera.defaultUp;
 						camera.position.y += 2;
-						camera.test_pitch = 0;
+						camera.total_pitch = 0;
 						camera.target = camera.defaultTarget;
 					}
 				}
@@ -549,6 +549,13 @@ void Scene2021::CollisionHandler(double dt) {
 				resultantVec = d - 2 * d.Dot(n) * n;
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+
+				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y; //get NPC rotation
+				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1)); //DOT product of velocity
+				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude(); //get magnitude of velocity
+				if (magnitude != 0)
+					angle = acos(velo / magnitude); //get NPC direction angle
+				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle; //set direction angle
 			}
 
 		}
@@ -1311,10 +1318,10 @@ void Scene2021::RenderUI()
 	//weapons UI
 	for (int i = 0; i < 4; i++) //limit to displaying 4
 	{
-		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
 			return;
 
-		switch (inv.getWeaponVector()[i]->getWeaponType())
+		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
 		{
 		case PISTOL:
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
@@ -1327,7 +1334,7 @@ void Scene2021::RenderUI()
 			break;
 		}
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
 		{
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}

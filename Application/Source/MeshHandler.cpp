@@ -105,6 +105,12 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_ENDRACE] = MeshBuilder::GenerateQuad("EndRace", Color(1, 1, 1));
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
 	
+	//Title Screen
+	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
+	meshList[TITLE_BG]->textureID = LoadTGA("Image//titleScreenBG.tga");
+	meshList[PLAY_BUTTON] = MeshBuilder::GenerateQuad("playButton", Color(1, 1, 1));
+	meshList[PLAY_BUTTON]->textureID = LoadTGA("Image//playButton.tga");
+
 	//General UI
 	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));
 	meshList[UI_BLACK]->textureID = LoadTGA("Image//blackUI.tga");
@@ -187,6 +193,7 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_MACHINE_GUN] = MeshBuilder::GenerateOBJMTL("machine gun", "OBJ//Weapons//machinegun.obj", "MTL//Weapons//machinegun.mtl" );
 	//meshList[GEO_MACHINE_GUN_LAUNCHER] = MeshBuilder::GenerateOBJMTL("machine gun launcher", "OBJ//Weapons//machinegunLauncher.obj", "MTL//Weapons//machinegunLauncher.mtl");
 	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("pistol", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");
+	meshList[GEO_PISTOL]->textureID = LoadTGA("Image//GunShop//pistolColor.tga");
 	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJMTL("pistolSilencer", "OBJ//Weapons//pistolSilencer.obj", "MTL//Weapons//pistolSilencer.mtl");
 	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
 	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
@@ -198,7 +205,8 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_UZI_S] = MeshBuilder::GenerateOBJMTL("uziSilencer", "OBJ//Weapons//uziSilencer.obj", "MTL//Weapons//uziSilencer.mtl");
 
 	meshList[GEO_COUNTER] = MeshBuilder::GenerateOBJMTL("counter", "OBJ//GunShop//Cash_Wrap.obj", "MTL//GunShop//Cash_Wrap.mtl");
-
+	meshList[UI_CROSSHAIR] = MeshBuilder::GenerateQuad("crosshair", Color(1, 1, 1));
+	meshList[UI_CROSSHAIR]->textureID = LoadTGA("Image//Crosshair.tga");
 
 	//Materials
 

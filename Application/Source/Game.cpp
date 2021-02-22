@@ -2,6 +2,7 @@
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
+Inventory Game::inv;
 
 Game::Game()
 {

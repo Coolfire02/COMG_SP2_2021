@@ -232,8 +232,8 @@ void SceneGarage::Init()
 	//3rd light
 	light[2].type = Light::LIGHT_SPOT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0.5f, 0.7f, 1.f); //set to white light
-	light[2].power = 5;
+	light[2].color.set(1.f, 1.f, 1.f); //set to white light
+	light[2].power = 1;
 	light[2].kC = 1.f;
 	light[2].kL = 0.1f;
 	light[2].kQ = 0.01f;
@@ -468,7 +468,7 @@ void SceneGarage::CollisionHandler(double dt) {
 						camera.position = player->getEntityData()->Translate;
 						camera.up = camera.defaultUp;
 						camera.position.y += 2;
-						camera.test_pitch = 0;
+						camera.total_pitch = 0;
 						camera.target = camera.defaultTarget;
 					}
 				}
@@ -1302,10 +1302,10 @@ void SceneGarage::RenderUI()
 	//weapons UI
 	for (int i = 0; i < 4; i++) //limit to displaying 4
 	{
-		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
 			return;
 
-		switch (inv.getWeaponVector()[i]->getWeaponType())
+		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
 		{
 		case PISTOL:
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
@@ -1318,7 +1318,7 @@ void SceneGarage::RenderUI()
 			break;
 		}
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
 		{
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}

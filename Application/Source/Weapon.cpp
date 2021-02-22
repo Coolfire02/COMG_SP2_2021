@@ -46,5 +46,6 @@ void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weap
 
 WEAPON_TYPE Weapon::getWeaponType()
 {
-	return this->weaponType;
+	if (this != nullptr)
+		return this->weaponType;
 }

@@ -25,7 +25,10 @@ public:
 	Vector3 target, defaultTarget;
 	Vector3 up, defaultUp;
 
-	float test_pitch;
+	float yaw;
+	float pitch;
+	float total_pitch;
+	float total_yaw;
 
 	Camera();
 	~Camera();

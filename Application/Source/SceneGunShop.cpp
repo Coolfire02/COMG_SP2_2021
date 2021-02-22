@@ -518,7 +518,7 @@ void SceneGunShop::CollisionHandler(double dt) {
 						camera.position = player->getEntityData()->Translate;
 						camera.up = camera.defaultUp;
 						camera.position.y += 2;
-						camera.test_pitch = 0;
+						camera.total_pitch = 0;
 						camera.target = camera.defaultTarget;
 					}
 				}
@@ -761,7 +761,7 @@ void SceneGunShop::Render()
 	}
 
 	////UI inventory testing
-	switch (inv.getCurrentItemType())
+	switch (Game::inv.getCurrentItemType())
 	{
 	case BURGER:
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
@@ -858,10 +858,10 @@ void SceneGunShop::RenderUI()
 	//weapons UI
 	for (int i = 0; i < 4; i++) //limit to displaying 4
 	{
-		if (i >= (inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
 			return;
 
-		switch (inv.getWeaponVector()[i]->getWeaponType())
+		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
 		{
 		case PISTOL:
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
@@ -874,7 +874,7 @@ void SceneGunShop::RenderUI()
 			break;
 		}
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (inv.getWeaponVector()[i]->getWeaponType() == inv.getActiveWeapon()->getWeaponType())
+		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
 		{
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}

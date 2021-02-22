@@ -15,12 +15,12 @@ struct RigidBody {
 	}
 
 	void Update(EntityData* data, double dt) {
-
+		grounded = false;
 		data->Translate = data->Translate + velocity;
 
-		if (data->Translate.y <= 1)
+		if (data->Translate.y <= 0)
 		{
-			data->Translate.y = 1;
+			data->Translate.y = 0;
 			grounded = true;
 		}
 		else velocity = velocity + gravity * dt;
@@ -32,7 +32,6 @@ struct RigidBody {
 		//velocity = velocity + (-1 * velocity * airResistanceFactor);
 
 		//std::cout << data->Translate.x << " " << data->Translate.y << " " << data->Translate.z << std::endl;
-		grounded = false;
 	}
 };
 
@@ -61,6 +60,5 @@ public:
 	void Update(double);
 	void Render();
 	void Walk(double);
-	void ChangeDir(double);
 };
 

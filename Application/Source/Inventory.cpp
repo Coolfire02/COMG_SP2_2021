@@ -135,7 +135,7 @@ int Inventory::getCurrentItemAmt()
 
 Weapon* Inventory::getActiveWeapon()
 {
-	if (weaponInv == nullptr)
+	if (weaponInv->getWeaponList().empty())
 		return nullptr;
 	else
 		return weaponInv->getActiveWeapon();

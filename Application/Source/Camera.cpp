@@ -41,7 +41,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up).Normalized();
 	this->up = this->defaultUp = right.Cross(view).Normalized();
-	test_pitch = 0;
+	total_pitch = 0;
 }
 
 
@@ -73,8 +73,8 @@ void Camera::Update(double dt)
 	right.Normalize();
 	static const float CAMERA_SPEED = 100.f;
 
-	float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
-	float pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
+	yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
+	pitch = (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
 
 	switch (camType) {
 	case FIRSTPERSON:
@@ -82,6 +82,7 @@ void Camera::Update(double dt)
 		Application::GetCursorPos(&x, &y);
 		if (yaw != 0)
 		{
+			total_yaw += (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			Vector3 view = (target - position).Normalized();
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
@@ -91,13 +92,13 @@ void Camera::Update(double dt)
 		}
 		if (pitch != 0)
 		{
-			test_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
-			if (test_pitch > 80.f) {
-				test_pitch = 80.f;
+			total_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
+			if (total_pitch > 80.f) {
+				total_pitch = 80.f;
 				return;
 			}
-			if (test_pitch < -80.f) {
-				test_pitch = -80.f;
+			if (total_pitch < -80.f) {
+				total_pitch = -80.f;
 				return;
 			}
 
@@ -147,7 +148,7 @@ void Camera::Update(double dt)
 	{
 		{
 			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
+			yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
 			view = rotation * view;
