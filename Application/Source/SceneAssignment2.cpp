@@ -39,6 +39,9 @@ SceneAssignment2::~SceneAssignment2()
 }
 
 void SceneAssignment2::Init() {
+	
+	InteractionManager iManager;
+	iManager.loadInteractions("TextData//test.txt");
 
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -162,7 +165,7 @@ void SceneAssignment2::Init() {
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 40, 0);
 	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 10;
+	light[0].power = 1;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -177,25 +180,25 @@ void SceneAssignment2::Init() {
 	light[1].color.set(0.0f, 0.0f, 0.0f); //set to white light
 	light[1].power = 0;
 	light[1].kC = 1.f;
-	light[1].kL = 0.1f;
-	light[1].kQ = 0.01f;
+	light[1].kL = 0.01f;
+	light[1].kQ = 0.001f;
 	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[1].cosInner = cos(Math::DegreeToRadian(30));
-	light[1].exponent = 3.f;
+	light[1].exponent = 1.f;
 	light[1].spotDirection.Set(0, 0, 1);
 
 	//3rd light
 	light[2].type = Light::LIGHT_POINT;
 	light[2].position.set(0, 50, 100);
 	light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	light[2].power = 2;
+	light[2].power = 1;
 	light[2].kC = 1.f;
-	light[2].kL = 0.1f;
-	light[2].kQ = 0.01f;
+	light[2].kL = 0.01f;
+	light[2].kQ = 0.001f;
 	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 3.f;
-	light[2].spotDirection.Set(0, 0, 1);
+	light[2].exponent = 1.f;
+	light[2].spotDirection.Set(0, 1, 0);
 
 
 	// Make sure you pass uniform parameters after glUseProgram()
@@ -236,7 +239,7 @@ void SceneAssignment2::Init() {
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
 	//Practical 10a
 	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
@@ -464,6 +467,7 @@ void SceneAssignment2::TopDownMapUpdate(double dt)
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		break;
 	default:
+		light[1].position.set(player->getEntityData()->Translate.x, -100, player->getEntityData()->Translate.z);
 		light[1].power = 0;
 		light[1].spotDirection.Set(0, 0, 0);
 		break;

@@ -219,8 +219,8 @@ void SceneGarage::Init()
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.5f,0.5f,1.f); //set to white light
-	light[1].power = 15;
+	light[1].color.set(0.f,0.f,0.f); //set to white light
+	light[1].power = 0;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;

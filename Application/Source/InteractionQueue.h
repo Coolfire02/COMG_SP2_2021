@@ -14,7 +14,6 @@ struct Command {
 struct Interaction {
 	//Read up runCommand function for Command Params.
 	//e.g. cmd: /givecoin 1 (Gives player 1 coin)
-	std::string key;
 	std::vector<Command*> preInteractionCMD;
 	std::string interactionText;
 	std::vector<Command*> postInteractionCMD;
