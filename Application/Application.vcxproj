@@ -191,6 +191,7 @@
     <ClInclude Include="Source\ButtonManager.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Car.h" />
+    <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\GarageInventory.h" />
     <ClInclude Include="Source\InteractionManager.h" />
     <ClInclude Include="Source\InteractionQueue.h" />

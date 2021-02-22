@@ -24,11 +24,12 @@ void MissionManager::loadMissionLang() {
 	}
 	int line = 0;
 	while (!fileStream.eof()) {
-
 		if (fileStream.fail()) {
 			DEBUG_MSG("File Stream failed at line: " << line);
 			break;
 		}
+
+
 
 		char buf[256];
 		fileStream.getline(buf, 256);
