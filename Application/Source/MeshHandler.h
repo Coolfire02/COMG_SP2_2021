@@ -75,6 +75,10 @@ enum GEOMETRY_TYPE {
 	GEO_UZI_L_S,
 	GEO_UZI_S,
 
+	//Title Screen
+	TITLE_BG,
+	PLAY_BUTTON,
+
 	//General UI
 	UI_BLACK,
 	UI_BLUE,

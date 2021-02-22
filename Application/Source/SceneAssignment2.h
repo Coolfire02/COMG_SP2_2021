@@ -17,6 +17,7 @@
 #include "ButtonManager.h"
 #include "AudioHandler.h"
 #include "InteractionManager.h"
+#include "UIManager.h"
 
 //Entities
 #include "NPC.h"
@@ -46,7 +47,7 @@ private:
 	Camera camera2;
 	EntityManager eManager;
 	ButtonManager bManager;
-
+	UIManager uiManager;
 
 	//Game Variables
 	Player* player;
