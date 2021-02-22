@@ -495,7 +495,7 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
 			std::cout << "Hovered" << std::endl;
 		}
-		if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) { //Main Menu play button
+		if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
 			uiManager.setCurrentMenu(GENERAL_UI);
 			bManager.deactivateButton("TitleBackground");
 			bManager.deactivateButton("MainMenuPlayButton");
