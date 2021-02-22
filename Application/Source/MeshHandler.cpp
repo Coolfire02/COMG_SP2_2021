@@ -48,6 +48,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_BUILDING_5] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building6.obj", "MTL//Buildings//6.mtl");
 	meshList[GEO_BUILDING_6] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building7.obj", "MTL//Buildings//7.mtl");
 	meshList[GEO_BUILDING_7] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building9.obj", "MTL//Buildings//9.mtl");
+	meshList[GEO_NPC] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//NPC.obj", "MTL//NPC.mtl");
 	
 	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_2]->textureID = LoadTGA("Image//Building1Texture.tga");

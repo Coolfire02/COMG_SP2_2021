@@ -11,16 +11,25 @@ struct RigidBody {
 		velocity.SetZero();
 		gravity.Set(0, -0.981f, 0);
 		airResistanceFactor = 0.035f;
-		grounded = false;
+		grounded = true;
 	}
 
 	void Update(EntityData* data, double dt) {
 
 		data->Translate = data->Translate + velocity;
 
-		if (data->Translate.y <= 0) data->Translate.y = 0;
+		if (data->Translate.y <= 1)
+		{
+			data->Translate.y = 1;
+			grounded = true;
+		}
 		else velocity = velocity + gravity * dt;
-		velocity = velocity + (-1 * velocity * airResistanceFactor);
+
+		//clamp NPCs location to within map
+		data->Translate.x = Math::Clamp(data->Translate.x, -327.f, 421.f);
+		data->Translate.z = Math::Clamp(data->Translate.z, -365.f, 289.f);
+
+		//velocity = velocity + (-1 * velocity * airResistanceFactor);
 
 		//std::cout << data->Translate.x << " " << data->Translate.y << " " << data->Translate.z << std::endl;
 		grounded = false;
@@ -40,6 +49,8 @@ class NPC : public Entity
 	Mesh* associatedNPCMesh;
 	const NPCTYPE npcType;
 	RigidBody RB;
+	int NPCtimer = 0;
+
 public:
 
 	NPCTYPE getNPCType();
@@ -49,5 +60,6 @@ public:
 	RigidBody& getRigidBody();
 	void Update(double);
 	void Render();
+	void Walk(double);
 };
 

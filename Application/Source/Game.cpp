@@ -16,14 +16,22 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
+	SceneList[activeScene]->elapser(dt);
+	SceneList[activeScene]->Update(dt);
 }
 
 void Game::Render()
 {
+	SceneList[activeScene]->Render();
 }
 
 void Game::Exit()
 {
+	for (int i = 0; i < SceneList.size(); i++)
+	{
+		SceneList[i]->Exit();
+		delete SceneList[i];
+	}
 }
 
 void Game::addScene(Scene* scene)

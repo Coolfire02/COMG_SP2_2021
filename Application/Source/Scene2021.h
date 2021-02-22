@@ -82,6 +82,7 @@ private:
 	void initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
 	void SpawnBuildings();
 	void SpawnStreetLamps();
+	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 	//topdown cam map
 	bool camMap;
 

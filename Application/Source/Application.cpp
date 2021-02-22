@@ -18,6 +18,11 @@
 #include "Game.h"
 #include "SceneGunShop.h"
 #include "MissionManager.h"
+#include "SceneAssignment2.h"
+#include "Scene2021.h"
+#include "SceneGarage.h"
+#include "SceneGunShop.h"
+#include "InteractionManager.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -190,19 +195,19 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
-	g.addScene(new SceneGunShop);
 	g.addScene(new SceneAssignment2);
-	g.addScene(new SceneGarage);
 	g.addScene(new Scene2021);
+	g.addScene(new SceneGunShop);
+	g.addScene(new SceneGarage);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
 		GetMouseUpdate();
 		double dt = m_timer.getElapsedTime();
-		g.getScene()->elapser(dt);
-		g.getScene()->Update(dt);
-		g.getScene()->Render();
+		g.Update(dt);
+		g.Render();
+		
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -220,6 +225,7 @@ void Application::Run()
 
 void Application::Exit()
 {
+	g.Exit();
 	MeshHandler::unloadMeshes();
 	AudioHandler::cleanup();
 

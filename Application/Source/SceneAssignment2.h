@@ -42,7 +42,6 @@ class SceneAssignment2 : public Scene
 	};
 
 private:
-
 	Camera camera;
 	Camera camera2;
 	EntityManager eManager;
@@ -75,6 +74,7 @@ private:
 	//bool passedInteractCooldown(); //Checks if cooldown is reached;
 	//void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
 	void RenderUI(); //Handles the next interaction (May end interaction if there is no more to go through0
+	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 	
 	Light light[3];
 

@@ -159,6 +159,11 @@ void Scene2021::Init()
 	SpawnBuildings();
 	SpawnStreetLamps();
 
+	for (int i = 0; i < 10; i++)
+	{
+		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
+	}
+
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
 	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
@@ -292,7 +297,7 @@ void Scene2021::Update(double dt)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-
+	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 	//UI item adding testing
 	//if (Application::IsKeyPressed('F'))
 	//{
@@ -470,6 +475,11 @@ void Scene2021::CollisionHandler(double dt) {
 				}
 			}
 		}
+
+		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
+		{
+			((NPC*)entry)->Walk(dt);
+		}
 	}
 
 	for (auto& entry : collided) {
@@ -539,6 +549,13 @@ void Scene2021::CollisionHandler(double dt) {
 				resultantVec = d - 2 * d.Dot(n) * n;
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+
+				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y; //get NPC rotation
+				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1)); //DOT product of velocity
+				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude(); //get magnitude of velocity
+				if (magnitude != 0)
+					angle = acos(velo / magnitude); //get NPC direction angle
+				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle; //set direction angle
 			}
 
 		}
@@ -1277,6 +1294,23 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+}
+
+void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
+{
+	int diffX = v3Tmax.x - v3Tmin.x;
+	int randomX = rand() % diffX + v3Tmin.x;
+
+	int diffZ = v3Tmax.z - v3Tmin.z;
+	int randomZ = rand() % diffZ + v3Tmin.z;
+
+	int randomRotation = rand() % 359 + 1;
+	
+	Entity* testNPC = new NPC(this, geoType, "test");
+	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
+	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
+	testNPC->getEntityData()->SetScale(3, 3, 3);
+	eManager.spawnMovingEntity(testNPC);
 }
 
 void Scene2021::RenderUI()
