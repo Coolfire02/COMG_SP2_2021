@@ -1,7 +1,6 @@
 #pragma once
 #include "InteractionQueue.h"
 #include "Scene.h"
-#include <queue>
 
 class InteractionManager {
 
