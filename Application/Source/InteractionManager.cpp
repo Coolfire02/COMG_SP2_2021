@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include "Debug.h"
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
@@ -54,7 +55,7 @@ bool InteractionManager::loadInteractions(const char* filePath)
 {
 	std::ifstream fileStream(filePath, std::ios::binary);
 	if (!fileStream.is_open()) {
-		std::cout << "Error opening file" << std::endl;
+		DEBUG_MSG("Impossible to open " << filePath << ". Are you in the right directory ?\n");
 		return false;
 	}
 

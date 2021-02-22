@@ -1,16 +1,12 @@
 #pragma once
 #include "Entity.h"
 #include "Player.h"
-// Car class created by Ridwan on 16/2/21
-// Optimized by Joash on 16/2/21
 
 /******************************************************************************/
 /*!
-		Class Car:
 \file	Car.h
 \author Joash Foo
-\brief
-Car class for car movement
+\brief Header file containing a CAR_TYPE enum and the Car class itself.
 */
 /******************************************************************************/
 
@@ -26,6 +22,12 @@ enum CAR_TYPE
 
 class Player;
 
+/******************************************************************************/
+/*!
+		Class Car:
+\brief Car class for car movement
+*/
+/******************************************************************************/
 class Car : public Entity
 {
 private:

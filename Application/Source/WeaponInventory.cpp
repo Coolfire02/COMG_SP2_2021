@@ -15,6 +15,10 @@ WeaponInventory::~WeaponInventory()
 {
 }
 
+//void WeaponInventory::Update(Camera* cam, double dt) {
+//	activeWeapon->Update(cam, dt);
+//}
+
 void WeaponInventory::addWeapon(WEAPON_TYPE wType)
 {
 	for (int i = 0; i < weaponList.size(); i++) //check if player owns weapon

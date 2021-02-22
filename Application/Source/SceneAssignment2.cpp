@@ -489,6 +489,9 @@ void SceneAssignment2::Update(double dt)
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
 		}
 	}
+
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(view, dt);
 }
 
 void SceneAssignment2::ButtonUpdate(double dt) {
@@ -503,13 +506,13 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 	bManager.Update(dt);
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			std::cout << "Clicked" << std::endl;
+			DEBUG_MSG("Clicked");
 		}
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-			std::cout << "IS Clicking" << std::endl;
+			DEBUG_MSG("Is Clicking");
 		}
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-			std::cout << "Hovered" << std::endl;
+			DEBUG_MSG("Hovered");
 		}
 		if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
 			uiManager.setCurrentMenu(GENERAL_UI);
@@ -656,7 +659,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				std::cout << "In Range" << std::endl;
+				DEBUG_MSG("In Range");
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -664,7 +667,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
+						DEBUG_MSG("Player Set");
 					}
 					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
@@ -696,7 +699,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				// player->getEntityData()->Translate += entry->plane * 2;
 				// player->cancelNextMovement();
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+				DEBUG_MSG("Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z);
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
@@ -743,8 +746,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
 
-				std::cout << backwardsMomentum << std::endl;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG(backwardsMomentum);
+				DEBUG_MSG("Car Collided");
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
@@ -757,7 +760,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
 				((NPC*)entry->victim)->getRigidBody().hit = true;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG("Car Collided");
 			}
 		}
 

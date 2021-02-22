@@ -1,4 +1,7 @@
 #include "Weapon.h"
+#include "Application.h"
+#include "Debug.h"
+#include "Vector3.h"
 
 Weapon::Weapon() //set damage and magSize to 0
 {
@@ -37,6 +40,18 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 {
 	initWeapon(SILENCER, 15, 15);
 	associatedMeshType = GEO_PISTOL_S;
+}
+
+bool shoot = false;
+void Weapon::Update(Vector3 view, double dt) {
+	if (Application::IsMousePressed(0) && !shoot) {
+		//Vector3 view = (cam->target - cam->position).Normalized();
+
+		shoot = true;
+		DEBUG_MSG("shot");
+		DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+	}
+	else if (!Application::IsMousePressed(0)) shoot = false;
 }
 
 void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weapon with new weaponType, damage and magSize

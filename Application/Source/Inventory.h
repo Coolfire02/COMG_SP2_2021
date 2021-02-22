@@ -43,5 +43,7 @@ public:
 	int getCurrentItemAmt();
 	Weapon* getActiveWeapon();
 	WEAPON_TYPE getCurrentWeaponType();
+
+	//void Update(Camera*, double);
 };
 

@@ -6,15 +6,21 @@
 
 /******************************************************************************/
 /*!
-		Class Hitbox:
 \file	Hitbox.h
 \author Tan Yong Hong
 \author Joash Foo
 \brief
-Handles all the collision checks in this class
+Handles all the collision checks in this file
 */
 /******************************************************************************/
 
+//yh help me explain this one idk whats the explanation
+/******************************************************************************/
+/*!
+\brief
+
+*/
+/******************************************************************************/
 struct Collider {
 	bool collided; // checks if the collider has collided with other colliders
 	Vector3 translationVector; // translation vector to push out the object if collided.

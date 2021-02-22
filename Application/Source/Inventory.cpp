@@ -146,3 +146,8 @@ WEAPON_TYPE Inventory::getCurrentWeaponType()
 	if (weaponInv != nullptr)
 		return weaponInv->getActiveWeapon()->getWeaponType();
 }
+
+//void Inventory::Update(Camera* cam, double dt) {
+//	//itemInventory.Update();
+//	weaponInv.update(cam, dt);
+//}

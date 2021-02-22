@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "MeshHandler.h"
+// #include "Camera.h"
 
 enum WEAPON_TYPE
 {
@@ -25,7 +26,7 @@ public:
 
 	void initPistol();
 	void initSilencer();
-
+	void Update(Vector3, double);
 	void initWeapon(WEAPON_TYPE wType, int ammos, int damages);
 
 	GEOMETRY_TYPE getMeshType();

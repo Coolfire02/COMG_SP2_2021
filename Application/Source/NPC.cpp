@@ -16,19 +16,43 @@ NPC::~NPC() {
 
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the RigidBody of the NPC.
+*/
+/******************************************************************************/
 RigidBody& NPC::getRigidBody()
 {
 	return this->RB;
 }
 
+/******************************************************************************/
+/*!
+\brief
+returns the NPC type.
+*/
+/******************************************************************************/
 NPCTYPE NPC::getNPCType() {
 	return npcType;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Updates the NPC here.
+*/
+/******************************************************************************/
 void NPC::Update(double dt) {
 	RB.Update(this->getEntityData(), dt);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matrix and renders the NPC.
+*/
+/******************************************************************************/
 void NPC::Render() {
 	this->scene->modelStack.PushMatrix();
 	this->loadOriginTRSIntoStacknHitBox();
@@ -36,6 +60,12 @@ void NPC::Render() {
 	this->scene->modelStack.PopMatrix();
 }
 
+/******************************************************************************/
+/*!
+\brief
+Jordan update this
+*/
+/******************************************************************************/
 void NPC::Walk(double dt)
 {
 	NPCtimer += 1;
