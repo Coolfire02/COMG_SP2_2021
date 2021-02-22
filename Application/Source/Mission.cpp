@@ -1,8 +1,7 @@
 #include "Mission.h"
 
-Mission::Mission(MISSIONTYPE type, MissionInfo missionMsg, GEOMETRY_TYPE previewType) :
-type(type), progress(0.f), complete(false), missionMsg(missionMsg),
-missionPreviewImage(previewType) {}
+Mission::Mission(MISSIONTYPE type, MissionInfo missionInfo) :
+type(type), progress(0.f), complete(false), missionInfo(missionInfo) {}
 
 Mission::~Mission() {
 	//Intentionally left blank
@@ -34,9 +33,9 @@ float Mission::getProgress() {
 }
 
 GEOMETRY_TYPE Mission::getPreviewImage() {
-	return missionPreviewImage;
+	return missionInfo.missionPreviewImage;
 }
 
 MissionInfo Mission::getMissionInfo() {
-	return missionMsg;
+	return missionInfo;
 }

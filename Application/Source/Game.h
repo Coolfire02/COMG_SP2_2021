@@ -4,6 +4,10 @@
 #include <vector>
 #include "Scene.h"
 #include "Weapon.h"
+#include "MissionManager.h"
+#include "InteractionManager.h"
+
+class InteractionManager;
 
 enum SCENES
 {
@@ -19,17 +23,19 @@ class Game
 public:
 	Game();
 	~Game();
+	
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 
+	static MissionManager mManager;
+	
+	static void Init();
+	static void Update(double dt);
+	static void Render();
+	static void Exit();
 
-	virtual void Init();
-	virtual void Update(double dt);
-	virtual void Render();
-	virtual void Exit();
-
-	void addScene(Scene* scene);
-	void switchScene(static SCENES);
-	Scene* getSceneByName(std::string);
-	Scene* getScene();
+	static void addScene(Scene* scene);
+	static void switchScene(static SCENES);
+	static Scene* getSceneByName(std::string);
+	static Scene* getScene();
 };

@@ -4,6 +4,7 @@
 #include "MeshHandler.h"
 
 enum MISSIONTYPE {
+	//For configuration detection purposes, all missions must start with MISSION_
 	MISSION_EXTINGUISH_FIRE,
 	MISSION_ENTER_TIMEPORTAL,
 	MISSION_FIND_GUNSHOP,
@@ -30,16 +31,19 @@ enum MISSIONTYPE {
 struct MissionInfo {
 	std::string missionObjective;
 	std::string missionCompletionMessage;
+	GEOMETRY_TYPE missionPreviewImage;
+	std::vector<MISSIONTYPE> blackListedPreReqMissions;
+	std::vector<MISSIONTYPE> requiredPreReqMissions;
 };
 
 class Mission {
 	MISSIONTYPE type;
 	float progress;
 	bool complete;
-	MissionInfo missionMsg;
-	GEOMETRY_TYPE missionPreviewImage;
+	MissionInfo missionInfo;
+
 public:
-	Mission(MISSIONTYPE, MissionInfo, GEOMETRY_TYPE previewType);
+	Mission(MISSIONTYPE, MissionInfo);
 	~Mission();
 	void addProgress(float progress);
 	void setProgress(float progress);

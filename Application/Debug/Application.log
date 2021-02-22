@@ -1,12 +1,4 @@
-﻿  Mission.cpp
-  MissionManager.cpp
-  NPC.cpp
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\NPC.h(22,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  HitBox.cpp
-  Text.cpp
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(131,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(132,50): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\Text.cpp(137,110): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  MeshHandler.cpp
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(172,94): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(177,64): warning C4305: 'argument': truncation from 'double' to 'float'
   Application.vcxproj -> C:\Users\tanyo\source\repos\COMG_SP2_2021\Debug\Application.exe

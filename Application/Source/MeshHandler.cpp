@@ -4,6 +4,18 @@
 
 bool MeshHandler::isLoaded = false;
 Mesh* MeshHandler::meshList[NUM_GEOMETRY];
+std::unordered_map<std::string, GEOMETRY_TYPE> const MeshHandler::geoTypeTable = {
+	{"EMPTY",GEOMETRY_TYPE::EMPTY},
+	{"GEO_AXES",GEOMETRY_TYPE::GEO_AXES}
+};
+
+GEOMETRY_TYPE MeshHandler::getGeoTypeByName(std::string name) {
+	std::unordered_map<std::string, GEOMETRY_TYPE>::const_iterator key = geoTypeTable.find(name);
+	if (key != geoTypeTable.end())
+		return GEOMETRY_TYPE::EMPTY;
+	else
+		return key->second;
+}
 
 bool MeshHandler::loadMeshes() {
 	if (isLoaded)
@@ -204,6 +216,8 @@ bool MeshHandler::loadMeshes() {
 	noseMat.kDiffuse.Set(0.3f, 0.3f, 0.3f);
 	noseMat.kSpecular.Set(0.5f, 0.5f, 0.5f);
 	noseMat.kShininess = 3.5f;*/
+
+
 
 	isLoaded = true;
 	return true;

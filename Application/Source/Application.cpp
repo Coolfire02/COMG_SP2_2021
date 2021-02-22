@@ -17,6 +17,7 @@
 #include "SceneGarage.h"
 #include "Game.h"
 #include "SceneGunShop.h"
+#include "MissionManager.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -187,6 +188,7 @@ void Application::Run()
 	MeshHandler::loadMeshes();
 	AudioHandler::load();
 	Text::loadFonts();
+	MissionManager::loadMissionLang();
 
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
