@@ -3,6 +3,21 @@
 #include "Scene.h"
 #include <map>
 
+/******************************************************************************/
+/*!
+\file	InteractionManager.h
+\author Joash Foo
+\brief
+Handles all the interactions in this file
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class InteractionManager:
+\brief Manager to handle the interactions in a map and active interactions using a queue.
+*/
+/******************************************************************************/
 class InteractionManager {
 
 	enum INTERACTION_TYPE {
@@ -10,9 +25,9 @@ class InteractionManager {
 		INTERACTION_COUNT,
 	};
 
-	std::map<std::string, Interaction*> Interactions;
-	InteractionQueue interactionQueue;
-	INTERACTION_TYPE currentInteractionType;
+	std::map<std::string, Interaction*> Interactions; // map to store Interactions based on their Keys
+	InteractionQueue interactionQueue; // queue for active interactions
+	INTERACTION_TYPE currentInteractionType; // lol nobrainer
 
 	int completedInteractionsCount[INTERACTION_COUNT];
 	double latestInteractionSwitch;

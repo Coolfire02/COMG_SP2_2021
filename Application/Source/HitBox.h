@@ -31,6 +31,12 @@ struct Collider {
 	}
 };
 
+/******************************************************************************/
+/*!
+\brief
+Box of the hitbox, initially planned to be able to have multiple hitboxes per entity.
+*/
+/******************************************************************************/
 struct Box {
 
 	Vector3 originalhalfSize; // original half size of the mesh.
@@ -271,6 +277,12 @@ struct Box {
 	}
 };
 
+/******************************************************************************/
+/*!
+		Class HitBox:
+\brief HitBox class that handles ALL hitbox updates.
+*/
+/******************************************************************************/
 class HitBox
 {
 	Box* hitBox;

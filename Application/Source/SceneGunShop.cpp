@@ -696,14 +696,14 @@ void SceneGunShop::Render()
 			modelStack.Translate(col + 1.25, row, -11);
 			modelStack.Rotate(-40, 0, 0, 1);
 			modelStack.Rotate(-90, 0, 1, 0);
-			modelStack.Scale(18, 18, 18);
+			modelStack.Scale(2.5, 2.5, 2.5);
 			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL_S), lightEnable);
 			modelStack.PopMatrix();
 			modelStack.PushMatrix();
 			modelStack.Translate(col, row, -11);
 			modelStack.Rotate(-40, 0, 0, 1);
 			modelStack.Rotate(-90, 0, 1, 0);
-			modelStack.Scale(18, 18, 18);
+			modelStack.Scale(2.5, 2.5, 2.5);
 			this->RenderMesh(MeshHandler::getMesh(GEO_PISTOL), lightEnable);
 			modelStack.PopMatrix();
 			row -= 1.25;
