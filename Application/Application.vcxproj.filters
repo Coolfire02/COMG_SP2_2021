@@ -114,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="Source\AudioHandler.cpp" />
     <ClCompile Include="Source\InteractionManager.cpp" />
+    <ClCompile Include="Source\InteractionQueue.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -132,9 +135,6 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Interactions.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\InteractionStack.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Inventory.h">
@@ -241,6 +241,9 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\InteractionManager.h" />
+    <ClInclude Include="Source\InteractionQueue.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
