@@ -40,29 +40,17 @@ void NPC::Walk(double dt)
 {
 	NPCtimer += 1;
 
-	switch (NPCtimer % 300)
+	switch (NPCtimer % 300) //after 300frames (est 5secs)
 	{
 	case 0:
-		int randomDir = rand() % 360 + 1;
+		int randomDir = rand() % 360 + 1; //get random direction
 
-		this->getEntityData()->Rotation.Set(0, randomDir, 0);
-		this->RB.velocity.Set(0, 0, 1 * dt * 15);
+		this->getEntityData()->Rotation.Set(0, randomDir, 0); //set NPC rotation to the direction
+		this->RB.velocity.Set(0, 0, 1 * dt * 15); //set NPC velocity
 
 		Mtx44 rotation;
-		rotation.SetToRotation(randomDir, 0, 1, 0);
-		this->RB.velocity = rotation * this->RB.velocity;
+		rotation.SetToRotation(randomDir, 0, 1, 0); //make rotation matrix
+		this->RB.velocity = rotation * this->RB.velocity; //set the velocity rotation to the direction the NPC is facing
 		break;
 	}
-}
-
-void NPC::ChangeDir(double dt)
-{
-	int randomDir = rand() % 360 + 1;
-
-	this->getEntityData()->Rotation.Set(0, randomDir, 0);
-	this->RB.velocity.Set(0, 0, 1 * dt * 15);
-
-	Mtx44 rotation;
-	rotation.SetToRotation(randomDir, 0, 1, 0);
-	this->RB.velocity = rotation * this->RB.velocity;
 }

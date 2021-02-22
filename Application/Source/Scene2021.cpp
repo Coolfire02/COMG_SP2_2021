@@ -549,6 +549,13 @@ void Scene2021::CollisionHandler(double dt) {
 				resultantVec = d - 2 * d.Dot(n) * n;
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+
+				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y; //get NPC rotation
+				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1)); //DOT product of velocity
+				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude(); //get magnitude of velocity
+				if (magnitude != 0)
+					angle = acos(velo / magnitude); //get NPC direction angle
+				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle; //set direction angle
 			}
 
 		}
