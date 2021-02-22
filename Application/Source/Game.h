@@ -4,6 +4,10 @@
 #include <vector>
 #include "Scene.h"
 #include "Weapon.h"
+#include "SceneAssignment2.h"
+#include "Scene2021.h"
+#include "SceneGarage.h"
+#include "SceneGunShop.h"
 
 enum SCENES
 {
@@ -23,13 +27,13 @@ public:
 	static std::vector<Scene*> SceneList;
 
 
-	virtual void Init();
-	virtual void Update(double dt);
-	virtual void Render();
-	virtual void Exit();
+	static void Init();
+	static void Update(double dt);
+	static void Render();
+	static void Exit();
 
-	void addScene(Scene* scene);
-	void switchScene(static SCENES);
-	Scene* getSceneByName(std::string);
-	Scene* getScene();
+	static void addScene(Scene* scene);
+	static void switchScene(static SCENES);
+	static Scene* getSceneByName(std::string);
+	static Scene* getScene();
 };

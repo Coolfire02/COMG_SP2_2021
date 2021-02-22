@@ -12,18 +12,30 @@ Game::~Game()
 
 void Game::Init()
 {
+	addScene(new SceneAssignment2);
+	addScene(new Scene2021);
+	addScene(new SceneGunShop);
+	addScene(new SceneGarage);
 }
 
 void Game::Update(double dt)
 {
+	SceneList[activeScene]->elapser(dt);
+	SceneList[activeScene]->Update(dt);
 }
 
 void Game::Render()
 {
+	SceneList[activeScene]->Render();
 }
 
 void Game::Exit()
 {
+	for (int i = 0; i < SceneList.size(); i++)
+	{
+		SceneList[i]->Exit();
+		delete SceneList[i];
+	}
 }
 
 void Game::addScene(Scene* scene)

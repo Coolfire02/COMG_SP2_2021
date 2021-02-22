@@ -188,19 +188,16 @@ void Application::Run()
 	AudioHandler::load();
 	Text::loadFonts();
 
-	g.addScene(new SceneAssignment2);
-	g.addScene(new Scene2021);
-	g.addScene(new SceneGunShop);
-	g.addScene(new SceneGarage);
+	g.Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
 		GetMouseUpdate();
 		double dt = m_timer.getElapsedTime();
-		g.getScene()->elapser(dt);
-		g.getScene()->Update(dt);
-		g.getScene()->Render();
+		g.Update(dt);
+		g.Render();
+		
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -218,6 +215,7 @@ void Application::Run()
 
 void Application::Exit()
 {
+	g.Exit();
 	MeshHandler::unloadMeshes();
 	AudioHandler::cleanup();
 

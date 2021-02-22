@@ -125,9 +125,10 @@ void SceneAssignment2::Init() {
 	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(building2);
 
-	Entity* testNPC = new NPC(this, TESTNPC, "test");
-	testNPC->getEntityData()->SetTransform(0, 0, 10);
-	eManager.spawnMovingEntity(testNPC);
+	for (int i = 0; i < 10; i++)
+	{
+		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
+	}
 
 	Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, 60);
@@ -514,6 +515,11 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				}
 			}
 		}
+		
+		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
+		{
+			((NPC*)entry)->Walk(dt);
+		}
 	}
 
 	for (auto& entry : collided) {
@@ -594,10 +600,15 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				resultantVec = d - 2 * d.Dot(n) * n;
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+
+				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y;
+				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1));
+				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude();
+				if (magnitude != 0)
+					angle = acos(velo / magnitude);
+				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle;
 			}
-
 		}
-
 	}
 
 	if (foundInteractionZone == false) {
@@ -1048,6 +1059,23 @@ void SceneAssignment2::RenderUI()
 			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
 		}
 	}
+}
+
+void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
+{
+	int diffX = v3Tmax.x - v3Tmin.x;
+	int randomX = rand() % diffX + v3Tmin.x;
+
+	int diffZ = v3Tmax.z - v3Tmin.z;
+	int randomZ = rand() % diffZ + v3Tmin.z;
+	
+	int randomRotation = rand() % 359 + 1;
+
+	Entity* testNPC = new NPC(this, geoType, "test");
+	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
+	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
+	testNPC->getEntityData()->SetScale(3, 3, 3);
+	eManager.spawnMovingEntity(testNPC);
 }
 
 //void SceneAssignment2::EndInteraction() {

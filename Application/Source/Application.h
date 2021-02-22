@@ -18,7 +18,6 @@ public:
 	void Exit();
 
 	Game   g;
-	static Scene* scenes[1];
 	static bool changeToScene(std::string, std::string);
 	static void setCursorEnabled(bool enabled);
 	static Scene* getSceneByName(std::string);
