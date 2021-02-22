@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-InteractionManager::InteractionManager() : latestInteractionSwitch(0), isInteracting(false), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
+InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
 		this->completedInteractionsCount[i] = 0;
 	}
@@ -70,8 +70,7 @@ bool InteractionManager::loadInteractions(const char* filePath)
 				interaction_ID[strlen(interaction_ID) - 1] = '\0';
 
 			interaction = new Interaction();
-			interaction->key = interaction_ID;
-			interactionQueue.pushInteraction(interaction);
+			Interactions.insert(std::pair<std::string, Interaction*>(std::string(interaction_ID), interaction));
 		}
 		else if ((strncmp("msg ", buf, 4) == 0)) {
 			if (interaction != nullptr) {
@@ -147,42 +146,31 @@ void InteractionManager::sendNotification(std::string msg, double duration) {
 }
 
 void InteractionManager::EndInteraction()
-{/*
-	if (isInteracting) {
+{
+	if (isInteracting()) {
 
 		completedInteractionsCount[currentInteractionType]++;
 
-		isInteracting = false;
-		currentMessage = 0;
-		for (auto& entry : queuedMessages) { //clears all pointers
-			delete entry;
+		// isInteracting = false;
+		for (auto& entry : interactionQueue.getQueue()[currentMessage]->postInteractionCMD) {
+			runCommand(*entry);
 		}
-		queuedMessages.clear();
+		interactionQueue.popInteraction();
 		interactionElapsed = 0;
 		currentInteractionType = INTERACTION_COUNT;
-	}*/
+	}
 }
 
 void InteractionManager::nextInteraction()
 {
-	/*if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
-		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
-			//this->runCommand(entry);
-		}
-	}
 	currentMessage += 1;
-	if (queuedMessages.size() < (unsigned)currentMessage + 1) {
-		for (auto& entry : queuedMessages.at(currentMessage - 1)->postInteractionCMD) {
-			//this->runCommand(entry);
-		}
-		EndInteraction();
+	for (auto& entry : interactionQueue.getQueue()[currentMessage]->preInteractionCMD) {
+		runCommand(*entry);
 	}
-	else {
-		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
-			//this->runCommand(entry);
-		}
-	}
-	*/
+}
+
+bool InteractionManager::isInteracting() {
+	return (!interactionQueue.getQueue().size() == 0);
 }
 
 bool InteractionManager::passedInteractionCooldown()
@@ -192,4 +180,10 @@ bool InteractionManager::passedInteractionCooldown()
 		return true;
 	}
 	return false;
+}
+
+void InteractionManager::Update(double dt) {
+	if (isInteracting()) {
+		this->interactionElapsed += dt;
+	}
 }

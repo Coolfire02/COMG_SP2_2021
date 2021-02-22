@@ -219,8 +219,8 @@ void SceneGarage::Init()
 	//2nd light
 	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.5f,0.5f,1.f); //set to white light
-	light[1].power = 15;
+	light[1].color.set(0.f,0.f,0.f); //set to white light
+	light[1].power = 0;
 	light[1].kC = 1.f;
 	light[1].kL = 0.1f;
 	light[1].kQ = 0.01f;
@@ -608,24 +608,30 @@ void SceneGarage::TopDownMapUpdate(double dt)
 	}
 
 	camera2.position.Set(player->getEntityData()->Translate.x,
-		100,
+		300,
 		player->getEntityData()->Translate.z);
 
 	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
 
+	Vector3 view = (camera.target - camera.position).Normalized();
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
+		light[1].power = 2.5;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(camera.up.x * dt, 0, camera.up.z * dt);
+		light[1].spotDirection.Set(-view.x, 0, -view.z);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	case TOPDOWN_THIRDPERSON:
+		light[1].power = 2.5;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	default:
 		light[1].power = 0;
 		light[1].spotDirection.Set(0, 0, 0);
+		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	}
 }

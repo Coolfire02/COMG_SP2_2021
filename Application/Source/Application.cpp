@@ -190,10 +190,10 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
-	g.addScene(new SceneAssignment2);
-	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
+	g.addScene(new SceneAssignment2);
 	g.addScene(new SceneGarage);
+	g.addScene(new Scene2021);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))

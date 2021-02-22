@@ -1,4 +1,0 @@
-﻿  MeshHandler.cpp
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(172,94): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\tanyo\source\repos\COMG_SP2_2021\Application\Source\MeshHandler.cpp(177,64): warning C4305: 'argument': truncation from 'double' to 'float'
-  Application.vcxproj -> C:\Users\tanyo\source\repos\COMG_SP2_2021\Debug\Application.exe

@@ -195,12 +195,14 @@ void Car::Drive(double dt) {
 	
 	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
 
+	// set the drift vector to the velocity at the start of the drift
 	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
 		RotateSpeed = 100.f;
 		drifting = true;
 		driftVector = Vector3(velocity);
 	}
 
+	// the car's velocity is based on rotation of the car
 	if (Application::IsKeyPressed('D')) {
 		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
 		if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * RotateSpeed;
@@ -211,6 +213,7 @@ void Car::Drive(double dt) {
 		if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
 	}
 
+	// reverse is slower than forward movement
 	if (Application::IsKeyPressed('S')) {
 		acceleration = -maxCarSpeed * 0.5f;
 	}
