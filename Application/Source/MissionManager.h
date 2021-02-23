@@ -18,6 +18,7 @@ class MissionManager {
 	//ButtonManager MissionUI; //Use this to work the whole Mission UI Checkpoint System
 	Mission* missions[MISSION_COUNT];
 	std::vector<Mission*> missionsUpdatedThisTick;
+	std::vector<Mission*> missionsCompletedThisTick;
 public:
 	
 	//Statics
@@ -32,7 +33,15 @@ public:
 
 	std::vector<MISSIONTYPE> getCompletedMissions();
 	std::vector<MISSIONTYPE> getCompletableMissions(); //gets the list of Missions that can be completed currently.
-	void addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
-	std::vector<Mission*> Update(double dt); //returns the missions that were completed this tick
+	bool missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONTYPE>& completable);
+
+	//Adds progress only if MissionType is completable returns true if progress added
+	bool addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
+	//Adds progress regardless if completable (UNSAFE)
+	void addUnsafeProgress(MISSIONTYPE type, float progress);
+	
+	void Update(double dt); //returns the missions that were completed this tick
 	//void displayUIOnScreen(); //Accepts mouse swipe movement to move around the background quad, the background quad will be zoomed in. Hover over missions to see if its completed an a preview
+
+	std::vector<Mission*> getJustCompletedMissions();
 };

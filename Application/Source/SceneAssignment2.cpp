@@ -329,7 +329,7 @@ void SceneAssignment2::Update(double dt)
 	{
 		Game::inv.addItem(BURGER, 1);
 		Game::inv.addItem(EGGPLANT, 2);
-		
+
 		//inv.addWeap(PISTOL); //Error if you try to add weapons
 		Game::inv.addCar(SUV);
 	}
@@ -348,7 +348,7 @@ void SceneAssignment2::Update(double dt)
 			bManager.deactivateButton("UIWeaponsInventory");
 			bManager.deactivateButton("UIGarageInventory");
 		}
-			
+
 		/*inv.toggleItem();
 		if (inv.getCurrentCarType() == SEDAN)
 			inv.switchCar(SUV);
@@ -468,7 +468,6 @@ void SceneAssignment2::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 	}
-
 	//MISSION HANDLING
 	for (auto& entry : Game::mManager.getCompletableMissions()) {
 		//DEBUG_MSG("Completable Mission EnumID: " << entry);
@@ -482,11 +481,22 @@ void SceneAssignment2::Update(double dt)
 			//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
 		}
 	}
-
-
-
 	Vector3 view = (camera.target - camera.position).Normalized();
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+}
+
+void SceneAssignment2::MissionCompleteListener(double dt) {
+	//Mission Handling Examples
+	//for (auto& entry : Game::mManager.getCompletableMissions()) {
+	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
+	//}
+	//if (Application::IsKeyPressed('V')) {
+	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	//}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+	for (auto& entry : justCompletedMissions) {
+		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
+	}
 }
 
 void SceneAssignment2::ButtonUpdate(double dt) {
@@ -664,7 +674,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 	bool foundInteractionZone = false;
 
 	TopDownMapUpdate(dt);
-	
+
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::BULLET) {
 			((Bullet*)entry)->Move(dt);
@@ -707,7 +717,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				}
 			}
 		}
-		
+
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
@@ -782,7 +792,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 				ISound* crash = AudioHandler::getEngine()->play3D(
 					AudioHandler::getSoundSource(CAR_CRASH),
-					AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate), 
+					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate),
 					LOOPED::NOLOOP);
 				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
 
@@ -882,7 +892,7 @@ void SceneAssignment2::Render()
 
 	}
 
-	
+
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
@@ -895,12 +905,12 @@ void SceneAssignment2::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();	
+	modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);			
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);
 
 	}
 	else if (light[0].type == Light::LIGHT_SPOT) {
@@ -1050,7 +1060,7 @@ void SceneAssignment2::Render()
 
 	//Coins UI
 	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-	
+
 	/*ss.str("");
 	ss.clear();
 	std::string bal = std::to_string(coinBalance);
@@ -1060,7 +1070,7 @@ void SceneAssignment2::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	
+
 	//Interaction MSG UI
 	//if (canInteractWithSomething && !isInteracting) {
 	//	ss.str("");
@@ -1072,7 +1082,7 @@ void SceneAssignment2::Render()
 	//UI Testing Health
 	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
 
-	
+
 
 	////GUI
 	//ss.str("");
@@ -1088,9 +1098,9 @@ void SceneAssignment2::Render()
 	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
 	//}
 
-	
 
-	
+
+
 	//FPS UI
 	ss.str("");
 	ss.clear();
@@ -1210,7 +1220,7 @@ void SceneAssignment2::RenderInteraction() {
 //				inter = new Interaction();
 //				inter->interactionText = "Hey There!";
 //				queuedMessages.push_back(inter);
-//				
+//
 //				inter = new Interaction();
 //				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
 //				queuedMessages.push_back(inter);
@@ -1245,7 +1255,7 @@ void SceneAssignment2::RenderInteraction() {
 //
 //			break;
 //		}
-//		
+//
 //		default:
 //			return false;
 //		}
@@ -1395,7 +1405,7 @@ void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType
 
 	int diffZ = v3Tmax.z - v3Tmin.z; //get the diff of min and max X
 	int randomZ = rand() % diffZ + v3Tmin.z; //get random X position from minX to maxX range
-	
+
 	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
 	Entity* testNPC = new NPC(this, geoType, "test");
