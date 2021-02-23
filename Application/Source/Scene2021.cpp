@@ -439,6 +439,21 @@ void Scene2021::Update(double dt)
 	}
 }
 
+
+void Scene2021::MissionCompleteListener(double dt) {
+	//MISSION HANDLING EXAMPLES
+	//for (auto& entry : Game::mManager.getCompletableMissions()) {
+	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
+	//}
+	//if (Application::IsKeyPressed('V')) {
+	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	//}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+	for (auto& entry : justCompletedMissions) {
+		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
+	}
+}
+
 void Scene2021::ButtonUpdate(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');

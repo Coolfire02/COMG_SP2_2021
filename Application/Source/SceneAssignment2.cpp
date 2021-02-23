@@ -414,7 +414,6 @@ void SceneAssignment2::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
 	ButtonUpdate(dt);
-	MissionUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -477,22 +476,17 @@ void SceneAssignment2::Update(double dt)
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
-void SceneAssignment2::MissionUpdate(double dt) {
-	//MISSION HANDLING EXAMPLES
-	/*for (auto& entry : Game::mManager.getCompletableMissions()) {
-		DEBUG_MSG("Completable Mission EnumID: " << entry);
-	}
-	if (Application::IsKeyPressed('V')) {
-		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-	}*/
-	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
+void SceneAssignment2::MissionCompleteListener(double dt) {
+	//Mission Handling Examples
+	//for (auto& entry : Game::mManager.getCompletableMissions()) {
+	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
+	//}
+	//if (Application::IsKeyPressed('V')) {
+	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	//}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
 	for (auto& entry : justCompletedMissions) {
-		switch (entry->getType())
-		{
-		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
-			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
-			break;
-		}
+		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
 	}
 }
 

@@ -19,6 +19,7 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
+	mManager.Update(dt);
 	SceneList[activeScene]->elapser(dt);
 	SceneList[activeScene]->Update(dt);
 }

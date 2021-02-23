@@ -624,6 +624,19 @@ void SceneGunShop::CollisionHandler(double dt) {
 	}*/
 }
 
+void SceneGunShop::MissionCompleteListener(double dt) {
+	//MISSION HANDLING EXAMPLES
+	//for (auto& entry : Game::mManager.getCompletableMissions()) {
+	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
+	//}
+	//if (Application::IsKeyPressed('V')) {
+	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	//}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+	for (auto& entry : justCompletedMissions) {
+		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
+	}
+}
 
 void SceneGunShop::Render()
 {
