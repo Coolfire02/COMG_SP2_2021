@@ -4,4 +4,12 @@ Player Entity Class
 Updated Entity Data Handler to fit vector3 inputs
 Updated Car for interaction within certain radius
 Car movement
+
 Improved Car movement
+Car Drifting
+NPC physics
+Collision Response
+Normal of the collided plane.
+Weapon rendering and shooting
+Interaction Manager
+Gun Shop Scene
