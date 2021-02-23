@@ -580,6 +580,7 @@ void Scene2021::InitLights() {
 
 
 void Scene2021::CollisionHandler(double dt) {
+	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -624,7 +625,8 @@ void Scene2021::CollisionHandler(double dt) {
 						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.total_pitch = 0;
-						camera.target = camera.defaultTarget;
+						camera.total_yaw = 0;
+						camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
 			}
