@@ -101,6 +101,7 @@ public:
 	void elapser(double dt);
 	virtual void Init() = 0;
 	virtual void Update(double dt) = 0;
+	virtual void InitLights() = 0;
 	virtual void CollisionHandler(double dt) = 0;
 	virtual void ButtonUpdate(double dt) = 0;
 	virtual void MissionCompleteListener(double dt) = 0;
