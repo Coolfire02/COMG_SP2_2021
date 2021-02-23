@@ -1,10 +1,8 @@
 #include "ButtonManager.h"
 #include "Application.h"
 
-ButtonManager::ButtonManager() : scene(nullptr) {
-}
+ButtonManager::ButtonManager() {
 
-ButtonManager::ButtonManager(Scene* scene) : scene(scene) {
 }
 
 ButtonManager::~ButtonManager() {
@@ -15,7 +13,7 @@ ButtonManager::~ButtonManager() {
 	this->buttons.clear();
 }
 
-void ButtonManager::Update(double dt) {
+void ButtonManager::Update(Scene* scene, double dt) {
 	double xPos, yPos;
 	Application::GetCursorPos(&xPos, &yPos);
 	bool mousePressed = Application::IsMousePressed(0);
@@ -54,7 +52,7 @@ void ButtonManager::Update(double dt) {
 
 			//Only says "Clicks" one tick every CLICK_COOLDOWN seconds. (So it dosent spam)
 			if (!collisionEntry->isClicking) {
-				if (collisionEntry->lastClickedTime + CLICK_COOLDOWN < this->scene->getElapsedTime()) {
+				if (collisionEntry->lastClickedTime + CLICK_COOLDOWN < scene->getElapsedTime()) {
 					collisionEntry->isClicking = true;
 					collisionEntry->clickTally++;
 				}
@@ -81,8 +79,15 @@ void ButtonManager::Update(double dt) {
 			}
 		}
 		if (!alrInList) {
-			buttonsInteractedThisTick.push_back(new ButtonCollide(button, this->scene->getElapsedTime() ));
+			buttonsInteractedThisTick.push_back(new ButtonCollide(button, scene->getElapsedTime() ));
 		}
+	}
+}
+
+void ButtonManager::Render(Scene* scene)
+{
+	for (auto& button : buttons) {
+		button->Render(scene);
 	}
 }
 
@@ -140,10 +145,6 @@ Button* ButtonManager::getButtonByName(std::string buttonName) {
 	}
 	return nullptr;
 	
-}
-
-void ButtonManager::setScene(Scene* sceneName) {
-	this->scene = sceneName;
 }
 
 void ButtonManager::addButton(Button* button) {

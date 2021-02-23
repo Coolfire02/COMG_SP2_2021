@@ -5,7 +5,6 @@
 #include "Weapon.h"
 #include "Inventory.h"
 #include "MissionManager.h"
-#include "ButtonManager.h"
 #include "UIManager.h"
 #include "InteractionManager.h"
 
@@ -33,14 +32,12 @@ public:
 
 	static MissionManager mManager;
 	static InteractionManager iManager;
-	static ButtonManager bManager;
 	static UIManager uiManager;
 	static Inventory inv;
 
 	static void Init();
 	static void Update(double dt);
 	static void InteractionUpdate(double dt);
-	static void ButtonUpdate(double dt);
 	static void RenderUI();
 	static void Render();
 	static void Exit();

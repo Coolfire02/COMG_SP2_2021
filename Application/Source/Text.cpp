@@ -61,8 +61,7 @@ void Text::LoadTextData(int textDataArray[], std::string textDataCSV) {
 }
 
 //End Statics
-Text::Text(Scene* scene, Color color, float originX, float originY, float quadSize, FONTTYPE font, float size) {
-    this->scene = scene;
+Text::Text(Color color, float originX, float originY, float quadSize, FONTTYPE font, float size) {
     this->color = color;
     UIInfo.originX = originX;
     UIInfo.originY = originY;
@@ -75,8 +74,7 @@ Text::Text(Scene* scene, Color color, float originX, float originY, float quadSi
     this->visible = true;
 }
 
-Text::Text(Scene* scene, Color color, UIItem UIInfo, FONTTYPE font, float size) {
-    this->scene = scene;
+Text::Text(Color color, UIItem UIInfo, FONTTYPE font, float size) {
     this->color = color;
     this->UIInfo = UIItem(UIInfo);
     textFont = loadedFonts[font];
@@ -119,7 +117,7 @@ void Text::changeFont(FONTTYPE type) {
     }
 }
 
-void Text::Render() {
+void Text::Render(Scene* scene) {
     float size = Math::Min(UIInfo.sizeX, UIInfo.sizeY);
 
     std::vector<std::string> splitVar;
@@ -133,7 +131,7 @@ void Text::Render() {
         ss.str("");
         ss.clear();
         ss << entry;
-        this->scene->RenderTextOnScreen(MeshHandler::getMesh(this->textFont.geoType), ss.str(), color, size, startX, startY - this->textFont.verticalOffset * size * i, textFont.textWidth, 256);
+        scene->RenderTextOnScreen(MeshHandler::getMesh(this->textFont.geoType), ss.str(), color, size, startX, startY - this->textFont.verticalOffset * size * i, textFont.textWidth, 256);
         i++;
     }
 

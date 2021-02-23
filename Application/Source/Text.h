@@ -29,7 +29,6 @@ class Text
 	static void LoadTextData(int textDataArray[], std::string textDataCSV);
 	//end Static Members
 
-	Scene* scene;
 	Color color;
 	UIItem UIInfo;
 	Font textFont;
@@ -47,8 +46,8 @@ public:
 	static void splitText(std::string txt, char delim, std::vector<std::string>& out);
 	//end Static Public Members
 
-	Text(Scene* scene, Color color, float originX, float originY, float quadSize, FONTTYPE type, float size);
-	Text(Scene* scene, Color color, UIItem UIInfo, FONTTYPE type, float size);
+	Text(Color color, float originX, float originY, float quadSize, FONTTYPE type, float size);
+	Text(Color color, UIItem UIInfo, FONTTYPE type, float size);
 	~Text();
 	void setTextString(std::string text);
 	void setTextStringStream(std::ostringstream text);
@@ -62,7 +61,7 @@ public:
 	bool isVisible();
 	void setSize(float size);
 	void changeFont(FONTTYPE type);
-	void Render();
+	void Render(Scene* scene);
 
 };
 

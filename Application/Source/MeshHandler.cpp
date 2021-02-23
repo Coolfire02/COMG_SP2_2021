@@ -123,6 +123,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_WINDOW]->textureID = LoadTGA("Image//panelUI.tga");
 	meshList[UI_EMPTY] = MeshBuilder::GenerateQuad("emptyUI", Color(1, 1, 1));
 	meshList[UI_EMPTY]->textureID = LoadTGA("Image//emptyUI.tga");
+	meshList[UI_BLANK] = MeshBuilder::GenerateQuad("blankUI", Color(1, 1, 1));
+	meshList[UI_BLANK]->textureID = LoadTGA("Image//blankUI.tga");
 
 	//UI Items
 	meshList[UI_EGGPLANT] = MeshBuilder::GenerateQuad("eggplantUI", Color(1, 1, 1));

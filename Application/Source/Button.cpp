@@ -1,8 +1,8 @@
 #include "Button.h"
 #include "Application.h"
 
-Button::Button(Scene* scene, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
-	this->scene = scene;
+Button::Button(std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture) : buttonName(buttonName) {
+	//this->scene = scene;
 	this->text = nullptr;
 	this->enabled = true;
 	this->UIInfo.originX = originX;
@@ -41,7 +41,7 @@ void Button::spawnTextObject(std::string text, Color txtColor, FONTTYPE type, fl
 	if (this->text != nullptr) {
 		delete this->text;
 	}
-	this->text = new Text(scene, txtColor, UIInfo, type, textSize);
+	this->text = new Text(txtColor, UIInfo, type, textSize);
 	this->text->setTextString(text);
 }
 
@@ -49,11 +49,11 @@ bool Button::hasText() {
 	return !(this->text == nullptr);
 }
 
-void Button::Render() {
+void Button::Render(Scene* scene) {
 	if (enabled) {
-		this->scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeX, UIInfo.sizeY);
+		scene->RenderMeshOnScreen(MeshHandler::getMesh(quadTexture), UIInfo.originX, UIInfo.originY, UIInfo.sizeX, UIInfo.sizeY);
 		if (text != nullptr) {
-			text->Render();
+			text->Render(scene);
 		}
 	}
 }

@@ -27,6 +27,7 @@
 GLFWwindow* m_window;
 unsigned Application::m_width;
 unsigned Application::m_height;
+bool Application::cursorEnabled = false;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
@@ -175,11 +176,11 @@ void Application::Init()
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		//return -1;
 	}
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Application::setCursorEnabled(bool enabled) {
-	if(enabled)
+	cursorEnabled = enabled;
+	if(cursorEnabled)
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	else
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -215,7 +216,7 @@ void Application::Run()
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.
-
+		//setCursorEnabled(true);
 	} //Check if the ESC key had been pressed or if the window had been closed
 
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {

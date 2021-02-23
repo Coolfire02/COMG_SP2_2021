@@ -7,7 +7,6 @@ enum MISSIONTYPE {
 	//For configuration detection purposes, all missions must start with MISSION_
 	MISSION_EXTINGUISH_FIRE,
 	MISSION_ENTER_TIMEPORTAL,
-
 	MISSION_VISIT_FOUNTAIN,
 	MISSION_VISIT_RESTAURANT,
 	MISSION_TALK_TO_NPC,

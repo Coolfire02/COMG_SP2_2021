@@ -14,7 +14,6 @@
 
 SceneGarage::SceneGarage() : 
 	eManager(this)
-	//bManager(this)
 {
 	//Scene
 	sceneName = "GarageScene";
@@ -425,7 +424,6 @@ void SceneGarage::MissionCompleteListener(double dt) {
 		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
 	}
 }
-
 
 void SceneGarage::CollisionHandler(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
@@ -1319,32 +1317,10 @@ void SceneGarage::SpawnWalls()
 //	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 //}
 
+
 void SceneGarage::RenderUI()
 {
-	//weapons UI
-	for (int i = 0; i < 4; i++) //limit to displaying 4
-	{
-		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-			return;
-
-		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
-		{
-		case PISTOL:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
-			break;
-		case SILENCER:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
-			break;
-		default:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
-			break;
-		}
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
-		{
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
-		}
-	}
+	Game::RenderUI();
 }
 
 void SceneGarage::Exit()

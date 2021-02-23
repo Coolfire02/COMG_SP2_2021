@@ -6,7 +6,6 @@
 
 class Button
 {
-	Scene* scene;
 	bool enabled;
 	const std::string buttonName;
 	UIItem UIInfo;
@@ -15,7 +14,7 @@ class Button
 	Text* text;
 
 public:
-	Button(Scene* scene, std::string buttonName, float originX, float originY, float quadXSize, float quadYSize, GEOMETRY_TYPE quadTexture);
+	Button(std::string buttonName, float originX, float originY, float quadXSize, float quadYSize, GEOMETRY_TYPE quadTexture);
 	void spawnTextObject(std::string text, Color txtColor, FONTTYPE type, float textSize);
 	void disable();
 	void enable();
@@ -29,7 +28,7 @@ public:
 	Text* getTextObject();
 	void setQuadImage(GEOMETRY_TYPE type);
 
-	void Render();
+	void Render(Scene* scene);
 
 	~Button();
 };

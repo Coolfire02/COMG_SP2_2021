@@ -239,42 +239,74 @@ void SceneAssignment2::Update(double dt)
 	bool tPressed = Application::IsKeyPressed('T');
 	toggleTimer += dt;
 	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	Game::inv.addItem(BURGER, 1);
-	//	Game::inv.addItem(EGGPLANT, 2);
-
-	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
-	//	Game::inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('L'))
-	//{
-	//	toggleTimer = 0;
-	//	if (uiManager.getCurrentMenu() == GENERAL_UI)
-	//	{
-	//		uiManager.setCurrentMenu(ITEM_INVENTORY);
-	//	}
-	//	else
-	//	{
-	//		uiManager.setCurrentMenu(GENERAL_UI);
-	//		bManager.deactivateButton("UIInventoryBackground");
-	//		bManager.deactivateButton("UIItemsInventoryBlank");
-	//		bManager.deactivateButton("UIWeaponsInventory");
-	//		bManager.deactivateButton("UIGarageInventory");
-	//	}
-
-	//	/*inv.toggleItem();
-	//	if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);*/
-	//}
+	if (Application::IsKeyPressed('F'))
+	{
+		Game::inv.addItem(BURGER, 1);
+		Game::inv.addItem(EGGPLANT, 2);
+		//inv.addWeap(PISTOL); //Error if you try to add weapons
+		Game::inv.addCar(SUV);
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
+	{
+		toggleTimer = 0;
+		/*if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+		{
+			uiManager.setCurrentUI(UI_ITEM_INVENTORY);
+		}
+		else if (uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
+		{
+			uiManager.setCurrentUI(UI_GENERAL);
+			bManager.deactivateButton("UIInventoryBackground");
+			bManager.deactivateButton("UIItemsInventoryBlank");
+			bManager.deactivateButton("UIWeaponsInventory");
+			bManager.deactivateButton("UIGarageInventory");
+		}
+		else if (uiManager.getCurrentMenu() == UI_WEAPON_INVENTORY)
+		{
+			uiManager.setCurrentUI(UI_GENERAL);
+			bManager.deactivateButton("UIInventoryBackground");
+			bManager.deactivateButton("UIWeaponsInventoryBlank");
+			bManager.deactivateButton("UIItemsInventory");
+			bManager.deactivateButton("UIGarageInventory");
+		}
+		else if (uiManager.getCurrentMenu() == UI_GARAGE_INVENTORY)
+		{
+			uiManager.setCurrentUI(UI_GENERAL);
+			bManager.deactivateButton("UIInventoryBackground");
+			bManager.deactivateButton("UIItemsInventory");
+			bManager.deactivateButton("UIWeaponsInventory");
+			bManager.deactivateButton("UIGarageInventoryBlank");
+		}*/
+			
+		/*inv.toggleItem();
+		if (inv.getCurrentCarType() == SEDAN)
+			inv.switchCar(SUV);
+		else
+			inv.switchCar(SEDAN);*/
+	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
 	{
 		Game::inv.addItem(CORN, 3);
 	}
 
 	//weapon inventory
+//	if (Application::IsKeyPressed('E')) //pick up weapon
+//		Game::inv.addWeap(PISTOL);
+//	if (Application::IsKeyPressed('F')) //pick up weapon
+//		Game::inv.addWeap(SILENCER);
+//	if (Application::IsKeyPressed('1')) //weapon slot 1
+//		Game::inv.switchWeapon(0);
+//	if (Application::IsKeyPressed('2')) //weapon slot 2
+//		Game::inv.switchWeapon(1);
+//	if (Application::IsKeyPressed('3')) //weapon slot 3
+//		Game::inv.switchWeapon(2);
+//	if (Application::IsKeyPressed('4')) //weapon slot 4
+//		Game::inv.switchWeapon(3);
+//	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
+//	{
+//		toggleTimer = 0;
+//		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
+//	}
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -581,8 +613,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 							camera.total_pitch = 0;
 							camera.total_yaw = 0;
 							camera.target = camera.position - Vector3(0, 0, 1);
-						}
 					}
+				}
 			}
 		}
 
@@ -777,7 +809,7 @@ void SceneAssignment2::Render()
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);			
 
 	}
 	else if (light[0].type == Light::LIGHT_SPOT) {
@@ -1155,108 +1187,7 @@ void SceneAssignment2::RenderInteraction() {
 //
 void SceneAssignment2::RenderUI()
 {
-	//enum UI_MENUS //for reference
-	//{
-	//	GENERAL_UI = 0, //renders hp,weapons,item
-	//	ITEM_INVENTORY, //renders items owned and can click weapons and cars button
-	//	WEAPON_INVENTORY, //render weapons owned and can click items and cars button
-	//	GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
-	//	MAIN_MENU, //renders title screen
-	//};
-	//std::ostringstream ss;
-	//switch (uiManager.getCurrentMenu())
-	//{
-	//	//if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-	//		//return;
-
-	//case GENERAL_UI:
-	//	//GUI
-	//	//Ammo
-	//	ss.str("");
-	//	ss.clear();
-	//	ss << "6/30";
-	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
-
-	//	//Current Item Amount
-	//	if (Game::inv.getItemInventory() != nullptr)
-	//	{
-	//		ss.str("");
-	//		ss.clear();
-	//		ss << Game::inv.getCurrentItemAmt();
-	//		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
-	//	}
-
-	//	//Item UI
-	//	switch (Game::inv.getCurrentItemType())
-	//	{
-	//	case BURGER:
-	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 120, 20, 10, 10);
-	//		break;
-	//	case CORN:
-	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 120, 20, 10, 10);
-	//		break;
-	//	case EGGPLANT:
-	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 120, 20, 10, 10);
-	//		break;
-	//	default:
-	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 120, 20, 10, 10);
-	//		break;
-	//	}
-	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 120, 20, 11, 11);
-
-	//	//Weapons UI
-	//	for (int i = 0; i < 4; i++) //limit to displaying 4
-	//	{
-	//		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-	//			return;
-
-	//		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
-	//		{
-	//		case PISTOL:
-	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
-	//			break;
-	//		case SILENCER:
-	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
-	//			break;
-	//		default:
-	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
-	//			break;
-	//		}
-	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-	//		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
-	//		{
-	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
-	//		}
-	//	}
-	//	break;
-	//case ITEM_INVENTORY:
-	//	bManager.activateButton("UIInventoryBackground");
-
-	//	bManager.activateButton("UIItemsInventoryBlank");
-	//	bManager.activateButton("UIWeaponsInventory");
-	//	bManager.activateButton("UIGarageInventory");
-	//	break;
-	//case WEAPON_INVENTORY:
-	//	bManager.activateButton("UIInventoryBackground");
-
-	//	bManager.activateButton("UIItemsInventory");
-	//	bManager.activateButton("UIWeaponsInventoryBlank");
-	//	bManager.activateButton("UIGarageInventory");
-	//	break;
-	//case GARAGE_INVENTORY:
-	//	bManager.activateButton("UIInventoryBackground");
-
-	//	bManager.activateButton("UIItemsInventory");
-	//	bManager.activateButton("UIWeaponsInventory");
-	//	bManager.activateButton("UIGarageInventoryBlank");
-	//	break;
-	//case MAIN_MENU:
-	//	bManager.activateButton("TitleBackground");
-	//	bManager.activateButton("MainMenuPlayButton");
-	//	break;
-	//default:
-	//	break;
-	//}
+	Game::RenderUI();
 }
 
 void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)

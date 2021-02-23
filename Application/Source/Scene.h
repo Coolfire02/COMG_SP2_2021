@@ -104,6 +104,7 @@ public:
 	virtual void InitLights() = 0;
 	virtual void CollisionHandler(double dt) = 0;
 	virtual void MissionCompleteListener(double dt) = 0;
+	virtual void RenderUI() = 0;
 	virtual void Render() = 0;
 	virtual void Exit() = 0;
 

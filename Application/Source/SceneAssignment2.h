@@ -17,7 +17,6 @@
 #include "ButtonManager.h"
 #include "AudioHandler.h"
 #include "InteractionManager.h"
-#include "UIManager.h"
 
 //Entities
 #include "NPC.h"
@@ -42,7 +41,6 @@ class SceneAssignment2 : public Scene
 	};
 
 private:
-
 	//Notification Channel
 	//std::string notificationMessage; //Appears on the top of the screen
 	//float showNotifUntil; //Shows notification until time;
