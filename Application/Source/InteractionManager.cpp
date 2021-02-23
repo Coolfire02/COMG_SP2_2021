@@ -150,7 +150,7 @@ bool InteractionManager::initInteractions(const char* filePath)
 	fileStream.close(); // close file
 
 	return true;
-
+		
 }
 
 

@@ -72,7 +72,7 @@ UIManager::UIManager()
 			enableUI();
 			break;
 		case UI_INTERACTION:
-			createButton(bManagers[i], "InteractionButton", 64, 36, 128, 72, UI_TEXTBOX, 3, 5, Color(0,1,0), "");
+			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 5, Color(0,1,0), "");
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test");
 			break;
 		}
