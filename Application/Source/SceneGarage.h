@@ -45,7 +45,7 @@ private:
 	Camera camera2;
 
 	EntityManager eManager;
-	ButtonManager bManager;
+	//ButtonManager bManager;
 
 	//Game Variables
 	Player* player;
@@ -98,7 +98,7 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
-	virtual void ButtonUpdate(double dt);
+	virtual void InitLights();
 	virtual void CollisionHandler(double dt);
 	virtual void MissionCompleteListener(double dt);
 	virtual void TopDownMapUpdate(double dt);

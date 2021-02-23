@@ -14,8 +14,7 @@
 #include "Debug.h"
 
 Scene2021::Scene2021() :
-	eManager(this),
-	bManager(this)
+	eManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -139,7 +138,7 @@ void Scene2021::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
 	//Mesh* coinMesh;
@@ -314,81 +313,83 @@ void Scene2021::Init()
 		Vector3(0, 1, 0));
 
 	//Light init
-	light[0].type = Light::LIGHT_DIRECTIONAL;
-	light[0].position.set(0, 100, 0);
-	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 0.5;
-	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
-	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
-	light[0].spotDirection.Set(0.f, 1.f, 0.f);
+	//light[0].type = Light::LIGHT_DIRECTIONAL;
+	//light[0].position.set(0, 100, 0);
+	//light[0].color.set(1, 1, 1); //set to white light
+	//light[0].power = 0.5;
+	//light[0].kC = 1.f;
+	//light[0].kL = 0.01f;
+	//light[0].kQ = 0.001f;
+	//light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+	//light[0].cosInner = cos(Math::DegreeToRadian(30));
+	//light[0].exponent = 3.f;
+	//light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	//2nd light
-	light[1].type = Light::LIGHT_SPOT;
-	light[1].position.set(0, 0, 0);
-	light[1].color.set(1.f,1.f,1.f); //set to white light
-	light[1].power = 0;
-	light[1].kC = 1.f;
-	light[1].kL = 0.1f;
-	light[1].kQ = 0.01f;
-	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[1].cosInner = cos(Math::DegreeToRadian(30));
-	light[1].exponent = 3.f;
-	light[1].spotDirection.Set(0, 0, 1);
+	////2nd light
+	//light[1].type = Light::LIGHT_SPOT;
+	//light[1].position.set(0, 0, 0);
+	//light[1].color.set(1.f,1.f,1.f); //set to white light
+	//light[1].power = 0;
+	//light[1].kC = 1.f;
+	//light[1].kL = 0.1f;
+	//light[1].kQ = 0.01f;
+	//light[1].cosCutoff = cos(Math::DegreeToRadian(45));
+	//light[1].cosInner = cos(Math::DegreeToRadian(30));
+	//light[1].exponent = 3.f;
+	//light[1].spotDirection.Set(0, 0, 1);
 
-	//3rd light
-	light[2].type = Light::LIGHT_SPOT;
-	light[2].position.set(0, 0, 0);
-	light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	light[2].power = 1;
-	light[2].kC = 1.f;
-	light[2].kL = 0.1f;
-	light[2].kQ = 0.01f;
-	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 1.f;
-	light[2].spotDirection.Set(0, 0, 1);
+	////3rd light
+	//light[2].type = Light::LIGHT_SPOT;
+	//light[2].position.set(0, 0, 0);
+	//light[2].color.set(1.f, 1.f, 1.f); //set to white light
+	//light[2].power = 1;
+	//light[2].kC = 1.f;
+	//light[2].kL = 0.1f;
+	//light[2].kQ = 0.01f;
+	//light[2].cosCutoff = cos(Math::DegreeToRadian(45));
+	//light[2].cosInner = cos(Math::DegreeToRadian(30));
+	//light[2].exponent = 1.f;
+	//light[2].spotDirection.Set(0, 0, 1);
 
 
-	// Make sure you pass uniform parameters after glUseProgram()
-	//week7
-	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	//week6
-	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
-	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
-	//week7
-	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+	//// Make sure you pass uniform parameters after glUseProgram()
+	////week7
+	//glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	////week6
+	//glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+	//glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	//glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+	//glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+	//glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	////week7
+	//glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+	//glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+	//glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
 
-	glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-	glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
-	glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-	glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
-	glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
-	glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
-	glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
-	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+	//glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+	//glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+	//glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+	//glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+	//glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+	//glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+	//glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+	//glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+	//glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
-	glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
-	glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
-	glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
-	glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
-	glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
-	glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
-	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
+	//glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
+	//glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
+	//glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
+	//glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
+	//glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
+	//glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
+	//glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
+	//glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
+	//glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
-	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+	////Week 7 - Code to change number of lights
+	//glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+
+	InitLights();
 
 	//Practical 10a
 	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
@@ -402,6 +403,9 @@ void Scene2021::Init()
 
 void Scene2021::Update(double dt)
 {
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -461,7 +465,6 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	ButtonUpdate(dt);
 	CollisionHandler(dt);
 	MissionCompleteListener(dt);
 
@@ -520,105 +523,81 @@ void Scene2021::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 	}
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
-void Scene2021::ButtonUpdate(double dt) {
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
+void Scene2021::InitLights() {
+	light[0].type = Light::LIGHT_POINT;
+	light[0].position.set(0, 450, 0);
+	light[0].color.set(1, 1, 0.85f);
+	light[0].power = 200;
+	light[0].kC = 1.f;
+	light[0].kL = 0.01f;
+	light[0].kQ = 0.001f;
+	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[0].cosInner = cos(Math::DegreeToRadian(30));
+	light[0].exponent = 1.f;
+	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	if (!ePressed)
-		eHeld = false;
+	light[1].type = Light::LIGHT_POINT;
+	light[1].position.set(0, 0, 0);
+	light[1].color.set(1, 1, 1);
+	light[1].power = 1.4f;
+	light[1].kC = 1.f;
+	light[1].kL = 0.01f;
+	light[1].kQ = 0.001f;
+	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[1].cosInner = cos(Math::DegreeToRadian(30));
+	light[1].exponent = 3.f;
+	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
-	//Button Interaction Handling
-	bManager.Update(dt);
+	light[2].type = Light::LIGHT_POINT;
+	light[2].position.set(0, 0, 0);
+	light[2].color.set(0, 1, 1);
+	light[2].power = 1.2f;
+	light[2].kC = 1.f;
+	light[2].kL = 0.01f;
+	light[2].kQ = 0.001f;
+	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
+	light[2].cosInner = cos(Math::DegreeToRadian(30));
+	light[2].exponent = 3.f;
+	light[2].spotDirection.Set(0.f, 1.f, 0.f);
 
-	if (Game::iManager.getQueue().size() != 0) {
-		bManager.activateButton("InteractionButton");
-		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
-	}
-	else {
-		bManager.deactivateButton("InteractionButton");
-		Application::setCursorEnabled(false);
-	}
+	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	//week6
+	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	//week7
+	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
 
-	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			DEBUG_MSG("Clicked");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-			DEBUG_MSG("Is Clicking");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-			DEBUG_MSG("Hovered");
-		}
-		if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
-			uiManager.setCurrentMenu(GENERAL_UI);
-			bManager.deactivateButton("TitleBackground");
-			bManager.deactivateButton("MainMenuPlayButton");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) { //Click item inventory
-			if (uiManager.getCurrentMenu() == WEAPON_INVENTORY)
-			{
-				uiManager.setCurrentMenu(ITEM_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventoryBlank");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(ITEM_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventoryBlank");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) { //Click weapon inventory
-			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-			{
-				uiManager.setCurrentMenu(WEAPON_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventoryBlank");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(WEAPON_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventoryBlank");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) { //Click weapon inventory
-			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-			{
-				uiManager.setCurrentMenu(GARAGE_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventoryBlank");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(GARAGE_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventoryBlank");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
-			Game::iManager.EndInteraction();
-			if (Game::iManager.getQueue().size() != 0)
-				Game::iManager.nextInteraction();
-			DEBUG_MSG("next Interaction");
-		}
-	}
-	if (pPressed) Application::setCursorEnabled(true);
+	glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+	glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+	glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+	glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+	glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+	glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+	glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+
+	glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
+	glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
+	glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
+	glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
+	glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
+	glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
+	glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
+	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
+
+	//Week 7 - Code to change number of lights
+	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 }
 
 
@@ -633,6 +612,13 @@ void Scene2021::CollisionHandler(double dt) {
 
 	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::BULLET) {
+			((Bullet*)entry)->Move(dt);
+			if (((Bullet*)entry)->getTimer() > 5) {
+				entry->setDead(true);
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
@@ -680,6 +666,17 @@ void Scene2021::CollisionHandler(double dt) {
 	}
 
 	for (auto& entry : collided) {
+		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
+			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
+
+				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+					entry->victim->setDead(true);
+				}
+				DEBUG_MSG("BULLET PEWPEW");
+				entry->attacker->setDead(true);
+			}
+		}
+
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				// player->getEntityData()->Translate += entry->plane * 2;
@@ -987,6 +984,24 @@ void Scene2021::Render()
 		}
 	}
 
+	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Vector3 right = view.Cross(camera.up);
+		right.Normalize();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
+		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
+		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Rotate(185, 0, 1, 0);
+		modelStack.Scale(0.8, 0.8, 0.8);
+		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
+		modelStack.PopMatrix();
+
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
+	}
+
 	std::ostringstream ss;
 
 	//Coins UI
@@ -1025,46 +1040,46 @@ void Scene2021::RenderSkybox() {
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.PushMatrix();
-		modelStack.Translate(-250.0f, 0.0f, 0.0f);
+		modelStack.Translate(-500.f, 0.0f, 0.0f);
 		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(250.0f, 0.0f, 0.0f);
+		modelStack.Translate(500.f, 0.0f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 250.0f, 0.0f);
+		modelStack.Translate(0.0f, 500.f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, -250.0f, 0.0f);
+		modelStack.Translate(0.0f, -500.f, 0.0f);
 		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
 		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, -250.0f);
+		modelStack.Translate(0.0f, 0.0f, -500.f);
 		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, 250.0f);
+		modelStack.Translate(0.0f, 0.0f, 500.f);
 		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		modelStack.Scale(1000.f, 1000.f, 1000.f);
 		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
 		modelStack.PopMatrix();
 

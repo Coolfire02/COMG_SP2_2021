@@ -12,9 +12,10 @@
 #include "Car.h"
 #include "InteractionManager.h"
 #include "Debug.h"
+#include "Material.h"
 
 SceneAssignment2::SceneAssignment2() :
-	eManager(this), bManager(this)
+	eManager(this)
 {
 	//Scene
 	sceneName = "TestScene";
@@ -98,7 +99,7 @@ void SceneAssignment2::Init() {
 	glBindVertexArray(m_vertexArrayID);
 
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 434.f);
+	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
 	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
@@ -136,7 +137,7 @@ void SceneAssignment2::Init() {
 
 	//Buttons
 
-	Button* button;
+	/*Button* button;
 	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
 	button->getTextObject()->setTextString("Test");
@@ -204,13 +205,7 @@ void SceneAssignment2::Init() {
 	Button* playButton;
 	playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
 	bManager.addButton(playButton);
-	bManager.deactivateButton("MainMenuPlayButton");
-
-	Button* interactionButton;
-	interactionButton = new Button(this, "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
-	interactionButton->spawnTextObject("", Color(0, 1, 0), CALIBRI, 1.f);
-	bManager.addButton(interactionButton);
-	bManager.deactivateButton("InteractionButton");
+	bManager.deactivateButton("MainMenuPlayButton");*/
 
 	/*Button* playHoverButton;
 	playHoverButton = new Button(this, "HoverPlayButton", 64, 36, 16, 12, UI_BLUE);
@@ -225,11 +220,179 @@ void SceneAssignment2::Init() {
 		Vector3(0, -50, -1),
 		Vector3(0, 1, 0));
 
-	//Light init
+	InitLights();
+
+	//Practical 10a
+	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+
+bool eHeld = false;
+
+void SceneAssignment2::Update(double dt)
+{
+	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
+	bool tPressed = Application::IsKeyPressed('T');
+	eHeld = !Application::IsKeyReleased('E');
+	toggleTimer += dt;
+	//UI item adding testing
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	Game::inv.addItem(BURGER, 1);
+	//	Game::inv.addItem(EGGPLANT, 2);
+
+	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
+	//	Game::inv.addCar(SUV);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('L'))
+	//{
+	//	toggleTimer = 0;
+	//	if (uiManager.getCurrentMenu() == GENERAL_UI)
+	//	{
+	//		uiManager.setCurrentMenu(ITEM_INVENTORY);
+	//	}
+	//	else
+	//	{
+	//		uiManager.setCurrentMenu(GENERAL_UI);
+	//		bManager.deactivateButton("UIInventoryBackground");
+	//		bManager.deactivateButton("UIItemsInventoryBlank");
+	//		bManager.deactivateButton("UIWeaponsInventory");
+	//		bManager.deactivateButton("UIGarageInventory");
+	//	}
+
+	//	/*inv.toggleItem();
+	//	if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);*/
+	//}
+	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	{
+		Game::inv.addItem(CORN, 3);
+	}
+
+	//weapon inventory
+
+	if (GetAsyncKeyState('1') & 0x8001) {
+		glEnable(GL_CULL_FACE);
+	}
+	else if (GetAsyncKeyState('2') & 0x8001) {
+		glDisable(GL_CULL_FACE);
+	}
+	else if (GetAsyncKeyState('5') & 0x8001) {
+		Game::switchScene(S_2051);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('6') & 0x8001) {
+		//game.switchScene(S_2021);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('7') & 0x8001) {
+		//game.switchScene(S_2021);
+		Game::switchScene(S_GARAGE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (GetAsyncKeyState('8') & 0x8001) {
+		Game::switchScene(S_GUNSHOP);
+	}
+
+	if (Application::IsKeyPressed('9')) {
+		hitboxEnable = !hitboxEnable;
+	}
+	if (Application::IsKeyPressed('0')) {
+		lightEnable = !lightEnable;
+	}
+
+	if (!Game::iManager.isInteracting()) {
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
+		CollisionHandler(dt);
+
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
+
+		//Requires Implementation of Velocity by Joash
+		float playerSpeed = 15.0;
+		if (!((Player*)player)->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+				camera.position.y += CameraBobber;
+			}
+
+			if (Application::IsKeyPressed('W')) {
+
+				if (Application::IsKeyPressed(VK_LSHIFT)) {
+					playerSpeed = 25.f;
+				}
+
+				pLoc += view * (float)dt * playerSpeed;
+
+			}
+			if (Application::IsKeyPressed('A')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc -= right * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('S')) {
+				pLoc -= view * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('D')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc += right * (float)dt * playerSpeed;
+			}
+			// SCENE WORLD BOUNDARIES
+			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+			player->getEntityData()->Translate.x = pLoc.x;
+			// Skip y since we want level ground
+			player->getEntityData()->Translate.z = pLoc.z;
+
+			bobTime += dt;
+			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+		}
+
+		if (player->isDriving()) {
+			player->getCar()->Drive(dt);
+		}
+		//MISSION HANDLING
+		for (auto& entry : Game::mManager.getCompletableMissions()) {
+			//DEBUG_MSG("Completable Mission EnumID: " << entry);
+		}
+		if (Application::IsKeyPressed('V')) {
+			Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+		}
+		std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+		for (auto& entry : justCompletedMissions) {
+			if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+				//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			}
+		}
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+	}
+}
+
+void SceneAssignment2::InitLights()
+{
 	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 40, 0);
-	light[0].color.set(1, 1, 1); //set to white light
-	light[0].power = 1;
+	light[0].position.set(0, 450, 0);
+	light[0].color.set(1, 1, 0.85f);
+	light[0].power = 200;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -238,38 +401,30 @@ void SceneAssignment2::Init() {
 	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	//2nd light
-	light[1].type = Light::LIGHT_SPOT;
+	light[1].type = Light::LIGHT_POINT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(0.0f, 0.0f, 0.0f); //set to white light
-	light[1].power = 0;
+	light[1].color.set(1, 0.5, 0);
+	light[1].power = 1.4f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
 	light[1].kQ = 0.001f;
 	light[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[1].cosInner = cos(Math::DegreeToRadian(30));
-	light[1].exponent = 1.f;
-	light[1].spotDirection.Set(0, 0, 1);
+	light[1].exponent = 3.f;
+	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
-	//3rd light
 	light[2].type = Light::LIGHT_POINT;
-	light[2].position.set(0, 50, 100);
-	light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	light[2].power = 1;
+	light[2].position.set(0, 0, 0);
+	light[2].color.set(0, 1, 1);
+	light[2].power = 1.2f;
 	light[2].kC = 1.f;
 	light[2].kL = 0.01f;
 	light[2].kQ = 0.001f;
 	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 1.f;
-	light[2].spotDirection.Set(0, 1, 0);
+	light[2].exponent = 3.f;
+	light[2].spotDirection.Set(0.f, 1.f, 0.f);
 
-
-	// Make sure you pass uniform parameters after glUseProgram()
-
-	glUseProgram(m_programID);
-
-	//week7
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	//week6
 	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
@@ -304,173 +459,6 @@ void SceneAssignment2::Init() {
 
 	//Week 7 - Code to change number of lights
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
-
-	//Practical 10a
-	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT], m_parameters[U_MATERIAL_DIFFUSE], m_parameters[U_MATERIAL_SPECULAR], m_parameters[U_MATERIAL_SHININESS]);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-
-bool eHeld = false;
-
-void SceneAssignment2::Update(double dt)
-{
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
-	toggleTimer += dt;
-	//UI item adding testing
-	if (Application::IsKeyPressed('F'))
-	{
-		Game::inv.addItem(BURGER, 1);
-		Game::inv.addItem(EGGPLANT, 2);
-
-		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		Game::inv.addCar(SUV);
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
-	{
-		toggleTimer = 0;
-		if (uiManager.getCurrentMenu() == GENERAL_UI)
-		{
-			uiManager.setCurrentMenu(ITEM_INVENTORY);
-		}
-		else
-		{
-			uiManager.setCurrentMenu(GENERAL_UI);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIItemsInventoryBlank");
-			bManager.deactivateButton("UIWeaponsInventory");
-			bManager.deactivateButton("UIGarageInventory");
-		}
-
-		/*inv.toggleItem();
-		if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);*/
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	{
-		Game::inv.addItem(CORN, 3);
-	}
-
-	//weapon inventory
-	if (Application::IsKeyPressed('E')) //pick up weapon
-		Game::inv.addWeap(PISTOL);
-	if (Application::IsKeyPressed('F')) //pick up weapon
-		Game::inv.addWeap(SILENCER);
-	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
-		Game::inv.switchWeapon(0);
-	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
-		Game::inv.switchWeapon(1);
-	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
-		Game::inv.switchWeapon(2);
-	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
-		Game::inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
-	{
-		toggleTimer = 0;
-		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
-	}
-
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
-		Game::switchScene(S_2051);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
-		//game.switchScene(S_2021);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('7') & 0x8001) {
-		//game.switchScene(S_2021);
-		Game::switchScene(S_GARAGE);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else if (GetAsyncKeyState('8') & 0x8001) {
-		Game::switchScene(S_GUNSHOP);
-	}
-
-	if (Application::IsKeyPressed('9')) {
-		hitboxEnable = !hitboxEnable;
-	}
-	if (Application::IsKeyPressed('0')) {
-		lightEnable = !lightEnable;
-	}
-
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
-
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
-
-	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
-	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
-
-		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
-				playerSpeed = 25.f;
-			}
-
-			pLoc += view * (float)dt * playerSpeed;
-
-		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('S')) {
-			pLoc -= view * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('D')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
-		}
-		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
-	}
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-	}
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void SceneAssignment2::MissionCompleteListener(double dt) {
@@ -484,111 +472,6 @@ void SceneAssignment2::MissionCompleteListener(double dt) {
 	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
 	for (auto& entry : justCompletedMissions) {
 		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
-	}
-}
-
-void SceneAssignment2::ButtonUpdate(double dt) {
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
-
-	if (!ePressed)
-		eHeld = false;
-
-	//Button Interaction Handling
-	bManager.Update(dt);
-
-	if (Game::iManager.getQueue().size() != 0) {
-		bManager.activateButton("InteractionButton");
-		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
-	}
-	else {
-		bManager.deactivateButton("InteractionButton");
-		Application::setCursorEnabled(false);
-	}
-
-	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			DEBUG_MSG("Clicked");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-			DEBUG_MSG("Is Clicking");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-			DEBUG_MSG("Hovered");
-		}
-		if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
-			uiManager.setCurrentMenu(GENERAL_UI);
-			bManager.deactivateButton("TitleBackground");
-			bManager.deactivateButton("MainMenuPlayButton");
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) { //Click item inventory
-			if (uiManager.getCurrentMenu() == WEAPON_INVENTORY)
-			{
-				uiManager.setCurrentMenu(ITEM_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventoryBlank");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(ITEM_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventoryBlank");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) { //Click weapon inventory
-			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-			{
-				uiManager.setCurrentMenu(WEAPON_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventoryBlank");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(WEAPON_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventoryBlank");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) { //Click weapon inventory
-			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-			{
-				uiManager.setCurrentMenu(GARAGE_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventoryBlank");
-				bManager.deactivateButton("UIWeaponsInventory");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-			else
-			{
-				uiManager.setCurrentMenu(GARAGE_INVENTORY);
-				bManager.deactivateButton("UIInventoryBackground");
-				bManager.deactivateButton("UIItemsInventory");
-				bManager.deactivateButton("UIWeaponsInventoryBlank");
-				bManager.deactivateButton("UIGarageInventory");
-			}
-		}
-		if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
-			Game::iManager.EndInteraction();
-			if (Game::iManager.getQueue().size() != 0)
-				Game::iManager.nextInteraction();
-			DEBUG_MSG("next Interaction");
-		}
-	}
-	if (pPressed) Application::setCursorEnabled(true);
-}
-
-void SceneAssignment2::InteractionUpdate(double dt) {
-	if (Game::iManager.isInteracting()) {
-
 	}
 }
 
@@ -680,37 +563,35 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				DEBUG_MSG("In Range");
 				// Show interaction UI
-				if (ePressed && !eHeld) {
-					eHeld = true;
-					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
-						player->setDriving((Car*)entry, true);
-						((Car*)entry)->setPlayer(player);
-						camera.camType = THIRDPERSON;
-						DEBUG_MSG("Player Set");
+				if (eHeld) {
+						if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
+							player->setDriving((Car*)entry, true);
+							((Car*)entry)->setPlayer(player);
+							camera.camType = THIRDPERSON;
+							DEBUG_MSG("Player Set");
+						}
+						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
+							player->setDriving(nullptr, false);
+							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
+							((Car*)entry)->setPlayer(nullptr);
+							camera.camType = FIRSTPERSON;
+							player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
+							player->PostUpdate(); // set old data to new data, lazy fix for now
+							camera.position = player->getEntityData()->Translate;
+							camera.up = camera.defaultUp;
+							camera.position.y += 2;
+							camera.total_pitch = 0;
+							camera.total_yaw = 0;
+							camera.target = camera.position - Vector3(0, 0, 1);
+						}
 					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
-						player->setDriving(nullptr, false);
-						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
-						((Car*)entry)->setPlayer(nullptr);
-						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
-						player->PostUpdate(); // set old data to new data, lazy fix for now
-						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
-						camera.position.y += 2;
-						camera.total_pitch = 0;
-						camera.total_yaw = 0;
-						camera.target = camera.position - Vector3(0, 0, 1);
-					}
-				}
 			}
 		}
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (ePressed && !eHeld) {
-					eHeld = true;
+				if (ePressed) {
 					Application::setCursorEnabled(true);
 					Game::iManager.loadInteraction("asdsa");
 					Game::iManager.loadInteraction("ya");
@@ -731,7 +612,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 					entry->victim->setDead(true);
 				}
-				DEBUG_MSG("BULLET UFKC YOU");
+				DEBUG_MSG("BULLET pewpew");
 				entry->attacker->setDead(true);
 			}
 		}
@@ -1017,7 +898,6 @@ void SceneAssignment2::Render()
 		}
 	}
 
-
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Vector3 right = view.Cross(camera.up);
@@ -1036,13 +916,8 @@ void SceneAssignment2::Render()
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
 
-
 	RenderUI();
 	RenderInteraction();
-
-	for (auto& button : bManager.getButtons()) {
-		button->Render();
-	}
 
 	std::ostringstream ss;
 
@@ -1290,100 +1165,100 @@ void SceneAssignment2::RenderUI()
 	//	GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
 	//	MAIN_MENU, //renders title screen
 	//};
-	std::ostringstream ss;
-	switch (uiManager.getCurrentMenu())
-	{
-		//if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-			//return;
+	//std::ostringstream ss;
+	//switch (uiManager.getCurrentMenu())
+	//{
+	//	//if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+	//		//return;
 
-	case GENERAL_UI:
-		//GUI
-		//Ammo
-		ss.str("");
-		ss.clear();
-		ss << "6/30";
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
+	//case GENERAL_UI:
+	//	//GUI
+	//	//Ammo
+	//	ss.str("");
+	//	ss.clear();
+	//	ss << "6/30";
+	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 94, 20);
 
-		//Current Item Amount
-		if (Game::inv.getItemInventory() != nullptr)
-		{
-			ss.str("");
-			ss.clear();
-			ss << Game::inv.getCurrentItemAmt();
-			RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
-		}
+	//	//Current Item Amount
+	//	if (Game::inv.getItemInventory() != nullptr)
+	//	{
+	//		ss.str("");
+	//		ss.clear();
+	//		ss << Game::inv.getCurrentItemAmt();
+	//		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
+	//	}
 
-		//Item UI
-		switch (Game::inv.getCurrentItemType())
-		{
-		case BURGER:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 120, 20, 10, 10);
-			break;
-		case CORN:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 120, 20, 10, 10);
-			break;
-		case EGGPLANT:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 120, 20, 10, 10);
-			break;
-		default:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 120, 20, 10, 10);
-			break;
-		}
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 120, 20, 11, 11);
+	//	//Item UI
+	//	switch (Game::inv.getCurrentItemType())
+	//	{
+	//	case BURGER:
+	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 120, 20, 10, 10);
+	//		break;
+	//	case CORN:
+	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 120, 20, 10, 10);
+	//		break;
+	//	case EGGPLANT:
+	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 120, 20, 10, 10);
+	//		break;
+	//	default:
+	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 120, 20, 10, 10);
+	//		break;
+	//	}
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 120, 20, 11, 11);
 
-		//Weapons UI
-		for (int i = 0; i < 4; i++) //limit to displaying 4
-		{
-			if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-				return;
+	//	//Weapons UI
+	//	for (int i = 0; i < 4; i++) //limit to displaying 4
+	//	{
+	//		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
+	//			return;
 
-			switch (Game::inv.getWeaponVector()[i]->getWeaponType())
-			{
-			case PISTOL:
-				RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
-				break;
-			case SILENCER:
-				RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
-				break;
-			default:
-				RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
-				break;
-			}
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-			if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
-			{
-				RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
-			}
-		}
-		break;
-	case ITEM_INVENTORY:
-		bManager.activateButton("UIInventoryBackground");
+	//		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
+	//		{
+	//		case PISTOL:
+	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
+	//			break;
+	//		case SILENCER:
+	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
+	//			break;
+	//		default:
+	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
+	//			break;
+	//		}
+	//		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
+	//		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
+	//		{
+	//			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
+	//		}
+	//	}
+	//	break;
+	//case ITEM_INVENTORY:
+	//	bManager.activateButton("UIInventoryBackground");
 
-		bManager.activateButton("UIItemsInventoryBlank");
-		bManager.activateButton("UIWeaponsInventory");
-		bManager.activateButton("UIGarageInventory");
-		break;
-	case WEAPON_INVENTORY:
-		bManager.activateButton("UIInventoryBackground");
+	//	bManager.activateButton("UIItemsInventoryBlank");
+	//	bManager.activateButton("UIWeaponsInventory");
+	//	bManager.activateButton("UIGarageInventory");
+	//	break;
+	//case WEAPON_INVENTORY:
+	//	bManager.activateButton("UIInventoryBackground");
 
-		bManager.activateButton("UIItemsInventory");
-		bManager.activateButton("UIWeaponsInventoryBlank");
-		bManager.activateButton("UIGarageInventory");
-		break;
-	case GARAGE_INVENTORY:
-		bManager.activateButton("UIInventoryBackground");
+	//	bManager.activateButton("UIItemsInventory");
+	//	bManager.activateButton("UIWeaponsInventoryBlank");
+	//	bManager.activateButton("UIGarageInventory");
+	//	break;
+	//case GARAGE_INVENTORY:
+	//	bManager.activateButton("UIInventoryBackground");
 
-		bManager.activateButton("UIItemsInventory");
-		bManager.activateButton("UIWeaponsInventory");
-		bManager.activateButton("UIGarageInventoryBlank");
-		break;
-	case MAIN_MENU:
-		bManager.activateButton("TitleBackground");
-		bManager.activateButton("MainMenuPlayButton");
-		break;
-	default:
-		break;
-	}
+	//	bManager.activateButton("UIItemsInventory");
+	//	bManager.activateButton("UIWeaponsInventory");
+	//	bManager.activateButton("UIGarageInventoryBlank");
+	//	break;
+	//case MAIN_MENU:
+	//	bManager.activateButton("TitleBackground");
+	//	bManager.activateButton("MainMenuPlayButton");
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)

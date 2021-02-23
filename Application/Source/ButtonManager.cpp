@@ -1,6 +1,9 @@
 #include "ButtonManager.h"
 #include "Application.h"
 
+ButtonManager::ButtonManager() : scene(nullptr) {
+}
+
 ButtonManager::ButtonManager(Scene* scene) : scene(scene) {
 }
 
