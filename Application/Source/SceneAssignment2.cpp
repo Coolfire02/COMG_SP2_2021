@@ -13,7 +13,7 @@
 #include "InteractionManager.h"
 #include "Debug.h"
 
-SceneAssignment2::SceneAssignment2() : 
+SceneAssignment2::SceneAssignment2() :
 	eManager(this), bManager(this)
 {
 	//Scene
@@ -40,9 +40,6 @@ SceneAssignment2::~SceneAssignment2()
 }
 
 void SceneAssignment2::Init() {
-	
-	InteractionManager iManager;
-	iManager.loadInteractions("TextData//test.txt");
 
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -371,13 +368,13 @@ void SceneAssignment2::Update(double dt)
 		Game::inv.addWeap(PISTOL);
 	if (Application::IsKeyPressed('F')) //pick up weapon
 		Game::inv.addWeap(SILENCER);
-	if (Application::IsKeyPressed('1')) //weapon slot 1
+	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
 		Game::inv.switchWeapon(0);
-	if (Application::IsKeyPressed('2')) //weapon slot 2
+	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
 		Game::inv.switchWeapon(1);
-	if (Application::IsKeyPressed('3')) //weapon slot 3
+	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
 		Game::inv.switchWeapon(2);
-	if (Application::IsKeyPressed('4')) //weapon slot 4
+	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
 		Game::inv.switchWeapon(3);
 	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
 	{
@@ -392,7 +389,7 @@ void SceneAssignment2::Update(double dt)
 		glDisable(GL_CULL_FACE);
 	}
 	else if (GetAsyncKeyState('5') & 0x8001) {
-		game.switchScene(S_2051);
+		Game::switchScene(S_2051);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('6') & 0x8001) {
@@ -401,11 +398,11 @@ void SceneAssignment2::Update(double dt)
 	}
 	else if (GetAsyncKeyState('7') & 0x8001) {
 		//game.switchScene(S_2021);
-		game.switchScene(S_GARAGE);
+		Game::switchScene(S_GARAGE);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	else if (GetAsyncKeyState('8') & 0x8001) {
-		game.switchScene(S_GUNSHOP);
+		Game::switchScene(S_GUNSHOP);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -417,6 +414,7 @@ void SceneAssignment2::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
 	ButtonUpdate(dt);
+	MissionUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -475,10 +473,14 @@ void SceneAssignment2::Update(double dt)
 		player->getCar()->Drive(dt);
 	}
 
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+}
 
-	//MISSION HANDLING
+void SceneAssignment2::MissionUpdate(double dt) {
+	//MISSION HANDLING EXAMPLES
 	for (auto& entry : Game::mManager.getCompletableMissions()) {
-		//DEBUG_MSG("Completable Mission EnumID: " << entry);
+		DEBUG_MSG("Completable Mission EnumID: " << entry);
 	}
 	if (Application::IsKeyPressed('V')) {
 		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
@@ -489,9 +491,6 @@ void SceneAssignment2::Update(double dt)
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
 		}
 	}
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(view, dt);
 }
 
 void SceneAssignment2::ButtonUpdate(double dt) {
@@ -646,12 +645,16 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 	bool foundInteractionZone = false;
 
-	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
-
 	TopDownMapUpdate(dt);
-
-	//Entity Collision Handling
+	
 	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::BULLET) {
+			((Bullet*)entry)->Move(dt);
+			if (((Bullet*)entry)->getTimer() > 5) {
+				entry->setDead(true);
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
@@ -693,7 +696,21 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		}
 	}
 
+	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
+
+	//Entity Collision Handling
 	for (auto& entry : collided) {
+		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
+			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
+
+				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+					entry->victim->setDead(true);
+				}
+				DEBUG_MSG("BULLET UFKC YOU");
+				entry->attacker->setDead(true);
+			}
+		}
+
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				// player->getEntityData()->Translate += entry->plane * 2;
@@ -738,7 +755,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 				ISound* crash = AudioHandler::getEngine()->play3D(
 					AudioHandler::getSoundSource(CAR_CRASH),
-					AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate), 
+					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate), 
 					LOOPED::NOLOOP);
 				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
 

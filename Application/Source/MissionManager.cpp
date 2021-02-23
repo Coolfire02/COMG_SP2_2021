@@ -157,7 +157,15 @@ MissionManager::~MissionManager() {
 	}
 }
 
-void MissionManager::addProgress(MISSIONTYPE type, float progress) {
+bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
+	std::vector<MISSIONTYPE> completable = getCompletableMissions();
+	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
+		missions[type]->addProgress(progress);
+		missionsUpdatedThisTick.push_back(missions[type]);
+	}
+}
+
+void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted()) {
 		missions[type]->addProgress(progress);
 		missionsUpdatedThisTick.push_back(missions[type]);
@@ -174,6 +182,15 @@ std::vector<Mission*> MissionManager::Update(double dt) {
 
 	missionsUpdatedThisTick.clear();
 	return missionsCompletedThisTick;
+}
+
+bool MissionManager::missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONTYPE> completable) {
+	for (auto& entry : completable) {
+		if (entry == type) {
+			return true;
+		}
+	}
+	return false;
 }
 
 std::vector<MISSIONTYPE> MissionManager::getCompletedMissions() {

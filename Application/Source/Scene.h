@@ -82,6 +82,7 @@ protected:
 
 		U_TOTAL,
 	};
+
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 
@@ -102,6 +103,7 @@ public:
 	virtual void Update(double dt) = 0;
 	virtual void CollisionHandler(double dt) = 0;
 	virtual void ButtonUpdate(double dt) = 0;
+	virtual void MissionUpdate(double dt) = 0;
 	virtual void Render() = 0;
 	virtual void Exit() = 0;
 

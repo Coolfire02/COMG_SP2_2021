@@ -113,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="Source\Mission.cpp" />
     <ClCompile Include="Source\MissionManager.cpp" />
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -241,6 +244,9 @@
     <ClInclude Include="Source\MissionManager.h" />
     <ClInclude Include="Source\Debug.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

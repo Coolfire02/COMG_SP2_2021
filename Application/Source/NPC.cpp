@@ -55,32 +55,34 @@ Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matr
 /******************************************************************************/
 void NPC::Render() {
 	this->scene->modelStack.PushMatrix();
-	this->loadOriginTRSIntoStacknHitBox();
-	if (this->isVisible()) this->scene->RenderMesh(associatedNPCMesh, this->scene->isLightEnabled());
+		this->loadOriginTRSIntoStacknHitBox();
+		if (this->isVisible()) this->scene->RenderMesh(associatedNPCMesh, this->scene->isLightEnabled());
 	this->scene->modelStack.PopMatrix();
 }
 
 /******************************************************************************/
 /*!
 \brief
-Jordan update this
+Calculate random angle where the NPC will face and walk towards using frame ticker
 */
 /******************************************************************************/
 void NPC::Walk(double dt)
 {
-	NPCtimer += 1;
+	NPCtimer++;
 
 	switch (NPCtimer % 300) //after 300frames (est 5secs)
 	{
 	case 0:
-		int randomDir = rand() % 360 + 1; //get random direction
+		if (!this->RB.hit) {
+			int randomDir = rand() % 360 + 1; //get random direction
 
-		this->getEntityData()->Rotation.Set(0, randomDir, 0); //set NPC rotation to the direction
-		this->RB.velocity.Set(0, 0, 1 * dt * 15); //set NPC velocity
+			this->getEntityData()->Rotation.Set(0, randomDir, 0); //set NPC rotation to the direction
+			this->RB.velocity.Set(0, 0, 1 * dt * 15); //set NPC velocity
 
-		Mtx44 rotation;
-		rotation.SetToRotation(randomDir, 0, 1, 0); //make rotation matrix
-		this->RB.velocity = rotation * this->RB.velocity; //set the velocity rotation to the direction the NPC is facing
+			Mtx44 rotation;
+			rotation.SetToRotation(randomDir, 0, 1, 0); //make rotation matrix
+			this->RB.velocity = rotation * this->RB.velocity; //set the velocity rotation to the direction the NPC is facing
+		}
 		break;
 	}
 }
