@@ -213,7 +213,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_COUNTER] = MeshBuilder::GenerateOBJMTL("counter", "OBJ//GunShop//Cash_Wrap.obj", "MTL//GunShop//Cash_Wrap.mtl");
 	meshList[UI_CROSSHAIR] = MeshBuilder::GenerateQuad("crosshair", Color(1, 1, 1));
 	meshList[UI_CROSSHAIR]->textureID = LoadTGA("Image//Crosshair.tga");
-	meshList[UI_TEXTBOX] = MeshBuilder::GenerateQuad("textbox", Color(1, 1, 1));
+	meshList[UI_TEXTBOX] = MeshBuilder::GenerateQuad("textbox", Color(0, 0, 0));
 	meshList[UI_TEXTBOX]->textureID = LoadTGA("Image//Textbox.tga");
 
 	//Materials
