@@ -40,7 +40,7 @@ public:
 	InteractionManager();
 	~InteractionManager();
 
-	InteractionQueue& getQueue();
+	InteractionQueue& getQueue();	
 	bool runCommand(Command cmd);
 	bool loadInteraction(std::string key);
 	bool initInteractions(const char* filePath);
