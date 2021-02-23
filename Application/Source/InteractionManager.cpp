@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "Debug.h"
+#include "Application.h"
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
@@ -44,6 +45,7 @@ bool InteractionManager::runCommand(Command cmd) {
 }
 
 bool InteractionManager::loadInteraction(std::string key) {
+	Application::setCursorEnabled(true);
 	try {
 		interactionQueue.pushInteraction(Interactions[key]);
 		return true;
@@ -165,6 +167,9 @@ void InteractionManager::EndInteraction()
 		interactionQueue.popInteraction();
 		interactionElapsed = 0;
 		currentInteractionType = INTERACTION_COUNT;
+		Application::setCursorEnabled(false);
+
+		Game::uiManager.setCurrentUI(UI_GENERAL);
 	}
 }
 

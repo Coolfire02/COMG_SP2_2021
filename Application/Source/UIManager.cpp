@@ -72,7 +72,7 @@ UIManager::UIManager()
 			enableUI();
 			break;
 		case UI_INTERACTION:
-			createNoTextButton(bManagers[i], "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
+			createButton(bManagers[i], "InteractionButton", 64, 36, 64, 36, GEO_QUAD, 3, 5, Color(0,1,0), "");
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test");
 			break;
 		}
@@ -98,6 +98,9 @@ void UIManager::Update(Scene* scene, double dt)
 					setCurrentUI(UI_GENERAL);
 				}
 			case UI_INTERACTION:
+				if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+					Game::iManager.nextInteraction();
+				}
 				break;
 			}
 		}
@@ -152,7 +155,7 @@ void UIManager::createNoTextButton(ButtonManager* bManager, std::string buttonNa
 void UIManager::createButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture, float offsetX, float offsetY, Color textColour, std::string textString)
 {
 	Button* namedButton;
-	namedButton = new Button(textString, originX, originY, quadSizeX, quadSizeY, quadTexture);
+	namedButton = new Button(buttonName, originX, originY, quadSizeX, quadSizeY, quadTexture);
 	namedButton->spawnTextObject("Text", textColour, CALIBRI, 1);
 	namedButton->getTextObject()->setTextString(textString);
 	namedButton->getTextObject()->setTextOffsetFromTopLeft(offsetX, offsetY);
