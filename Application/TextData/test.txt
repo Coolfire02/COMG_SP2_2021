@@ -7,7 +7,7 @@ postcmd /ur mom
 
 interaction ya
 
-msg allahu akbar
+msg ur mom
 precmd /yea 1
 precmd Scene2021;/yea 3
 postcmd /ur mom

@@ -26,6 +26,8 @@ public:
 	~InteractionQueue();
 
 	std::vector<Interaction*>& getQueue();
+	Interaction* Top();
+	int size();
 	void pushInteraction(Interaction* interaction);
 	void pushInteraction(std::vector<Command*> preInteractionCMD, std::string interactionText, std::vector<Command*> postInteractionCMD);
 	void popInteraction();

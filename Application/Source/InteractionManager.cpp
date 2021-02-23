@@ -43,6 +43,16 @@ bool InteractionManager::runCommand(Command cmd) {
 	return true;
 }
 
+bool InteractionManager::loadInteraction(std::string key) {
+	try {
+		interactionQueue.pushInteraction(Interactions[key]);
+		return true;
+	} catch (...) {
+		DEBUG_MSG("Interaction '" << key << "' not found");
+	}
+	return false;
+}
+
 void InteractionManager::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
@@ -51,7 +61,7 @@ void InteractionManager::split(std::string txt, char delim, std::vector<std::str
 	}
 }
 
-bool InteractionManager::loadInteractions(const char* filePath)
+bool InteractionManager::initInteractions(const char* filePath)
 {
 	std::ifstream fileStream(filePath, std::ios::binary);
 	if (!fileStream.is_open()) {
@@ -153,7 +163,7 @@ void InteractionManager::EndInteraction()
 		completedInteractionsCount[currentInteractionType]++;
 
 		// isInteracting = false;
-		for (auto& entry : interactionQueue.getQueue()[currentMessage]->postInteractionCMD) {
+		for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 			runCommand(*entry);
 		}
 		interactionQueue.popInteraction();
@@ -164,14 +174,13 @@ void InteractionManager::EndInteraction()
 
 void InteractionManager::nextInteraction()
 {
-	currentMessage += 1;
-	for (auto& entry : interactionQueue.getQueue()[currentMessage]->preInteractionCMD) {
+	for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
 		runCommand(*entry);
 	}
 }
 
 bool InteractionManager::isInteracting() {
-	return (!interactionQueue.getQueue().size() == 0);
+	return (!(interactionQueue.getQueue().size() == 0));
 }
 
 bool InteractionManager::passedInteractionCooldown()

@@ -23,15 +23,6 @@ SceneAssignment2::SceneAssignment2() :
 	fps = 0;
 	lightEnable = true;
 	hitboxEnable = false;
-	showNotifUntil = 0.0;
-
-	//Interaction
-	interactionElapsed = 0.0;
-	for (int i = 0; i < INTERACTION_COUNT; i++) {
-		this->completedInteractionsCount[i] = 0;
-	}
-	canInteractWithSomething = false;
-	isInteracting = false;
 }
 
 SceneAssignment2::~SceneAssignment2()
@@ -215,6 +206,12 @@ void SceneAssignment2::Init() {
 	bManager.addButton(playButton);
 	bManager.deactivateButton("MainMenuPlayButton");
 
+	Button* interactionButton;
+	interactionButton = new Button(this, "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
+	interactionButton->spawnTextObject("", Color(0, 1, 0), CALIBRI, 1.f);
+	bManager.addButton(interactionButton);
+	bManager.deactivateButton("InteractionButton");
+
 	/*Button* playHoverButton;
 	playHoverButton = new Button(this, "HoverPlayButton", 64, 36, 16, 12, UI_BLUE);
 	bManager.addButton(playHoverButton);
@@ -332,7 +329,7 @@ void SceneAssignment2::Update(double dt)
 	{
 		Game::inv.addItem(BURGER, 1);
 		Game::inv.addItem(EGGPLANT, 2);
-		
+
 		//inv.addWeap(PISTOL); //Error if you try to add weapons
 		Game::inv.addCar(SUV);
 	}
@@ -351,7 +348,7 @@ void SceneAssignment2::Update(double dt)
 			bManager.deactivateButton("UIWeaponsInventory");
 			bManager.deactivateButton("UIGarageInventory");
 		}
-			
+
 		/*inv.toggleItem();
 		if (inv.getCurrentCarType() == SEDAN)
 			inv.switchCar(SUV);
@@ -471,7 +468,19 @@ void SceneAssignment2::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 	}
-
+	//MISSION HANDLING
+	for (auto& entry : Game::mManager.getCompletableMissions()) {
+		//DEBUG_MSG("Completable Mission EnumID: " << entry);
+	}
+	if (Application::IsKeyPressed('V')) {
+		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
+	for (auto& entry : justCompletedMissions) {
+		if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+			//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+		}
+	}
 	Vector3 view = (camera.target - camera.position).Normalized();
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
@@ -500,6 +509,16 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 
 	//Button Interaction Handling
 	bManager.Update(dt);
+
+	if (Game::iManager.getQueue().size() != 0) {
+		bManager.activateButton("InteractionButton");
+		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
+	}
+	else {
+		bManager.deactivateButton("InteractionButton");
+		Application::setCursorEnabled(false);
+	}
+
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
 			DEBUG_MSG("Clicked");
@@ -569,8 +588,20 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 				bManager.deactivateButton("UIGarageInventory");
 			}
 		}
+		if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+			Game::iManager.EndInteraction();
+			if (Game::iManager.getQueue().size() != 0)
+				Game::iManager.nextInteraction();
+			DEBUG_MSG("next Interaction");
+		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
+}
+
+void SceneAssignment2::InteractionUpdate(double dt) {
+	if (Game::iManager.isInteracting()) {
+
+	}
 }
 
 void SceneAssignment2::TopDownMapUpdate(double dt)
@@ -643,7 +674,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 	bool foundInteractionZone = false;
 
 	TopDownMapUpdate(dt);
-	
+
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::BULLET) {
 			((Bullet*)entry)->Move(dt);
@@ -686,9 +717,18 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				}
 			}
 		}
-		
+
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
+					Application::setCursorEnabled(true);
+					Game::iManager.loadInteraction("asdsa");
+					Game::iManager.loadInteraction("ya");
+				}
+			}
+
 			((NPC*)entry)->Walk(dt);
 		}
 	}
@@ -729,8 +769,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
-					if (!canInteractWithSomething)
-						canInteractWithSomething = true;
+					//if (!canInteractWithSomething)
+					//	canInteractWithSomething = true;
 					//else if (passedInteractCooldown()) {
 					//	std::string name = entry->victim->getName();
 					//	if (ePressed) {
@@ -752,7 +792,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 				ISound* crash = AudioHandler::getEngine()->play3D(
 					AudioHandler::getSoundSource(CAR_CRASH),
-					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate), 
+					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate),
 					LOOPED::NOLOOP);
 				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
 
@@ -802,9 +842,9 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		}
 	}
 
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
+	//if (foundInteractionZone == false) {
+	//	canInteractWithSomething = false;
+	//}
 	eManager.collisionUpdate(dt);
 
 	if (player->usingNewData()) { //Aka movement not cancelled
@@ -852,7 +892,7 @@ void SceneAssignment2::Render()
 
 	}
 
-	
+
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
@@ -865,12 +905,12 @@ void SceneAssignment2::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();	
+	modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);			
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDir_cameraSpace.x);
 
 	}
 	else if (light[0].type == Light::LIGHT_SPOT) {
@@ -1010,6 +1050,7 @@ void SceneAssignment2::Render()
 
 
 	RenderUI();
+	RenderInteraction();
 
 	for (auto& button : bManager.getButtons()) {
 		button->Render();
@@ -1019,7 +1060,7 @@ void SceneAssignment2::Render()
 
 	//Coins UI
 	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-	
+
 	/*ss.str("");
 	ss.clear();
 	std::string bal = std::to_string(coinBalance);
@@ -1029,19 +1070,19 @@ void SceneAssignment2::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	
+
 	//Interaction MSG UI
-	if (canInteractWithSomething && !isInteracting) {
-		ss.str("");
-		ss.clear();
-		ss << "Press 'E' to Interact";
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
-	}
+	//if (canInteractWithSomething && !isInteracting) {
+	//	ss.str("");
+	//	ss.clear();
+	//	ss << "Press 'E' to Interact";
+	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
+	//}
 
 	//UI Testing Health
 	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
 
-	
+
 
 	////GUI
 	//ss.str("");
@@ -1057,9 +1098,9 @@ void SceneAssignment2::Render()
 	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
 	//}
 
-	
 
-	
+
+
 	//FPS UI
 	ss.str("");
 	ss.clear();
@@ -1123,6 +1164,9 @@ void SceneAssignment2::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
+void SceneAssignment2::RenderInteraction() {
+}
+
 //bool SceneAssignment2::passedInteractCooldown() {
 //	const float INTERACTION_COOLDOWN = 0.5f;
 //	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
@@ -1176,7 +1220,7 @@ void SceneAssignment2::RenderSkybox() {
 //				inter = new Interaction();
 //				inter->interactionText = "Hey There!";
 //				queuedMessages.push_back(inter);
-//				
+//
 //				inter = new Interaction();
 //				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
 //				queuedMessages.push_back(inter);
@@ -1211,7 +1255,7 @@ void SceneAssignment2::RenderSkybox() {
 //
 //			break;
 //		}
-//		
+//
 //		default:
 //			return false;
 //		}
@@ -1361,7 +1405,7 @@ void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType
 
 	int diffZ = v3Tmax.z - v3Tmin.z; //get the diff of min and max X
 	int randomZ = rand() % diffZ + v3Tmin.z; //get random X position from minX to maxX range
-	
+
 	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
 	Entity* testNPC = new NPC(this, geoType, "test");
