@@ -699,6 +699,17 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 	//Entity Collision Handling
 	for (auto& entry : collided) {
+		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
+			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
+
+				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
+					entry->victim->setDead(true);
+				}
+				DEBUG_MSG("BULLET UFKC YOU");
+				entry->attacker->setDead(true);
+			}
+		}
+
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 				// player->getEntityData()->Translate += entry->plane * 2;
