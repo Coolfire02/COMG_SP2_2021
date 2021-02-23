@@ -4,8 +4,8 @@
 UIManager::UIManager()
 {
 	////bManager = bN;
+	currentMenu = UI_MAIN_MENU;
 	uiActive = true;
-	setCurrentUI(UI_MAIN_MENU);
 
 	for (int i = 0; i < UI_MENU_COUNT; i++)
 	{
@@ -72,11 +72,12 @@ UIManager::UIManager()
 			enableUI();
 			break;
 		case UI_INTERACTION:
-			createButton(bManagers[i], "InteractionButton", 64, 36, 64, 36, GEO_QUAD, 3, 5, Color(0,1,0), "");
+			createButton(bManagers[i], "InteractionButton", 64, 36, 128, 72, UI_TEXTBOX, 3, 5, Color(0,1,0), "");
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test");
 			break;
 		}
 	}
+	setCurrentUI(UI_MAIN_MENU);
 }
 
 UIManager::~UIManager()
@@ -92,11 +93,14 @@ void UIManager::Update(Scene* scene, double dt)
 			switch (currentMenu) {
 			case UI_GENERAL:
 				//switchUI(UI_MENUS newMenu)
+				enableUI();
+				break;
 			case UI_MAIN_MENU:
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{ 
 					setCurrentUI(UI_GENERAL);
 				}
+				break;
 			case UI_INTERACTION:
 				if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
 					Game::iManager.nextInteraction();
@@ -165,11 +169,24 @@ void UIManager::createButton(ButtonManager* bManager, std::string buttonName, fl
 
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
+	if (!bManagers[currentMenu]->getButtonsInteracted().empty()) {
+		for (auto& entry : bManagers[currentMenu]->getButtonsInteracted()) {
+			entry->justClicked = false;
+			entry->justHovered = false;
+		}
+	}
+
 	Application::setCursorEnabled(false);
 	this->currentMenu = newUI;
 	switch (newUI)
 	{
+	case UI_GENERAL:
+		this->enableUI();
+		break;
 	case UI_MAIN_MENU:
+		Application::setCursorEnabled(true);
+		break;
+	case UI_INTERACTION:
 		Application::setCursorEnabled(true);
 		break;
 	}

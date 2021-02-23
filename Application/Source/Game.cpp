@@ -26,7 +26,25 @@ void Game::Init()
 void Game::Update(double dt)
 {
 
-	InteractionUpdate(dt);
+	if (GetAsyncKeyState('E') & 0x0001) //pick up weapon
+		Game::inv.addWeap(PISTOL);
+	if (GetAsyncKeyState('F') & 0x0001) //pick up weapon
+		Game::inv.addWeap(SILENCER);
+	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
+		Game::inv.switchWeapon(0);
+	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
+		Game::inv.switchWeapon(1);
+	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
+		Game::inv.switchWeapon(2);
+	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
+		Game::inv.switchWeapon(3);
+	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
+	{
+		toggleTimer = 0;
+		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
+	}
+
+	InteractionUpdate(dt);		
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
 	if (uiManager.getCurrentMenu() != UI_MAIN_MENU)
@@ -38,7 +56,7 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
-	if (Game::iManager.getQueue().size() != 0) {
+	if (iManager.isInteracting()) {
 		uiManager.setCurrentUI(UI_INTERACTION);
 
 		uiManager.getCurrentBM()->activateButton("InteractionButton");

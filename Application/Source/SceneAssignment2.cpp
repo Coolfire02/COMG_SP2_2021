@@ -622,13 +622,12 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		{
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (ePressed) {
-					Application::setCursorEnabled(true);
 					Game::iManager.loadInteraction("asdsa");
 					Game::iManager.loadInteraction("ya");
 				}
 			}
 
-			((NPC*)entry)->Walk(dt);
+			//((NPC*)entry)->Walk(dt);
 		}
 	}
 

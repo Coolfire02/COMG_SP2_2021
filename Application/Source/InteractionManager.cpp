@@ -7,7 +7,7 @@
 #include "Debug.h"
 #include "Application.h"
 
-InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
+InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
 		this->completedInteractionsCount[i] = 0;
 	}
@@ -156,27 +156,34 @@ bool InteractionManager::initInteractions(const char* filePath)
 
 void InteractionManager::EndInteraction()
 {
-	if (isInteracting()) {
+	completedInteractionsCount[currentInteractionType]++;
 
-		completedInteractionsCount[currentInteractionType]++;
-
-		// isInteracting = false;
-		for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
-			runCommand(*entry);
-		}
-		interactionQueue.popInteraction();
-		interactionElapsed = 0;
-		currentInteractionType = INTERACTION_COUNT;
-		Application::setCursorEnabled(false);
-
-		Game::uiManager.setCurrentUI(UI_GENERAL);
-	}
+	// isInteracting = false;
+	//for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
+	//	runCommand(*entry);
+	//}
+	interactionElapsed = 0;
+	currentInteractionType = INTERACTION_COUNT;
+	Game::uiManager.setCurrentUI(UI_GENERAL);
+	Application::setCursorEnabled(false);
 }
 
 void InteractionManager::nextInteraction()
 {
-	for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+
+	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 		runCommand(*entry);
+	}
+
+	interactionQueue.popInteraction();
+
+	if (isInteracting()) {
+		for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+			runCommand(*entry);
+		}
+	}
+	else {
+		EndInteraction();
 	}
 }
 
