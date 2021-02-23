@@ -138,23 +138,15 @@ void Scene2021::Init()
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0.25, 20);
-	car->getEntityData()->SetRotate(0, 0, 0);
+	Entity* car = new Car(RACER, this, "car");
+	car->getEntityData()->SetTransform(-197, 0.25, -131);
+	car->getEntityData()->SetRotate(0, -90, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
 
-	Entity* car2 = new Car(SEDAN_SPORTS, this, "car");
-	car2->getEntityData()->SetTransform(5, 0.25, 20);
-	car2->getEntityData()->SetRotate(0, 0, 0);
-	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car2);
-
-	Entity* car3 = new Car(RACER, this, "car");
-	car3->getEntityData()->SetTransform(-5, 0.25, 20);
-	car3->getEntityData()->SetRotate(0, 0, 0);
-	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car3);
+	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 3, 5)), "fountainHitBox");
+	fountainHitBox->getEntityData()->Translate.Set(0, 0, 0);
+	eManager.spawnWorldEntity(fountainHitBox);
 
 	SpawnBuildings();
 	SpawnStreetLamps();
@@ -502,7 +494,8 @@ void Scene2021::CollisionHandler(double dt) {
 			}*/
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("interaction") != std::string::npos) {
+				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
+					std::cout << "TOUCHED" << std::endl;
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)
 						canInteractWithSomething = true;
@@ -651,7 +644,6 @@ void Scene2021::TopDownMapUpdate(double dt)
 
 void Scene2021::Render()
 {
-
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
 	glEnableVertexAttribArray(1); // 2nd attribute buffer: color
 
@@ -1281,7 +1273,7 @@ void Scene2021::SpawnBuildings()
 		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
 	}
-
+	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 }
 
 void Scene2021::SpawnStreetLamps()
@@ -1294,6 +1286,11 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(270, 0, 200), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(218, 0, 140), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(218, 0, 10), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(270, 0, -80), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(218, 0, -176), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 }
 
 void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)

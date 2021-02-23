@@ -49,6 +49,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_BUILDING_5] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building6.obj", "MTL//Buildings//6.mtl");
 	meshList[GEO_BUILDING_6] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building7.obj", "MTL//Buildings//7.mtl");
 	meshList[GEO_BUILDING_7] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building9.obj", "MTL//Buildings//9.mtl");
+	meshList[GEO_BOSS_BUILDING] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building10.obj", "MTL//Buildings//10.mtl");
 	meshList[GEO_NPC] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//NPC.obj", "MTL//NPC.mtl");
 	
 	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
@@ -58,6 +59,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_BUILDING_5]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_6]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_7]->textureID = LoadTGA("Image//Building1Texture.tga");
+	meshList[GEO_BOSS_BUILDING]->textureID = LoadTGA("Image//Building2TextureRed.tga");
 
 	//Roads
 	meshList[GEO_ROAD_CROSSING] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_crossing.obj", "MTL//Roads//road_crossing.mtl");
