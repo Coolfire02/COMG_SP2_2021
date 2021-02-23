@@ -754,7 +754,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 				ISound* crash = AudioHandler::getEngine()->play3D(
 					AudioHandler::getSoundSource(CAR_CRASH),
-					AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate), 
+					AudioHandler::to_vec3df(entry->attacker->getEntityData()->Translate), 
 					LOOPED::NOLOOP);
 				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
 
