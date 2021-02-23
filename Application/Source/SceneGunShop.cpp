@@ -260,7 +260,6 @@ void SceneGunShop::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	ButtonUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -393,30 +392,6 @@ void SceneGunShop::InitLights() {
 
 	//Week 7 - Code to change number of lights
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
-}
-
-void SceneGunShop::ButtonUpdate(double dt) {
-	//bool ePressed = Application::IsKeyPressed('E');
-	//bool pPressed = Application::IsKeyPressed('P');
-	//bool tPressed = Application::IsKeyPressed('T');
-
-	//if (!ePressed)
-	//	eHeld = false;
-
-	////Button Interaction Handling
-	//bManager.Update(dt);
-	//for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-	//		std::cout << "Clicked" << std::endl;
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-	//		std::cout << "IS Clicking" << std::endl;
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-	//		std::cout << "Hovered" << std::endl;
-	//	}
-	//}
-	//if (pPressed) Application::setCursorEnabled(true);
 }
 
 void SceneGunShop::TopDownMapUpdate(double dt)

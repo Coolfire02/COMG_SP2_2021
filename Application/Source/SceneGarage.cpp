@@ -277,7 +277,6 @@ void SceneGarage::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	ButtonUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -425,24 +424,6 @@ void SceneGarage::MissionCompleteListener(double dt) {
 	for (auto& entry : justCompletedMissions) {
 		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
 	}
-}
-
-void SceneGarage::ButtonUpdate(double dt) {
-	//bool ePressed = Application::IsKeyPressed('E');
-	//bool pPressed = Application::IsKeyPressed('P');
-	//bool tPressed = Application::IsKeyPressed('T');
-
-	//if (!ePressed)
-	//	eHeld = false;
-
-	////Button Interaction Handling
-	//bManager.Update(dt);
-	//for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-	//		std::cout << "Clicked" << std::endl;
-	//	}
-	//}
-	//if (pPressed) Application::setCursorEnabled(true);
 }
 
 

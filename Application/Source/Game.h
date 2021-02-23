@@ -39,6 +39,7 @@ public:
 
 	static void Init();
 	static void Update(double dt);
+	static void InteractionUpdate(double dt);
 	static void ButtonUpdate(double dt);
 	static void RenderUI();
 	static void Render();

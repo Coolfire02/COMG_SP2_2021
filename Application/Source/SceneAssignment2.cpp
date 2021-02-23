@@ -310,80 +310,81 @@ void SceneAssignment2::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
-	ButtonUpdate(dt);
-	CollisionHandler(dt);
+	if (!Game::iManager.isInteracting()) {
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
+		CollisionHandler(dt);
 
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
 
-	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
-	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
-
-		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
-				playerSpeed = 25.f;
+		//Requires Implementation of Velocity by Joash
+		float playerSpeed = 15.0;
+		if (!((Player*)player)->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+				camera.position.y += CameraBobber;
 			}
 
-			pLoc += view * (float)dt * playerSpeed;
+			if (Application::IsKeyPressed('W')) {
 
+				if (Application::IsKeyPressed(VK_LSHIFT)) {
+					playerSpeed = 25.f;
+				}
+
+				pLoc += view * (float)dt * playerSpeed;
+
+			}
+			if (Application::IsKeyPressed('A')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc -= right * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('S')) {
+				pLoc -= view * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('D')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc += right * (float)dt * playerSpeed;
+			}
+			// SCENE WORLD BOUNDARIES
+			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+			player->getEntityData()->Translate.x = pLoc.x;
+			// Skip y since we want level ground
+			player->getEntityData()->Translate.z = pLoc.z;
+
+			bobTime += dt;
+			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
+
+		if (player->isDriving()) {
+			player->getCar()->Drive(dt);
 		}
-
-		if (Application::IsKeyPressed('S')) {
-			pLoc -= view * (float)dt * playerSpeed;
+		//MISSION HANDLING
+		for (auto& entry : Game::mManager.getCompletableMissions()) {
+			//DEBUG_MSG("Completable Mission EnumID: " << entry);
 		}
-
-		if (Application::IsKeyPressed('D')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
+		if (Application::IsKeyPressed('V')) {
+			Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
 		}
-		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
-	}
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-	}
-	//MISSION HANDLING
-	for (auto& entry : Game::mManager.getCompletableMissions()) {
-		//DEBUG_MSG("Completable Mission EnumID: " << entry);
-	}
-	if (Application::IsKeyPressed('V')) {
-		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-	}
-	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
-	for (auto& entry : justCompletedMissions) {
-		if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
-			//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+		std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+		for (auto& entry : justCompletedMissions) {
+			if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+				//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			}
 		}
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void SceneAssignment2::InitLights()
@@ -472,105 +473,6 @@ void SceneAssignment2::MissionCompleteListener(double dt) {
 	for (auto& entry : justCompletedMissions) {
 		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
 	}
-}
-
-void SceneAssignment2::ButtonUpdate(double dt) {
-	//bool ePressed = Application::IsKeyPressed('E');
-	//bool pPressed = Application::IsKeyPressed('P');
-	//bool tPressed = Application::IsKeyPressed('T');
-
-	//if (!ePressed)
-	//	eHeld = false;
-
-	////Button Interaction Handling
-	//// bManager.Update(dt);
-
-	//if (Game::iManager.getQueue().size() != 0) {
-	//	bManager.activateButton("InteractionButton");
-	//	bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
-	//}
-	//else {
-	//	bManager.deactivateButton("InteractionButton");
-	//	Application::setCursorEnabled(false);
-	//}
-
-	//for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-	//		DEBUG_MSG("Clicked");
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
-	//		DEBUG_MSG("Is Clicking");
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
-	//		DEBUG_MSG("Hovered");
-	//	}
-	//	if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
-	//		uiManager.setCurrentMenu(GENERAL_UI);
-	//		bManager.deactivateButton("TitleBackground");
-	//		bManager.deactivateButton("MainMenuPlayButton");
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) { //Click item inventory
-	//		if (uiManager.getCurrentMenu() == WEAPON_INVENTORY)
-	//		{
-	//			uiManager.setCurrentMenu(ITEM_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventory");
-	//			bManager.deactivateButton("UIWeaponsInventoryBlank");
-	//			bManager.deactivateButton("UIGarageInventory");
-	//		}
-	//		else
-	//		{
-	//			uiManager.setCurrentMenu(ITEM_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventory");
-	//			bManager.deactivateButton("UIWeaponsInventory");
-	//			bManager.deactivateButton("UIGarageInventoryBlank");
-	//		}
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) { //Click weapon inventory
-	//		if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-	//		{
-	//			uiManager.setCurrentMenu(WEAPON_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventoryBlank");
-	//			bManager.deactivateButton("UIWeaponsInventory");
-	//			bManager.deactivateButton("UIGarageInventory");
-	//		}
-	//		else
-	//		{
-	//			uiManager.setCurrentMenu(WEAPON_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventory");
-	//			bManager.deactivateButton("UIWeaponsInventory");
-	//			bManager.deactivateButton("UIGarageInventoryBlank");
-	//		}
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) { //Click weapon inventory
-	//		if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
-	//		{
-	//			uiManager.setCurrentMenu(GARAGE_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventoryBlank");
-	//			bManager.deactivateButton("UIWeaponsInventory");
-	//			bManager.deactivateButton("UIGarageInventory");
-	//		}
-	//		else
-	//		{
-	//			uiManager.setCurrentMenu(GARAGE_INVENTORY);
-	//			bManager.deactivateButton("UIInventoryBackground");
-	//			bManager.deactivateButton("UIItemsInventory");
-	//			bManager.deactivateButton("UIWeaponsInventoryBlank");
-	//			bManager.deactivateButton("UIGarageInventory");
-	//		}
-	//	}
-	//	if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
-	//		Game::iManager.EndInteraction();
-	//		if (Game::iManager.getQueue().size() != 0)
-	//			Game::iManager.nextInteraction();
-	//		DEBUG_MSG("next Interaction");
-	//	}
-	//}
-	//if (pPressed) Application::setCursorEnabled(true);
 }
 
 void SceneAssignment2::TopDownMapUpdate(double dt)

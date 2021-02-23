@@ -328,7 +328,7 @@ void Scene2021::Init()
 void Scene2021::Update(double dt)
 {
 	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -389,7 +389,6 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	ButtonUpdate(dt);
 	CollisionHandler(dt);
 	MissionCompleteListener(dt);
 
@@ -467,7 +466,7 @@ void Scene2021::InitLights() {
 
 	light[1].type = Light::LIGHT_POINT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(1, 0.5, 0);
+	light[1].color.set(1, 1, 1);
 	light[1].power = 1.4f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
@@ -523,24 +522,6 @@ void Scene2021::InitLights() {
 
 	//Week 7 - Code to change number of lights
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
-}
-
-void Scene2021::ButtonUpdate(double dt) {
-	//bool ePressed = Application::IsKeyPressed('E');
-	//bool pPressed = Application::IsKeyPressed('P');
-	//bool tPressed = Application::IsKeyPressed('T');
-
-	//if (!ePressed)
-	//	eHeld = false;
-
-	////Button Interaction Handling
-	//bManager.Update(dt);
-	//for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-	//		std::cout << "Clicked" << std::endl;
-	//	}
-	//}
-	//if (pPressed) Application::setCursorEnabled(true);
 }
 
 

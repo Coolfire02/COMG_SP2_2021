@@ -44,18 +44,20 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 
 bool shoot = false;
 void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vector3 view, double dt) {
-	if (Application::IsMousePressed(0) && !shoot) {
-		//Vector3 view = (cam->target - cam->position).Normalized();
-		Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
-		bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
-		bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
-		// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
-		eManager->spawnMovingEntity(bullet);
-		shoot = true;
-		DEBUG_MSG("shot");
-		DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+	if (this != nullptr) {
+		if (Application::IsMousePressed(0) && !shoot) {
+			//Vector3 view = (cam->target - cam->position).Normalized();
+			Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
+			bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
+			bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
+			// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
+			eManager->spawnMovingEntity(bullet);
+			shoot = true;
+			DEBUG_MSG("shot");
+			DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+		}
+		else if (!Application::IsMousePressed(0)) shoot = false;
 	}
-	else if (!Application::IsMousePressed(0)) shoot = false;
 }
 
 void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weapon with new weaponType, damage and magSize

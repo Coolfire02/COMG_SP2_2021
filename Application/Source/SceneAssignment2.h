@@ -106,7 +106,6 @@ public:
 	virtual void Update(double dt);
 	virtual void InitLights();
 	virtual void CollisionHandler(double dt);
-	virtual void ButtonUpdate(double dt);
 	virtual void MissionCompleteListener(double dt);
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();

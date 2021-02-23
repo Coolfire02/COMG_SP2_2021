@@ -104,7 +104,7 @@ void Game::Init()
 void Game::Update(double dt)
 {
 	bManager.setScene(SceneList[activeScene]);
-	// update the buttons' scenes
+	iManager.Update(dt);
 	mManager.Update(dt);
 	bManager.Update(dt);
 
@@ -157,6 +157,7 @@ void Game::Update(double dt)
 			inv.switchCar(SEDAN);*/
 	}
 
+	InteractionUpdate(dt);
 	ButtonUpdate(dt);
 	SceneList[activeScene]->elapser(dt);
 	SceneList[activeScene]->Update(dt);
@@ -169,15 +170,6 @@ void Game::ButtonUpdate(double dt) {
 
 	//Button Interaction Handling
 	// bManager.Update(dt);
-
-	if (Game::iManager.getQueue().size() != 0) {
-		bManager.activateButton("InteractionButton");
-		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
-	}
-	else {
-		bManager.deactivateButton("InteractionButton");
-		Application::setCursorEnabled(false);
-	}
 
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
@@ -256,6 +248,18 @@ void Game::ButtonUpdate(double dt) {
 		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
+}
+
+void Game::InteractionUpdate(double dt)
+{
+	if (Game::iManager.getQueue().size() != 0) {
+		bManager.activateButton("InteractionButton");
+		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
+	}
+	else {
+		bManager.deactivateButton("InteractionButton");
+		Application::setCursorEnabled(false);
+	}
 }
 
 void Game::Render()
