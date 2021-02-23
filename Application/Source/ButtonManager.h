@@ -27,6 +27,7 @@ class ButtonManager
 	std::vector<ButtonCollide*> buttonsInteractedThisTick;
 
 public:
+	ButtonManager();
 	ButtonManager(Scene*);
 	~ButtonManager();
 

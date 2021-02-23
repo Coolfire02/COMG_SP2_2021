@@ -14,8 +14,7 @@
 #include "Debug.h"
 
 Scene2021::Scene2021() :
-	eManager(this),
-	bManager(this)
+	eManager(this)
 {
 	//Scene
 	sceneName = "MainScene";
@@ -444,24 +443,26 @@ void Scene2021::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 	}
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void Scene2021::ButtonUpdate(double dt) {
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
+	//bool ePressed = Application::IsKeyPressed('E');
+	//bool pPressed = Application::IsKeyPressed('P');
+	//bool tPressed = Application::IsKeyPressed('T');
 
-	if (!ePressed)
-		eHeld = false;
+	//if (!ePressed)
+	//	eHeld = false;
 
-	//Button Interaction Handling
-	bManager.Update(dt);
-	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
-		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			std::cout << "Clicked" << std::endl;
-		}
-	}
-	if (pPressed) Application::setCursorEnabled(true);
+	////Button Interaction Handling
+	//bManager.Update(dt);
+	//for (auto& buttonCollide : bManager.getButtonsInteracted()) {
+	//	if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
+	//		std::cout << "Clicked" << std::endl;
+	//	}
+	//}
+	//if (pPressed) Application::setCursorEnabled(true);
 }
 
 
@@ -476,6 +477,13 @@ void Scene2021::CollisionHandler(double dt) {
 
 	//Entity Collision Handling
 	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::BULLET) {
+			((Bullet*)entry)->Move(dt);
+			if (((Bullet*)entry)->getTimer() > 5) {
+				entry->setDead(true);
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
@@ -821,6 +829,24 @@ void Scene2021::Render()
 			modelStack.PopMatrix();
 			delete mesh;
 		}
+	}
+
+	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Vector3 right = view.Cross(camera.up);
+		right.Normalize();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
+		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
+		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Rotate(185, 0, 1, 0);
+		modelStack.Scale(0.8, 0.8, 0.8);
+		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
+		modelStack.PopMatrix();
+
+		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
 
 	std::ostringstream ss;

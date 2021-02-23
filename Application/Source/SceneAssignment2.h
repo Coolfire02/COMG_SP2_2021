@@ -42,15 +42,6 @@ class SceneAssignment2 : public Scene
 	};
 
 private:
-	Camera camera;
-	Camera camera2;
-
-	EntityManager eManager;
-	ButtonManager bManager;
-	UIManager uiManager;
-
-	//Game Variables
-	Player* player;
 
 	//Notification Channel
 	//std::string notificationMessage; //Appears on the top of the screen
@@ -95,6 +86,14 @@ private:
 public:
 	SceneAssignment2();
 	~SceneAssignment2();
+
+	Camera camera;
+	Camera camera2;
+
+	EntityManager eManager;
+
+	//Game Variables
+	Player* player;
 
 	//Notifications
 	//void sendNotification(std::string msg, double duration);
