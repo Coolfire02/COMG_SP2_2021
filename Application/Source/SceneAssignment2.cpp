@@ -23,15 +23,6 @@ SceneAssignment2::SceneAssignment2() :
 	fps = 0;
 	lightEnable = true;
 	hitboxEnable = false;
-	showNotifUntil = 0.0;
-
-	//Interaction
-	interactionElapsed = 0.0;
-	for (int i = 0; i < INTERACTION_COUNT; i++) {
-		this->completedInteractionsCount[i] = 0;
-	}
-	canInteractWithSomething = false;
-	isInteracting = false;
 }
 
 SceneAssignment2::~SceneAssignment2()
@@ -214,6 +205,12 @@ void SceneAssignment2::Init() {
 	playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
 	bManager.addButton(playButton);
 	bManager.deactivateButton("MainMenuPlayButton");
+
+	Button* interactionButton;
+	interactionButton = new Button(this, "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
+	interactionButton->spawnTextObject("", Color(0, 1, 0), CALIBRI, 1.f);
+	bManager.addButton(interactionButton);
+	bManager.deactivateButton("InteractionButton");
 
 	/*Button* playHoverButton;
 	playHoverButton = new Button(this, "HoverPlayButton", 64, 36, 16, 12, UI_BLUE);
@@ -474,7 +471,7 @@ void SceneAssignment2::Update(double dt)
 
 	//MISSION HANDLING
 	for (auto& entry : Game::mManager.getCompletableMissions()) {
-		DEBUG_MSG("Completable Mission EnumID: " << entry);
+		//DEBUG_MSG("Completable Mission EnumID: " << entry);
 	}
 	if (Application::IsKeyPressed('V')) {
 		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
@@ -482,7 +479,7 @@ void SceneAssignment2::Update(double dt)
 	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
 	for (auto& entry : justCompletedMissions) {
 		if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
-			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
 		}
 	}
 
@@ -502,6 +499,16 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 
 	//Button Interaction Handling
 	bManager.Update(dt);
+
+	if (Game::iManager.getQueue().size() != 0) {
+		bManager.activateButton("InteractionButton");
+		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
+	}
+	else {
+		bManager.deactivateButton("InteractionButton");
+		Application::setCursorEnabled(false);
+	}
+
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
 			DEBUG_MSG("Clicked");
@@ -571,8 +578,20 @@ void SceneAssignment2::ButtonUpdate(double dt) {
 				bManager.deactivateButton("UIGarageInventory");
 			}
 		}
+		if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+			Game::iManager.EndInteraction();
+			if (Game::iManager.getQueue().size() != 0)
+				Game::iManager.nextInteraction();
+			DEBUG_MSG("next Interaction");
+		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
+}
+
+void SceneAssignment2::InteractionUpdate(double dt) {
+	if (Game::iManager.isInteracting()) {
+
+	}
 }
 
 void SceneAssignment2::TopDownMapUpdate(double dt)
@@ -691,6 +710,15 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
+					Application::setCursorEnabled(true);
+					Game::iManager.loadInteraction("asdsa");
+					Game::iManager.loadInteraction("ya");
+				}
+			}
+
 			((NPC*)entry)->Walk(dt);
 		}
 	}
@@ -731,8 +759,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
-					if (!canInteractWithSomething)
-						canInteractWithSomething = true;
+					//if (!canInteractWithSomething)
+					//	canInteractWithSomething = true;
 					//else if (passedInteractCooldown()) {
 					//	std::string name = entry->victim->getName();
 					//	if (ePressed) {
@@ -804,9 +832,9 @@ void SceneAssignment2::CollisionHandler(double dt) {
 		}
 	}
 
-	if (foundInteractionZone == false) {
-		canInteractWithSomething = false;
-	}
+	//if (foundInteractionZone == false) {
+	//	canInteractWithSomething = false;
+	//}
 	eManager.collisionUpdate(dt);
 
 	if (player->usingNewData()) { //Aka movement not cancelled
@@ -1012,6 +1040,7 @@ void SceneAssignment2::Render()
 
 
 	RenderUI();
+	RenderInteraction();
 
 	for (auto& button : bManager.getButtons()) {
 		button->Render();
@@ -1033,12 +1062,12 @@ void SceneAssignment2::Render()
 
 	
 	//Interaction MSG UI
-	if (canInteractWithSomething && !isInteracting) {
-		ss.str("");
-		ss.clear();
-		ss << "Press 'E' to Interact";
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
-	}
+	//if (canInteractWithSomething && !isInteracting) {
+	//	ss.str("");
+	//	ss.clear();
+	//	ss << "Press 'E' to Interact";
+	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
+	//}
 
 	//UI Testing Health
 	//RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 40, 5, 40, 5);
@@ -1123,6 +1152,9 @@ void SceneAssignment2::RenderSkybox() {
 		modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
+}
+
+void SceneAssignment2::RenderInteraction() {
 }
 
 //bool SceneAssignment2::passedInteractCooldown() {

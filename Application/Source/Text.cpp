@@ -133,7 +133,7 @@ void Text::Render() {
         ss.str("");
         ss.clear();
         ss << entry;
-        this->scene->RenderTextOnScreen(MeshHandler::getMesh(this->textFont.geoType), ss.str(), color, size, startX, startY - this->textFont.verticalOffset * size * i);
+        this->scene->RenderTextOnScreen(MeshHandler::getMesh(this->textFont.geoType), ss.str(), color, size, startX, startY - this->textFont.verticalOffset * size * i, textFont.textWidth, 256);
         i++;
     }
 

@@ -195,6 +195,7 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
+	g.Init();
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);

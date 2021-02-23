@@ -53,25 +53,26 @@ private:
 	Player* player;
 
 	//Notification Channel
-	std::string notificationMessage; //Appears on the top of the screen
-	float showNotifUntil; //Shows notification until time;
+	//std::string notificationMessage; //Appears on the top of the screen
+	//float showNotifUntil; //Shows notification until time;
 
-	//Interaction
-	bool isInteracting;
-	float interactionElapsed; //Total time spent in Interaction instance
-	bool canInteractWithSomething;
-	int completedInteractionsCount[INTERACTION_COUNT]; //Everytime you finish one interaction of any type, it'll add 1 to here.
+	////Interaction
+	//bool isInteracting;
+	//float interactionElapsed; //Total time spent in Interaction instance
+	//bool canInteractWithSomething;
+	//int completedInteractionsCount[INTERACTION_COUNT]; //Everytime you finish one interaction of any type, it'll add 1 to here.
 
-		//Queued Message, commands to execute when message is brought up
-	std::vector<Interaction*> queuedMessages;
-	int currentMessage;
+	//	//Queued Message, commands to execute when message is brought up
+	//std::vector<Interaction*> queuedMessages;
+	//int currentMessage;
 
-	INTERACTION_TYPE currentInteractionType;
-	GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
+	//INTERACTION_TYPE currentInteractionType;
+	//GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
 
-	double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
+	//double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
 	//bool passedInteractCooldown(); //Checks if cooldown is reached;
 	//void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
+	void RenderInteraction();
 	void RenderUI(); //Handles the next interaction (May end interaction if there is no more to go through0
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 	
@@ -106,6 +107,7 @@ public:
 	virtual void Update(double dt);
 	virtual void CollisionHandler(double dt);
 	virtual void ButtonUpdate(double dt);
+	void InteractionUpdate(double dt);
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();

@@ -43,7 +43,8 @@ public:
 
 	InteractionQueue& getQueue();
 	bool runCommand(Command cmd);
-	bool loadInteractions(const char* filePath);
+	bool loadInteraction(std::string key);
+	bool initInteractions(const char* filePath);
 	void sendNotification(std::string msg, double duration);
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 	void EndInteraction();

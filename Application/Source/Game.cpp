@@ -2,6 +2,7 @@
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
+InteractionManager Game::iManager;
 Inventory Game::inv;
 
 Game::Game()
@@ -14,7 +15,7 @@ Game::~Game()
 
 void Game::Init()
 {
-
+	iManager.initInteractions("TextData//test.txt");
 }
 
 void Game::Update(double dt)
