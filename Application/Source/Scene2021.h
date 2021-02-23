@@ -14,6 +14,7 @@
 
 #include "EntityManager.h"
 #include "ButtonManager.h"
+#include "UIManager.h"
 #include "InteractionManager.h"
 #include "MeshHandler.h"
 
@@ -46,6 +47,7 @@ private:
 
 	EntityManager eManager;
 	ButtonManager bManager;
+	UIManager uiManager;
 
 	//Game Variables
 	Player* player;

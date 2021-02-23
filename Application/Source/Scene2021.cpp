@@ -180,13 +180,89 @@ void Scene2021::Init()
 	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car2);
 
-	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-50, 0, -50), Vector3(50, 2, 50)), "fountainHitBox");
+	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-100, 0, -100), Vector3(100, 2, 100)), "fountainHitBox");
 	fountainHitBox->getEntityData()->Translate.Set(365, 0, 60);
 	eManager.spawnWorldEntity(fountainHitBox);
 
 	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "restaurantHitBox");
 	restaurantHitBox->getEntityData()->Translate.Set(0, 0, -50);
 	eManager.spawnWorldEntity(restaurantHitBox);
+
+	Button* button;
+	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
+	button->spawnTextObject("Text", Color(0, 1, 0), CALIBRI, 1);
+	button->getTextObject()->setTextString("Test");
+	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
+	bManager.addButton(button);
+
+	Button* inventoryBackground;
+	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
+	bManager.addButton(inventoryBackground);
+	bManager.deactivateButton("UIInventoryBackground");
+
+	Button* itemsButton;
+	itemsButton = new Button(this, "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW);
+	itemsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
+	itemsButton->getTextObject()->setTextString("Item");
+	itemsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(itemsButton);
+	bManager.deactivateButton("UIItemsInventory");
+
+	Button* itemsBlankButton;
+	itemsBlankButton = new Button(this, "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW);
+	itemsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
+	itemsBlankButton->getTextObject()->setTextString("Item");
+	itemsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(itemsBlankButton);
+	bManager.deactivateButton("UIItemsInventoryBlank");
+
+	Button* weaponsButton;
+	weaponsButton = new Button(this, "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW);
+	weaponsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
+	weaponsButton->getTextObject()->setTextString("Guns");
+	weaponsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(weaponsButton);
+	bManager.deactivateButton("UIWeaponsInventory");
+
+	Button* weaponsBlankButton;
+	weaponsBlankButton = new Button(this, "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW);
+	weaponsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
+	weaponsBlankButton->getTextObject()->setTextString("Guns");
+	weaponsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(weaponsBlankButton);
+	bManager.deactivateButton("UIWeaponsInventoryBlank");
+
+	Button* garageButton;
+	garageButton = new Button(this, "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW);
+	garageButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
+	garageButton->getTextObject()->setTextString("Cars");
+	garageButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(garageButton);
+	bManager.deactivateButton("UIGarageInventory");
+
+	Button* garageBlankButton;
+	garageBlankButton = new Button(this, "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW);
+	garageBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
+	garageBlankButton->getTextObject()->setTextString("Cars");
+	garageBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
+	bManager.addButton(garageBlankButton);
+	bManager.deactivateButton("UIGarageInventoryBlank");
+
+	Button* titleBackground;
+	titleBackground = new Button(this, "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+	bManager.addButton(titleBackground);
+	bManager.deactivateButton("TitleBackground");
+
+	Button* playButton;
+	playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
+	bManager.addButton(playButton);
+	bManager.deactivateButton("MainMenuPlayButton");
+
+	Button* interactionButton;
+	interactionButton = new Button(this, "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
+	interactionButton->spawnTextObject("", Color(0, 1, 0), CALIBRI, 1.f);
+	bManager.addButton(interactionButton);
+	bManager.deactivateButton("InteractionButton");
 
 	SpawnBuildings();
 	SpawnStreetLamps();
@@ -456,9 +532,90 @@ void Scene2021::ButtonUpdate(double dt) {
 
 	//Button Interaction Handling
 	bManager.Update(dt);
+
+	if (Game::iManager.getQueue().size() != 0) {
+		bManager.activateButton("InteractionButton");
+		bManager.getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
+	}
+	else {
+		bManager.deactivateButton("InteractionButton");
+		Application::setCursorEnabled(false);
+	}
+
 	for (auto& buttonCollide : bManager.getButtonsInteracted()) {
 		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justClicked) {
-			std::cout << "Clicked" << std::endl;
+			DEBUG_MSG("Clicked");
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->isClicking) {
+			DEBUG_MSG("Is Clicking");
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIHealth" && buttonCollide->justHovered) {
+			DEBUG_MSG("Hovered");
+		}
+		if ((buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked) || Application::IsKeyPressed(VK_LEFT)) { //Main Menu play button
+			uiManager.setCurrentMenu(GENERAL_UI);
+			bManager.deactivateButton("TitleBackground");
+			bManager.deactivateButton("MainMenuPlayButton");
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) { //Click item inventory
+			if (uiManager.getCurrentMenu() == WEAPON_INVENTORY)
+			{
+				uiManager.setCurrentMenu(ITEM_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventory");
+				bManager.deactivateButton("UIWeaponsInventoryBlank");
+				bManager.deactivateButton("UIGarageInventory");
+			}
+			else
+			{
+				uiManager.setCurrentMenu(ITEM_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventory");
+				bManager.deactivateButton("UIWeaponsInventory");
+				bManager.deactivateButton("UIGarageInventoryBlank");
+			}
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) { //Click weapon inventory
+			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
+			{
+				uiManager.setCurrentMenu(WEAPON_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventoryBlank");
+				bManager.deactivateButton("UIWeaponsInventory");
+				bManager.deactivateButton("UIGarageInventory");
+			}
+			else
+			{
+				uiManager.setCurrentMenu(WEAPON_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventory");
+				bManager.deactivateButton("UIWeaponsInventory");
+				bManager.deactivateButton("UIGarageInventoryBlank");
+			}
+		}
+		if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) { //Click weapon inventory
+			if (uiManager.getCurrentMenu() == ITEM_INVENTORY)
+			{
+				uiManager.setCurrentMenu(GARAGE_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventoryBlank");
+				bManager.deactivateButton("UIWeaponsInventory");
+				bManager.deactivateButton("UIGarageInventory");
+			}
+			else
+			{
+				uiManager.setCurrentMenu(GARAGE_INVENTORY);
+				bManager.deactivateButton("UIInventoryBackground");
+				bManager.deactivateButton("UIItemsInventory");
+				bManager.deactivateButton("UIWeaponsInventoryBlank");
+				bManager.deactivateButton("UIGarageInventory");
+			}
+		}
+		if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+			Game::iManager.EndInteraction();
+			if (Game::iManager.getQueue().size() != 0)
+				Game::iManager.nextInteraction();
+			DEBUG_MSG("next Interaction");
 		}
 	}
 	if (pPressed) Application::setCursorEnabled(true);
@@ -511,6 +668,13 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
+					Application::setCursorEnabled(true);
+					Game::iManager.loadInteraction("hey");
+				}
+			}
 			((NPC*)entry)->Walk(dt);
 		}
 	}
@@ -838,7 +1002,9 @@ void Scene2021::Render()
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
 	RenderUI();
-
+	for (auto& button : bManager.getButtons()) {
+		button->Render();
+	}
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
 		ss.str("");
