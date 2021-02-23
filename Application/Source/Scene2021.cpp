@@ -40,7 +40,7 @@ Scene2021::~Scene2021()
 
 }
 
-void Scene2021::MissionManager(double dt)
+void Scene2021::MissionCompleteListener(double dt)
 {
 	//MISSION HANDLING EXAMPLES
 	/*for (auto& entry : Game::mManager.getCompletableMissions()) {
@@ -49,7 +49,7 @@ void Scene2021::MissionManager(double dt)
 	if (Application::IsKeyPressed('V')) {
 		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
 	}*/
-	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
 	for (auto& entry : justCompletedMissions) {
 		switch (entry->getType())
 		{
