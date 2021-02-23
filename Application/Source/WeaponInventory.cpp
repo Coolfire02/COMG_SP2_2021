@@ -66,8 +66,11 @@ std::vector<Weapon*> WeaponInventory::getWeaponList()
 
 void WeaponInventory::switchActiveWeapon(int index)
 {
-	if (this->weaponList.size() > index) //switch active weapon to index of vector
-		activeWeapon = weaponList[index];
-	else
-		return;
+	if (this->weaponList.size() > index) {//switch active weapon to index of vector
+		if (activeWeapon == weaponList[index])
+			activeWeapon = nullptr;
+		else
+			activeWeapon = weaponList[index];
+	}
+
 }

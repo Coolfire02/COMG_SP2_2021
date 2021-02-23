@@ -1,4 +1,5 @@
 #include "EntityManager.h"
+#include "Bullet.h"
 
 EntityManager::EntityManager(Scene* scene) : scene(scene) {
 
@@ -42,6 +43,27 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 
 	for (auto& movingE : movingEntities) {
 		for (auto& worldE : worldEntities) {
+
+			//if (movingE->getType() == BULLET) {
+			//	if ((movingE->getEntityData()->Translate - movingE->getOldEntityData()->Translate).Magnitude() > 10) {
+			//		Vector3 temp = movingE->getOldEntityData()->Translate;
+			//		Vector3 incrementVec = ((Bullet*)movingE)->getVelocity().Normalized();
+			//		while (temp.Magnitude() < ((Bullet*)movingE)->getVelocity().Magnitude()) {
+			//			HitBox* stepHitbox = new HitBox(movingE->getHitBox()->getThisTickBox());
+			//			HitBox* worldEHitbox = new HitBox(worldE->getHitBox()->getThisTickBox());
+			//			stepHitbox->UpdatePos(Vector3(floor(temp.x), floor(temp.y), floor(temp.z)));
+			//			//stepHitbox->UpdatePos(temp);
+			//			worldEHitbox->UpdatePos(Vector3(floor(worldEHitbox->getThisTickBox()->currentPos.x), floor(worldEHitbox->getThisTickBox()->currentPos.y), floor(worldEHitbox->getThisTickBox()->currentPos.z)));
+			//			Collider c = stepHitbox->collidedWith(worldEHitbox);
+			//			if (c.collided) {
+			//				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.translationVector, c.normal));
+			//				break;
+			//			}
+
+			//			temp = temp + incrementVec;
+			//		}
+			//	}
+			//}
 			Collider c = movingE->getHitBox()->collidedWith(worldE->getHitBox());
 			if (c.collided) {
 				//std::cout << "Collision detected!" << std::endl;

@@ -139,6 +139,10 @@ Button* ButtonManager::getButtonByName(std::string buttonName) {
 	
 }
 
+void ButtonManager::setScene(Scene* sceneName) {
+	this->scene = sceneName;
+}
+
 void ButtonManager::addButton(Button* button) {
 	buttons.push_back(button);
 }

@@ -82,6 +82,7 @@ protected:
 
 		U_TOTAL,
 	};
+
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 

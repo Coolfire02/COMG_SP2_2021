@@ -13,6 +13,7 @@ enum ENTITYTYPE {
 	FENCE,
 	LIVE_NPC,
 	SPOTLIGHT,
+	BULLET,
 	WORLDOBJ,
 	CUSTOM,
 
@@ -37,7 +38,7 @@ protected:
 	
 	//std::multimap<GEOMETRY_TYPE, EntityMeshData*>(); ? why do u need this wtf comment out
 	Mtx44 getTRSMtx44();
-	void loadOriginTRSIntoStacknHitBox();
+	
 
 public:
 	Entity();
@@ -60,6 +61,7 @@ public:
 	void setVisibility(bool);
 
 	void cancelNextMovement();
+	void loadOriginTRSIntoStacknHitBox();
 
 	void PreUpdate(); //Called at the start of EManager's Update
 	virtual void Update(double dt) = 0; //Called after Entity's PreUpdate in EManager's Update

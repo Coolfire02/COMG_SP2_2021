@@ -43,12 +43,12 @@ private:
 
 	Camera camera;
 	Camera camera2;
+
 	EntityManager eManager;
 	ButtonManager bManager;
 
 	//Game Variables
 	Player* player;
-	Game game;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen

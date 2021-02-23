@@ -32,6 +32,7 @@ public:
 
 	void Update(double dt);
 
+	void setScene(Scene* sceneName);
 	void addButton(Button* button);
 	bool deleteButton(Button* button);
 	bool activateButton(std::string buttonName);

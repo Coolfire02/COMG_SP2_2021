@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AudioHandler.cpp" />
+    <ClCompile Include="Source\Bullet.cpp" />
     <ClCompile Include="Source\ButtonManager.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Car.cpp" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AudioHandler.h" />
+    <ClInclude Include="Source\Bullet.h" />
     <ClInclude Include="Source\ButtonManager.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Car.h" />

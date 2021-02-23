@@ -44,13 +44,13 @@ class SceneAssignment2 : public Scene
 private:
 	Camera camera;
 	Camera camera2;
+
 	EntityManager eManager;
 	ButtonManager bManager;
 	UIManager uiManager;
 
 	//Game Variables
 	Player* player;
-	Game game;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen
