@@ -162,7 +162,9 @@ bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
 		missions[type]->addProgress(progress);
 		missionsUpdatedThisTick.push_back(missions[type]);
+		return true;
 	}
+	return false;
 }
 
 void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {

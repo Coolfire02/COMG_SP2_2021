@@ -33,7 +33,7 @@ public:
 	std::vector<MISSIONTYPE> getCompletedMissions();
 
 	std::vector<MISSIONTYPE> getCompletableMissions(); //gets the list of Missions that can be completed currently.
-	bool missionIsCompletable(MISSIONTYPE, std::vector<MISSIONTYPE>& completableMissions);
+	bool missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONTYPE> completable);
 
 	//Adds progress only if MissionType is completable returns true if progress added
 	bool addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.

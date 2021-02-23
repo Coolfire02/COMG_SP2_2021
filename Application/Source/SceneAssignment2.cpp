@@ -479,16 +479,19 @@ void SceneAssignment2::Update(double dt)
 
 void SceneAssignment2::MissionUpdate(double dt) {
 	//MISSION HANDLING EXAMPLES
-	for (auto& entry : Game::mManager.getCompletableMissions()) {
+	/*for (auto& entry : Game::mManager.getCompletableMissions()) {
 		DEBUG_MSG("Completable Mission EnumID: " << entry);
 	}
 	if (Application::IsKeyPressed('V')) {
 		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-	}
+	}*/
 	std::vector<Mission*> justCompletedMissions = Game::mManager.Update(dt);
 	for (auto& entry : justCompletedMissions) {
-		if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+		switch (entry->getType())
+		{
+		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			break;
 		}
 	}
 }
