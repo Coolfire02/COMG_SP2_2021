@@ -87,6 +87,7 @@ public:
 	SceneAssignment2();
 	~SceneAssignment2();
 
+	bool eHeld = false;
 	Camera camera;
 	Camera camera2;
 

@@ -232,15 +232,11 @@ void SceneAssignment2::Init() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-
-bool eHeld = false;
-
 void SceneAssignment2::Update(double dt)
 {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-	eHeld = !Application::IsKeyReleased('E');
 	toggleTimer += dt;
 	//UI item adding testing
 	//if (Application::IsKeyPressed('F'))
@@ -538,6 +534,7 @@ void SceneAssignment2::TopDownMapUpdate(double dt)
 }
 
 void SceneAssignment2::CollisionHandler(double dt) {
+	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -563,7 +560,8 @@ void SceneAssignment2::CollisionHandler(double dt) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				DEBUG_MSG("In Range");
 				// Show interaction UI
-				if (eHeld) {
+				if (ePressed && !eHeld) {
+					eHeld = true;
 						if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
 							player->setDriving((Car*)entry, true);
 							((Car*)entry)->setPlayer(player);
