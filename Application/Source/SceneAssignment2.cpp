@@ -291,7 +291,7 @@ void SceneAssignment2::Update(double dt)
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('6') & 0x8001) {
-		//game.switchScene(S_2021);
+		Game::switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('7') & 0x8001) {

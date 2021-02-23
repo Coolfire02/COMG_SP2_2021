@@ -184,7 +184,7 @@ void Scene2021::Init()
 	eManager.spawnWorldEntity(fountainHitBox);
 
 	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "restaurantHitBox");
-	restaurantHitBox->getEntityData()->Translate.Set(0, 0, -50);
+	restaurantHitBox->getEntityData()->Translate.Set(25, 0, 0);
 	eManager.spawnWorldEntity(restaurantHitBox);
 
 	Button* button;
@@ -405,33 +405,11 @@ void Scene2021::Update(double dt)
 {
 	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
 	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
-
+	
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
 	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
-	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	inv.addItem(BURGER, 1);
-	//	inv.addItem(EGGPLANT, 2);
-	//
-	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
-	//	inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	//{
-	//	toggleTimer = 0;
-	//	inv.toggleItem();
-	//	if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	//{
-	//	inv.addItem(CORN, 3);
-	//}
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -1319,10 +1297,10 @@ void Scene2021::SpawnBuildings()
 {
 	//init of buildings
 	srand(time(NULL));
-
+	
 	//main road buildings
 	int random = (rand() % 6) + 6;
-	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.3, 0.5), GEO_BUILDING_1);
 
 	int random2 = (rand() % 6) + 6;
 	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));

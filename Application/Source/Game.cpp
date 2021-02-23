@@ -109,7 +109,7 @@ void Game::Update(double dt)
 	bManager.Update(dt);
 
 	if (Application::IsKeyPressed('E')) //pick up weapon
-		inv.addWeap(PISTOL);
+		//inv.addWeap(PISTOL);
 	if (Application::IsKeyPressed('F')) //pick up weapon
 		inv.addWeap(SILENCER);
 	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
@@ -131,7 +131,6 @@ void Game::Update(double dt)
 		Game::inv.addItem(BURGER, 1);
 		Game::inv.addItem(EGGPLANT, 2);
 
-		//inv.addWeap(PISTOL); //Error if you try to add weapons
 		Game::inv.addCar(SUV);
 	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
