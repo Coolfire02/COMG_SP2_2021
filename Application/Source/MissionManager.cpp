@@ -6,6 +6,8 @@
 std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = {
 	{"MISSION_EXTINGUISH_FIRE",MISSIONTYPE::MISSION_EXTINGUISH_FIRE},
 	{"MISSION_ENTER_TIMEPORTAL",MISSIONTYPE::MISSION_ENTER_TIMEPORTAL},
+	{"MISSION_VISIT_FOUNTAIN",MISSIONTYPE::MISSION_VISIT_FOUNTAIN},
+	{"MISSION_VISIT_RESTAURANT",MISSIONTYPE::MISSION_VISIT_RESTAURANT},
 	//{"MISSION_FIND_GUNSHOP",MISSIONTYPE::MISSION_FIND_GUNSHOP},
 	//{"MISSION_CALL_RICHARD",MISSIONTYPE::MISSION_CALL_RICHARD},
 	//{"MISSION_FINALE_ANGERY",MISSIONTYPE::MISSION_FINALE_ANGERY},
@@ -162,6 +164,9 @@ bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
 		missions[type]->addProgress(progress);
 		missionsUpdatedThisTick.push_back(missions[type]);
+		if (missions[type]->isCompleted()) {
+			missionsCompletedThisTick.push_back(missions[type]);
+		}
 		return true;
 	}
 	return false;
@@ -171,23 +176,19 @@ void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted()) {
 		missions[type]->addProgress(progress);
 		missionsUpdatedThisTick.push_back(missions[type]);
+		if (missions[type]->isCompleted()) {
+			missionsCompletedThisTick.push_back(missions[type]);
+		}
 	}
 }
 
 void MissionManager::Update(double dt) {
 	missionsCompletedThisTick.clear();
-	for (auto& entry : missionsUpdatedThisTick) {
-		if (entry->isCompleted()) {
-			missionsCompletedThisTick.push_back(entry);
-		}
-	}
-
-	missionsUpdatedThisTick.clear();
 	return;
 }
 
 std::vector<Mission*> MissionManager::getJustCompletedMissions() {
-	return missionsUpdatedThisTick;
+	return missionsCompletedThisTick;
 }
 
 bool MissionManager::missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONTYPE>& completable) {

@@ -15,3 +15,17 @@ MISSION_ENTER_TIMEPORTAL
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 	- MISSION_EXTINGUISH_FIRE
+
+MISSION_VISIT_FOUNTAIN
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Visit the fountain in the roundabout
+- CompletedMessage: splash
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions: []
+
+MISSION_VISIT_RESTAURANT
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Visit the restaurant
+- CompletedMessage: nom
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:

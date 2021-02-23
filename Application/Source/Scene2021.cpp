@@ -174,12 +174,18 @@ void Scene2021::Init()
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
 
-	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "fountainHitBox");
-	fountainHitBox->getEntityData()->Translate.Set(0, 0, 0);
+	Entity* car2 = new Car(RACER, this, "car");
+	car2->getEntityData()->SetTransform(0, 0.25, 0);
+	car2->getEntityData()->SetRotate(0, -90, 0);
+	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car2);
+
+	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-50, 0, -50), Vector3(50, 2, 50)), "fountainHitBox");
+	fountainHitBox->getEntityData()->Translate.Set(365, 0, 60);
 	eManager.spawnWorldEntity(fountainHitBox);
 
 	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "restaurantHitBox");
-	restaurantHitBox->getEntityData()->Translate.Set(0, 0, 10);
+	restaurantHitBox->getEntityData()->Translate.Set(0, 0, -50);
 	eManager.spawnWorldEntity(restaurantHitBox);
 
 	SpawnBuildings();
@@ -381,6 +387,7 @@ void Scene2021::Update(double dt)
 	TopDownMapUpdate(dt);
 	ButtonUpdate(dt);
 	CollisionHandler(dt);
+	MissionCompleteListener(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -436,21 +443,6 @@ void Scene2021::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
-	}
-}
-
-
-void Scene2021::MissionCompleteListener(double dt) {
-	//MISSION HANDLING EXAMPLES
-	//for (auto& entry : Game::mManager.getCompletableMissions()) {
-	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
-	//}
-	//if (Application::IsKeyPressed('V')) {
-	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-	//}
-	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
-	for (auto& entry : justCompletedMissions) {
-		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
 	}
 }
 
