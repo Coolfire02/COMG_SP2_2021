@@ -151,10 +151,6 @@ bool InteractionManager::initInteractions(const char* filePath)
 
 }
 
-void InteractionManager::sendNotification(std::string msg, double duration) {
-	showNotifUntil = (float)(elapsed + duration);
-	//notificationMessage = msg;
-}
 
 void InteractionManager::EndInteraction()
 {
