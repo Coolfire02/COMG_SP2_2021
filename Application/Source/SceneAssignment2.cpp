@@ -414,6 +414,7 @@ void SceneAssignment2::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
 	ButtonUpdate(dt);
+	MissionUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -472,7 +473,12 @@ void SceneAssignment2::Update(double dt)
 		player->getCar()->Drive(dt);
 	}
 
-	//MISSION HANDLING
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+}
+
+void SceneAssignment2::MissionUpdate(double dt) {
+	//MISSION HANDLING EXAMPLES
 	for (auto& entry : Game::mManager.getCompletableMissions()) {
 		DEBUG_MSG("Completable Mission EnumID: " << entry);
 	}
@@ -485,11 +491,6 @@ void SceneAssignment2::Update(double dt)
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
 		}
 	}
-
-
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void SceneAssignment2::ButtonUpdate(double dt) {

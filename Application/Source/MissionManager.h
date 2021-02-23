@@ -31,8 +31,15 @@ public:
 	~MissionManager();
 
 	std::vector<MISSIONTYPE> getCompletedMissions();
+
 	std::vector<MISSIONTYPE> getCompletableMissions(); //gets the list of Missions that can be completed currently.
-	void addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
+	bool missionIsCompletable(MISSIONTYPE, std::vector<MISSIONTYPE>& completableMissions);
+
+	//Adds progress only if MissionType is completable returns true if progress added
+	bool addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
+	//Adds progress regardless if completable (UNSAFE)
+	void addUnsafeProgress(MISSIONTYPE type, float progress);
+	
 	std::vector<Mission*> Update(double dt); //returns the missions that were completed this tick
 	//void displayUIOnScreen(); //Accepts mouse swipe movement to move around the background quad, the background quad will be zoomed in. Hover over missions to see if its completed an a preview
 };
