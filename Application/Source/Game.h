@@ -28,6 +28,7 @@ public:
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
+	static double gElapsedTime;
 
 	static MissionManager mManager;
 	static InteractionManager iManager;
