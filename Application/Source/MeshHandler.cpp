@@ -220,6 +220,9 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_COMPLETE] = MeshBuilder::GenerateQuad("missioncomplete", Color(0, 0, 0));
 	meshList[GEO_MISSION_COMPLETE]->textureID = LoadTGA("Image//MissionUnlocked.tga");
 
+	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
+	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
+
 	//Materials
 
 	/*Material mat;

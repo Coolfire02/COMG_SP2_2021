@@ -127,7 +127,7 @@ void Text::Render(Scene* scene) {
     splitText(this->text.str(), '\n', splitVar);
     int i = 0;
     std::ostringstream ss;
-    int startX, startY;
+    float startX, startY;
     startX = UIInfo.originX - UIInfo.sizeX * 0.5 + xOffset;
     startY = UIInfo.originY + UIInfo.sizeY * 0.5 - yOffset;
     for (auto& entry : splitVar) {

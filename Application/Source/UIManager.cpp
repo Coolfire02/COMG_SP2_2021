@@ -64,8 +64,19 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
 		case UI_MISSION:
-			createButton(bManagers[i], "MissionComplete", 64, 60, 96, 18, GEO_MISSION_COMPLETE, 20, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 4.0f);
+			createButton(bManagers[i], "MissionComplete", 78, 60, 72, 18, GEO_MISSION_COMPLETE, 16, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 3.0f);
+			createButton(bManagers[i], "Task0", 17, 70.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task1", 17, 67.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task2", 17, 64.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task3", 17, 61.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task4", 17, 58.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			
 			bManagers[i]->deactivateButton("MissionComplete");
+			bManagers[i]->deactivateButton("Task0");
+			bManagers[i]->deactivateButton("Task1");
+			bManagers[i]->deactivateButton("Task2");
+			bManagers[i]->deactivateButton("Task3");
+			bManagers[i]->deactivateButton("Task4");
 		}
 	}
 	setCurrentUI(UI_MAIN_MENU);

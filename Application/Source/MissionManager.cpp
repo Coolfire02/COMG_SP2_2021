@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Debug.h"
 #include "Application.h"
+#include <ostream>
 
 class Game;
 
@@ -11,7 +12,7 @@ std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = 
 	{"MISSION_ENTER_TIMEPORTAL",MISSIONTYPE::MISSION_ENTER_TIMEPORTAL},
 	{"MISSION_VISIT_FOUNTAIN",MISSIONTYPE::MISSION_VISIT_FOUNTAIN},
 	{"MISSION_VISIT_RESTAURANT",MISSIONTYPE::MISSION_VISIT_RESTAURANT},
-	//{"MISSION_FIND_GUNSHOP",MISSIONTYPE::MISSION_FIND_GUNSHOP},
+	{"MISSION_TALK_TO_NPC",MISSIONTYPE::MISSION_TALK_TO_NPC},
 	//{"MISSION_CALL_RICHARD",MISSIONTYPE::MISSION_CALL_RICHARD},
 	//{"MISSION_FINALE_ANGERY",MISSIONTYPE::MISSION_FINALE_ANGERY},
 	//{"MISSION_FINALE_PEACEFUL",MISSIONTYPE::MISSION_FINALE_PEACEFUL},
@@ -19,6 +20,36 @@ std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = 
 };
 MissionInfo MissionManager::missionLang[MISSION_COUNT];
 bool MissionManager::loadedLang = false;
+
+std::string MissionManager::getMissionNameFormatted(MISSIONTYPE type) {
+	for (auto& kV : mTypeTable) {
+		if (kV.second == type) {
+			int n = kV.first.length();
+
+			// declaring character array
+			char *char_array;
+			char_array = new char[n+1];
+
+			// copying the contents of the
+			// string to char array
+			strcpy_s(char_array, n+1, kV.first.c_str());
+			for (int i = 0; i < n; i++) {
+				char_array[i] = std::tolower(char_array[i]);
+			}
+			char_array[0] = std::toupper(char_array[0]);
+			for (int i = 0; i < n; i++) {
+				if (char_array[i] == '_' && (i + 1) < n) {
+					char_array[i] = ' ';
+					char_array[i + 1] = std::toupper(char_array[i + 1]);
+				}
+			}
+			std::string newStr = std::string(char_array);
+			delete[] char_array;
+			return newStr;
+		}
+	}
+	return "";
+}
 
 void MissionManager::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
@@ -138,6 +169,7 @@ void MissionManager::loadMissionLang() {
 	}
 };
 
+
 //Statics end
 
 MISSIONTYPE MissionManager::getMissionByEnumName(std::string name) {
@@ -191,20 +223,24 @@ void MissionManager::Update(double dt) {
 	}
 	Button* display = Game::uiManager.getByTypeBM(UI_MISSION)->getButtonByName("MissionComplete");
 	if (!isDisplayingAchievement && achievementDisplayQueue.size() > 0) {
-		this->displayAchievementTill = Game::gElapsedTime + 4.0f;
+		this->displayAchievementTill = Game::gElapsedTime + 10.0f;
+		display->setText(this->getMissionNameFormatted(achievementDisplayQueue.at(0)) + " Completed!");
 		this->isDisplayingAchievement = true;
-		float y = 79.0;
-		display->setOrigin(display->getUIInfo().originX, 79.0);
+		float y = 98.0;
+		display->setOrigin(display->getUIInfo().originX, 98.0);
 		display->enable();
 	}
 	else if (isDisplayingAchievement && Game::gElapsedTime < displayAchievementTill) {
 		float timeDiff = displayAchievementTill - Game::gElapsedTime;
 		float y;
-		if (timeDiff > 2.0) {
-			y = (79.0 - 60.0f) * (4 - (timeDiff)) + 60.f;
+		if (timeDiff > 8.0) {
+			y = -(79.0 - 60.0f) * (2-(timeDiff-8)) + 98.f;
+		}
+		else if (timeDiff < 2.0) {
+			y = (79.0 - 60.0f) * (2-(timeDiff)) + 60.f;
 		}
 		else {
-			y = (79.0 - 60.0f) * ((timeDiff) - 2) + 60.f;
+			y = display->getUIInfo().originY;
 		}
 		display->setOrigin(display->getUIInfo().originX, y);
 	}
@@ -214,6 +250,23 @@ void MissionManager::Update(double dt) {
 		this->isDisplayingAchievement = false;
 		achievementDisplayQueue.erase(achievementDisplayQueue.begin());
 	}
+
+	std::vector<MISSIONTYPE> completables = getCompletableMissions();
+	for (int i = 0; i < 5; i++) {
+		Button* mission = Game::uiManager.getByTypeBM(UI_MISSION)->getButtonByName("Task" + std::to_string(i));
+		if (i < completables.size()) {
+			std::ostringstream ss;
+			ss.precision(1);
+			ss << missions[completables.at(i)]->getProgress();
+			std::string str = getMissionNameFormatted(completables.at(i)) + " | " + ss.str() + "% Done";
+			mission->setText(str);
+			mission->enable();
+		}
+		else {
+			mission->disable();
+		}
+	}
+
 	missionsCompletedThisTick.clear();
 	return;
 }
