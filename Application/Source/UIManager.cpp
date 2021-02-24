@@ -41,14 +41,12 @@ void UIManager::Init() {
 
 			//Weapons UI
 			//need to create text buttons for amount
-			for (int j = 0; j < WEAPON_COUNT + 1; j++)
+			createNoTextButton(bManagers[i], "Weapon1", 100, 10, 10, 10, UI_PISTOL);
+			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
+			for (int j = 0; j < WEAPON_COUNT; j++)
 			{
-				createNoTextButton(bManagers[i], "UIWeaponPistol" + std::to_string(j), 90 + (j * 10), 10, 10, 10, UI_PISTOL);
-				createNoTextButton(bManagers[i], "UIWeaponSilencer" + std::to_string(j), 90 + (j * 10), 10, 10, 10, UI_SILENCER);
-				createNoTextButton(bManagers[i], "UIWeaponEmpty" + std::to_string(j), 90 + (j * 10), 10, 10, 10, UI_EMPTY);
-
-				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j), 90 + (j * 10), 10, 10, 10, UI_BLACK);
-				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j), 90 + (j * 10), 10, 11, 11, UI_BLUE);
+				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j), 100 + (j * 10), 10, 10, 10, UI_BLACK);
+				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j), 100 + (j * 10), 10, 11, 11, UI_BLUE);
 			}
 			break;
 		case UI_ITEM_INVENTORY:

@@ -2,6 +2,7 @@
 #include "GarageInventory.h"
 #include "ItemInventory.h"
 #include "WeaponInventory.h"
+
 //Inventory class created by Ridwan on 16/2/2021
 //Optimized inventory class by Ridwan on 17/2/2021
 
@@ -13,6 +14,7 @@ private:
 	
 	ItemInventory* itemInventory; //To get item Inventory
 	WeaponInventory* weaponInv;//To get Weapon Inventory
+	float toggleTimer;
 public:
 	Inventory();
 	~Inventory();
@@ -44,6 +46,6 @@ public:
 	Weapon* getActiveWeapon();
 	WEAPON_TYPE getCurrentWeaponType();
 
-	//void Update(Camera*, double);
+	void Update(double);
 };
 
