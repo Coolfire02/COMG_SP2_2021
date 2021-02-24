@@ -31,10 +31,8 @@ class InteractionManager {
 
 	int completedInteractionsCount[INTERACTION_COUNT];
 	double latestInteractionSwitch;
-	bool canInteractWithSomething;
 	float interactionElapsed; //Total time spent in Interaction instance
 	double elapsed;
-	float showNotifUntil;
 
 public:
 	InteractionManager();
