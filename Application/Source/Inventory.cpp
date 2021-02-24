@@ -11,7 +11,6 @@ Inventory::Inventory()
 
 	//For item inventory
 	itemInventory = new ItemInventory();
-	//addItem(BURGER, 0);
 
 	//for weapon inven
 	weaponInv = nullptr;
@@ -131,24 +130,40 @@ ITEM_TYPE Inventory::getCurrentItemType()
 {
 	if (itemInventory != nullptr)
 		if (itemInventory->getCurrentItem() != nullptr)
-			return itemInventory->getCurrenItemType();
+			return itemInventory->getCurrentItemType();
 }
 
 void Inventory::Update(double dt)
 {
-	switch (getCurrentItemType())
+	//For General UI
+	//Items
+	if (itemInventory->getCurrentItem() != nullptr)
 	{
-	case BURGER:
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_BURGER);
-		break;
-	case CORN:
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_CORN);
-		break;
-	case EGGPLANT:
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_EGGPLANT);
-		break;
+		switch (getCurrentItemType())
+		{
+		case BURGER:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_BURGER);
+			break;
+		case CORN:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_CORN);
+			break;
+		case EGGPLANT:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_EGGPLANT);
+			break;
+		default:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_EMPTY);
+			break;
+		}
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->enable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemCurrent")->enable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemAmount")->setText(std::to_string(itemInventory->getCurrentItemAmt()));
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemAmount")->enable();
+		//createTextButton(bManagers[i], "UIItemAmount", 120, 25, 1, 1, 0, 0, Color(1, 1, 1), "0", 3.0f);
 	}
+	else
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemAmount")->disable();
 
+	//Weapons
 	if (weaponInv->getActiveWeapon() == nullptr)
 	{
 		for (int i = 0; i < WEAPON_COUNT; i++)
@@ -204,97 +219,140 @@ void Inventory::Update(double dt)
 		}
 	}
 
-	if (Game::uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
+	//For Item Inventory UI
+	if (itemInventory->getCurrentItem() == nullptr) //If there is no Item Inventory
 	{
-		if (itemInventory->getCurrentItem() == nullptr)
+		for (int i = 0; i < ITEM_AMOUNT; i++)
 		{
-			for (int i = 0; i < ITEM_AMOUNT; i++)
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
+		}
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->disable();
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrentBorder")->disable();
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->disable();
+	}
+	else if (itemInventory->getItemVect().size() > 0) //If item is owned at least once, then display
+	{
+		for (int i = 0; i < itemInventory->getItemVect().size(); i++)
+		{
+			switch (itemInventory->getItemVect()[i]->getType())
 			{
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
+			case BURGER:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BURGER);
+				break;
+			case CORN:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_CORN);
+				break;
+			case EGGPLANT:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_EGGPLANT);
+				break;
+			default:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->setQuadImage(UI_BLANK);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText(" ");
+				break;
+			}
+		}
+		for (int i = 0; i < ITEM_AMOUNT; i++)
+		{
+			//Disable all non-current item UIs
+			if (itemInventory->getCurrentItem()->getType() != i)
 				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
-			}
-		}
-		else if (itemInventory->getItemVect().size() > 0)
-		{
-			for (int i = 0; i < itemInventory->getItemVect().size(); i++)
+			else
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->enable();
+			switch (itemInventory->getCurrentItemType())
 			{
-				if (itemInventory->getItemVect()[i]->getAmt() == 0)
-				{
-					switch (itemInventory->getItemVect()[i]->getType())
-					{
-					case BURGER:
-						Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BURGER);
-						break;
-					case CORN:
-						Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_CORN);
-						break;
-					case EGGPLANT:
-						Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_EGGPLANT);
-						break;
-					default:
-						Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
-						break;
-					}
-				}
-			}
-			////display first gun slot
-			//Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
-			//Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
-
-			//Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->enable();
-			//Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->disable();
-			//switch (weaponInv->getWeaponList()[0]->getWeaponType())
-			//{
-			//case PISTOL:
-			//	Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_PISTOL);
-			//	break;
-			//case SILENCER:
-			//	Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
-			//	break;
-			//}
-
-			//if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
-			//{
-			//	Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
-			//	switch (weaponInv->getWeaponList()[1]->getWeaponType())
-			//	{
-			//	case PISTOL:
-			//		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_PISTOL);
-			//		break;
-			//	case SILENCER:
-			//		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
-			//		break;
-			//	}
-			//	if (weaponInv->getWeaponList()[1] == weaponInv->getActiveWeapon())
-			//	{
-			//		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->disable();
-			//		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->enable();
-			//	}
-			//}
-		}
-		else //do not display any gun slots as no guns owned
-		{
-			for (int i = 0; i < ITEM_AMOUNT; i++)
-			{
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
+			case BURGER:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->setQuadImage(UI_BURGER);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText("Burger\nAmount:\n" + std::to_string(itemInventory->getCurrentItemAmt()));
+				break;
+			case CORN:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->setQuadImage(UI_CORN);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText("Corn\nAmount:\n" + std::to_string(itemInventory->getCurrentItemAmt()));
+				break;
+			case EGGPLANT:
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->setQuadImage(UI_EGGPLANT);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText("Eggplant\nAmount:\n" + std::to_string(itemInventory->getCurrentItemAmt()));
+				break;
 			}
 		}
-		/*switch (getCurrentItemType())
-		{
-		case BURGER:
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_BURGER);
-			break;
-		case CORN:
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_CORN);
-			break;
-		case EGGPLANT:
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_EGGPLANT);
-			break;
-		}*/
 		
 	}
+	else //Do not display any item slots as no items owned
+	{
+		for (int i = 0; i < ITEM_AMOUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
+		}
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->disable();
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrentBorder")->disable();
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->disable();
+	}
 
+	//For Weapon Inventory
+	if (weaponInv->getActiveWeapon() == nullptr) //If there is no Item Inventory
+	{
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
+		}
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->disable();
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->disable();
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->disable();
+	}
+	else if (weaponInv->getWeaponList().size() > 0) //If item is owned at least once, then display
+	{
+		for (int i = 0; i < weaponInv->getWeaponList().size(); i++)
+		{
+			switch (weaponInv->getWeaponList()[i]->getWeaponType())
+			{
+			case PISTOL:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_PISTOL);
+				break;
+			case SILENCER:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_SILENCER);
+				break;
+			default:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_BLANK);
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText(" ");
+				break;
+			}
+		}
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			//Disable all non-current item UIs
+			if (weaponInv->getActiveWeapon()->getWeaponType() != i)
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
+			else
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->enable();
+			switch (weaponInv->getActiveWeapon()->getWeaponType())
+			{
+			case PISTOL:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_PISTOL);
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText("Pistol\nAmmo:\n" + std::to_string(weaponInv->getActiveWeapon()->getWeaponAmmo()));
+				break;
+			case SILENCER:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_SILENCER);
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText("Silencer\nAmmo:\n" + std::to_string(weaponInv->getActiveWeapon()->getWeaponAmmo()));
+				break;
+			}
+		}
+
+	}
+	else //Do not display any item slots as no items owned
+	{
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
+		}
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->disable();
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->disable();
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->disable();
+	}
 
 	toggleTimer += dt;
 	if (Application::IsKeyPressed('E')) //pick up weapon
@@ -302,8 +360,8 @@ void Inventory::Update(double dt)
 	if (Application::IsKeyPressed('F')) //pick up weapon
 	{
 		addItem(BURGER, 1);
-		addItem(CORN, 1);
-		addItem(EGGPLANT, 1);
+		addItem(CORN, 2);
+		addItem(EGGPLANT, 3);
 
 		addWeap(SILENCER);
 	}

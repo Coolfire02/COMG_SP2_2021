@@ -15,6 +15,8 @@ public:
 	WeaponInventory(WEAPON_TYPE wType);
 	~WeaponInventory();
 	
+	void setActiveWeapon(int wType);
+
 	Weapon* getActiveWeapon();
 	std::vector<Weapon*> getWeaponList();
 

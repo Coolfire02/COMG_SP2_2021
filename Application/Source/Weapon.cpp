@@ -119,3 +119,8 @@ WEAPON_TYPE Weapon::getWeaponType()
 	if (this != nullptr)
 		return this->weaponType;
 }
+
+int Weapon::getWeaponAmmo()
+{
+	return this->currentAmmo;
+}

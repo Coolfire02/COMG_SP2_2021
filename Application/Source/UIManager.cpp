@@ -22,13 +22,14 @@ void UIManager::Init() {
 		case UI_GENERAL:
 			//Items UI
 			//need to create text buttons for amount
+			createTextButton(bManagers[i], "UIItemAmount", 120, 25, 1, 1, 0, 0, Color(1, 1, 1), "0", 3.0f);
 			createNoTextButton(bManagers[i], "UIItem", 120, 20, 10, 10, UI_EMPTY);
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
 			//Weapons UI
-			//need to create text buttons for amount
 			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "0/0 Ammo", 5.0f);
 			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);
+			
 			createNoTextButton(bManagers[i], "Weapon1", 100, 10, 10, 10, UI_PISTOL);
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
 			for (int j = 0; j < WEAPON_COUNT; j++)
@@ -46,6 +47,13 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
 
+			createNoTextButton(bManagers[i], "UIItemsInventoryCurrent", 96.5, 47, 15, 15, UI_BLANK);
+			createNoTextButton(bManagers[i], "UIItemsInventoryCurrentBorder", 96.5, 47, 15, 15, UI_BLUE);
+			createTextButton(bManagers[i], "UIItemsInventoryName", 86.5, 30, 1, 1, 0, 0, Color(0, 0, 0), " ", 5.0f);
+
+			//Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->setText(std::to_string(this->currentAmmo) + "/" + std::to_string(this->magazineSize));
+			//Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->setText(std::to_string(Game::ammo));
+
 			for (int j = 0; j < ITEM_AMOUNT; j++)
 			{
 				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
@@ -58,10 +66,14 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
 
-			for (int j = 0; j < ITEM_AMOUNT; j++)
+			createNoTextButton(bManagers[i], "UIWeaponsInventoryCurrent", 96.5, 47, 15, 15, UI_BLANK);
+			createNoTextButton(bManagers[i], "UIWeaponsInventoryCurrentBorder", 96.5, 47, 15, 15, UI_BLUE);
+			createTextButton(bManagers[i], "UIWeaponsInventoryName", 86.5, 30, 1, 1, 0, 0, Color(0, 0, 0), " ", 5.0f);
+
+			for (int j = 0; j < WEAPON_COUNT; j++)
 			{
-				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
-				createNoTextButton(bManagers[i], "UIItemInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
+				createNoTextButton(bManagers[i], "UIWeaponInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
+				createNoTextButton(bManagers[i], "UIWeaponInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
 			}
 			break;
 		case UI_GARAGE_INVENTORY:
@@ -70,10 +82,15 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Cars", 5.0f);
 
-			for (int j = 0; j < ITEM_AMOUNT; j++)
+			createNoTextButton(bManagers[i], "UIGarageInventoryCurrent", 96.5, 47, 15, 15, UI_BLANK);
+			createNoTextButton(bManagers[i], "UIGarageInventoryCurrentBorder", 96.5, 47, 15, 15, UI_BLUE);
+			createTextButton(bManagers[i], "UIGarageInventoryName", 86.5, 30, 1, 1, 0, 0, Color(0, 0, 0), " ", 5.0f);
+
+			for (int j = 0; j < CAR_COUNT; j++)
 			{
-				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
-				createNoTextButton(bManagers[i], "UIItemInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
+				//Need to have increment so that every 5 slots would push the next to next row
+				createNoTextButton(bManagers[i], "UIGarageInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
+				createNoTextButton(bManagers[i], "UIGarageInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
 			}
 			break;
 		case UI_MAIN_MENU:
@@ -149,6 +166,13 @@ void UIManager::Update(Scene* scene, double dt)
 				{
 					setCurrentUI(UI_GARAGE_INVENTORY);
 				}
+				for (int i = 0; i < ITEM_AMOUNT; i++)
+				{
+					if (buttonCollide->buttonClicked->getName() == ("UIItemInventorySlot" +std::to_string(i + 1)) && buttonCollide->justHovered) //Garage Button
+					{
+						Game::inv.getItemInventory()->setCurrentItem(i);
+					}
+				}
 				break;
 			case UI_WEAPON_INVENTORY:
 				if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) //Items button
@@ -158,6 +182,13 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) //Garage Button
 				{
 					setCurrentUI(UI_GARAGE_INVENTORY);
+				}
+				for (int i = 0; i < WEAPON_COUNT; i++)
+				{
+					if (buttonCollide->buttonClicked->getName() == ("UIWeaponInventorySlot" + std::to_string(i + 1)) && buttonCollide->justHovered) //Garage Button
+					{
+						Game::inv.getWeaponInventory()->setActiveWeapon(i);
+					}
 				}
 				break;
 			case UI_GARAGE_INVENTORY:

@@ -20,6 +20,14 @@ ItemInventory::~ItemInventory()
 
 void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 {
+	//for (int i = 0; i < weaponList.size(); i++) //check if player owns weapon
+	//	if (weaponList[i]->getWeaponType() == wType) //if yes return and cancel adding of weapon to prevent duplicate
+	//		return;
+
+	////add weapons to vector
+	//Weapon* temp = new Weapon(wType);
+	//weaponList.push_back(temp);
+	//activeWeapon = temp;
 	if (itemInv.empty()) //If player does not have any item yet
 	{
 		currentItem = new Item(itemtype, amt);
@@ -39,6 +47,7 @@ void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 		Item* addingItem; //If player does not own a specific item yet
 		addingItem = new Item(itemtype, amt);
 		itemInv.push_back(addingItem);
+		currentItem = addingItem;
 	}
 }
 
@@ -83,14 +92,24 @@ void ItemInventory::setAmtOfItems(ITEM_TYPE itemtype, int amt)
 	}
 }
 
+void ItemInventory::setCurrentItem(int itemType)
+{
+	for (int i = 0; i < itemInv.size(); i++)
+	{
+		if (itemInv[i]->getType() == itemType)
+			this->currentItem = itemInv[i];
+	}
+}
+
 int ItemInventory::getCurrentItemAmt()
 {
 	return this->currentItem->getAmt();
 }
 
-ITEM_TYPE ItemInventory::getCurrenItemType()
+ITEM_TYPE ItemInventory::getCurrentItemType()
 {
-	return this->currentItem->getType();
+	if (this->currentItem != nullptr)
+		return this->currentItem->getType();
 }
 
 Item* ItemInventory::getCurrentItem()

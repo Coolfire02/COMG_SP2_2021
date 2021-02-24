@@ -25,10 +25,11 @@ public:
 
 	//Setters
 	void setAmtOfItems(ITEM_TYPE itemtype, int amt);
+	void setCurrentItem(int itemType);
 
 	//Getter
 	int getCurrentItemAmt();
-	ITEM_TYPE getCurrenItemType();
+	ITEM_TYPE getCurrentItemType();
 	Item* getCurrentItem();
 	std::vector<Item*> getItemVect();
 };

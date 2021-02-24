@@ -8,7 +8,6 @@ enum ITEM_TYPE
 	BURGER = 0,
 	CORN,
 	EGGPLANT,
-	EMPTY_ITEM,
 	ITEM_AMOUNT,
 };
 

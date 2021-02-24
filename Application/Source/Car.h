@@ -18,6 +18,7 @@ enum CAR_TYPE
 	POLICE,
 	AMBULANCE,
 	SUV,
+	CAR_COUNT,
 };
 
 class Player;

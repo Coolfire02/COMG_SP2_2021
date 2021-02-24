@@ -15,6 +15,15 @@ WeaponInventory::~WeaponInventory()
 {
 }
 
+void WeaponInventory::setActiveWeapon(int wType)
+{
+	for (int i = 0; i < weaponList.size(); i++)
+	{
+		if (weaponList[i]->getWeaponType() == wType)
+			this->activeWeapon = weaponList[i];
+	}
+}
+
 //void WeaponInventory::Update(Camera* cam, double dt) {
 //	activeWeapon->Update(cam, dt);
 //}

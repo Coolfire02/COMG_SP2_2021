@@ -39,4 +39,5 @@ public:
 
 	GEOMETRY_TYPE getMeshType();
 	WEAPON_TYPE getWeaponType();
+	int getWeaponAmmo();
 };
