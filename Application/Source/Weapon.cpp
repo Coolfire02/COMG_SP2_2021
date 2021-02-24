@@ -45,7 +45,7 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 }
 
 void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vector3 view, double dt) {
-	if (this != nullptr) {
+	if (this != nullptr && Game::uiManager.getCurrentMenu() == UI_GENERAL) {
 		if (Application::IsMousePressed(0) && !shoot && !Reload && this->currentAmmo >= 0 && Game::ammo > 0) {
 			shoot = true;
 			if (this->currentAmmo > 0) {
