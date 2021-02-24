@@ -72,6 +72,8 @@ UIManager::UIManager()
 			enableUI();
 			break;
 		case UI_INTERACTION:
+			//createButton(bManagers[i], "Choice1",)
+
 			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 5, Color(0,1,0), "");
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test");
 			break;
@@ -181,7 +183,7 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 	switch (newUI)
 	{
 	case UI_GENERAL:
-		this->enableUI();
+		//this->enableUI();
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);

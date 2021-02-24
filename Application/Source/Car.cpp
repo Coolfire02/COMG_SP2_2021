@@ -233,7 +233,7 @@ void Car::Drive(double dt) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
 	else this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
-
+	
 }
 
 void Car::Update(double dt) {
