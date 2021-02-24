@@ -25,8 +25,6 @@ public:
 	Game();
 	~Game();
 	
-	static float toggleTimer;
-
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 

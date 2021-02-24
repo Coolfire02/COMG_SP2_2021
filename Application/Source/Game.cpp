@@ -6,7 +6,6 @@ SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
-float Game::toggleTimer = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
 
@@ -25,25 +24,7 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
-
-	if (Application::IsKeyPressed('E')) //pick up weapon
-		//inv.addWeap(PISTOL);
-	if (Application::IsKeyPressed('F')) //pick up weapon
-		inv.addWeap(SILENCER);
-	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
-		Game::inv.switchWeapon(0);
-	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
-		Game::inv.switchWeapon(1);
-	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
-		Game::inv.switchWeapon(2);
-	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
-		Game::inv.switchWeapon(3);
-	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
-	{
-		toggleTimer = 0;
-		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
-	}
-
+	inv.Update(dt);
 	InteractionUpdate(dt);		
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
