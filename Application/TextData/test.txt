@@ -1,20 +1,21 @@
-interaction asdsa
+INTERACTION: asdsa
+- MSG: allahu akbar
+- precmd: /yea 1
+- precmd: TestScene;/yea 1
+- postcmd: /ur mom
+# NEXT: ya
 
-msg allahu akbar
-precmd /yea 1
-precmd TestScene;/yea 1
-postcmd /ur mom
+CHOICE # asdsa
+- MSG: lol
+- precmd: /no
 
-interaction ya
+CHOICE # asdsa
+- MSG: yuh
+- precmd: /ns
+# NEXT: ya
 
-msg ur mom
-precmd /yea 1
-precmd Scene2021;/yea 3
-postcmd /ur mom
-
-interaction hey
-
-msg helloo
-precmd /yea 1
-precmd Scene2021;/yea 3
-postcmd /ur mom
+INTERACTION: ya
+- MSG: ur mom
+- precmd: /yea 1
+- precmd: Scene2021;/yea 3
+- postcmd: /ur mom

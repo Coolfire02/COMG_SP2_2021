@@ -46,7 +46,7 @@ public:
 	bool initInteractions(const char* filePath);
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 	void EndInteraction();
-	void nextInteraction();
+	void nextInteraction(std::string key);
 	bool isInteracting();
 	bool passedInteractionCooldown();
 

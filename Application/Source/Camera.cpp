@@ -148,6 +148,7 @@ void Camera::Update(double dt)
 	{
 		{
 			Vector3 view = (target - position).Normalized();
+			total_yaw += (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);

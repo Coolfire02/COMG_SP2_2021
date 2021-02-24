@@ -44,7 +44,18 @@ void Game::InteractionUpdate(double dt)
 {
 	if (iManager.isInteracting()) {
 		uiManager.setCurrentUI(UI_INTERACTION);
-
+		uiManager.getCurrentBM()->deactivateButton("Choice1");
+		uiManager.getCurrentBM()->deactivateButton("Choice2");
+		uiManager.getCurrentBM()->deactivateButton("Choice3");
+		uiManager.getCurrentBM()->deactivateButton("Choice4");
+		if (iManager.getQueue().Top()->interactionChoices.size() != 0) {
+			for (int i = 1; i < iManager.getQueue().Top()->interactionChoices.size() + 1; ++i) {
+				std::stringstream ss;
+				ss << "Choice" << i;
+				uiManager.getCurrentBM()->getButtonByName(ss.str())->setText(Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText);
+				uiManager.getCurrentBM()->activateButton(ss.str());
+			}
+		}
 		uiManager.getCurrentBM()->activateButton("InteractionButton");
 		uiManager.getCurrentBM()->getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
 	}

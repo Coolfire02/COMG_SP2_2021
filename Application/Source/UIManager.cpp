@@ -62,7 +62,13 @@ void UIManager::Init() {
 			enableUI();
 			break;
 		case UI_INTERACTION:
-			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 12, Color(0, 1, 0), "", 5.0f);
+			createButton(bManagers[i], "Choice1", 96, 33.7, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
+			createButton(bManagers[i], "Choice2", 96, 43.8, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
+			createButton(bManagers[i], "Choice3", 96, 53.5, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
+			createButton(bManagers[i], "Choice4", 96, 63.2, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
+
+
+			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 12, Color(1, 1, 1), "", 5.0f);
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
 		case UI_MISSION:
@@ -90,13 +96,26 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			case UI_MAIN_MENU:
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
-				{ 
+				{
 					setCurrentUI(UI_GENERAL);
 				}
 				break;
 			case UI_INTERACTION:
-				if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
-					Game::iManager.nextInteraction();
+
+				if (Game::iManager.getQueue().Top()->interactionChoices.empty()) {
+					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+						Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->nextInteractionKey);
+					}
+				}
+				else {
+					for (int i = 0; i < Game::iManager.getQueue().Top()->interactionChoices.size(); ++i) {
+						std::stringstream ss;
+						ss << "Choice" << i + 1;
+						if (buttonCollide->buttonClicked->getName() == ss.str() && buttonCollide->justClicked) {
+							Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->interactionChoices[i]->nextInteractionKey);
+							break;
+						}
+					}
 				}
 				break;
 			}
@@ -179,7 +198,7 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 	switch (newUI)
 	{
 	case UI_GENERAL:
-		this->enableUI();
+		//this->enableUI();
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);
