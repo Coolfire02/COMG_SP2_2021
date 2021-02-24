@@ -573,14 +573,24 @@ void Scene2021::CollisionHandler(double dt) {
 			}
 		}
 
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				// player->getEntityData()->Translate += entry->plane * 2;
-				// player->cancelNextMovement();
-				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
+			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
+					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
+				}
+				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
+					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
+				}
 			}
-
+			if (!player->isDriving())
+			{
+				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+					// player->getEntityData()->Translate += entry->plane * 2;
+					// player->cancelNextMovement();
+					entry->attacker->getEntityData()->Translate -= entry->translationVector;
+					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+				}
+			}
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
 					std::cout << "In Car" << std::endl;
@@ -590,15 +600,6 @@ void Scene2021::CollisionHandler(double dt) {
 					std::cout << "Collided" << std::endl;
 				}
 			}*/
-
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
-				}
-				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
-				}
-			}
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
@@ -867,6 +868,13 @@ void Scene2021::Render()
 	modelStack.Rotate(-90, 0, 1, 0);
 	modelStack.Scale(3, 3, 3);
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "RESTAURANT", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(350, 15, 60);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "FOUNTAIN", Color(1, 0, 1));
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {

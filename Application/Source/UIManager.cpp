@@ -25,7 +25,7 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "UIItem", 120, 20, 10, 10, UI_EMPTY);
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
-			//Weapons UI 128 72
+			//Weapons UI
 			//need to create text buttons for amount
 			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "0/0 Ammo", 5.0f);
 			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);

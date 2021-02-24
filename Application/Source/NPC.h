@@ -66,7 +66,7 @@ class NPC : public Entity
 	Mesh* associatedNPCMesh; // NPC Mesh
 	const NPCTYPE npcType; // NPC type
 	RigidBody RB;
-	int NPCtimer = 0; // timer for random movement.
+	float NPCtimer = 0; // timer for random movement.
 
 public:
 

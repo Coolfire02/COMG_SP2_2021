@@ -6,7 +6,7 @@ main 2021 scene
 
 
 
-NPC movement
+NPC random movement
 weapon inventory
 add/switch/delete weapons slot
 weapon switching ui

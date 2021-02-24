@@ -68,11 +68,9 @@ Calculate random angle where the NPC will face and walk towards using frame tick
 /******************************************************************************/
 void NPC::Walk(double dt)
 {
-	NPCtimer++;
-
-	switch (NPCtimer % 300) //after 300frames (est 5secs)
+	NPCtimer += dt;
+	if (NPCtimer > 5)
 	{
-	case 0:
 		if (!this->RB.hit) {
 			int randomDir = rand() % 360 + 1; //get random direction
 
@@ -83,6 +81,6 @@ void NPC::Walk(double dt)
 			rotation.SetToRotation(randomDir, 0, 1, 0); //make rotation matrix
 			this->RB.velocity = rotation * this->RB.velocity; //set the velocity rotation to the direction the NPC is facing
 		}
-		break;
+		NPCtimer = 0;
 	}
 }
