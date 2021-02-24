@@ -66,6 +66,7 @@ private:
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 
 	Light light[3];
+	ButtonManager bManager;
 
 	bool hitboxEnable;
 	float fps;

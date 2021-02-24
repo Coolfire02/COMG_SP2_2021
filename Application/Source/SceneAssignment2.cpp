@@ -137,14 +137,14 @@ void SceneAssignment2::Init() {
 
 	//Buttons
 
-	/*Button* button;
-	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
+	Button* button;
+	button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
 	button->getTextObject()->setTextString("Test");
 	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
 	bManager.addButton(button);
 
-	Button* inventoryBackground;
+	/*Button* inventoryBackground;
 	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
 	bManager.addButton(inventoryBackground);
 	bManager.deactivateButton("UIInventoryBackground");
@@ -947,6 +947,8 @@ void SceneAssignment2::Render()
 
 	RenderUI();
 	RenderInteraction();
+
+	bManager.Render(this);
 
 	std::ostringstream ss;
 
