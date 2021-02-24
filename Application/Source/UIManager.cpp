@@ -8,6 +8,7 @@ UIManager::UIManager()
 void UIManager::Init() {
 	////bManager = bN;
 	currentMenu = UI_MAIN_MENU;
+	activeMenus[UI_MISSION] = true; //UI_MISSION Overlay
 	uiActive = true;
 
 	for (int i = 0; i < UI_MENU_COUNT; i++)
@@ -78,6 +79,8 @@ void UIManager::Init() {
 			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 12, Color(0, 1, 0), "", 5.0f);
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
+		case UI_MISSION:
+			//createButton(bManagers[i], "MissionComplete", 64, 60, 96, 18, )
 		}
 	}
 	setCurrentUI(UI_MAIN_MENU);
@@ -132,7 +135,12 @@ void UIManager::disableUI()
 
 void UIManager::Render(Scene* scene)
 {
-	bManagers[currentMenu]->Render(scene);
+	for (int i = 0; i < UI_MENU_COUNT; i++) {
+		UI_MENUS type = static_cast<UI_MENUS>(i);
+		if (type == currentMenu || activeMenus[type] == true) {
+			bManagers[type]->Render(scene);
+		}
+	}
 }
 
 void UIManager::changeTextButton(std::string newText, std::string bName)

@@ -12,6 +12,7 @@ enum UI_MENUS
 	UI_GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
 	UI_MAIN_MENU, //renders title screen
 	UI_INTERACTION,
+	UI_MISSION,
 	UI_MENU_COUNT,
 };
 
@@ -22,9 +23,9 @@ private:
 	m_height = 720;*/ //screen size
 	ButtonManager* bManagers[UI_MENU_COUNT]; //Init buttons inside this class
 
-
 	bool uiActive;
 	UI_MENUS currentMenu;
+	bool activeMenus[UI_MENU_COUNT];
 public:
 	UIManager();
 	~UIManager();
