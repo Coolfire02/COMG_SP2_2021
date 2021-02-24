@@ -20,7 +20,6 @@ struct ButtonCollide {
 
 class ButtonManager
 {
-	Scene* scene; //Manager should be assigned to a scene
 	std::vector<Button*> buttons;
 	
 	//Frequently updated in Update(dt) function:
@@ -28,12 +27,11 @@ class ButtonManager
 
 public:
 	ButtonManager();
-	ButtonManager(Scene*);
 	~ButtonManager();
 
-	void Update(double dt);
+	void Update(Scene* scene, double dt);
+	void Render(Scene * scene);
 
-	void setScene(Scene* sceneName);
 	void addButton(Button* button);
 	bool deleteButton(Button* button);
 	bool activateButton(std::string buttonName);

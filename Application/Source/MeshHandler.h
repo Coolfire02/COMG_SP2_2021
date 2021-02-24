@@ -87,6 +87,7 @@ enum GEOMETRY_TYPE {
 	UI_BLUE,
 	UI_WINDOW,
 	UI_EMPTY,
+	UI_BLANK,
 
 	//UI Items
 	UI_EGGPLANT,
@@ -111,6 +112,7 @@ enum GEOMETRY_TYPE {
 
 	TAILSS,
 	//For non-OBJs
+	UI_TEXTBOX,
 	UI_CROSSHAIR,
 
 

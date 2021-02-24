@@ -33,7 +33,6 @@ class InteractionManager {
 	double latestInteractionSwitch;
 	bool canInteractWithSomething;
 	float interactionElapsed; //Total time spent in Interaction instance
-	int currentMessage;
 	double elapsed;
 	float showNotifUntil;
 
@@ -41,11 +40,10 @@ public:
 	InteractionManager();
 	~InteractionManager();
 
-	InteractionQueue& getQueue();
+	InteractionQueue& getQueue();	
 	bool runCommand(Command cmd);
 	bool loadInteraction(std::string key);
 	bool initInteractions(const char* filePath);
-	void sendNotification(std::string msg, double duration);
 	void split(std::string txt, char delim, std::vector<std::string>& out);
 	void EndInteraction();
 	void nextInteraction();

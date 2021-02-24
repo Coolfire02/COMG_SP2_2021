@@ -5,8 +5,10 @@
 #include <iostream>
 #include <fstream>
 #include "Debug.h"
+#include "Application.h"
 
-InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0), currentMessage(0) { 
+
+InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
 		this->completedInteractionsCount[i] = 0;
 	}
@@ -17,11 +19,23 @@ InteractionManager::~InteractionManager()
 	// do nothing
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns the interaction queue.
+*/
+/******************************************************************************/
 InteractionQueue& InteractionManager::getQueue()
 {
 	return this->interactionQueue;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Runs a command in the format of '/cmd' to carry out codes that require their own functions.
+*/
+/******************************************************************************/
 bool InteractionManager::runCommand(Command cmd) {
 	std::vector<std::string> splitVar;
 	split(cmd.command, ' ', splitVar);
@@ -43,7 +57,14 @@ bool InteractionManager::runCommand(Command cmd) {
 	return true;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Pushes interactions from the Interactions map into the queue to be shown on the UI.
+*/
+/******************************************************************************/
 bool InteractionManager::loadInteraction(std::string key) {
+	Application::setCursorEnabled(true);
 	try {
 		interactionQueue.pushInteraction(Interactions[key]);
 		return true;
@@ -53,6 +74,12 @@ bool InteractionManager::loadInteraction(std::string key) {
 	return false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Splits a string based on delimiters in between.
+*/
+/******************************************************************************/
 void InteractionManager::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
@@ -61,6 +88,12 @@ void InteractionManager::split(std::string txt, char delim, std::vector<std::str
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Initialises ALL interactions loaded from a file into the map of interactions.
+*/
+/******************************************************************************/
 bool InteractionManager::initInteractions(const char* filePath)
 {
 	std::ifstream fileStream(filePath, std::ios::binary);
@@ -148,41 +181,70 @@ bool InteractionManager::initInteractions(const char* filePath)
 	fileStream.close(); // close file
 
 	return true;
-
+		
 }
 
-void InteractionManager::sendNotification(std::string msg, double duration) {
-	showNotifUntil = (float)(elapsed + duration);
-	//notificationMessage = msg;
-}
-
+/******************************************************************************/
+/*!
+\brief
+Ends the current interaction chain.
+*/
+/******************************************************************************/
 void InteractionManager::EndInteraction()
 {
-	if (isInteracting()) {
+	completedInteractionsCount[currentInteractionType]++;
 
-		completedInteractionsCount[currentInteractionType]++;
-
-		// isInteracting = false;
-		for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
-			runCommand(*entry);
-		}
-		interactionQueue.popInteraction();
-		interactionElapsed = 0;
-		currentInteractionType = INTERACTION_COUNT;
-	}
+	// isInteracting = false;
+	//for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
+	//	runCommand(*entry);
+	//}
+	interactionElapsed = 0;
+	currentInteractionType = INTERACTION_COUNT;
+	Game::uiManager.setCurrentUI(UI_GENERAL);
+	Application::setCursorEnabled(false);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Runs the pre and post commands of the current Interaction and pop it from the queue, loading in the next Interaction Message
+*/
+/******************************************************************************/
 void InteractionManager::nextInteraction()
 {
-	for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+
+	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 		runCommand(*entry);
+	}
+
+	interactionQueue.popInteraction();
+
+	if (isInteracting()) {
+		for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+			runCommand(*entry);
+		}
+	}
+	else {
+		EndInteraction();
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns true if the queue is not empty.
+*/
+/******************************************************************************/
 bool InteractionManager::isInteracting() {
 	return (!(interactionQueue.getQueue().size() == 0));
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns true if the time elapsed is greater than the cooldown.
+*/
+/******************************************************************************/
 bool InteractionManager::passedInteractionCooldown()
 {
 	const float INTERACTION_COOLDOWN = 0.5f;
@@ -192,6 +254,12 @@ bool InteractionManager::passedInteractionCooldown()
 	return false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Updates the elapsed time
+*/
+/******************************************************************************/
 void InteractionManager::Update(double dt) {
 	if (isInteracting()) {
 		this->interactionElapsed += dt;

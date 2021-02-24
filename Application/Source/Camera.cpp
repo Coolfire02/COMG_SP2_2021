@@ -66,7 +66,7 @@ To be called every frame. FirstPersonCamera will get user inputs and update its 
 /******************************************************************************/
 void Camera::Update(double dt)
 {
-
+	if (Application::cursorEnabled) return;
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	right.y = 0;

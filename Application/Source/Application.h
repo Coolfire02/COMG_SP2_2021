@@ -26,6 +26,7 @@ public:
 	static void GetCursorPos(double* xpos, double* ypos);
 	static int GetWindowWidth();
 	static int GetWindowHeight();
+	static bool cursorEnabled;
 	static unsigned m_width;
 	static unsigned m_height;
 

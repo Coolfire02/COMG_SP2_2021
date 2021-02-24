@@ -8,6 +8,7 @@ enum ITEM_TYPE
 	BURGER = 0,
 	CORN,
 	EGGPLANT,
+	ITEM_AMOUNT,
 };
 
 class Item

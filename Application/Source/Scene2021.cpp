@@ -578,7 +578,6 @@ void Scene2021::InitLights() {
 	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 }
 
-
 void Scene2021::CollisionHandler(double dt) {
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
@@ -1506,30 +1505,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 void Scene2021::RenderUI()
 {
-	//weapons UI
-	for (int i = 0; i < 4; i++) //limit to displaying 4
-	{
-		if (i >= (Game::inv.getWeaponVector().size())) //if more than 4 weapons owned, return (don't show weapon in UI)
-			return;
-
-		switch (Game::inv.getWeaponVector()[i]->getWeaponType())
-		{
-		case PISTOL:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_PISTOL), 90 + (i * 10), 10, 10, 10);
-			break;
-		case SILENCER:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_SILENCER), 90 + (i * 10), 10, 10, 10);
-			break;
-		default:
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_EMPTY), 90 + (i * 10), 10, 10, 10);
-			break;
-		}
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BLACK), 90 + (i * 10), 10, 10, 10);
-		if (Game::inv.getWeaponVector()[i]->getWeaponType() == Game::inv.getActiveWeapon()->getWeaponType())
-		{
-			RenderMeshOnScreen(MeshHandler::getMesh(UI_BLUE), 90 + (i * 10), 10, 11, 11);
-		}
-	}
+	Game::RenderUI();
 }
 
 void Scene2021::Exit()
