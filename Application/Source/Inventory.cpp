@@ -143,7 +143,14 @@ void Inventory::Update(double dt)
 		break;
 	}
 
-	if (weaponInv->getWeaponList().size() > 0)
+	if (weaponInv->getActiveWeapon() == nullptr)
+	{
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent" + std::to_string(i + 1))->disable();
+		}
+	}
+	else if (weaponInv->getWeaponList().size() > 0)
 	{
 		//display first gun slot
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();

@@ -246,44 +246,44 @@ void SceneAssignment2::Update(double dt)
 	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
 	//	Game::inv.addCar(SUV);
 	//}
-	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
-	{
-		toggleTimer = 0;
-		/*if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
-		{
-			uiManager.setCurrentUI(UI_ITEM_INVENTORY);
-		}
-		else if (uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIItemsInventoryBlank");
-			bManager.deactivateButton("UIWeaponsInventory");
-			bManager.deactivateButton("UIGarageInventory");
-		}
-		else if (uiManager.getCurrentMenu() == UI_WEAPON_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIWeaponsInventoryBlank");
-			bManager.deactivateButton("UIItemsInventory");
-			bManager.deactivateButton("UIGarageInventory");
-		}
-		else if (uiManager.getCurrentMenu() == UI_GARAGE_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIItemsInventory");
-			bManager.deactivateButton("UIWeaponsInventory");
-			bManager.deactivateButton("UIGarageInventoryBlank");
-		}*/
-			
-		/*inv.toggleItem();
-		if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);*/
-	}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('L'))
+	//{
+	//	toggleTimer = 0;
+	//	/*if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+	//	{
+	//		uiManager.setCurrentUI(UI_ITEM_INVENTORY);
+	//	}
+	//	else if (uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
+	//	{
+	//		uiManager.setCurrentUI(UI_GENERAL);
+	//		bManager.deactivateButton("UIInventoryBackground");
+	//		bManager.deactivateButton("UIItemsInventoryBlank");
+	//		bManager.deactivateButton("UIWeaponsInventory");
+	//		bManager.deactivateButton("UIGarageInventory");
+	//	}
+	//	else if (uiManager.getCurrentMenu() == UI_WEAPON_INVENTORY)
+	//	{
+	//		uiManager.setCurrentUI(UI_GENERAL);
+	//		bManager.deactivateButton("UIInventoryBackground");
+	//		bManager.deactivateButton("UIWeaponsInventoryBlank");
+	//		bManager.deactivateButton("UIItemsInventory");
+	//		bManager.deactivateButton("UIGarageInventory");
+	//	}
+	//	else if (uiManager.getCurrentMenu() == UI_GARAGE_INVENTORY)
+	//	{
+	//		uiManager.setCurrentUI(UI_GENERAL);
+	//		bManager.deactivateButton("UIInventoryBackground");
+	//		bManager.deactivateButton("UIItemsInventory");
+	//		bManager.deactivateButton("UIWeaponsInventory");
+	//		bManager.deactivateButton("UIGarageInventoryBlank");
+	//	}*/
+	//		
+	//	/*inv.toggleItem();
+	//	if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);*/
+	//}
 	/*if (toggleTimer > 1 && Application::IsKeyPressed('R'))
 	{
 		Game::inv.addItem(CORN, 3);
