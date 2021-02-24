@@ -7,6 +7,7 @@ Weapon::Weapon() //set damage and magSize to 0
 {
 	damage = 0;
 	magazineSize = 0;
+	currentAmmo = 0;
 }
 
 Weapon::~Weapon()
@@ -42,7 +43,6 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 	associatedMeshType = GEO_PISTOL_S;
 }
 
-bool shoot = false;
 void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vector3 view, double dt) {
 	if (this != nullptr) {
 		if (Application::IsMousePressed(0) && !shoot && this->currentAmmo > 0 && Game::ammo > 0) {
@@ -86,6 +86,7 @@ void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weap
 	this->weaponType = wType;
 	this->damage = damages;
 	this->magazineSize = magSize;
+	this->currentAmmo = magSize;
 }
 
 GEOMETRY_TYPE Weapon::getMeshType()
