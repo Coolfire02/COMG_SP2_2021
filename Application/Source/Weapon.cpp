@@ -44,16 +44,39 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 
 bool shoot = false;
 void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vector3 view, double dt) {
-	if (Application::IsMousePressed(0) && !shoot) {
-		//Vector3 view = (cam->target - cam->position).Normalized();
-		Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
-		bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
-		bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
-		// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
-		eManager->spawnMovingEntity(bullet);
-		shoot = true;
-		DEBUG_MSG("shot");
-		DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+	if (this != nullptr) {
+		if (Application::IsMousePressed(0) && !shoot && this->currentAmmo > 0 && Game::ammo > 0) {
+			//Vector3 view = (cam->target - cam->position).Normalized();
+			Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
+			bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
+			bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
+			// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
+			eManager->spawnMovingEntity(bullet);
+			shoot = true;
+			DEBUG_MSG("shot");
+			DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+			this->currentAmmo--; //minus current gun ammo
+			Game::ammo--; //minus total ammo
+		}
+		else if (!Application::IsMousePressed(0)) shoot = false;
+
+		if (Application::IsKeyPressed('R') && !Reload) //start reload
+			Reload = true;
+
+		if (Reload)
+			reloadTillTime += dt; //start timer
+		else
+			reloadTillTime = 0;
+
+		if (reloadTillTime > 2) //after 2 seconds, reload complete
+		{
+			int reloadAmmo = this->magazineSize - this->currentAmmo; //get amt to reload
+			this->currentAmmo += reloadAmmo; //add the reload amt to current gun ammo
+			Game::ammo -= reloadAmmo; //minus total gun ammo to amt reloaded
+			Reload = false;
+		}
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->setText(std::to_string(this->currentAmmo) + "/" + std::to_string(this->magazineSize));
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->setText(std::to_string(Game::ammo));
 	}
 	else if (!Application::IsMousePressed(0)) shoot = false;
 }
