@@ -12,7 +12,7 @@ void UIManager::Init() {
 
 	uiActive = true;
 	currentMenu = UI_MAIN_MENU;
-	elapsedTimeinUI = 0;
+	nextKeyPress = 0;
 
 	for (int i = 0; i < UI_MENU_COUNT; i++)
 	{
@@ -45,18 +45,36 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Item", 5.0f);
 			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
+
+			for (int j = 0; j < ITEM_AMOUNT; j++)
+			{
+				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
+				createNoTextButton(bManagers[i], "UIItemInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
+			}
 			break;
 		case UI_WEAPON_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
 			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Item", 5.0f);
 			createButton(bManagers[i], "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
+
+			for (int j = 0; j < ITEM_AMOUNT; j++)
+			{
+				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
+				createNoTextButton(bManagers[i], "UIItemInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
+			}
 			break;
 		case UI_GARAGE_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
 			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Item", 5.0f);
 			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
 			createButton(bManagers[i], "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Cars", 5.0f);
+
+			for (int j = 0; j < ITEM_AMOUNT; j++)
+			{
+				createNoTextButton(bManagers[i], "UIItemInventorySlot" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLANK);
+				createNoTextButton(bManagers[i], "UIItemInventorySlotCurrent" + std::to_string(j + 1), 24 + (j * 12), 52, 10, 10, UI_BLUE);
+			}
 			break;
 		case UI_MAIN_MENU:
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
@@ -99,17 +117,24 @@ UIManager::~UIManager()
 
 void UIManager::Update(Scene* scene, double dt)
 {
-	elapsedTimeinUI += dt;
 	bManagers[currentMenu]->Update(scene, dt);
 	if (uiActive == true)
 	{
 		if (Application::IsKeyPressed('L') && (currentMenu != UI_ITEM_INVENTORY && currentMenu != UI_INTERACTION && currentMenu != UI_MAIN_MENU))
 		{
-			setCurrentUI(UI_ITEM_INVENTORY);
+			if (nextKeyPress < Game::gElapsedTime) 
+			{ //Means can press
+				setCurrentUI(UI_ITEM_INVENTORY);
+				nextKeyPress = Game::gElapsedTime + 1.0f;
+			}
 		}
 		else if (Application::IsKeyPressed('L') && (currentMenu == UI_ITEM_INVENTORY || currentMenu == UI_WEAPON_INVENTORY || currentMenu == UI_GARAGE_INVENTORY))
 		{
-			setCurrentUI(UI_GENERAL);
+			if (nextKeyPress < Game::gElapsedTime) 
+			{ //Means can press
+				setCurrentUI(UI_GENERAL);
+				nextKeyPress = Game::gElapsedTime + 1.0f;
+			}
 		}
 		for (auto& buttonCollide : getCurrentBM()->getButtonsInteracted()) {
 			switch (currentMenu) {
@@ -244,10 +269,6 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		}
 	}
 	
-	//if (elapsedTimeinUI > 1)
-	//	elapsedTimeinUI = 0;
-	//else
-	//	return;
 	Application::setCursorEnabled(false);
 	this->currentMenu = newUI;
 	switch (newUI)
