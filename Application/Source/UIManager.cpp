@@ -152,7 +152,6 @@ void UIManager::Update(Scene* scene, double dt)
 				}
 				break;
 			case UI_INTERACTION:
-
 				if (Game::iManager.getQueue().Top()->interactionChoices.empty()) {
 					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
 						Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->nextInteractionKey);
@@ -245,10 +244,10 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		}
 	}
 	
-	if (elapsedTimeinUI > 1)
-		elapsedTimeinUI = 0;
-	else
-		return;
+	//if (elapsedTimeinUI > 1)
+	//	elapsedTimeinUI = 0;
+	//else
+	//	return;
 	Application::setCursorEnabled(false);
 	this->currentMenu = newUI;
 	switch (newUI)
