@@ -64,6 +64,10 @@ Pushes interactions from the Interactions map into the queue to be shown on the 
 */
 /******************************************************************************/
 bool InteractionManager::loadInteraction(std::string key) {
+
+	if (key.empty())
+		return false;
+
 	Application::setCursorEnabled(true);
 	try {
 		interactionQueue.pushInteraction(Interactions[key]);
@@ -107,28 +111,37 @@ bool InteractionManager::initInteractions(const char* filePath)
 	while (!fileStream.eof()) {
 		char buf[256];
 		fileStream.getline(buf, 256);
-		if (strncmp("interaction ", buf, 12) == 0) {
+		if (strncmp("INTERACTION: ", buf, 13) == 0) {
 			char interaction_ID[256];
-			strcpy_s(interaction_ID, buf + 12);
+			strcpy_s(interaction_ID, buf + 13);
 			if (interaction_ID[strlen(interaction_ID) - 1] == '\r')
 				interaction_ID[strlen(interaction_ID) - 1] = '\0';
 
 			interaction = new Interaction();
 			Interactions.insert(std::pair<std::string, Interaction*>(std::string(interaction_ID), interaction));
 		}
-		else if ((strncmp("msg ", buf, 4) == 0)) {
+		else if (strncmp("CHOICE # ", buf, 9) == 0) {
+			char interaction_ID[256];
+			strcpy_s(interaction_ID, buf + 9);
+			if (interaction_ID[strlen(interaction_ID) - 1] == '\r')
+				interaction_ID[strlen(interaction_ID) - 1] = '\0';
+
+			this->Interactions[interaction_ID]->interactionChoices.push_back(new Interaction());
+			interaction = Interactions[interaction_ID]->interactionChoices.back();
+		}
+		else if ((strncmp("- MSG: ", buf, 7) == 0)) {
 			if (interaction != nullptr) {
 				char msg[256];
-				strcpy_s(msg, buf + 4);
+				strcpy_s(msg, buf + 7);
 				if (msg[strlen(msg) - 1] == '\r')
 					msg[strlen(msg) - 1] = '\0';
 				interaction->interactionText = msg;
 			}
 		}
-		else if ((strncmp("precmd ", buf, 7) == 0)) {
+		else if ((strncmp("- precmd: ", buf, 10) == 0)) {
 			if (interaction != nullptr) {
 				char cmd[256];
-				strcpy_s(cmd, buf + 7);
+				strcpy_s(cmd, buf + 10);
 				if (cmd[strlen(cmd) - 1] == '\r')
 					cmd[strlen(cmd) - 1] = '\0';
 
@@ -151,10 +164,10 @@ bool InteractionManager::initInteractions(const char* filePath)
 				interaction->preInteractionCMD.push_back(command);
 			}
 		}
-		else if ((strncmp("postcmd ", buf, 7) == 0)) {
+		else if ((strncmp("- postcmd: ", buf, 10) == 0)) {
 			if (interaction != nullptr) {
 				char cmd[256];
-				strcpy_s(cmd, buf + 7);
+				strcpy_s(cmd, buf + 10);
 				if (cmd[strlen(cmd) - 1] == '\r')
 					cmd[strlen(cmd) - 1] = '\0';
 
@@ -175,6 +188,16 @@ bool InteractionManager::initInteractions(const char* filePath)
 				}
 
 				interaction->postInteractionCMD.push_back(command);
+			}
+		}
+		else if ((strncmp("# NEXT: ", buf, 8) == 0)) {
+			if (interaction != nullptr) {
+				char next[256];
+				strcpy_s(next, buf + 8);
+				if (next[strlen(next) - 1] == '\r')
+					next[strlen(next) - 1] = '\0';
+				
+				interaction->nextInteractionKey = next;
 			}
 		}
 	}
@@ -210,13 +233,14 @@ void InteractionManager::EndInteraction()
 Runs the pre and post commands of the current Interaction and pop it from the queue, loading in the next Interaction Message
 */
 /******************************************************************************/
-void InteractionManager::nextInteraction()
+void InteractionManager::nextInteraction(std::string key)
 {
 
 	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 		runCommand(*entry);
 	}
 
+	loadInteraction(key);
 	interactionQueue.popInteraction();
 
 

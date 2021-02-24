@@ -28,6 +28,23 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
+	if (GetAsyncKeyState('3') & 0x8001) {
+		Game::switchScene(S_2051);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('4') & 0x8001) {
+		Game::switchScene(S_2021);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('5') & 0x8001) {
+		//game.switchScene(S_2021);
+		Game::switchScene(S_GARAGE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (GetAsyncKeyState('6') & 0x8001) {
+		Game::switchScene(S_GUNSHOP);
+	}
+
 	gElapsedTime += dt;
 	inv.Update(dt);
 	InteractionUpdate(dt);		
@@ -44,7 +61,18 @@ void Game::InteractionUpdate(double dt)
 {
 	if (iManager.isInteracting()) {
 		uiManager.setCurrentUI(UI_INTERACTION);
-
+		uiManager.getCurrentBM()->deactivateButton("Choice1");
+		uiManager.getCurrentBM()->deactivateButton("Choice2");
+		uiManager.getCurrentBM()->deactivateButton("Choice3");
+		uiManager.getCurrentBM()->deactivateButton("Choice4");
+		if (iManager.getQueue().Top()->interactionChoices.size() != 0) {
+			for (int i = 1; i < iManager.getQueue().Top()->interactionChoices.size() + 1; ++i) {
+				std::stringstream ss;
+				ss << "Choice" << i;
+				uiManager.getCurrentBM()->getButtonByName(ss.str())->setText(Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText);
+				uiManager.getCurrentBM()->activateButton(ss.str());
+			}
+		}
 		uiManager.getCurrentBM()->activateButton("InteractionButton");
 		uiManager.getCurrentBM()->getButtonByName("InteractionButton")->setText(Game::iManager.getQueue().Top()->interactionText);
 	}

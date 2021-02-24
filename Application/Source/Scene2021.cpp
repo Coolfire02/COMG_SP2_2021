@@ -417,22 +417,6 @@ void Scene2021::Update(double dt)
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
 	}
-	else if (GetAsyncKeyState('3') & 0x8001) {
-		Game::switchScene(S_2051);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
-		Game::switchScene(S_2021);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
-		//game.switchScene(S_2021);
-		Game::switchScene(S_GARAGE);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
-		Game::switchScene(S_GUNSHOP);
-	}
 
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
@@ -518,10 +502,10 @@ void Scene2021::InitLights() {
 	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	light[1].type = Light::LIGHT_POINT;
+	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(1, 1, 1);
-	light[1].power = 1.4f;
+	light[1].color.set(1, 0, 1);
+	light[1].power = 0.f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
 	light[1].kQ = 0.001f;
@@ -796,13 +780,13 @@ void Scene2021::TopDownMapUpdate(double dt)
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 2.5;
+		light[1].power = 1;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(-view.x, 0, -view.z);
 		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
 		break;
 	case TOPDOWN_THIRDPERSON:
-		light[1].power = 2.5;
+		light[1].power = 1;
 		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
 		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
 		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);

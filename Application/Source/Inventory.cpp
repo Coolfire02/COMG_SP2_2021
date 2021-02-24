@@ -143,8 +143,16 @@ void Inventory::Update(double dt)
 		break;
 	}
 
-	if (weaponInv->getWeaponList().size() > 0)
+	if (weaponInv->getActiveWeapon() == nullptr)
 	{
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent" + std::to_string(i + 1))->disable();
+		}
+	}
+	else if (weaponInv->getWeaponList().size() > 0)
+	{
+		//display first gun slot
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
 
@@ -160,7 +168,7 @@ void Inventory::Update(double dt)
 			break;
 		}
 
-		if (weaponInv->getWeaponList().size() == 2)
+		if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
 		{
 			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
 			switch (weaponInv->getWeaponList()[1]->getWeaponType())
@@ -179,7 +187,7 @@ void Inventory::Update(double dt)
 			}
 		}
 	}
-	else
+	else //do not display any gun slots as no guns owned
 	{
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();

@@ -148,6 +148,7 @@ void Camera::Update(double dt)
 	{
 		{
 			Vector3 view = (target - position).Normalized();
+			total_yaw += (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			yaw = (float)(-CAMERA_SPEED * Application::camera_yaw * (float)dt);
 			Mtx44 rotation;
 			rotation.SetToRotation(yaw, 0, 1, 0);
@@ -164,6 +165,17 @@ void Camera::Update(double dt)
 		break;
 	}
 
+}
+
+bool Camera::isLookingAt(Vector3 pos)
+{
+	float sideA = sqrt(pow(target.x - position.x, 2) + pow(target.y - position.y, 2) + pow(target.z - position.z, 2));
+	float sideC = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2) + pow(pos.z - position.z, 2));
+	float sideB = sqrt(pow(pos.x - target.x, 2) + pow(pos.y - target.y, 2) + pow(pos.z - target.z, 2));
+
+	float angle = acos((pow(sideA, 2) + pow(sideC, 2) - pow(sideB, 2)) / (2 * sideA * sideC)) * 180 / 3.14159;
+
+	return angle < 3;
 }
 
 

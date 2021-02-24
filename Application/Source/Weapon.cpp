@@ -56,13 +56,12 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			DEBUG_MSG("shot");
 			DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
 			this->currentAmmo--; //minus current gun ammo
-			Game::ammo--; //minus total ammo
 		}
 		else if (!Application::IsMousePressed(0)) shoot = false;
 
 		if (Application::IsKeyPressed('R') && !Reload) //start reload
 			Reload = true;
-		
+
 		if (Reload)
 			reloadTillTime += dt; //start timer
 		else
@@ -75,6 +74,8 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			Game::ammo -= reloadAmmo; //minus total gun ammo to amt reloaded
 			Reload = false;
 		}
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->setText(std::to_string(this->currentAmmo) + "/" + std::to_string(this->magazineSize));
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->setText(std::to_string(Game::ammo));
 	}
 }
 
