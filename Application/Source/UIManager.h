@@ -23,6 +23,7 @@ private:
 	m_height = 720;*/ //screen size
 	ButtonManager* bManagers[UI_MENU_COUNT]; //Init buttons inside this class
 
+	float elapsedTimeinUI;
 	bool uiActive;
 	UI_MENUS currentMenu;
 	bool activeMenus[UI_MENU_COUNT];
