@@ -73,3 +73,12 @@ void WeaponInventory::switchActiveWeapon(int index)
 			activeWeapon = weaponList[index];
 	}
 }
+
+void WeaponInventory::setAmmo(int) {
+
+}
+
+int WeaponInventory::getAmmo()
+{
+	return 0;
+}

@@ -108,6 +108,10 @@ ItemInventory* Inventory::getItemInventory()
 	return this->itemInventory;
 }
 
+WeaponInventory* Inventory::getWeaponInventory() {
+	return this->weaponInv;
+}
+
 std::vector<Weapon*> Inventory::getWeaponVector()
 {
 	return weaponInv->getWeaponList();

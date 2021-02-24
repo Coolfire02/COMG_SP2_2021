@@ -10,6 +10,7 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Car.h"
+#include "Debug.h"
 #include "InteractionManager.h"
 
 SceneGunShop::SceneGunShop() :
@@ -308,9 +309,9 @@ void SceneGunShop::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
-		if (player->isDriving()) {
-			player->getCar()->Drive(dt);
-		}
+		//if (player->isDriving()) {
+		//	player->getCar()->Drive(dt);
+		//}
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
@@ -501,14 +502,24 @@ void SceneGunShop::CollisionHandler(double dt) {
 					}
 				}
 			}
+			((Car*)entry)->Drive(dt);
 		}
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+			//Vector3 RPos = (entry->getEntityData()->Translate - player->getEntityData()->Translate).Normalized();
+			//if (player->getEntityData()->Translate.x <= entry->getEntityData()->Translate.x)
+			//	NPCLookAngle = 90 + Math::RadianToDegree(RPos.Dot(Vector3(0, 0, -1)));
+			//else 
+			//	NPCLookAngle = 90 - Math::RadianToDegree(RPos.Dot(Vector3(0, 0, -1)));
+
+			DEBUG_MSG(NPCLookAngle);
+			entry->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (ePressed) {
-					Game::iManager.loadInteraction("drugman");
+					// if mission is to talk to this guy, load drugman, else load gunshop1
+					Game::iManager.loadInteraction("Gunshop1");
 				}
 			}
 
@@ -734,7 +745,7 @@ void SceneGunShop::Render()
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
 			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
-			this->RenderMesh(mesh, lightEnable);
+			this->RenderMesh(mesh, false);
 			modelStack.PopMatrix();
 			delete mesh;
 		}

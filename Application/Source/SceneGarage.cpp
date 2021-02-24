@@ -779,7 +779,7 @@ void SceneGarage::Render()
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-			this->RenderMesh(mesh, lightEnable);
+			this->RenderMesh(mesh, false);
 			modelStack.PopMatrix();
 			delete mesh;
 		}

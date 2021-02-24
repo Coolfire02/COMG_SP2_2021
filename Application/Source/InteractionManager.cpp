@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "Debug.h"
+#include "Game.h"
 #include "Application.h"
 
 
@@ -44,6 +45,15 @@ bool InteractionManager::runCommand(Command cmd) {
 
 		if (splitVar.at(0) == "/endinteraction") {
 			EndInteraction();
+			return true;
+		}
+		else if (splitVar.at(0) == "/buySilencedPistol") {
+			// deduct money, add silenced pistol to inventory
+			return true;
+		}
+		else if (splitVar.at(0) == "/buyAmmo") {
+			// deduct money, add 15 ammo
+			Game::ammo += 15; // later change ammo to weapon inventory ammo
 			return true;
 		}
 	}
@@ -163,10 +173,10 @@ bool InteractionManager::initInteractions(const char* filePath)
 				interaction->preInteractionCMD.push_back(command);
 			}
 		}
-		else if ((strncmp("- postcmd: ", buf, 10) == 0)) {
+		else if ((strncmp("- postcmd: ", buf, 11) == 0)) {
 			if (interaction != nullptr) {
 				char cmd[256];
-				strcpy_s(cmd, buf + 10);
+				strcpy_s(cmd, buf + 11);
 				if (cmd[strlen(cmd) - 1] == '\r')
 					cmd[strlen(cmd) - 1] = '\0';
 
@@ -180,7 +190,7 @@ bool InteractionManager::initInteractions(const char* filePath)
 				else {
 					for (auto& entry : Game::SceneList) {
 						if (entry->getName() == splitVar.at(0)) {
-							new Command(splitVar.at(1), entry);
+							command = new Command(splitVar.at(1), entry);
 							break;
 						}
 					}

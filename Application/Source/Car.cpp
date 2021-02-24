@@ -176,8 +176,6 @@ velocity = acceleration / time
 */
 /******************************************************************************/
 void Car::Drive(double dt) {
-	if (!plr)
-		return;
 
 	acceleration = 0;
 	float RotateSpeed = 80.f;
@@ -196,54 +194,57 @@ void Car::Drive(double dt) {
 	if (boostMaxCarSpeed > 2) //max cap boostMaxCarSpeed to 2.
 		boostMaxCarSpeed = 2;
 
-	// Set the drift vector to the velocity when started drifting
-	if (Application::IsKeyReleased(VK_LSHIFT) && drifting) { 
-		RotateSpeed = 80.f;
-		drifting = false; 
-		carSpeed = 0;
-		velocity = driftVector.Magnitude() * velocity * 2.f;
-		// velocity = carSpeed * velocity.Normalized() * dt;
-	}
-	
-	if (Application::IsKeyPressed('W'))
-	{
-		acceleration = maxCarSpeed;
-		if (boosting) //if boosting, acceleration will be overwritten to boostMaxCarSpeed
-			acceleration = boostMaxCarSpeed;
-	}
-		
-
-	// set the drift vector to the velocity at the start of the drift
-	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
-		RotateSpeed = 100.f;
-		drifting = true;
-		driftVector = Vector3(velocity);
-	}
-
-	// the car's velocity is based on rotation of the car
-	if (Application::IsKeyPressed('D')) {
-		if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
-		if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * RotateSpeed;
-	}
-
-	if (Application::IsKeyPressed('A')) {
-		if ((carSpeed > 0.05)) this->getEntityData()->Rotation.y += dt * RotateSpeed;
-		if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
-	}
-
-	// reverse is slower than forward movement
-	if (Application::IsKeyPressed('S')) {
-		acceleration = -maxCarSpeed * 0.5f;
-	}
-
-	if (Application::IsKeyPressed(VK_SPACE) && (Application::IsKeyPressed('W')))
-	{
-		if (boostMeter > 0)
-		{
-			boosting = true; //set boosting to true when "SPACE" is pressed/held
-			carSpeed = carSpeed * 1.015; //boost current car speed
-			boostMeter -= dt;
+	if (plr) {
+		// Set the drift vector to the velocity when started drifting
+		if (Application::IsKeyReleased(VK_LSHIFT) && drifting) {
+			RotateSpeed = 80.f;
+			drifting = false;
+			carSpeed = 0;
+			velocity = driftVector.Magnitude() * velocity * 2.f;
+			// velocity = carSpeed * velocity.Normalized() * dt;
 		}
+
+		if (Application::IsKeyPressed('W'))
+		{
+			acceleration = maxCarSpeed;
+			if (boosting) //if boosting, acceleration will be overwritten to boostMaxCarSpeed
+				acceleration = boostMaxCarSpeed;
+		}
+
+
+		// set the drift vector to the velocity at the start of the drift
+		if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
+			RotateSpeed = 100.f;
+			drifting = true;
+			driftVector = Vector3(velocity);
+		}
+
+		// the car's velocity is based on rotation of the car
+		if (Application::IsKeyPressed('D')) {
+			if (carSpeed > 0.05) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
+			if (carSpeed < -0.05) this->getEntityData()->Rotation.y += dt * RotateSpeed;
+		}
+
+		if (Application::IsKeyPressed('A')) {
+			if ((carSpeed > 0.05)) this->getEntityData()->Rotation.y += dt * RotateSpeed;
+			if ((carSpeed < -0.05)) this->getEntityData()->Rotation.y -= dt * RotateSpeed;
+		}
+
+		// reverse is slower than forward movement
+		if (Application::IsKeyPressed('S')) {
+			acceleration = -maxCarSpeed * 0.5f;
+		}
+
+		if (Application::IsKeyPressed(VK_SPACE) && (Application::IsKeyPressed('W')))
+		{
+			if (boostMeter > 0)
+			{
+				boosting = true; //set boosting to true when "SPACE" is pressed/held
+				carSpeed = carSpeed * 1.015; //boost current car speed
+				boostMeter -= dt;
+			}
+		}
+		plr->getEntityData()->Translate = this->getEntityData()->Translate;
 	}
 
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
@@ -263,7 +264,6 @@ void Car::Drive(double dt) {
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	this->driftVector = (driftVector - driftVector * dt);
-	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 
 
 	// v = at

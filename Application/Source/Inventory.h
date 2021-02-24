@@ -38,6 +38,7 @@ public:
 	void getGarageInventory();
 	std::vector<Weapon*> getWeaponVector();
 	ItemInventory* getItemInventory();
+	WeaponInventory* getWeaponInventory();
 	std::vector<Item*> getItemVector();
 
 	CAR_TYPE getCurrentCarType();
