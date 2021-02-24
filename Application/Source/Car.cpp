@@ -184,6 +184,18 @@ void Car::Drive(double dt) {
 	float friction = carSpeed * -0.5;
 	carSpeed += friction * dt * 2.f;
 
+	//Car Boosting by Jordan
+	if (!boosting) //refill boostMeter when not boosting
+		boostMeter += dt;
+
+	if (boostMeter > 2) //max cap boostMeter to 2 seconds
+		boostMeter = 2;
+
+	boosting = false; //default boosting to false when driving
+	float boostMaxCarSpeed = maxCarSpeed * 3.f; //3x boost multiplier
+	if (boostMaxCarSpeed > 2) //max cap boostMaxCarSpeed to 2.
+		boostMaxCarSpeed = 2;
+
 	// Set the drift vector to the velocity when started drifting
 	if (Application::IsKeyReleased(VK_LSHIFT) && drifting) { 
 		RotateSpeed = 80.f;
@@ -193,7 +205,13 @@ void Car::Drive(double dt) {
 		// velocity = carSpeed * velocity.Normalized() * dt;
 	}
 	
-	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
+	if (Application::IsKeyPressed('W'))
+	{
+		acceleration = maxCarSpeed;
+		if (boosting) //if boosting, acceleration will be overwritten to boostMaxCarSpeed
+			acceleration = boostMaxCarSpeed;
+	}
+		
 
 	// set the drift vector to the velocity at the start of the drift
 	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
@@ -218,12 +236,32 @@ void Car::Drive(double dt) {
 		acceleration = -maxCarSpeed * 0.5f;
 	}
 
+	if (Application::IsKeyPressed(VK_SPACE))
+	{
+		if (boostMeter > 0)
+		{
+			boosting = true; //set boosting to true when "SPACE" is pressed/held
+			carSpeed = carSpeed * 1.015; //boost current car speed
+			boostMeter -= dt;
+		}
+	}
+
+	std::cout << boostMeter << " ";
+
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
 		this->getEntityData()->Rotation.y = 0;
 
 	Mtx44 rotation;
 	rotation.SetToRotation(this->getEntityData()->Rotation.y, 0, 1, 0);
-	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f) carSpeed = carSpeed + acceleration * dt;
+
+	if (carSpeed < maxCarSpeed && carSpeed > -maxCarSpeed * 0.75f)
+		carSpeed = carSpeed + acceleration * dt;
+
+	if (boosting) //if boosting, maxCarSpeed will be overwritten to boostMaxCarSpeed
+	{
+		if (carSpeed < boostMaxCarSpeed && carSpeed > -boostMaxCarSpeed * 0.75f)
+			carSpeed = carSpeed + acceleration * dt;
+	}
 
 	this->velocity = rotation * Vector3(0, 0, 1) * carSpeed;
 	this->driftVector = (driftVector - driftVector * dt);
@@ -233,7 +271,11 @@ void Car::Drive(double dt) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
 	else this->getEntityData()->Translate = this->getEntityData()->Translate + this->velocity + driftVector;
-	
+}
+
+float Car::getBoostMeter()
+{
+	return boostMeter;
 }
 
 void Car::Update(double dt) {

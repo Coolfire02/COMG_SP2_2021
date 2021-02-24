@@ -995,9 +995,6 @@ void SceneAssignment2::Render()
 	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
 	//}
 
-
-
-
 	//FPS UI
 	ss.str("");
 	ss.clear();

@@ -40,7 +40,9 @@ private:
 	float         carSpeed; // current car speed
 	float		  maxCarSpeed; // max car speed
 	float		  acceleration; // acceleration
+	float         boostMeter; //boost meter
 	bool		  drifting; // is drifting
+	bool		  boosting; // is boosting
 
 	Player*		  plr; // pointer to player to check if player is in car.
 	
@@ -62,6 +64,7 @@ public:
 	CAR_TYPE getCartype();
 	Player*  getPlayer();
 	void     Drive(double dt); 
+	float    getBoostMeter();
 
 	void     Update(double);
 	void     Render();

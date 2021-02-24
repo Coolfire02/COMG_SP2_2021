@@ -333,7 +333,6 @@ void Scene2021::Update(double dt)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -408,6 +407,7 @@ void Scene2021::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
+		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 	}
 	Vector3 view = (camera.target - camera.position).Normalized();
 
@@ -1434,6 +1434,8 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 void Scene2021::RenderUI()
 {
 	Game::RenderUI();
+	if (player->isDriving())
+		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
 void Scene2021::Exit()
