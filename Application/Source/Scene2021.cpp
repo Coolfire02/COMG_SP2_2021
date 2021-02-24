@@ -405,7 +405,7 @@ void Scene2021::Update(double dt)
 {
 	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
 	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
-	
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -516,14 +516,14 @@ void Scene2021::InitLights() {
 
 	light[2].type = Light::LIGHT_POINT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0, 1, 1);
-	light[2].power = 1.2f;
+	light[2].color.set(0.8, 1, 1);
+	light[2].power = 0.5f;
 	light[2].kC = 1.f;
 	light[2].kL = 0.01f;
 	light[2].kQ = 0.001f;
 	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 3.f;
+	light[2].exponent = 2.f;
 	light[2].spotDirection.Set(0.f, 1.f, 0.f);
 
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
@@ -559,7 +559,7 @@ void Scene2021::InitLights() {
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
 void Scene2021::CollisionHandler(double dt) {
@@ -1287,7 +1287,7 @@ void Scene2021::SpawnBuildings()
 {
 	//init of buildings
 	srand(time(NULL));
-	
+
 	//main road buildings
 	int random = (rand() % 6) + 6;
 	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.3, 0.5), GEO_BUILDING_1);
@@ -1484,7 +1484,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 	int randomZ = rand() % diffZ + v3Tmin.z;
 
 	int randomRotation = rand() % 359 + 1;
-	
+
 	Entity* testNPC = new NPC(this, geoType, "test");
 	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);

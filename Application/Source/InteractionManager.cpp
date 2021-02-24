@@ -8,7 +8,7 @@
 #include "Application.h"
 
 
-InteractionManager::InteractionManager() : latestInteractionSwitch(0), canInteractWithSomething(false), interactionElapsed(0) { 
+InteractionManager::InteractionManager() : latestInteractionSwitch(0), interactionElapsed(0) { 
 	for (int i = 0; i < INTERACTION_COUNT; ++i) {
 		this->completedInteractionsCount[i] = 0;
 	}
@@ -68,7 +68,6 @@ bool InteractionManager::loadInteraction(std::string key) {
 	if (key.empty())
 		return false;
 
-	Application::setCursorEnabled(true);
 	try {
 		interactionQueue.pushInteraction(Interactions[key]);
 		return true;
@@ -224,7 +223,7 @@ void InteractionManager::EndInteraction()
 	interactionElapsed = 0;
 	currentInteractionType = INTERACTION_COUNT;
 	Game::uiManager.setCurrentUI(UI_GENERAL);
-	Application::setCursorEnabled(false);
+	//Application::setCursorEnabled(false);
 }
 
 /******************************************************************************/
