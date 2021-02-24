@@ -76,7 +76,6 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			Reload = false;
 		}
 	}
-	std::cout << "GAME: " << Game::ammo << " GUN: " << this->currentAmmo << std::endl;
 }
 
 void Weapon::initWeapon(WEAPON_TYPE wType, int damages, int magSize) //init weapon with new weaponType, damage and magSize

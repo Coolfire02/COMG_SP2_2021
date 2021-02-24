@@ -18,24 +18,7 @@ void UIManager::Init() {
 		case UI_GENERAL:
 			//Items UI
 			//need to create text buttons for amount
-			for (int j = 0; j < ITEM_AMOUNT + 1; j++)
-			{
-				switch (j)
-				{
-				case BURGER:
-					createNoTextButton(bManagers[i], "UIItemBurger", 120, 20, 10, 10, UI_BURGER);
-					break;
-				case CORN:
-					createNoTextButton(bManagers[i], "UIItemCorn", 120, 20, 10, 10, UI_CORN);
-					break;
-				case EGGPLANT:
-					createNoTextButton(bManagers[i], "UIItemEggplant", 120, 20, 10, 10, UI_EGGPLANT);
-					break;
-				default:
-					createNoTextButton(bManagers[i], "UIItemEmpty", 120, 20, 10, 10, UI_EMPTY);
-					break;
-				}
-			}
+			createNoTextButton(bManagers[i], "UIItem", 120, 20, 10, 10, UI_EMPTY);
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
 			//Weapons UI
@@ -44,8 +27,11 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
 			for (int j = 0; j < WEAPON_COUNT; j++)
 			{
-				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j), 100 + (j * 10), 10, 10, 10, UI_BLACK);
-				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j), 100 + (j * 10), 10, 11, 11, UI_BLUE);
+				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j + 1), 100 + (j * 10), 10, 10, 10, UI_BLACK);
+			}
+			for (int j = 0; j < WEAPON_COUNT; j++)
+			{
+				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j + 1), 100 + (j * 10), 10, 11, 11, UI_BLUE);
 			}
 			break;
 		case UI_ITEM_INVENTORY:
