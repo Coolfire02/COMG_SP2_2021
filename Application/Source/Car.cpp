@@ -246,8 +246,6 @@ void Car::Drive(double dt) {
 		}
 	}
 
-	std::cout << boostMeter << " ";
-
 	if (this->getEntityData()->Rotation.y >= 360 || this->getEntityData()->Rotation.y <= -360)
 		this->getEntityData()->Rotation.y = 0;
 
