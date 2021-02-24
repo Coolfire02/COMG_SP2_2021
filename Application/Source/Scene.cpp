@@ -154,7 +154,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, int* charWidth, int arrSize) {
+void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, int (&charWidth)[256], int arrSize) {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
 	Mtx44 ortho;
