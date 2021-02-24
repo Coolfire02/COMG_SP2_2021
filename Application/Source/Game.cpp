@@ -6,11 +6,13 @@ SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
+int Game::ammo = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
 
 Game::Game()
 {
+	ammo = 100;
 }
 
 Game::~Game()

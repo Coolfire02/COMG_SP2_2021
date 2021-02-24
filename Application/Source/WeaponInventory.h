@@ -8,6 +8,7 @@ class WeaponInventory
 private:
 	Weapon* activeWeapon; //weapon ptr to store active weapon
 	std::vector<Weapon*> weaponList; //vector to store player's owned Weapons
+
 public:
 
 	WeaponInventory();
@@ -21,4 +22,7 @@ public:
 	void addWeapon(WEAPON_TYPE wType);
 	void delWeapon(WEAPON_TYPE wType);
 	void switchActiveWeapon(int i);
+
+	void setAmmo(int);
+	int getAmmo();
 };
