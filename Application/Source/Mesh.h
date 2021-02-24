@@ -21,6 +21,8 @@ public:
 		DRAW_TRIANGLE_STRIP,
 		DRAW_TRIANGLE_FAN,
 		DRAW_LINES,
+		DRAW_LINE_STRIP,
+		DRAW_LINES_ADJACENT,
 		DRAW_MODE_LAST,
 	};
 	Mesh(const std::string &meshName);

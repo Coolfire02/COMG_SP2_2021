@@ -48,6 +48,7 @@ private:
 
 	//Game Variables
 	Player* player;
+	ButtonManager bManager;
 
 	//Notification Channel
 	std::string notificationMessage; //Appears on the top of the screen
@@ -83,6 +84,8 @@ private:
 	bool camMap;
 	float CameraBobber = 0;
 	double bobTime = 0;
+
+	float NPCLookAngle;
 
 public:
 	SceneGunShop();

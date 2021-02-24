@@ -1,3 +1,5 @@
+=========================================
+
 INTERACTION: asdsa
 - MSG: test 1
 - precmd: /yea 1
@@ -14,8 +16,43 @@ CHOICE # asdsa
 - precmd: /ns
 # NEXT: ya
 
+=========================================
+
 INTERACTION: ya
 - MSG: test 2
 - precmd: /yea 1
 - precmd: Scene2021;/yea 3
 - postcmd: /ur mom
+
+=========================================
+
+INTERACTION: drugman
+- MSG: i give fake id lool
+- postcmd: /giveFakeId
+# NEXT : asdsa
+
+=========================================
+
+INTERACTION: Gunshop1
+- MSG: What would you like to purchase?
+
+CHOICE # Gunshop1
+- MSG: Silenced Pistol
+- precmd: /silencedPistol
+# NEXT: buy_silenced_pistol
+
+CHOICE # Gunshop1
+- MSG: 15 Ammo
+- precmd: /ammo
+# NEXT: buy_silenced_pistol
+
+=========================================
+
+INTERACTION: GunshopSuccess
+- MSG: Thank you for your purchase!
+
+
+INTERACTION: GunshopFail
+- MSG: Come again next time!
+
+=========================================

@@ -142,10 +142,17 @@ void SceneGunShop::Init() {
 	//eManager.spawnWorldEntity(eggman);
 
 	Entity* counter = new WorldObject(this, GEO_COUNTER, "counter");
-	counter->getEntityData()->Translate = Vector3(-9.5, 0, -7);
+	counter->getEntityData()->Translate = Vector3(-9.5, 0, -9);
 	//counter->getEntityData()->Scale = Vector3(1, 0.025, 0.025);
 	counter->getEntityData()->Rotation = Vector3(0, 90, 0);
 	eManager.spawnWorldEntity(counter);
+
+	Entity* drugman = new NPC(this, DRUGMAN, "drugman");
+	NPCLookAngle = 0;
+	drugman->getEntityData()->Translate = Vector3(-9.5, 0, -10.5);
+	drugman->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
+	drugman->getEntityData()->Scale = Vector3(0.5, 0.5, 0.5);
+	eManager.spawnWorldEntity(drugman);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -200,6 +207,9 @@ void SceneGunShop::Init() {
 
 void SceneGunShop::Update(double dt)
 {
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -241,67 +251,69 @@ void SceneGunShop::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
-	CollisionHandler(dt);
+	if (!Game::iManager.isInteracting()) {
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+		TopDownMapUpdate(dt);
+		CollisionHandler(dt);
 
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
 
-	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
-	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
-
-		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
-				playerSpeed = 25.f;
+		//Requires Implementation of Velocity by Joash
+		float playerSpeed = 15.0;
+		if (!((Player*)player)->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+				camera.position.y += CameraBobber;
 			}
 
-			pLoc += view * (float)dt * playerSpeed;
+			if (Application::IsKeyPressed('W')) {
 
+				if (Application::IsKeyPressed(VK_LSHIFT)) {
+					playerSpeed = 25.f;
+				}
+
+				pLoc += view * (float)dt * playerSpeed;
+
+			}
+			if (Application::IsKeyPressed('A')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc -= right * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('S')) {
+				pLoc -= view * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('D')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc += right * (float)dt * playerSpeed;
+			}
+			// SCENE WORLD BOUNDARIES
+			pLoc.x = Math::Clamp(pLoc.x, -10.75f, 10.75f);
+			pLoc.z = Math::Clamp(pLoc.z, -10.75f, 10.75f);
+
+			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+			player->getEntityData()->Translate.x = pLoc.x;
+			// Skip y since we want level ground
+			player->getEntityData()->Translate.z = pLoc.z;
+
+			bobTime += dt;
+			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
+
+		if (player->isDriving()) {
+			player->getCar()->Drive(dt);
 		}
-
-		if (Application::IsKeyPressed('S')) {
-			pLoc -= view * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('D')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
-		}
-		// SCENE WORLD BOUNDARIES
-		pLoc.x = Math::Clamp(pLoc.x, -10.75f, 10.75f);
-		pLoc.z = Math::Clamp(pLoc.z, -10.75f, 10.75f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-	}
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void SceneGunShop::InitLights() {
@@ -489,6 +501,18 @@ void SceneGunShop::CollisionHandler(double dt) {
 					}
 				}
 			}
+		}
+
+		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
+		{
+
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (ePressed) {
+					Game::iManager.loadInteraction("drugman");
+				}
+			}
+
+			//((NPC*)entry)->Walk(dt);
 		}
 	}
 
@@ -758,23 +782,26 @@ void SceneGunShop::Render()
 	}
 
 	////UI inventory testing
-	switch (Game::inv.getCurrentItemType())
-	{
-	case BURGER:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
-		//std::cout << "Burger";
-		break;
-	case CORN:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
-		//std::cout << "Corn";
-		break;
-	case EGGPLANT:
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
-		//std::cout << "Eggplant";
-		break;
-	default:
-		break;
-	}
+	//switch (Game::inv.getCurrentItemType())
+	//{
+	//case BURGER:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_BURGER), 60, 30, 30, 30);
+	//	//std::cout << "Burger";
+	//	break;
+	//case CORN:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_CORN), 50, 30, 30, 30);
+	//	//std::cout << "Corn";
+	//	break;
+	//case EGGPLANT:
+	//	RenderMeshOnScreen(MeshHandler::getMesh(UI_EGGPLANT), 40, 30, 30, 30);
+	//	//std::cout << "Eggplant";
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	RenderUI();
+	bManager.Render(this);
 	////test garage inv
 	//switch (inv.getCurrentCarType())
 	//{

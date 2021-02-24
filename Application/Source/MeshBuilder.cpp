@@ -1030,7 +1030,7 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 	int index = 0;
 	std::vector<Vertex> vertex;
 	Vertex v;
-	v.color = Color(1,1,1);
+	v.color = Color(0,1,0);
 	Vector3 normal;
 	normal.Set(0, 0, 1);
 	v.pos.set(topRightPos.x, topRightPos.y, botLeftPos.z); v.normal = normal;  vertex.push_back(v); //front
@@ -1098,7 +1098,7 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(color_buffer_data), color_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-	mesh->mode = Mesh::DRAW_TRIANGLES;
+	mesh->mode = Mesh::DRAW_LINE_STRIP;
 	mesh->indexSize = index_buffer_data.size();
 
 	calcMinMaxPosnMeshCenter(mesh, vertex);

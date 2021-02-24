@@ -196,6 +196,9 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_WIREMESH] = MeshBuilder::GenerateQuad("wiremesh", Color(1, 1, 1), 10, 10);
 	meshList[GEO_WIREMESH]->textureID = LoadTGA("Image//GunShop//WireMesh.tga");
 
+	meshList[GEO_DRUGMAN] = MeshBuilder::GenerateOBJ("man", "OBJ//GunShop//doorman.obj");
+	meshList[GEO_DRUGMAN]->textureID = LoadTGA("Image//GunShop//doorman.tga");
+
 	//meshList[GEO_MACHINE_GUN] = MeshBuilder::GenerateOBJMTL("machine gun", "OBJ//Weapons//machinegun.obj", "MTL//Weapons//machinegun.mtl" );
 	//meshList[GEO_MACHINE_GUN_LAUNCHER] = MeshBuilder::GenerateOBJMTL("machine gun launcher", "OBJ//Weapons//machinegunLauncher.obj", "MTL//Weapons//machinegunLauncher.mtl");
 	meshList[GEO_PISTOL] = MeshBuilder::GenerateOBJMTL("pistol", "OBJ//Weapons//pistol.obj", "MTL//Weapons//pistol.mtl");

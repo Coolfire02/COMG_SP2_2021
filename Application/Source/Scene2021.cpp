@@ -551,7 +551,7 @@ void Scene2021::CollisionHandler(double dt) {
 						if (ePressed && !eHeld) {
 							eHeld = true;
 							Application::setCursorEnabled(true);
-							Game::iManager.loadInteraction("hey");
+							Game::iManager.loadInteraction("asdsa");
 							break;
 						}
 					}
@@ -807,10 +807,10 @@ void Scene2021::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
+		//modelStack.PushMatrix();
+		//modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		//modelStack.PopMatrix();
 		break;
 	case TOPDOWN_THIRDPERSON:
 		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
@@ -887,7 +887,7 @@ void Scene2021::Render()
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-			this->RenderMesh(mesh, lightEnable);
+			this->RenderMesh(mesh, false);
 			modelStack.PopMatrix();
 			delete mesh;
 		}

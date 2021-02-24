@@ -6,8 +6,12 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYP
 	case TESTNPC:
 		this->associatedNPCMesh = MeshHandler::getMesh(GEO_NPC);
 		break;
+	case DRUGMAN:
+		this->associatedNPCMesh = MeshHandler::getMesh(GEO_DRUGMAN);
+		break;
 	default:
 		this->associatedNPCMesh = nullptr;
+		break;
 	}
 	this->hitBox = new HitBox(new Box(*associatedNPCMesh->botLeftPos, *associatedNPCMesh->topRightPos));
 }

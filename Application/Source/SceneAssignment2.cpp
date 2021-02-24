@@ -241,98 +241,6 @@ void SceneAssignment2::Update(double dt)
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
 	toggleTimer += dt;
-	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	Game::inv.addItem(BURGER, 1);
-	//	Game::inv.addItem(EGGPLANT, 2);
-	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
-	//	Game::inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('L'))
-	//{
-	//	toggleTimer = 0;
-	//	/*if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
-	//	{
-	//		uiManager.setCurrentUI(UI_ITEM_INVENTORY);
-	//	}
-	//	else if (uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
-	//	{
-	//		uiManager.setCurrentUI(UI_GENERAL);
-	//		bManager.deactivateButton("UIInventoryBackground");
-	//		bManager.deactivateButton("UIItemsInventoryBlank");
-	//		bManager.deactivateButton("UIWeaponsInventory");
-	//		bManager.deactivateButton("UIGarageInventory");
-	//	}
-	//	else if (uiManager.getCurrentMenu() == UI_WEAPON_INVENTORY)
-	//	{
-	//		uiManager.setCurrentUI(UI_GENERAL);
-	//		bManager.deactivateButton("UIInventoryBackground");
-	//		bManager.deactivateButton("UIWeaponsInventoryBlank");
-	//		bManager.deactivateButton("UIItemsInventory");
-	//		bManager.deactivateButton("UIGarageInventory");
-	//	}
-	//	else if (uiManager.getCurrentMenu() == UI_GARAGE_INVENTORY)
-	//	{
-	//		uiManager.setCurrentUI(UI_GENERAL);
-	//		bManager.deactivateButton("UIInventoryBackground");
-	//		bManager.deactivateButton("UIItemsInventory");
-	//		bManager.deactivateButton("UIWeaponsInventory");
-	//		bManager.deactivateButton("UIGarageInventoryBlank");
-	//	}*/
-	//		
-	//	/*inv.toggleItem();
-	//	if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);*/
-	//}
-	/*if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	{
-		Game::inv.addItem(CORN, 3);
-	}*/
-
-	//weapon inventory
-//	if (Application::IsKeyPressed('E')) //pick up weapon
-//		Game::inv.addWeap(PISTOL);
-//	if (Application::IsKeyPressed('F')) //pick up weapon
-//		Game::inv.addWeap(SILENCER);
-//	if (Application::IsKeyPressed('1')) //weapon slot 1
-//		Game::inv.switchWeapon(0);
-//	if (Application::IsKeyPressed('2')) //weapon slot 2
-//		Game::inv.switchWeapon(1);
-//	if (Application::IsKeyPressed('3')) //weapon slot 3
-//		Game::inv.switchWeapon(2);
-//	if (Application::IsKeyPressed('4')) //weapon slot 4
-//		Game::inv.switchWeapon(3);
-//	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
-//	{
-//		toggleTimer = 0;
-//		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
-//	}
-
-	//if (GetAsyncKeyState('1') & 0x8001) {
-	//	glEnable(GL_CULL_FACE);
-	//}
-	//else if (GetAsyncKeyState('2') & 0x8001) {
-	//	glDisable(GL_CULL_FACE);
-	//}
-	//else if (GetAsyncKeyState('5') & 0x8001) {
-	//	Game::switchScene(S_2051);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//}
-	//else if (GetAsyncKeyState('6') & 0x8001) {
-	//	Game::switchScene(S_2021);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//}
-	//else if (GetAsyncKeyState('7') & 0x8001) {
-	//	//game.switchScene(S_2021);
-	//	Game::switchScene(S_GARAGE);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//}
-	//else if (GetAsyncKeyState('8') & 0x8001) {
-	//	Game::switchScene(S_GUNSHOP);
-	//}
 
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
@@ -925,7 +833,7 @@ void SceneAssignment2::Render()
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
 		   // modelStack.Translate(-entity->getHitBox()->getThisTickBox()->currentPos.x, -entity->getHitBox()->getThisTickBox()->currentPos.z, -entity->getHitBox()->getThisTickBox()->currentPos.x);
 			// entity->getHitBox()->update(entity->getEntityData(), modelStack.Top());
-			this->RenderMesh(mesh, lightEnable);
+			this->RenderMesh(mesh, false);
 			modelStack.PopMatrix();
 			delete mesh;
 		}
@@ -950,7 +858,6 @@ void SceneAssignment2::Render()
 	}
 
 	RenderUI();
-	RenderInteraction();
 
 	bManager.Render(this);
 
@@ -1059,134 +966,6 @@ void SceneAssignment2::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-void SceneAssignment2::RenderInteraction() {
-}
-
-//bool SceneAssignment2::passedInteractCooldown() {
-//	const float INTERACTION_COOLDOWN = 0.5f;
-//	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
-//		return true;
-//	}
-//	return false;
-//}
-//
-//void SceneAssignment2::sendNotification(std::string msg, double duration) {
-//	showNotifUntil = (float)(elapsed + duration);
-//	notificationMessage = msg;
-//}
-//
-//void SceneAssignment2::split(std::string txt, char delim, std::vector<std::string>& out) {
-//	std::istringstream iss(txt);
-//	std::string item;
-//	while (std::getline(iss, item, delim)) {
-//		out.push_back(item);
-//	}
-//}
-//
-//bool SceneAssignment2::runCommand(std::string cmd) {
-//	std::vector<std::string> splitVar;
-//	split(cmd, ' ', splitVar);
-//
-//	if (splitVar.size() == 1) {
-//
-//		if (splitVar.at(0) == "/endinteraction") {
-//			EndInteraction();
-//			return true;
-//		}
-//	}
-//	else if (splitVar.size() >= 2) {
-//		if (splitVar.at(0) == "/givecoin") {
-//			//this->addCoins(stoi(splitVar.at(1)));
-//			return true;
-//		}
-//	}
-//
-//	return true;
-//}
-//
-//bool SceneAssignment2::loadInteractions(INTERACTION_TYPE type) {
-//	if (!isInteracting) {
-//
-//		switch (type) {
-//		case TEST:
-//		{
-//			Interaction* inter;
-//			if (completedInteractionsCount[TEST] == 0) {
-//				inter = new Interaction();
-//				inter->interactionText = "Hey There!";
-//				queuedMessages.push_back(inter);
-//
-//				inter = new Interaction();
-//				inter->interactionText = "It's been a while since\nI've found a new potential\ncompetitor...";
-//				queuedMessages.push_back(inter);
-//				if (completedInteractionsCount[EGGMAN] > 0) {
-//					inter = new Interaction();
-//					inter->interactionText = "Don't worry about Eggman\nHe's such a sob. Could\nnever beat me";
-//					queuedMessages.push_back(inter);
-//
-//					inter = new Interaction();
-//					inter->interactionText = "Explains why he's mad\nas he sees potential in you.";
-//					queuedMessages.push_back(inter);
-//				}
-//			}
-//			else {
-//				inter = new Interaction();
-//				inter->interactionText = "Hey there again!";
-//				queuedMessages.push_back(inter);
-//			}
-//			inter = new Interaction();
-//			inter->interactionText = "Oh, you wanna know my\nTiming for the race?";
-//			queuedMessages.push_back(inter);
-//
-//			inter = new Interaction();
-//			inter->interactionText = "I ran and completed it in...\n";
-//			queuedMessages.push_back(inter);
-//
-//			inter = new Interaction();
-//			inter->interactionText = "0 minutes and 8 seconds!";
-//			queuedMessages.push_back(inter);
-//
-//
-//
-//			break;
-//		}
-//
-//		default:
-//			return false;
-//		}
-//
-//		currentInteractionType = type;
-//		interactionElapsed = 0;
-//		latestInteractionSwitch = this->elapsed;
-//		isInteracting = true;
-//		currentMessage = -1; //Used to call first Interaction's precmds too. by Using nextInteraction();
-//		nextInteraction();
-//
-//		return true;
-//	}
-//	return false;
-//}
-//
-//void SceneAssignment2::nextInteraction() {
-//	if (currentMessage > 0) { //Post Interaction CMDs to execute (Interaction prior to the one being moved to now)
-//		for (auto& entry : queuedMessages.at(currentMessage)->postInteractionCMD) {
-//			this->runCommand(entry);
-//		}
-//	}
-//	currentMessage += 1;
-//	if (queuedMessages.size() < (unsigned) currentMessage + 1) {
-//		for (auto& entry : queuedMessages.at(currentMessage-1)->postInteractionCMD) {
-//			this->runCommand(entry);
-//		}
-//		EndInteraction();
-//	}
-//	else {
-//		for (auto& entry : queuedMessages.at(currentMessage)->preInteractionCMD) { //Pre Interaction CMDs to execute
-//			this->runCommand(entry);
-//		}
-//	}
-//}
-//
 void SceneAssignment2::RenderUI()
 {
 	Game::RenderUI();

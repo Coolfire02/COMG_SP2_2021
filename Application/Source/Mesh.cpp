@@ -88,6 +88,12 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	if (materials.size() == 0) {
 		switch (mode) {
+		case DRAW_LINES_ADJACENT:
+			glDrawElements(GL_LINES_ADJACENCY, indexSize, GL_UNSIGNED_INT, 0);
+			break;
+		case DRAW_LINE_STRIP:
+			glDrawElements(GL_LINE_STRIP, indexSize, GL_UNSIGNED_INT, 0);
+			break;
 		case DRAW_LINES:
 			glDrawElements(GL_LINES, indexSize, GL_UNSIGNED_INT, 0);
 			break;
