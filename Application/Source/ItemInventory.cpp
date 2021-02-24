@@ -20,7 +20,7 @@ ItemInventory::~ItemInventory()
 
 void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 {
-	if (itemInv[0] == nullptr) //If player does not have any item yet
+	if (itemInv.empty()) //If player does not have any item yet
 	{
 		currentItem = new Item(itemtype, amt);
 		itemInv.push_back(currentItem);

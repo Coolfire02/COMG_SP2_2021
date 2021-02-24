@@ -193,7 +193,8 @@ void Car::Drive(double dt) {
 		// velocity = carSpeed * velocity.Normalized() * dt;
 	}
 	
-	if (Application::IsKeyPressed('W')) acceleration = maxCarSpeed;
+	if (Application::IsKeyPressed('W')) 
+		acceleration = maxCarSpeed;
 
 	// set the drift vector to the velocity at the start of the drift
 	if (Application::IsKeyPressed(VK_LSHIFT) && !drifting && velocity.Magnitude() > 0.8 && (Application::IsKeyPressed('D') || Application::IsKeyPressed('A'))) {
@@ -229,6 +230,8 @@ void Car::Drive(double dt) {
 	this->driftVector = (driftVector - driftVector * dt);
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 
+
+	// v = at
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}
