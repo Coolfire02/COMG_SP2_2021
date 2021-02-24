@@ -118,7 +118,6 @@ void Text::changeFont(FONTTYPE type) {
 }
 
 void Text::Render(Scene* scene) {
-    float size = Math::Min(UIInfo.sizeX, UIInfo.sizeY);
 
     std::vector<std::string> splitVar;
     splitText(this->text.str(), '\n', splitVar);

@@ -21,6 +21,7 @@ Game::~Game()
 void Game::Init()
 {
 	iManager.initInteractions("TextData//test.txt");
+	uiManager.Init();
 }
 
 void Game::Update(double dt)

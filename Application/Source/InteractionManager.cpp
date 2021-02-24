@@ -219,6 +219,7 @@ void InteractionManager::nextInteraction()
 
 	interactionQueue.popInteraction();
 
+
 	if (isInteracting()) {
 		for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
 			runCommand(*entry);
