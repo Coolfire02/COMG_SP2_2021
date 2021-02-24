@@ -15,8 +15,19 @@ void AudioHandler::load() {
 			return;
 		}
 		//File Name Assigning, Sound Source Loading
+		//Added ESM_AUTO_DETECT, true) to PRE-LOAD Sounds, preventing lag.
 		fileLocation[CAR_CRASH] = "Media\\car_crash.mp3";
-		soundSource[CAR_CRASH] = engine->addSoundSourceFromFile(getFileLocation(CAR_CRASH));
+		soundSource[CAR_CRASH] = engine->addSoundSourceFromFile(getFileLocation(CAR_CRASH), ESM_AUTO_DETECT, true);
+
+		fileLocation[GUN_PISTOL_EMPTY] = "Media\\Pistol\\EmptyMag.mp3";
+		soundSource[GUN_PISTOL_EMPTY] = engine->addSoundSourceFromFile(getFileLocation(GUN_PISTOL_EMPTY), ESM_AUTO_DETECT, true);
+
+		fileLocation[GUN_PISTOL_SHOOT] = "Media\\Pistol\\Shot.mp3";
+		soundSource[GUN_PISTOL_SHOOT] = engine->addSoundSourceFromFile(getFileLocation(GUN_PISTOL_SHOOT), ESM_AUTO_DETECT, true);
+
+		fileLocation[GUN_PISTOL_RELOAD] = "Media\\Pistol\\Reload.wav";
+		soundSource[GUN_PISTOL_RELOAD] = engine->addSoundSourceFromFile(getFileLocation(GUN_PISTOL_RELOAD), ESM_AUTO_DETECT, true);
+
 
 		loaded = true;
 	}
