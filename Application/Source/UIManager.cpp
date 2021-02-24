@@ -9,7 +9,10 @@ void UIManager::Init() {
 	////bManager = bN;
 	currentMenu = UI_MAIN_MENU;
 	activeMenus[UI_MISSION] = true; //UI_MISSION Overlay
+
 	uiActive = true;
+	currentMenu = UI_MAIN_MENU;
+	elapsedTimeinUI = 0;
 
 	for (int i = 0; i < UI_MENU_COUNT; i++)
 	{
@@ -39,26 +42,25 @@ void UIManager::Init() {
 			break;
 		case UI_ITEM_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-			createButton(bManagers[i], "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Item", 1.0f);
-			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Guns", 1.0f);
-			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Cars", 1.0f);
+			createButton(bManagers[i], "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Item", 5.0f);
+			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
+			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
 			break;
 		case UI_WEAPON_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Item", 1.0f);
-			createButton(bManagers[i], "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Guns", 1.0f);
-			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Cars", 1.0f);
+			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Item", 5.0f);
+			createButton(bManagers[i], "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Guns", 5.0f);
+			createButton(bManagers[i], "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Cars", 5.0f);
 			break;
 		case UI_GARAGE_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Item", 1.0f);
-			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Guns", 1.0f);
-			createButton(bManagers[i], "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW, 2, 5, Color(1, 0.3, 0.3), "Cars", 1.0f);
+			createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Item", 5.0f);
+			createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
+			createButton(bManagers[i], "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Cars", 5.0f);
 			break;
 		case UI_MAIN_MENU:
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
 			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
-			bManagers[currentMenu] = bManagers[i];
 			enableUI();
 			break;
 		case UI_INTERACTION:
@@ -72,10 +74,22 @@ void UIManager::Init() {
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
 		case UI_MISSION:
-			createButton(bManagers[i], "MissionComplete", 64, 60, 96, 18, GEO_MISSION_COMPLETE, 20, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 4.0f);
+			createButton(bManagers[i], "MissionComplete", 78, 60, 72, 18, GEO_MISSION_COMPLETE, 16, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 3.0f);
+			createButton(bManagers[i], "Task0", 17, 70.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task1", 17, 67.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task2", 17, 64.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task3", 17, 61.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			createButton(bManagers[i], "Task4", 17, 58.5, 34, 3, GEO_MISSION_TASK, 2, 2.5, Color(0.9f, 0.9f, 0.9f), "Task | 0% Done", 2.0f);
+			
 			bManagers[i]->deactivateButton("MissionComplete");
+			bManagers[i]->deactivateButton("Task0");
+			bManagers[i]->deactivateButton("Task1");
+			bManagers[i]->deactivateButton("Task2");
+			bManagers[i]->deactivateButton("Task3");
+			bManagers[i]->deactivateButton("Task4");
 		}
 	}
+
 	setCurrentUI(UI_MAIN_MENU);
 }
 
@@ -85,14 +99,51 @@ UIManager::~UIManager()
 
 void UIManager::Update(Scene* scene, double dt)
 {
+	elapsedTimeinUI += dt;
 	bManagers[currentMenu]->Update(scene, dt);
 	if (uiActive == true)
 	{
+		if (Application::IsKeyPressed('L') && (currentMenu != UI_ITEM_INVENTORY && currentMenu != UI_INTERACTION && currentMenu != UI_MAIN_MENU))
+		{
+			setCurrentUI(UI_ITEM_INVENTORY);
+		}
+		else if (Application::IsKeyPressed('L') && (currentMenu == UI_ITEM_INVENTORY || currentMenu == UI_WEAPON_INVENTORY || currentMenu == UI_GARAGE_INVENTORY))
+		{
+			setCurrentUI(UI_GENERAL);
+		}
 		for (auto& buttonCollide : getCurrentBM()->getButtonsInteracted()) {
 			switch (currentMenu) {
 			case UI_GENERAL:
-				//switchUI(UI_MENUS newMenu)
-				enableUI();
+				break;
+			case UI_ITEM_INVENTORY:
+				if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) //Weapons button
+				{
+					setCurrentUI(UI_WEAPON_INVENTORY);
+				}
+				if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) //Garage Button
+				{
+					setCurrentUI(UI_GARAGE_INVENTORY);
+				}
+				break;
+			case UI_WEAPON_INVENTORY:
+				if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) //Items button
+				{
+					setCurrentUI(UI_ITEM_INVENTORY);
+				}
+				if (buttonCollide->buttonClicked->getName() == "UIGarageInventory" && buttonCollide->justClicked) //Garage Button
+				{
+					setCurrentUI(UI_GARAGE_INVENTORY);
+				}
+				break;
+			case UI_GARAGE_INVENTORY:
+				if (buttonCollide->buttonClicked->getName() == "UIItemsInventory" && buttonCollide->justClicked) //Items button
+				{
+					setCurrentUI(UI_ITEM_INVENTORY);
+				}
+				if (buttonCollide->buttonClicked->getName() == "UIWeaponsInventory" && buttonCollide->justClicked) //Weapons button
+				{
+					setCurrentUI(UI_WEAPON_INVENTORY);
+				}
 				break;
 			case UI_MAIN_MENU:
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
@@ -120,6 +171,7 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			}
 		}
+		
 	}
 }
 
@@ -192,13 +244,29 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 			entry->justHovered = false;
 		}
 	}
-
+	
+	if (elapsedTimeinUI > 1)
+		elapsedTimeinUI = 0;
+	else
+		return;
 	Application::setCursorEnabled(false);
 	this->currentMenu = newUI;
 	switch (newUI)
 	{
 	case UI_GENERAL:
 		//this->enableUI();
+		break;
+	case UI_ITEM_INVENTORY:
+		Application::setCursorEnabled(true);
+		this->enableUI();
+		break;
+	case UI_WEAPON_INVENTORY:
+		Application::setCursorEnabled(true);
+		this->enableUI();
+		break;
+	case UI_GARAGE_INVENTORY:
+		Application::setCursorEnabled(true);
+		this->enableUI();
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);

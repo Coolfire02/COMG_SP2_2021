@@ -28,7 +28,6 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
-
 	if (GetAsyncKeyState('3') & 0x8001) {
 		Game::switchScene(S_2051);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

@@ -27,6 +27,7 @@ public:
 	//Statics
 	static void loadMissionLang();
 	static MISSIONTYPE getMissionByEnumName(std::string name);
+	static std::string getMissionNameFormatted(MISSIONTYPE type);
 	static void split(std::string txt, char delim, std::vector<std::string>& out);
 	static std::string stringTrim(std::string str);
 

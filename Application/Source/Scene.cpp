@@ -158,7 +158,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 		return;
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, Application::GetWindowWidth() / 10, 0, Application::GetWindowHeight() / 10, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::GetWindowWidth() / 10.0, 0, Application::GetWindowHeight() / 10.0, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -198,7 +198,7 @@ void Scene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float 
     glEnable(GL_DEPTH_TEST);
 }
 
-void Scene::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizeX, int sizeY) {
+void Scene::RenderMeshOnScreen(Mesh* mesh, float x, float y, int sizeX, int sizeY) {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, Application::GetWindowWidth()/10, 0, Application::GetWindowHeight()/10, -10, 10); //size of screen UI
