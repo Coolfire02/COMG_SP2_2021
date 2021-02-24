@@ -267,6 +267,8 @@ void Car::Drive(double dt) {
 	this->driftVector = (driftVector - driftVector * dt);
 	plr->getEntityData()->Translate = this->getEntityData()->Translate;
 
+
+	// v = at
 	if (drifting) {
 		this->getEntityData()->Translate = this->getEntityData()->Translate + driftVector + velocity * dt;
 	}

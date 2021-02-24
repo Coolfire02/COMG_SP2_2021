@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Debug.h"
 #include "Vector3.h"
+#include "AudioHandler.h"
 
 Weapon::Weapon() //set damage and magSize to 0
 {
@@ -45,29 +46,50 @@ void Weapon::initSilencer() //init fist with 15 dmg, 15 magSize
 
 void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vector3 view, double dt) {
 	if (this != nullptr) {
-		if (Application::IsMousePressed(0) && !shoot && this->currentAmmo > 0 && Game::ammo > 0) {
-			//Vector3 view = (cam->target - cam->position).Normalized();
-			Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
-			bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
-			bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
-			// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
-			eManager->spawnMovingEntity(bullet);
+		if (Application::IsMousePressed(0) && !shoot && !Reload && this->currentAmmo >= 0 && Game::ammo > 0) {
 			shoot = true;
-			DEBUG_MSG("shot");
-			DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
-			this->currentAmmo--; //minus current gun ammo
+			if (this->currentAmmo > 0) {
+				//Vector3 view = (cam->target - cam->position).Normalized();
+				Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
+				bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
+				bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
+				// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet
+				eManager->spawnMovingEntity(bullet);
+				shoot = true;
+
+				AudioHandler::getEngine()->play3D(
+					AudioHandler::getSoundSource(SOUNDTYPE::GUN_PISTOL_SHOOT),
+					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+					LOOPED::NOLOOP);
+
+				DEBUG_MSG("shot");
+				DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
+				this->currentAmmo--; //minus current gun ammo
+			}
+			else {
+				AudioHandler::getEngine()->play3D(
+					AudioHandler::getSoundSource(SOUNDTYPE::GUN_PISTOL_EMPTY),
+					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+					LOOPED::NOLOOP);
+			}
 		}
 		else if (!Application::IsMousePressed(0)) shoot = false;
 
-		if (Application::IsKeyPressed('R') && !Reload) //start reload
+		if (Application::IsKeyPressed('R') && !Reload) {
+			//start reload
 			Reload = true;
+			AudioHandler::getEngine()->play3D(
+				AudioHandler::getSoundSource(SOUNDTYPE::GUN_PISTOL_RELOAD),
+				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+				LOOPED::NOLOOP);
+		}
 
 		if (Reload)
 			reloadTillTime += dt; //start timer
 		else
 			reloadTillTime = 0;
 
-		if (reloadTillTime > 2) //after 2 seconds, reload complete
+		if (reloadTillTime > 1) //after 2 seconds, reload complete
 		{
 			int reloadAmmo = this->magazineSize - this->currentAmmo; //get amt to reload
 			this->currentAmmo += reloadAmmo; //add the reload amt to current gun ammo

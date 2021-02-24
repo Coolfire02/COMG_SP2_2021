@@ -32,6 +32,7 @@ struct RigidBody {
 	void Update(EntityData* data, double dt) {
 		grounded = false;
 		data->Translate = data->Translate + velocity;
+		// i shd really use dt
 
 		if (data->Translate.y <= 0){
 			data->Translate.y = 0;
