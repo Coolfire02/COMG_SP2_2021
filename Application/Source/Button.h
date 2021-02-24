@@ -22,6 +22,8 @@ public:
 	std::string getName();
 	bool hasText();
 	bool isInRange(double, double);
+	void setOrigin(float x, float Y);
+	UIItem getUIInfo();
 	void setTextObject(Text* textPtr);
 	void setText(std::string text);
 	void setText(std::ostringstream text);

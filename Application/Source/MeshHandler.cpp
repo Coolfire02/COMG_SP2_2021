@@ -216,6 +216,10 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_TEXTBOX] = MeshBuilder::GenerateQuad("textbox", Color(0, 0, 0));
 	meshList[UI_TEXTBOX]->textureID = LoadTGA("Image//Textbox.tga");
 
+	//Textured Quads
+	meshList[GEO_MISSION_COMPLETE] = MeshBuilder::GenerateQuad("missioncomplete", Color(0, 0, 0));
+	meshList[GEO_MISSION_COMPLETE]->textureID = LoadTGA("Image//MissionUnlocked.tga");
+
 	//Materials
 
 	/*Material mat;

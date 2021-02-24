@@ -56,6 +56,7 @@ public:
 	void setTextOffsetFromTopLeft(float x, float y);
 	void setVisisble(bool visibility);
 	std::string getText();
+	void updateUIInfo(UIItem info);
 	void setColor(Color color);
 	Color getColor();
 	bool isVisible();

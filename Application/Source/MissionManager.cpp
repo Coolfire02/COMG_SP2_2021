@@ -1,6 +1,9 @@
 #include "MissionManager.h"
 #include <fstream>
 #include "Debug.h"
+#include "Application.h"
+
+class Game;
 
 //Statics
 std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = {
@@ -183,6 +186,33 @@ void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 }
 
 void MissionManager::Update(double dt) {
+	for (auto& mission : missionsCompletedThisTick) {
+		achievementDisplayQueue.push_back(mission->getType());
+	}
+	Button* display = Game::uiManager.getByTypeBM(UI_MISSION)->getButtonByName("MissionComplete");
+	if (!isDisplayingAchievement && achievementDisplayQueue.size() > 0) {
+		this->displayAchievementTill = Game::elapsedTime + 4.0f;
+		this->isDisplayingAchievement = true;
+		float y = 79.0;
+		display->setOrigin(display->getUIInfo().originX, 79.0);
+		display->enable();
+	}
+	else if (isDisplayingAchievement && Game::elapsedTime < displayAchievementTill) {
+		float timeDiff = displayAchievementTill - Game::elapsedTime;
+		float y;
+		if (timeDiff > 2.0) {
+			y = (79.0 - 60.0f) * (4 - (timeDiff)) + 60.f;
+		}
+		else {
+			y = (79.0 - 60.0f) * ((timeDiff) - 2) + 60.f;
+		}
+		display->setOrigin(display->getUIInfo().originX, y);
+	}
+	else if (isDisplayingAchievement && Game::elapsedTime >= displayAchievementTill) {
+		display->disable();
+		display->setOrigin(64, 60);
+		this->isDisplayingAchievement = false;
+	}
 	missionsCompletedThisTick.clear();
 	return;
 }

@@ -130,11 +130,27 @@ ITEM_TYPE Inventory::getCurrentItemType()
 
 void Inventory::Update(double dt)
 {
+	switch (getCurrentItemType())
+	{
+	case BURGER:
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_BURGER);
+		break;
+	case CORN:
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_CORN);
+		break;
+	case EGGPLANT:
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItem")->setQuadImage(UI_EGGPLANT);
+		break;
+	}
+
 	if (weaponInv->getWeaponList().size() > 0)
 	{
 		//display first gun slot
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
+
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->enable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->disable();
 		switch (weaponInv->getWeaponList()[0]->getWeaponType())
 		{
 		case PISTOL:
@@ -157,19 +173,35 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
 				break;
 			}
+			if (weaponInv->getWeaponList()[1] == weaponInv->getActiveWeapon())
+			{
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->disable();
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->enable();
+			}
 		}
 	}
 	else //do not display any gun slots as no guns owned
 	{
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
+		for (int i = 0; i < WEAPON_COUNT; i++)
+		{
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponBorder" + std::to_string(i + 1))->disable();
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent" + std::to_string(i + 1))->disable();
+		}
 	}
 
 	toggleTimer += dt;
 	if (Application::IsKeyPressed('E')) //pick up weapon
 		addWeap(PISTOL);
 	if (Application::IsKeyPressed('F')) //pick up weapon
+	{
+		addItem(BURGER, 1);
+		addItem(CORN, 1);
+		addItem(EGGPLANT, 1);
+
 		addWeap(SILENCER);
+	}
 	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
 		switchWeapon(0);
 	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
@@ -182,6 +214,11 @@ void Inventory::Update(double dt)
 	{
 		toggleTimer = 0;
 		deleteWeapon(getActiveWeapon()->getWeaponType());
+	}
+	if (toggleTimer > 1 && Application::IsKeyPressed('T')) //delete equipped weapon
+	{
+		toggleTimer = 0;
+		toggleItem();
 	}
 }
 
