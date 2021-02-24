@@ -82,6 +82,10 @@ Text::Text(Color color, UIItem UIInfo, FONTTYPE font, float size) {
     this->visible = true;
 }
 
+void Text::updateUIInfo(UIItem info) {
+    this->UIInfo = info;
+}
+
 void Text::setTextString(std::string txt) {
     text.str("");
     text.clear();

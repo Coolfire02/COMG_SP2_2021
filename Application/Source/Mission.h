@@ -48,6 +48,9 @@ class Mission {
 public:
 	Mission(MISSIONTYPE, MissionInfo);
 	~Mission();
+
+
+
 	void addProgress(float progress);
 	void setProgress(float progress);
 	bool isCompleted();
