@@ -19,8 +19,13 @@ private:
 	GEOMETRY_TYPE associatedMeshType;
 	WEAPON_TYPE weaponType;
 
+	int currentAmmo;
 	int magazineSize;
 	int damage;
+	bool shoot = false;
+
+	float reloadTillTime = 0;
+	bool Reload = false;
 
 public:
 	Weapon();

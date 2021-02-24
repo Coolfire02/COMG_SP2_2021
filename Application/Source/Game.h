@@ -27,6 +27,7 @@ public:
 	
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
+	static int ammo;
 
 	static MissionManager mManager;
 	static InteractionManager iManager;
@@ -39,6 +40,9 @@ public:
 	static void RenderUI();
 	static void Render();
 	static void Exit();
+
+	static void setAmmo(int);
+	static int getAmmo();
 
 	static void addScene(Scene* scene);
 	static void switchScene(static SCENES);
