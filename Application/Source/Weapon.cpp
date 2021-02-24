@@ -56,7 +56,6 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			DEBUG_MSG("shot");
 			DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);
 			this->currentAmmo--; //minus current gun ammo
-			Game::ammo--; //minus total ammo
 		}
 		else if (!Application::IsMousePressed(0)) shoot = false;
 
