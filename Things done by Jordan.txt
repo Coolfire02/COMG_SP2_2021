@@ -5,3 +5,6 @@ function to spawn buildings/roads
 main 2021 scene
 weapon inventory
 add/switch/delete weapons slot
+weapon switching ui
+scene 2021 missions
+weapons ammo
