@@ -22,7 +22,7 @@ Game::~Game()
 
 void Game::Init()
 {
-	iManager.initInteractions("TextData//test.txt");
+	iManager.initInteractions("config//Interactions//Interactions.txt");
 	uiManager.Init();
 }
 

@@ -258,7 +258,7 @@ void MissionManager::Update(double dt) {
 			std::ostringstream ss;
 			ss.precision(1);
 			ss << missions[completables.at(i)]->getProgress();
-			std::string str = getMissionNameFormatted(completables.at(i)) + " | " + ss.str() + "% Done";
+			std::string str = getMissionNameFormatted(completables.at(i)) + " | " + ss.str() + "% Done\nREEEEEEEEEEEEEEEEE";
 			mission->setText(str);
 			mission->enable();
 		}
