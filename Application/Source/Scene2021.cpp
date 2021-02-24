@@ -617,11 +617,18 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (ePressed && !eHeld) {
-					eHeld = true;
-					Application::setCursorEnabled(true);
-					Game::iManager.loadInteraction("hey");
+			for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
+			{
+				if (Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_NPC)
+				{
+					if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+						if (ePressed && !eHeld) {
+							eHeld = true;
+							Application::setCursorEnabled(true);
+							Game::iManager.loadInteraction("hey");
+							break;
+						}
+					}
 				}
 			}
 			((NPC*)entry)->Walk(dt);
