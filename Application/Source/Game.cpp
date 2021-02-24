@@ -6,6 +6,7 @@ SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
+double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
@@ -27,6 +28,7 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
+	gElapsedTime += dt;
 	inv.Update(dt);
 	InteractionUpdate(dt);		
 	mManager.Update(dt);

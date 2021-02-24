@@ -212,7 +212,6 @@ void MissionManager::Update(double dt) {
 		display->disable();
 		display->setOrigin(64, 60);
 		this->isDisplayingAchievement = false;
-		achievementDisplayQueue.erase(achievementDisplayQueue.begin());
 	}
 	missionsCompletedThisTick.clear();
 	return;
