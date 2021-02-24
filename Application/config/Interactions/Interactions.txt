@@ -56,3 +56,11 @@ INTERACTION: GunshopFail
 - MSG: Come again next time!
 
 =========================================
+
+INTERACTION: npc1
+- MSG: Hello, nice to meet you.
+
+INTERACTION: npc2
+- MSG: Hey, how're you doing.
+
+=========================================

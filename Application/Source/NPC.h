@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include <vector>
 
 /******************************************************************************/
 /*!
@@ -69,6 +70,9 @@ class NPC : public Entity
 	const NPCTYPE npcType; // NPC type
 	RigidBody RB;
 	float NPCtimer = 0; // timer for random movement.
+	static int IDcounter;
+	int ID;
+	std::vector<int> IDList;
 
 public:
 
@@ -81,5 +85,7 @@ public:
 	void Update(double);
 	void Render();
 	void Walk(double);
+	int getID();
+	std::vector<int>& getIDList();
 };
 

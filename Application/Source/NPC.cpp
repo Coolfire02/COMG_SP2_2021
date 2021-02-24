@@ -1,5 +1,5 @@
 #include "NPC.h"
-
+int NPC::IDcounter = 0;
 
 NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYPE::LIVE_NPC, name) , npcType(npcType) {
 	switch (type) {
@@ -13,6 +13,8 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYP
 		this->associatedNPCMesh = nullptr;
 		break;
 	}
+	IDcounter++;
+	this->ID = IDcounter;
 	this->hitBox = new HitBox(new Box(*associatedNPCMesh->botLeftPos, *associatedNPCMesh->topRightPos));
 }
 
@@ -87,4 +89,14 @@ void NPC::Walk(double dt)
 		}
 		NPCtimer = 0;
 	}
+}
+
+int NPC::getID()
+{
+	return this->ID;
+}
+
+std::vector<int>& NPC::getIDList()
+{
+	return IDList;
 }

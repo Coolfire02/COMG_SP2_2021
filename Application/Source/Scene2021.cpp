@@ -192,7 +192,7 @@ void Scene2021::Init()
 
 	for (int i = 0; i < 10; i++)
 	{
-		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
+		SpawnNPCs(Vector3(-5, 0, -5), Vector3(5, 0, 5), TESTNPC);
 	}
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
@@ -543,21 +543,39 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
-			for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-			{
-				if (Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_NPC)
+			((NPC*)entry)->Walk(dt);
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (((NPC*)entry)->getIDList().size() != 0)
 				{
-					if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-						if (ePressed && !eHeld) {
-							eHeld = true;
-							Application::setCursorEnabled(true);
-							Game::iManager.loadInteraction("asdsa");
-							break;
+					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++)
+					{
+						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID())
+						{
+							if (ePressed && !eHeld)
+							{
+								eHeld = true;
+								Application::setCursorEnabled(true);
+								int random = rand() % 2 + 1;
+								Game::iManager.loadInteraction("npc" + std::to_string(random));
+								Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
+								((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID());
+							}
 						}
 					}
 				}
+				else
+				{
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Application::setCursorEnabled(true);
+						int random = rand() % 2 + 1;
+						Game::iManager.loadInteraction("npc" + std::to_string(random));
+						Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
+						((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID());
+					}
+				}
 			}
-			((NPC*)entry)->Walk(dt);
 		}
 	}
 
