@@ -137,14 +137,14 @@ void SceneAssignment2::Init() {
 
 	//Buttons
 
-	/*Button* button;
-	button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
+	Button* button;
+	button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
 	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
 	button->getTextObject()->setTextString("Test");
 	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
 	bManager.addButton(button);
 
-	Button* inventoryBackground;
+	/*Button* inventoryBackground;
 	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
 	bManager.addButton(inventoryBackground);
 	bManager.deactivateButton("UIInventoryBackground");
@@ -319,7 +319,7 @@ void SceneAssignment2::Update(double dt)
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('6') & 0x8001) {
-		//game.switchScene(S_2021);
+		Game::switchScene(S_2021);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('7') & 0x8001) {
@@ -641,7 +641,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 					entry->victim->setDead(true);
 				}
-				DEBUG_MSG("BULLET UFKC YOU");
+				DEBUG_MSG("BULLET pewpew");
 				entry->attacker->setDead(true);
 			}
 		}
@@ -947,6 +947,8 @@ void SceneAssignment2::Render()
 
 	RenderUI();
 	RenderInteraction();
+
+	bManager.Render(this);
 
 	std::ostringstream ss;
 

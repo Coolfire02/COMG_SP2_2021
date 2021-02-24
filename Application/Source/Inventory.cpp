@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "Application.h"
 
 Inventory::Inventory()
 {
@@ -125,6 +126,62 @@ ITEM_TYPE Inventory::getCurrentItemType()
 {
 	if (itemInventory != nullptr)
 		return itemInventory->getCurrenItemType();
+}
+
+void Inventory::Update(double dt)
+{
+	if (weaponInv->getWeaponList().size() > 0)
+	{
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
+		switch (weaponInv->getWeaponList()[0]->getWeaponType())
+		{
+		case PISTOL:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_PISTOL);
+			break;
+		case SILENCER:
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
+			break;
+		}
+
+		if (weaponInv->getWeaponList().size() == 2)
+		{
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
+			switch (weaponInv->getWeaponList()[1]->getWeaponType())
+			{
+			case PISTOL:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_PISTOL);
+				break;
+			case SILENCER:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+				break;
+			}
+		}
+	}
+	else
+	{
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
+	}
+
+	toggleTimer += dt;
+	if (Application::IsKeyPressed('E')) //pick up weapon
+		addWeap(PISTOL);
+	if (Application::IsKeyPressed('F')) //pick up weapon
+		addWeap(SILENCER);
+	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
+		switchWeapon(0);
+	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
+		switchWeapon(1);
+	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
+		switchWeapon(2);
+	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
+		switchWeapon(3);
+	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
+	{
+		toggleTimer = 0;
+		deleteWeapon(getActiveWeapon()->getWeaponType());
+	}
 }
 
 int Inventory::getCurrentItemAmt()

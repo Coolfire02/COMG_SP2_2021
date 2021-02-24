@@ -154,4 +154,3 @@ void ButtonManager::addButton(Button* button) {
 std::vector<Button*> ButtonManager::getButtons() {
 	return buttons;
 }
-

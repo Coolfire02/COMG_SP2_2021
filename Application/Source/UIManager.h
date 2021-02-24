@@ -28,6 +28,7 @@ private:
 public:
 	UIManager();
 	~UIManager();
+	void Init();
 
 	void Update(Scene* scene, double dt);
 	void enableUI();
@@ -36,9 +37,9 @@ public:
 	void Render(Scene* scene);
 
 	void changeTextButton(std::string newText, std::string bName);
-	void createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString);
+	void createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize);
 	void createNoTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture);
-	void createButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture, float offsetX, float offsetY, Color textColour, std::string textString);
+	void createButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture, float offsetX, float offsetY, Color textColour, std::string textString, float textSize);
 	
 	//Setter
 	void setCurrentUI(UI_MENUS newUI);

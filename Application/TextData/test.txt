@@ -3,6 +3,7 @@ INTERACTION: asdsa
 - precmd: /yea 1
 - precmd: TestScene;/yea 1
 - postcmd: /ur mom
+# NEXT: ya
 
 CHOICE # asdsa
 - MSG: lol
@@ -11,6 +12,7 @@ CHOICE # asdsa
 CHOICE # asdsa
 - MSG: yuh
 - precmd: /ns
+# NEXT: ya
 
 INTERACTION: ya
 - MSG: ur mom
