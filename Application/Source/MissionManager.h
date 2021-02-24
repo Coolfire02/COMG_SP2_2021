@@ -3,6 +3,8 @@
 #include "Mission.h"
 #include <unordered_map>
 
+class Game;
+
 class MissionManager {
 
 
@@ -10,12 +12,13 @@ class MissionManager {
 	static std::unordered_map<std::string, MISSIONTYPE> const mTypeTable;
 	static MissionInfo missionLang[MISSION_COUNT];
 	static bool loadedLang;
-
 	//Statics end
 	
-	//To be moved to PauseMenu UI, PauseMenu will be a ButtonManager in game.cpp. Where when game is paused, do not update scenes, only update this button manager and GameSettings compoenent in Game class's update.
-	//bool showUI;
-	//ButtonManager MissionUI; //Use this to work the whole Mission UI Checkpoint System
+	//Achievement Display Using UI_MISSIONS BManager from UIManager class
+	std::vector<MISSIONTYPE> achievementDisplayQueue;
+	bool isDisplayingAchievement;
+	float displayAchievementTill;
+
 	Mission* missions[MISSION_COUNT];
 	std::vector<Mission*> missionsUpdatedThisTick;
 	std::vector<Mission*> missionsCompletedThisTick;

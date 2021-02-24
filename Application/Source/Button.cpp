@@ -66,6 +66,18 @@ std::string Button::getName() {
 	return buttonName;
 }
 
+UIItem Button::getUIInfo() {
+	return UIInfo;
+}
+
+void Button::setOrigin(float x, float y) {
+	this->UIInfo.originX = x;
+	this->UIInfo.originY = y;
+	if (this->hasText()) {
+		this->getTextObject()->updateUIInfo(this->UIInfo);
+	}
+}
+
 bool Button::isInRange(double x, double y) {
 	if (!enabled) return false;
 	if(x >= UIInfo.originX - UIInfo.sizeX/2.0 && x < (UIInfo.originX + UIInfo.sizeX/2.0)

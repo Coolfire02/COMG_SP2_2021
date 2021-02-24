@@ -8,6 +8,7 @@ UIManager::UIManager()
 void UIManager::Init() {
 	////bManager = bN;
 	currentMenu = UI_MAIN_MENU;
+	activeMenus[UI_MISSION] = true; //UI_MISSION Overlay
 	uiActive = true;
 
 	for (int i = 0; i < UI_MENU_COUNT; i++)
@@ -18,24 +19,7 @@ void UIManager::Init() {
 		case UI_GENERAL:
 			//Items UI
 			//need to create text buttons for amount
-			for (int j = 0; j < ITEM_AMOUNT + 1; j++)
-			{
-				switch (j)
-				{
-				case BURGER:
-					createNoTextButton(bManagers[i], "UIItemBurger", 120, 20, 10, 10, UI_BURGER);
-					break;
-				case CORN:
-					createNoTextButton(bManagers[i], "UIItemCorn", 120, 20, 10, 10, UI_CORN);
-					break;
-				case EGGPLANT:
-					createNoTextButton(bManagers[i], "UIItemEggplant", 120, 20, 10, 10, UI_EGGPLANT);
-					break;
-				default:
-					createNoTextButton(bManagers[i], "UIItemEmpty", 120, 20, 10, 10, UI_EMPTY);
-					break;
-				}
-			}
+			createNoTextButton(bManagers[i], "UIItem", 120, 20, 10, 10, UI_EMPTY);
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
 			//Weapons UI
@@ -44,8 +28,11 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
 			for (int j = 0; j < WEAPON_COUNT; j++)
 			{
-				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j), 100 + (j * 10), 10, 10, 10, UI_BLACK);
-				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j), 100 + (j * 10), 10, 11, 11, UI_BLUE);
+				createNoTextButton(bManagers[i], "UIWeaponBorder" + std::to_string(j + 1), 100 + (j * 10), 10, 10, 10, UI_BLACK);
+			}
+			for (int j = 0; j < WEAPON_COUNT; j++)
+			{
+				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j + 1), 100 + (j * 10), 10, 11, 11, UI_BLUE);
 			}
 			break;
 		case UI_ITEM_INVENTORY:
@@ -82,6 +69,9 @@ void UIManager::Init() {
 			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 27.4, UI_TEXTBOX, 3, 12, Color(1, 1, 1), "", 5.0f);
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
+		case UI_MISSION:
+			createButton(bManagers[i], "MissionComplete", 64, 60, 96, 18, GEO_MISSION_COMPLETE, 20, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 4.0f);
+			bManagers[i]->deactivateButton("MissionComplete");
 		}
 	}
 	setCurrentUI(UI_MAIN_MENU);
@@ -149,7 +139,12 @@ void UIManager::disableUI()
 
 void UIManager::Render(Scene* scene)
 {
-	bManagers[currentMenu]->Render(scene);
+	for (int i = 0; i < UI_MENU_COUNT; i++) {
+		UI_MENUS type = static_cast<UI_MENUS>(i);
+		if (type == currentMenu || activeMenus[type] == true) {
+			bManagers[type]->Render(scene);
+		}
+	}
 }
 
 void UIManager::changeTextButton(std::string newText, std::string bName)

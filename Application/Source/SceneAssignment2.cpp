@@ -239,13 +239,13 @@ void SceneAssignment2::Update(double dt)
 	bool tPressed = Application::IsKeyPressed('T');
 	toggleTimer += dt;
 	//UI item adding testing
-	if (Application::IsKeyPressed('F'))
-	{
-		Game::inv.addItem(BURGER, 1);
-		Game::inv.addItem(EGGPLANT, 2);
-		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		Game::inv.addCar(SUV);
-	}
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	Game::inv.addItem(BURGER, 1);
+	//	Game::inv.addItem(EGGPLANT, 2);
+	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
+	//	Game::inv.addCar(SUV);
+	//}
 	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
 	{
 		toggleTimer = 0;
@@ -284,10 +284,10 @@ void SceneAssignment2::Update(double dt)
 		else
 			inv.switchCar(SEDAN);*/
 	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	/*if (toggleTimer > 1 && Application::IsKeyPressed('R'))
 	{
 		Game::inv.addItem(CORN, 3);
-	}
+	}*/
 
 	//weapon inventory
 //	if (Application::IsKeyPressed('E')) //pick up weapon

@@ -109,6 +109,7 @@ enum GEOMETRY_TYPE {
 	GARAGE_FLOOR,
 
 	//Textured Quads
+	GEO_MISSION_COMPLETE,
 
 	TAILSS,
 	//For non-OBJs

@@ -72,5 +72,4 @@ void WeaponInventory::switchActiveWeapon(int index)
 		else
 			activeWeapon = weaponList[index];
 	}
-
 }
