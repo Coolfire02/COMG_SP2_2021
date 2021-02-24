@@ -187,82 +187,6 @@ void Scene2021::Init()
 	restaurantHitBox->getEntityData()->Translate.Set(25, 0, 0);
 	eManager.spawnWorldEntity(restaurantHitBox);
 
-	//Button* button;
-	//button = new Button(this, "UIHealth", 40, 5, 40, 5, UI_BLUE);
-	//button->spawnTextObject("Text", Color(0, 1, 0), CALIBRI, 1);
-	//button->getTextObject()->setTextString("Test");
-	//button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
-	//bManager.addButton(button);
-
-	//Button* inventoryBackground;
-	//inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-	//bManager.addButton(inventoryBackground);
-	//bManager.deactivateButton("UIInventoryBackground");
-
-	//Button* itemsButton;
-	//itemsButton = new Button(this, "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW);
-	//itemsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	//itemsButton->getTextObject()->setTextString("Item");
-	//itemsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(itemsButton);
-	//bManager.deactivateButton("UIItemsInventory");
-
-	//Button* itemsBlankButton;
-	//itemsBlankButton = new Button(this, "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW);
-	//itemsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	//itemsBlankButton->getTextObject()->setTextString("Item");
-	//itemsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(itemsBlankButton);
-	//bManager.deactivateButton("UIItemsInventoryBlank");
-
-	//Button* weaponsButton;
-	//weaponsButton = new Button(this, "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW);
-	//weaponsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	//weaponsButton->getTextObject()->setTextString("Guns");
-	//weaponsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(weaponsButton);
-	//bManager.deactivateButton("UIWeaponsInventory");
-
-	//Button* weaponsBlankButton;
-	//weaponsBlankButton = new Button(this, "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW);
-	//weaponsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	//weaponsBlankButton->getTextObject()->setTextString("Guns");
-	//weaponsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(weaponsBlankButton);
-	//bManager.deactivateButton("UIWeaponsInventoryBlank");
-
-	//Button* garageButton;
-	//garageButton = new Button(this, "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW);
-	//garageButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	//garageButton->getTextObject()->setTextString("Cars");
-	//garageButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(garageButton);
-	//bManager.deactivateButton("UIGarageInventory");
-
-	//Button* garageBlankButton;
-	//garageBlankButton = new Button(this, "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW);
-	//garageBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	//garageBlankButton->getTextObject()->setTextString("Cars");
-	//garageBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	//bManager.addButton(garageBlankButton);
-	//bManager.deactivateButton("UIGarageInventoryBlank");
-
-	//Button* titleBackground;
-	//titleBackground = new Button(this, "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-	//bManager.addButton(titleBackground);
-	//bManager.deactivateButton("TitleBackground");
-
-	//Button* playButton;
-	//playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
-	//bManager.addButton(playButton);
-	//bManager.deactivateButton("MainMenuPlayButton");
-
-	//Button* interactionButton;
-	//interactionButton = new Button(this, "InteractionButton", 64, 36, 64, 36, GEO_QUAD);
-	//interactionButton->spawnTextObject("", Color(0, 1, 0), CALIBRI, 1.f);
-	//bManager.addButton(interactionButton);
-	//bManager.deactivateButton("InteractionButton");
-
 	SpawnBuildings();
 	SpawnStreetLamps();
 
@@ -409,7 +333,6 @@ void Scene2021::Update(double dt)
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -484,9 +407,12 @@ void Scene2021::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
+		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 	}
 	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+
+	if (!player->isDriving())
+		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void Scene2021::InitLights() {
@@ -647,14 +573,24 @@ void Scene2021::CollisionHandler(double dt) {
 			}
 		}
 
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-				// player->getEntityData()->Translate += entry->plane * 2;
-				// player->cancelNextMovement();
-				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
+			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
+					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
+				}
+				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
+					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
+				}
 			}
-
+			if (!player->isDriving())
+			{
+				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+					// player->getEntityData()->Translate += entry->plane * 2;
+					// player->cancelNextMovement();
+					entry->attacker->getEntityData()->Translate -= entry->translationVector;
+					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+				}
+			}
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
 					std::cout << "In Car" << std::endl;
@@ -664,15 +600,6 @@ void Scene2021::CollisionHandler(double dt) {
 					std::cout << "Collided" << std::endl;
 				}
 			}*/
-
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
-				}
-				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
-				}
-			}
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
@@ -842,6 +769,8 @@ void Scene2021::Render()
 
 	RenderRoads();
 
+	
+
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
@@ -901,10 +830,6 @@ void Scene2021::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
 		break;
 	case THIRDPERSON:
 		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
@@ -936,6 +861,20 @@ void Scene2021::Render()
 	modelStack.Rotate(-90, 1, 0, 0);
 	modelStack.Scale(1000, 1000, 1000);
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(30, 15, -7);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "RESTAURANT", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(350, 15, 60);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "FOUNTAIN", Color(1, 0, 1));
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
@@ -1495,6 +1434,8 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 void Scene2021::RenderUI()
 {
 	Game::RenderUI();
+	if (player->isDriving())
+		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
 void Scene2021::Exit()

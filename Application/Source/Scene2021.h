@@ -75,6 +75,7 @@ private:
 	float fps;
 
 	float toggleTimer = 0;
+	float BoostMeterGauge = 0;
 
 	void RenderSkybox();
 	void RenderRoads();

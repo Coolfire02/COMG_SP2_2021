@@ -234,7 +234,6 @@ Runs the pre and post commands of the current Interaction and pop it from the qu
 /******************************************************************************/
 void InteractionManager::nextInteraction(std::string key)
 {
-
 	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 		runCommand(*entry);
 	}

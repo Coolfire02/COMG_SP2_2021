@@ -3,8 +3,13 @@ weapon & weapon inventory class
 top down view map camera with directional light based on where player is facing
 function to spawn buildings/roads
 main 2021 scene
+
+
+
+NPC random movement
 weapon inventory
 add/switch/delete weapons slot
 weapon switching ui
 scene 2021 missions
 weapons ammo
+

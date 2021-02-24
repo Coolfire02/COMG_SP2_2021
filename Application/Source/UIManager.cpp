@@ -25,10 +25,10 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "UIItem", 120, 20, 10, 10, UI_EMPTY);
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
-			//Weapons UI 128 72
+			//Weapons UI
 			//need to create text buttons for amount
 			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "0/0 Ammo", 5.0f);
-			createTextButton(bManagers[i], "TotalAmmoCount", 92.25, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);
+			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);
 			createNoTextButton(bManagers[i], "Weapon1", 100, 10, 10, 10, UI_PISTOL);
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
 			for (int j = 0; j < WEAPON_COUNT; j++)
