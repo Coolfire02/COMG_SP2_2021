@@ -215,6 +215,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_CROSSHAIR]->textureID = LoadTGA("Image//Crosshair.tga");
 	meshList[UI_TEXTBOX] = MeshBuilder::GenerateQuad("textbox", Color(0, 0, 0));
 	meshList[UI_TEXTBOX]->textureID = LoadTGA("Image//Textbox.tga");
+	meshList[UI_CHOICE] = MeshBuilder::GenerateQuad("choice", Color(0, 0, 0));
+	meshList[UI_CHOICE]->textureID = LoadTGA("Image//choice.tga");
 
 	//Materials
 

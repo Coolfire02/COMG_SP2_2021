@@ -17,7 +17,10 @@ struct Interaction {
 	std::vector<Command*> preInteractionCMD;
 	std::string interactionText;
 	std::vector<Command*> postInteractionCMD;
+	std::string nextInteractionKey;
+
 	std::vector<Interaction*> interactionChoices;
+
 };
 
 class InteractionQueue {

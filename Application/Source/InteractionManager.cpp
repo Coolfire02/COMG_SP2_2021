@@ -64,6 +64,10 @@ Pushes interactions from the Interactions map into the queue to be shown on the 
 */
 /******************************************************************************/
 bool InteractionManager::loadInteraction(std::string key) {
+
+	if (key.empty())
+		return false;
+
 	Application::setCursorEnabled(true);
 	try {
 		interactionQueue.pushInteraction(Interactions[key]);
@@ -186,6 +190,16 @@ bool InteractionManager::initInteractions(const char* filePath)
 				interaction->postInteractionCMD.push_back(command);
 			}
 		}
+		else if ((strncmp("# NEXT: ", buf, 8) == 0)) {
+			if (interaction != nullptr) {
+				char next[256];
+				strcpy_s(next, buf + 8);
+				if (next[strlen(next) - 1] == '\r')
+					next[strlen(next) - 1] = '\0';
+				
+				interaction->nextInteractionKey = next;
+			}
+		}
 	}
 	fileStream.close(); // close file
 
@@ -219,13 +233,14 @@ void InteractionManager::EndInteraction()
 Runs the pre and post commands of the current Interaction and pop it from the queue, loading in the next Interaction Message
 */
 /******************************************************************************/
-void InteractionManager::nextInteraction()
+void InteractionManager::nextInteraction(std::string key)
 {
 
 	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 		runCommand(*entry);
 	}
 
+	loadInteraction(key);
 	interactionQueue.popInteraction();
 
 
