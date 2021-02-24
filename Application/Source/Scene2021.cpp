@@ -548,20 +548,20 @@ void Scene2021::CollisionHandler(double dt) {
 		{
 			((NPC*)entry)->Walk(dt);
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (((NPC*)entry)->getIDList().size() != 0)
+				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
-					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++)
+					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++) //loop through each element in vector
 					{
-						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID())
+						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
 						{
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
 								Application::setCursorEnabled(true);
 								int random = rand() % 2 + 1;
-								Game::iManager.loadInteraction("npc" + std::to_string(random));
+								Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
 								Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-								((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID());
+								((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
 							}
 						}
 					}
@@ -573,9 +573,9 @@ void Scene2021::CollisionHandler(double dt) {
 						eHeld = true;
 						Application::setCursorEnabled(true);
 						int random = rand() % 2 + 1;
-						Game::iManager.loadInteraction("npc" + std::to_string(random));
+						Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
 						Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-						((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID());
+						((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
 					}
 				}
 			}
