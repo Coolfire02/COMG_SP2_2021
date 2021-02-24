@@ -167,6 +167,17 @@ void Camera::Update(double dt)
 
 }
 
+bool Camera::isLookingAt(Vector3 pos)
+{
+	float sideA = sqrt(pow(target.x - position.x, 2) + pow(target.y - position.y, 2) + pow(target.z - position.z, 2));
+	float sideC = sqrt(pow(pos.x - position.x, 2) + pow(pos.y - position.y, 2) + pow(pos.z - position.z, 2));
+	float sideB = sqrt(pow(pos.x - target.x, 2) + pow(pos.y - target.y, 2) + pow(pos.z - target.z, 2));
+
+	float angle = acos((pow(sideA, 2) + pow(sideC, 2) - pow(sideB, 2)) / (2 * sideA * sideC)) * 180 / 3.14159;
+
+	return angle < 3;
+}
+
 
 void Camera::Move(float x, float y, float z) {
 	Vector3 view = (target - position).Normalized();

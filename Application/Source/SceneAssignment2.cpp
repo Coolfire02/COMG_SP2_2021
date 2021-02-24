@@ -308,28 +308,28 @@ void SceneAssignment2::Update(double dt)
 //		Game::inv.deleteWeapon(Game::inv.getActiveWeapon()->getWeaponType());
 //	}
 
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
-		Game::switchScene(S_2051);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
-		Game::switchScene(S_2021);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('7') & 0x8001) {
-		//game.switchScene(S_2021);
-		Game::switchScene(S_GARAGE);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else if (GetAsyncKeyState('8') & 0x8001) {
-		Game::switchScene(S_GUNSHOP);
-	}
+	//if (GetAsyncKeyState('1') & 0x8001) {
+	//	glEnable(GL_CULL_FACE);
+	//}
+	//else if (GetAsyncKeyState('2') & 0x8001) {
+	//	glDisable(GL_CULL_FACE);
+	//}
+	//else if (GetAsyncKeyState('5') & 0x8001) {
+	//	Game::switchScene(S_2051);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//}
+	//else if (GetAsyncKeyState('6') & 0x8001) {
+	//	Game::switchScene(S_2021);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//}
+	//else if (GetAsyncKeyState('7') & 0x8001) {
+	//	//game.switchScene(S_2021);
+	//	Game::switchScene(S_GARAGE);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//}
+	//else if (GetAsyncKeyState('8') & 0x8001) {
+	//	Game::switchScene(S_GUNSHOP);
+	//}
 
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
@@ -620,6 +620,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (ePressed) {
 					Game::iManager.loadInteraction("asdsa");

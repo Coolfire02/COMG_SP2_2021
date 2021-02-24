@@ -35,6 +35,7 @@ public:
 	void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
 	void Reset();
 	void Update(double dt);
+	bool isLookingAt(Vector3 pos);
 
 	//How much to move in the X,Y,Z coordinates
 	void Move(float x, float y, float z); 

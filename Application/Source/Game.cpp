@@ -28,6 +28,24 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
+
+	if (GetAsyncKeyState('3') & 0x8001) {
+		Game::switchScene(S_2051);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('4') & 0x8001) {
+		Game::switchScene(S_2021);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else if (GetAsyncKeyState('5') & 0x8001) {
+		//game.switchScene(S_2021);
+		Game::switchScene(S_GARAGE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else if (GetAsyncKeyState('6') & 0x8001) {
+		Game::switchScene(S_GUNSHOP);
+	}
+
 	gElapsedTime += dt;
 	inv.Update(dt);
 	InteractionUpdate(dt);		
