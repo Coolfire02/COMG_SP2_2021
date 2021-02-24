@@ -405,10 +405,10 @@ void Scene2021::Update(double dt)
 		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
 
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
-	}
+	//if (player->isDriving()) {
+	//	player->getCar()->Drive(dt);
+	//	BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
+	//}
 	Vector3 view = (camera.target - camera.position).Normalized();
 
 	if (!player->isDriving())
@@ -539,6 +539,9 @@ void Scene2021::CollisionHandler(double dt) {
 					}
 				}
 			}
+			((Car*)entry)->Drive(dt);
+			if (player->getCar())
+				BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 		}
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)

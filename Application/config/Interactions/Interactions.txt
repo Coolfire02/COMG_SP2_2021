@@ -38,13 +38,39 @@ INTERACTION: Gunshop1
 
 CHOICE # Gunshop1
 - MSG: Silenced Pistol
-- precmd: /silencedPistol
 # NEXT: buy_silenced_pistol
 
 CHOICE # Gunshop1
 - MSG: 15 Ammo
-- precmd: /ammo
-# NEXT: buy_silenced_pistol
+# NEXT: buy_ammo
+
+=========================================
+
+INTERACTION: buy_silenced_pistol
+- MSG: That will cost $2,500
+
+CHOICE # buy_silenced_pistol
+- MSG: Don't Buy
+# NEXT: GunshopFail
+
+CHOICE # buy_silenced_pistol
+- MSG: Buy
+- postcmd: /buySilencedPistol
+# NEXT: GunshopSuccess
+
+=========================================
+
+INTERACTION: buy_ammo
+- MSG: That will cost $50
+
+CHOICE # buy_ammo
+- MSG: Don't Buy
+# NEXT: GunshopFail
+
+CHOICE # buy_ammo
+- MSG: Buy
+- postcmd: /buyAmmo
+# NEXT: GunshopSuccess
 
 =========================================
 

@@ -187,6 +187,9 @@ void UIManager::Update(Scene* scene, double dt)
 						std::stringstream ss;
 						ss << "Choice" << i + 1;
 						if (buttonCollide->buttonClicked->getName() == ss.str() && buttonCollide->justClicked) {
+							for (auto& entry : Game::iManager.getQueue().Top()->interactionChoices[i]->postInteractionCMD) {
+								Game::iManager.runCommand(*entry);
+							}
 							Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->interactionChoices[i]->nextInteractionKey);
 							break;
 						}
