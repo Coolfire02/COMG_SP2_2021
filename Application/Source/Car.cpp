@@ -236,7 +236,7 @@ void Car::Drive(double dt) {
 		acceleration = -maxCarSpeed * 0.5f;
 	}
 
-	if (Application::IsKeyPressed(VK_SPACE))
+	if (Application::IsKeyPressed(VK_SPACE) && (Application::IsKeyPressed('W')))
 	{
 		if (boostMeter > 0)
 		{
