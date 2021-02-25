@@ -358,70 +358,73 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	CollisionHandler(dt);
 	MissionCompleteListener(dt);
-	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+	if (!Game::iManager.isInteracting()) {
+		CollisionHandler(dt);
 
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
+		std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 
-	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
-	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
 
-		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
-				playerSpeed = 25.f;
+		//Requires Implementation of Velocity by Joash
+		float playerSpeed = 15.0;
+		if (!((Player*)player)->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+				camera.position.y += CameraBobber;
 			}
 
-			pLoc += view * (float)dt * playerSpeed;
+			if (Application::IsKeyPressed('W')) {
 
+				if (Application::IsKeyPressed(VK_LSHIFT)) {
+					playerSpeed = 25.f;
+				}
+
+				pLoc += view * (float)dt * playerSpeed;
+
+			}
+			if (Application::IsKeyPressed('A')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc -= right * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('S')) {
+				pLoc -= view * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('D')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc += right * (float)dt * playerSpeed;
+			}
+			// SCENE WORLD BOUNDARIES
+			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+			player->getEntityData()->Translate.x = pLoc.x;
+			// Skip y since we want level ground
+			player->getEntityData()->Translate.z = pLoc.z;
+
+			bobTime += dt;
+			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
-		}
 
-		if (Application::IsKeyPressed('S')) {
-			pLoc -= view * (float)dt * playerSpeed;
-		}
+		//if (player->isDriving()) {
+		//	player->getCar()->Drive(dt);
+		//	BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
+		//}
+		Vector3 view = (camera.target - camera.position).Normalized();
 
-		if (Application::IsKeyPressed('D')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
-		}
-		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+		if (!player->isDriving())
+			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
-
-	//if (player->isDriving()) {
-	//	player->getCar()->Drive(dt);
-	//	BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
-	//}
-	Vector3 view = (camera.target - camera.position).Normalized();
-
-	if (!player->isDriving())
-		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void Scene2021::InitLights() {
@@ -553,6 +556,7 @@ void Scene2021::CollisionHandler(double dt) {
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
 			((NPC*)entry)->Walk(dt);
+
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
@@ -620,6 +624,20 @@ void Scene2021::CollisionHandler(double dt) {
 			if (!player->isDriving())
 			{
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+					if (entry->victim->getName() == "drugs")
+					{
+						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+						{
+							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_FOUNTAIN)
+							{
+								if (ePressed && !eHeld)
+								{
+									eHeld = true;
+									entry->victim->setDead(true);
+								}
+							}
+						}
+					}
 					// player->getEntityData()->Translate += entry->plane * 2;
 					// player->cancelNextMovement();
 					entry->attacker->getEntityData()->Translate -= entry->translationVector;
@@ -1451,6 +1469,7 @@ void Scene2021::SpawnBuildings()
 	}	
 	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
+	initBuildings(Vector3(-325, 1, 288), Vector3(0, 0, 0), Vector3(1,1,1), GEO_CUBE);
 }
 
 void Scene2021::SpawnStreetLamps()
@@ -1486,12 +1505,6 @@ void Scene2021::SpawnStreetLamps()
 	
 	initStreetLamps(Vector3(-270, 0, 67), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-270, 0, -167), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	//Entity* drugs = new WorldObject(this, MeshHandler::getMesh(GEO_TEXT), "drugs");
-	//drugs->getEntityData()->SetTransform(0,0,0);
-	//drugs->getEntityData()->SetRotate(0,0,0);
-	//drugs->getEntityData()->SetScale(5,5,5);
-	//eManager.spawnWorldEntity(drugs);
 }
 
 void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)

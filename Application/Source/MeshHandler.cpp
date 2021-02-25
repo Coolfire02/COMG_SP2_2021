@@ -173,6 +173,18 @@ bool MeshHandler::loadMeshes() {
 	meshList[GARAGE_FLOOR] = MeshBuilder::GenerateQuad("woodFloor", Color(1, 1, 1));
 	meshList[GARAGE_FLOOR]->textureID = LoadTGA("Image//Garage//woodFloor.tga");
 
+	meshList[BARREL] = MeshBuilder::GenerateOBJMTL("barrel", "OBJ//Garage//barrel.obj", "MTL//Garage//barrel.mtl");
+	meshList[BARRELS] = MeshBuilder::GenerateOBJMTL("barrels", "OBJ//Garage//barrels.obj", "MTL//Garage//barrels.mtl");
+	meshList[BARRELS_RAIL] = MeshBuilder::GenerateOBJMTL("barrels_rail", "OBJ//Garage//barrels_rail.obj", "MTL//Garage//barrels_rail.mtl");
+	meshList[CRATE] = MeshBuilder::GenerateOBJMTL("crate", "OBJ//Garage//crate.obj", "MTL//Garage//crate.mtl");
+	meshList[CRATE_STRONG] = MeshBuilder::GenerateOBJMTL("crateStrong", "OBJ//Garage//crateStrong.obj", "MTL//Garage//crateStrong.mtl");
+	meshList[CRATE_ITEM] = MeshBuilder::GenerateOBJMTL("crateItem", "OBJ//Garage//crateItem.obj", "MTL//Garage//crateItem.mtl");
+	meshList[CRATE_ITEM_STRONG] = MeshBuilder::GenerateOBJMTL("crateItemStrong", "OBJ//Garage//crateItemStrong.obj", "MTL//Garage//crateItemStrong.mtl");
+	meshList[PRESENT_LOW] = MeshBuilder::GenerateOBJMTL("presentLow", "OBJ//Garage//presentLow.obj", "MTL//Garage//presentLow.mtl");
+	meshList[SNOWMAN_FANCY] = MeshBuilder::GenerateOBJMTL("snowmanFancy", "OBJ//Garage//snowmanFancy.obj", "MTL//Garage//snowmanFancy.mtl");
+	meshList[SNOW_PATCH] = MeshBuilder::GenerateOBJMTL("snowPatch", "OBJ//Garage//snowPatch.obj", "MTL//Garage//snowPatch.mtl");
+	meshList[TARGET_A] = MeshBuilder::GenerateOBJMTL("targetA", "OBJ//Garage//targetA.obj", "MTL//Garage//targetA.mtl");
+	meshList[TARGET_B] = MeshBuilder::GenerateOBJMTL("targetB", "OBJ//Garage//targetB.obj", "MTL//Garage//targetB.mtl");
 
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");

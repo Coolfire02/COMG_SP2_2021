@@ -13,7 +13,7 @@ UIManager Game::uiManager;
 
 Game::Game()
 {
-	ammo = 100;
+	ammo = 20;
 }
 
 Game::~Game()
