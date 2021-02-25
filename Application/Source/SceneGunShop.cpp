@@ -519,7 +519,11 @@ void SceneGunShop::CollisionHandler(double dt) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
-					Game::iManager.loadInteraction("Gunshop1");
+					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
+					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables))
+						Game::iManager.loadInteraction("drugman");
+					else
+						Game::iManager.loadInteraction("Gunshop1");
 				}
 			}
 
