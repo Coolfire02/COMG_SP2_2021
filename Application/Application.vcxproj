@@ -226,6 +226,7 @@
     <ClInclude Include="Source\SceneGarage.h" />
     <ClInclude Include="Source\SceneGuardBuilding.h" />
     <ClInclude Include="Source\SceneGunShop.h" />
+    <ClCompile Include="Source\SceneHouseFire.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\UIManager.h" />
     <ClInclude Include="Source\Utility.h" />

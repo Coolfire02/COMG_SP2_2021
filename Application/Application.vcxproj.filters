@@ -255,11 +255,10 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGuardBuilding.h">
-<<<<<<< Updated upstream
       <Filter>Header Files\Scenes</Filter>
-=======
-      <Filter>Header Files</Filter>
->>>>>>> Stashed changes
+    </ClInclude>
+    <ClInclude Include="Source\SceneHouseFire.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
