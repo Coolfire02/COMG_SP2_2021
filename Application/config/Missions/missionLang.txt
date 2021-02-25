@@ -45,5 +45,8 @@ MISSION_VISIT_GUNSHOP
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_VISIT_RESTAURANT
+	- MISSION_VISIT_FOUNTAIN
+	- MISSION_TALK_TO_NPC
 
 #END
