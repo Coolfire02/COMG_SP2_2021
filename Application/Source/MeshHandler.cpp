@@ -26,6 +26,7 @@ bool MeshHandler::loadMeshes() {
 
 	//General
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("axes", 1, 1, 1);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1,0,0));
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightbulll", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_BOOSTMETER] = MeshBuilder::GenerateQuad("boost", Color(1.0f, 1.0f, 0));

@@ -51,6 +51,7 @@ enum GEOMETRY_TYPE {
 
 	//Platform
 	GEO_QUAD,
+	GEO_CUBE,
 	GEO_BOOSTMETER,
 	GEO_SPHERE,
 
