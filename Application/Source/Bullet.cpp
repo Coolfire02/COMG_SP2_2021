@@ -3,7 +3,8 @@
 Bullet::Bullet() {
 }
 
-Bullet::Bullet(Scene* scene, Vector3 velocity, std::string name) : Entity(scene, ENTITYTYPE::BULLET, name) {
+Bullet::Bullet(Scene* scene, BULLET_TYPE type, Vector3 velocity, std::string name) : Entity(scene, ENTITYTYPE::BULLET, name) {
+	this->type = type;
 	this->scene = scene;
 	this->associatedType = GEO_SPHERE;
 	this->velocity = velocity;

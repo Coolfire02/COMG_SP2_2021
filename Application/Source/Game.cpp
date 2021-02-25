@@ -28,22 +28,39 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
-	if (GetAsyncKeyState('3') & 0x8001) {
-		Game::switchScene(S_2051);
+
+	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
+		if (Game::activeScene < S_COUNT - 1) 
+			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('4') & 0x8001) {
-		Game::switchScene(S_2021);
+	if (GetAsyncKeyState(VK_LEFT) & 0x0001) {
+		if (Game::activeScene > 0)
+		Game::activeScene = (SCENES)((int)Game::activeScene - 1);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('5') & 0x8001) {
-		//game.switchScene(S_2021);
-		Game::switchScene(S_GARAGE);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
-		Game::switchScene(S_GUNSHOP);
-	}
+	//if (GetAsyncKeyState('3') & 0x8001) {
+	//	Game::switchScene(S_2051);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//}
+	//else if (GetAsyncKeyState('4') & 0x8001) {
+	//	Game::switchScene(S_2021);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//}
+	//else if (GetAsyncKeyState('5') & 0x8001) {
+	//	//game.switchScene(S_2021);
+	//	Game::switchScene(S_GARAGE);
+	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//}
+	//else if (GetAsyncKeyState('6') & 0x8001) {
+	//	Game::switchScene(S_GUNSHOP);
+	//}
+	//else if (GetAsyncKeyState('7') & 0x8001) {
+	//	Game::switchScene(S_GUARD);
+	//}
+	//else if (GetAsyncKeyState('8') & 0x8001) {
+	//	Game::switchScene(S_HOUSEFIRE);
+	//}
 
 	gElapsedTime += dt;
 	inv.Update(dt);

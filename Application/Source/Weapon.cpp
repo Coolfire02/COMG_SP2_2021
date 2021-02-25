@@ -50,7 +50,7 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			shoot = true;
 			if (this->currentAmmo > 0) {
 				//Vector3 view = (cam->target - cam->position).Normalized();
-				Entity* bullet = new Bullet(scene, view * 100.f, "bullet");
+				Entity* bullet = new Bullet(scene, PLAYERBULLET, view * 100.f, "bullet");
 				bullet->getEntityData()->Translate.Set(plrPos.x, plrPos.y + 2, plrPos.z);
 				bullet->getEntityData()->Scale.Set(0.1, 0.1, 0.1);
 				// new function to spawn bullet at a scene's emanager, take in emanager as a refernce in this function to push back a bullet

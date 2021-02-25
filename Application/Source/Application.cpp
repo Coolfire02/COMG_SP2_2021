@@ -12,17 +12,19 @@
 #include <stdlib.h>
 
 #include "MeshHandler.h"
-#include "SceneAssignment2.h"
-#include "Scene2021.h"
-#include "SceneGarage.h"
 #include "Game.h"
-#include "SceneGunShop.h"
+
 #include "MissionManager.h"
+#include "InteractionManager.h"
+
+//Include Scenes
 #include "SceneAssignment2.h"
 #include "Scene2021.h"
 #include "SceneGarage.h"
 #include "SceneGunShop.h"
-#include "InteractionManager.h"
+#include "SceneHouseFire.h"
+#include "SceneTimePortal.h"
+#include "SceneGuardBuilding.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -200,6 +202,9 @@ void Application::Run()
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
+	g.addScene(new SceneGuardBuilding);
+	g.addScene(new SceneHouseFire);
+	g.addScene(new SceneTimePortal);
 	g.Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame

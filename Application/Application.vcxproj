@@ -174,7 +174,10 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Scene2021.cpp" />
+    <ClCompile Include="Source\SceneHouseFire.cpp" />
+    <ClCompile Include="Source\SceneTimePortal.cpp" />
     <ClCompile Include="Source\SceneGarage.cpp" />
+    <ClCompile Include="Source\SceneGuardBuilding.cpp" />
     <ClCompile Include="Source\SceneGunShop.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\UIItem.cpp" />
@@ -221,7 +224,10 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Scene2021.h" />
+    <ClInclude Include="Source\SceneHouseFire.h" />
+    <ClInclude Include="Source\SceneTimePortal.h" />
     <ClInclude Include="Source\SceneGarage.h" />
+    <ClInclude Include="Source\SceneGuardBuilding.h" />
     <ClInclude Include="Source\SceneGunShop.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\UIManager.h" />
