@@ -197,7 +197,7 @@ void UIManager::Update(Scene* scene, double dt)
 				}
 				for (int i = 0; i < ITEM_AMOUNT; i++)
 				{
-					if (buttonCollide->buttonClicked->getName() == ("UIItemInventorySlot" +std::to_string(i + 1)) && buttonCollide->justHovered) //Garage Button
+					if (buttonCollide->buttonClicked->getName() == ("UIItemInventorySlot" +std::to_string(i + 1)) && buttonCollide->justHovered) 
 					{
 						Game::inv.getItemInventory()->setCurrentItem(i);
 					}
@@ -216,7 +216,7 @@ void UIManager::Update(Scene* scene, double dt)
 				{
 					for (int i = 0; i < Game::inv.getWeaponVector().size(); i++)
 					{
-						if (buttonCollide->buttonClicked->getName() == ("UIWeaponInventorySlot" + std::to_string(i + 1)) && buttonCollide->justHovered) //Garage Button
+						if (buttonCollide->buttonClicked->getName() == ("UIWeaponInventorySlot" + std::to_string(i + 1)) && buttonCollide->justHovered)
 						{
 							Game::inv.getWeaponInventory()->setActiveWeapon(Game::inv.getWeaponVector()[i]->getWeaponType());
 						}
@@ -236,7 +236,7 @@ void UIManager::Update(Scene* scene, double dt)
 				{
 					for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
 					{
-						if (buttonCollide->buttonClicked->getName() == ("UIGarageInventorySlot" + std::to_string(i + 1)) && buttonCollide->justHovered) //Garage Button
+						if (buttonCollide->buttonClicked->getName() == ("UIGarageInventorySlot" + std::to_string(i + 1)) && buttonCollide->justHovered)
 						{
 							Game::inv.switchCar(Game::inv.getGarageVector()[i]->getCarType());
 						}
@@ -359,15 +359,15 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		break;
 	case UI_ITEM_INVENTORY:
 		Application::setCursorEnabled(true);
-		this->enableUI();
+		//this->enableUI();
 		break;
 	case UI_WEAPON_INVENTORY:
 		Application::setCursorEnabled(true);
-		this->enableUI();
+		//this->enableUI();
 		break;
 	case UI_GARAGE_INVENTORY:
 		Application::setCursorEnabled(true);
-		this->enableUI();
+		//this->enableUI();
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);

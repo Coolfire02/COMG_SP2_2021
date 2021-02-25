@@ -32,6 +32,13 @@ Init the Player Entity
 
 class SceneHouseFire : public Scene
 {
+
+	enum CAMERATYPE {
+		CAM_FP,
+		CAM_TP,
+		CAM_FIRE,
+	};
+
 	enum INTERACTION_TYPE {
 		TEST,
 		INTERACTION_COUNT,
@@ -51,9 +58,10 @@ private:
 
 	void RenderSkybox();
 	void RenderSceneMeshes();
+	Camera camera3;
 
 	//topdown cam map
-	bool camMap;
+	CAMERATYPE currentCamera;
 
 	float CameraBobber = 0;
 	double bobTime = 0;
