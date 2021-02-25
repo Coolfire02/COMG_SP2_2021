@@ -624,15 +624,16 @@ void Scene2021::CollisionHandler(double dt) {
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				// entry->attacker->cancelNextMovement();
-
-				vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
-
-				ISound* crash = AudioHandler::getEngine()->play3D(
-					AudioHandler::getSoundSource(CAR_CRASH),
-					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-					LOOPED::NOLOOP);
-
 				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
+
+				if (((Car*)entry->attacker)->getSpeed() > 0.7) {
+					vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
+
+					ISound* crash = AudioHandler::getEngine()->play3D(
+						AudioHandler::getSoundSource(CAR_CRASH),
+						AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+						LOOPED::NOLOOP);
+				}
 
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
