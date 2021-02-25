@@ -845,18 +845,18 @@ void SceneAssignment2::Render()
 		right.Normalize();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
+		//modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Scale(0.8, 0.8, 0.8);
 		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
 		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Translate(0.25, -0.1, 0.75);
 		modelStack.Rotate(185, 0, 1, 0);
-		modelStack.Scale(0.8, 0.8, 0.8);
 		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
 		modelStack.PopMatrix();
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
-
 	RenderUI();
 
 	bManager.Render(this);

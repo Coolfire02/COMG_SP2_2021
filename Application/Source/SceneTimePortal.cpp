@@ -102,19 +102,30 @@ void SceneTimePortal::Init() {
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
-	Entity* door = new WorldObject(this, GEO_TIMEPORTAL_DOOR, "door");
-	door->getEntityData()->Translate = Vector3(0, 0, 11);
+	Entity* timePortal = new WorldObject(this, GEO_TIMEPORTAL_DOOR, "timeportal");
+	timePortal->getEntityData()->Translate = Vector3(0, 0, -10.5);
+	timePortal->getEntityData()->Rotation = Vector3(0, 90, 0);
+	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
+	eManager.spawnWorldEntity(timePortal);
+
+	Entity* door = new WorldObject(this, GEO_DOOR, "timeportal");
+	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
+	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
+	door->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(door);
+
+
 
 	for (int i = 0; i < 10; i++)
 	{
 		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
 	}
 
-	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0, 60);
-	car->getEntityData()->SetRotate(0, 0, 0);
-	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car);
+	//Entity* car = new Car(SEDAN, this, "car");
+	//car->getEntityData()->SetTransform(0, 0, 60);
+	//car->getEntityData()->SetRotate(0, 0, 0);
+	//car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	//eManager.spawnMovingEntity(car);
 
 	//Camera init(starting pos, where it looks at, up
 
@@ -761,12 +772,13 @@ void SceneTimePortal::Render()
 		right.Normalize();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
+		//modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Scale(0.8, 0.8, 0.8);
 		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
 		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Translate(0.25, -0.1, 0.75);
 		modelStack.Rotate(185, 0, 1, 0);
-		modelStack.Scale(0.8, 0.8, 0.8);
 		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
 		modelStack.PopMatrix();
 

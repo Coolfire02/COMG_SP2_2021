@@ -60,6 +60,7 @@ enum GEOMETRY_TYPE {
 
 	//Platform
 	GEO_QUAD,
+	GEO_CUBE,
 	GEO_BOOSTMETER,
 	GEO_SPHERE,
 
@@ -102,6 +103,7 @@ enum GEOMETRY_TYPE {
 	// Time Portal
 	GEO_TIMEPORTAL_WALL,
 	GEO_TIMEPORTAL_DOOR,
+	GEO_DOOR,
 
 	//Title Screen
 	TITLE_BG,

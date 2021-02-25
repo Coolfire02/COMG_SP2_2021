@@ -23,14 +23,6 @@ MISSION_VISIT_FOUNTAIN
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: []
 
-MISSION_VISIT_GUNSHOP
-- GEO_TYPE_Enum: EMPTY
-- ObjectiveMessage: Visit the gun shop
-- CompletedMessage: pew
-* BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions:
-	- MISSION_VISIT_RESTAURANT
-	- MISSION_VISIT_FOUNTAIN
 
 MISSION_VISIT_RESTAURANT
 - GEO_TYPE_Enum: EMPTY
@@ -39,5 +31,22 @@ MISSION_VISIT_RESTAURANT
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 
+MISSION_TALK_TO_NPC
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Chat with the NPCs
+- CompletedMessage: hey
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
 
 
+MISSION_VISIT_GUNSHOP
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Visit the gun shop
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_VISIT_RESTAURANT
+	- MISSION_VISIT_FOUNTAIN
+	- MISSION_TALK_TO_NPC
+
+#END
