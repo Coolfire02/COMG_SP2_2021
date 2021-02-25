@@ -198,7 +198,7 @@ void Scene2021::Init()
 	SpawnBuildings();
 	SpawnStreetLamps();
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
@@ -920,6 +920,7 @@ void Scene2021::Render()
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
+
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());

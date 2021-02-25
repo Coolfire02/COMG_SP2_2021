@@ -119,10 +119,6 @@ void Camera::Update(double dt)
 			view = rotation * view;
 			target = position + view;
 		}
-		if (Application::IsKeyPressed('R'))
-		{
-			Reset();
-		}
 
 		break;
 	case THIRDPERSON:
