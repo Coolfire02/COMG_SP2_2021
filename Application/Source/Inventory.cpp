@@ -228,6 +228,7 @@ void Inventory::Update(double dt)
 	//For Item Inventory UI
 	if (itemInventory->getCurrentItem() == nullptr) //If there is no Item Inventory
 	{
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < ITEM_AMOUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
@@ -239,6 +240,7 @@ void Inventory::Update(double dt)
 	}
 	else if (itemInventory->getItemVect().size() > 0) //If item is owned at least once, then display
 	{
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < itemInventory->getItemVect().size(); i++)
 		{
 			switch (itemInventory->getItemVect()[i]->getType())
@@ -252,20 +254,17 @@ void Inventory::Update(double dt)
 			case EGGPLANT:
 				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_EGGPLANT);
 				break;
-			default:
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText(" ");
-				break;
 			}
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->enable();
 		}
 		for (int i = 0; i < ITEM_AMOUNT; i++)
 		{
 			//Disable all non-current item UIs
-			if (itemInventory->getCurrentItem()->getType() != i)
-				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
-			else
+			if (itemInventory->getCurrentItem()->getType() == i)
 				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->enable();
+			else
+				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlotCurrent" + std::to_string(i + 1))->disable();
+
 			switch (itemInventory->getCurrentItemType())
 			{
 			case BURGER:
@@ -281,11 +280,14 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->setText("Eggplant\nAmount:\n" + std::to_string(itemInventory->getCurrentItemAmt()));
 				break;
 			}
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryCurrent")->enable();
+			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemsInventoryName")->enable();
 		}
 		
 	}
 	else //Do not display any item slots as no items owned
 	{
+		Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < ITEM_AMOUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_ITEM_INVENTORY)->getButtonByName("UIItemInventorySlot" + std::to_string(i + 1))->disable();
@@ -299,6 +301,7 @@ void Inventory::Update(double dt)
 	//For Weapon Inventory
 	if (weaponInv->getActiveWeapon() == nullptr && weaponInv->getWeaponList().empty()) //If there is no Item Inventory
 	{
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
@@ -310,6 +313,8 @@ void Inventory::Update(double dt)
 	}
 	else if (weaponInv->getWeaponList().size() > 0) //If item is owned at least once, then display
 	{
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
+
 		if (weaponInv->getActiveWeapon() == nullptr)
 			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->disable();
 		else
@@ -327,33 +332,25 @@ void Inventory::Update(double dt)
 				case SILENCER:
 					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_SILENCER);
 					break;
-				default:
-					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
-					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_BLANK);
-					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText(" ");
-					break;
 				}
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->enable();
 			}
 			else
 			{
-				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText(" ");
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->disable();
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->disable();
 			}
 		}
-		for (int i = 0; i < WEAPON_COUNT; i++)
-			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
 
 		for (int i = 0; i < weaponInv->getWeaponList().size(); i++)
 		{
 			//Disable all non-current item UIs
 			if (weaponInv->getActiveWeapon()->getWeaponType() == weaponInv->getWeaponList()[i]->getWeaponType())
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->enable();
+			else
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
 
-			//if (weaponInv->getActiveWeapon()->getWeaponType() == i)
-			//	Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
-			//else
-			//	Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->enable();
 			switch (weaponInv->getActiveWeapon()->getWeaponType())
 			{
 			case PISTOL:
@@ -365,11 +362,14 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText("Silencer\nAmmo:\n" + std::to_string(weaponInv->getActiveWeapon()->getWeaponAmmo()));
 				break;
 			}
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->enable();
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->enable();
 		}
 
 	}
 	else //Do not display any item slots as no items owned
 	{
+		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
@@ -379,10 +379,33 @@ void Inventory::Update(double dt)
 		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->disable();
 		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->disable();
 	}
+	//createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
+	//createButton(bManagers[i], "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Item", 5.0f);
+	//createButton(bManagers[i], "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(0, 0, 0), "Guns", 5.0f);
+	//createButton(bManagers[i], "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW, 3, 5, Color(1, 0.3, 0.3), "Cars", 5.0f);
 
+	//createNoTextButton(bManagers[i], "UIGarageInventoryCurrent", 96.5, 47, 15, 15, UI_BLANK);
+	//createNoTextButton(bManagers[i], "UIGarageInventoryCurrentBorder", 96.5, 47, 15, 15, UI_BLUE);
+	//createTextButton(bManagers[i], "UIGarageInventoryName", 86.5, 30, 1, 1, 0, 0, Color(0, 0, 0), " ", 5.0f);
+
+	//row = 0;
+	//column = 0;
+	//for (int j = 0; j < CAR_COUNT; j++)
+	//{
+	//	if (j % 5 == 0 && j != 0)
+	//	{
+	//		row += 1;
+	//		column = 0;
+	//	}
+	//	//Need to have increment so that every 5 slots would push the next to next row
+	//	createNoTextButton(bManagers[i], "UIGarageInventorySlot" + std::to_string(j + 1), 24 + (column * 12), 52 - (row * 12), 10, 10, UI_BLANK);
+	//	createNoTextButton(bManagers[i], "UIGarageInventorySlotCurrent" + std::to_string(j + 1), 24 + (column * 12), 52 - (row * 12), 10, 10, UI_BLUE);
+	//	column += 1;
+	//}
 	//For Garage Inventory UI
 	if (currentCar == nullptr) //If there is no Garage Inventory
 	{
+		Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < CAR_COUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->disable();
@@ -394,6 +417,7 @@ void Inventory::Update(double dt)
 	}
 	else if (garageInv.size() > 0) //If item is owned at least once, then display
 	{
+		Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < garageInv.size(); i++)
 		{
 			switch (garageInv[i]->getCarType())
@@ -416,21 +440,19 @@ void Inventory::Update(double dt)
 			case SUV:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_SUV);
 				break;
-			default:
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_BLANK);
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText(" ");
-				break;
 			}
+			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->enable();
 		}
-		for (int i = 0; i < CAR_COUNT; i++)
-			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlotCurrent" + std::to_string(i + 1))->disable();
+		/*for (int i = 0; i < CAR_COUNT; i++)
+			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlotCurrent" + std::to_string(i + 1))->disable();*/
 
 		for (int i = 0; i < garageInv.size(); i++)
 		{
 			//Disable all non-current item UIs
 			if (currentCar->getCarType() == garageInv[i]->getCarType())
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlotCurrent" + std::to_string(i + 1))->enable();
+			else
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlotCurrent" + std::to_string(i + 1))->disable();
 
 			switch (currentCar->getCarType())
 			{
@@ -459,11 +481,14 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("SUV\nSpeed:\n" + currentCar->getMaxCarSpd(SUV) + "km/h");
 				break;
 			}
+			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->enable();
+			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->enable();
 		}
 
 	}
 	else //Do not display any item slots as no items owned
 	{
+		Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < CAR_COUNT; i++)
 		{
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->disable();

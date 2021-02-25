@@ -7,12 +7,12 @@ class Game;
 enum UI_MENUS
 {
 	UI_GENERAL = 0, //renders hp,weapons,item
+	UI_MISSION,
 	UI_ITEM_INVENTORY, //renders items owned and can click weapons and cars button
 	UI_WEAPON_INVENTORY, //render weapons owned and can click items and cars button
 	UI_GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
 	UI_MAIN_MENU, //renders title screen
 	UI_INTERACTION,
-	UI_MISSION,
 	UI_MENU_COUNT,
 };
 
