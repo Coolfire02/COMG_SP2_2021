@@ -1,4 +1,4 @@
-#include "SceneGarage.h"
+#include "SceneCarShop.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -12,7 +12,7 @@
 #include "Car.h"
 #include "InteractionManager.h"
 
-SceneGarage::SceneGarage() : 
+SceneCarShop::SceneCarShop() : 
 	eManager(this)
 {
 	//Scene
@@ -33,12 +33,12 @@ SceneGarage::SceneGarage() :
 	isInteracting = false;
 }
 
-SceneGarage::~SceneGarage()
+SceneCarShop::~SceneCarShop()
 {
 
 }
 
-void SceneGarage::Init() 
+void SceneCarShop::Init() 
 {
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -152,10 +152,35 @@ void SceneGarage::Init()
 	eManager.spawnMovingEntity(car2);
 
 	Entity* car3 = new Car(RACER, this, "car");
-	car3->getEntityData()->SetTransform(-5, 0.25, 20);
+	car3->getEntityData()->SetTransform(10, 0.25, 20);
 	car3->getEntityData()->SetRotate(0, 0, 0);
 	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car3);
+
+	Entity* car4 = new Car(HATCHBACKSPORTS, this, "car");
+	car4->getEntityData()->SetTransform(15, 0.25, 20);
+	car4->getEntityData()->SetRotate(0, 0, 0);
+	car4->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car4);
+
+	Entity* car5 = new Car(TRACTOR, this, "car");
+	car5->getEntityData()->SetTransform(20, 0.25, 20);
+	car5->getEntityData()->SetRotate(0, 0, 0);
+	car5->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car5);
+
+	Entity* car6 = new Car(TRUCK, this, "car");
+	car6->getEntityData()->SetTransform(25, 0.25, 20);
+	car6->getEntityData()->SetRotate(0, 0, 0);
+	car6->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car6);
+
+	Entity* car7 = new Car(VAN, this, "car");
+	car7->getEntityData()->SetTransform(30, 0.25, 20);
+	car7->getEntityData()->SetRotate(0, 0, 0);
+	car7->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car7);
+
 
 	SpawnWalls();
 	//SpawnBuildings();
@@ -215,7 +240,7 @@ void SceneGarage::Init()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void SceneGarage::Update(double dt)
+void SceneCarShop::Update(double dt)
 {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -321,7 +346,7 @@ void SceneGarage::Update(double dt)
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
-void SceneGarage::InitLights()
+void SceneCarShop::InitLights()
 {
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 450, 0);
@@ -395,7 +420,7 @@ void SceneGarage::InitLights()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
-void SceneGarage::MissionCompleteListener(double dt) {
+void SceneCarShop::MissionCompleteListener(double dt) {
 	//MISSION HANDLING EXAMPLES
 	//for (auto& entry : Game::mManager.getCompletableMissions()) {
 	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
@@ -409,7 +434,7 @@ void SceneGarage::MissionCompleteListener(double dt) {
 	}
 }
 
-void SceneGarage::CollisionHandler(double dt) {
+void SceneCarShop::CollisionHandler(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -560,7 +585,7 @@ void SceneGarage::CollisionHandler(double dt) {
 	}*/
 }
 
-void SceneGarage::TopDownMapUpdate(double dt)
+void SceneCarShop::TopDownMapUpdate(double dt)
 {
 	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
@@ -622,7 +647,7 @@ void SceneGarage::TopDownMapUpdate(double dt)
 	}
 }
 
-void SceneGarage::Render()
+void SceneCarShop::Render()
 {
 
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
@@ -833,7 +858,7 @@ void SceneGarage::Render()
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 }
 
-void SceneGarage::RenderSkybox() {
+void SceneCarShop::RenderSkybox() {
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.PushMatrix();
@@ -883,7 +908,7 @@ void SceneGarage::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-void SceneGarage::RenderRoads()
+void SceneCarShop::RenderRoads()
 {
 	//road floor
 	modelStack.PushMatrix();
@@ -1094,7 +1119,7 @@ void SceneGarage::RenderRoads()
 }
 
 
-void SceneGarage::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+void SceneCarShop::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
 	Entity* collidables = new WorldObject(this, geoType, "building");
 	collidables->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
@@ -1102,7 +1127,7 @@ void SceneGarage::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETR
 	collidables->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
 	eManager.spawnWorldEntity(collidables);
 }
-void SceneGarage::SpawnWalls()
+void SceneCarShop::SpawnWalls()
 {
 	Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
 	Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
@@ -1114,7 +1139,7 @@ void SceneGarage::SpawnWalls()
 	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 }
 //
-//void SceneGarage::SpawnBuildings()
+//void SceneCarShop::SpawnBuildings()
 //{
 //	//init of buildings 
 //	srand(time(NULL));
@@ -1289,7 +1314,7 @@ void SceneGarage::SpawnWalls()
 //
 //}
 //
-//void SceneGarage::SpawnStreetLamps()
+//void SceneCarShop::SpawnStreetLamps()
 //{
 //	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 //	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
@@ -1302,12 +1327,12 @@ void SceneGarage::SpawnWalls()
 //}
 
 
-void SceneGarage::RenderUI()
+void SceneCarShop::RenderUI()
 {
 	Game::RenderUI();
 }
 
-void SceneGarage::Exit()
+void SceneCarShop::Exit()
 {
 	// Cleanup VBO here
 	//this->EndInteraction(); //To clear up queuedMessages pointers

@@ -342,7 +342,7 @@ void SceneGuardBuilding::Update(double dt)
 		Game::inv.addItem(BURGER, 1);
 		Game::inv.addItem(EGGPLANT, 2);
 		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		Game::inv.addCar(SUV);
+		//Game::inv.addCar(SUV);
 	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
 	{
