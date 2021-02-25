@@ -61,6 +61,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SUBURBAN_3] = MeshBuilder::GenerateOBJMTL("suburban3", "OBJ//Buildings//Suburban//house_type17.obj", "MTL//Buildings//Suburban//house_type17.mtl");
 	meshList[GEO_SUBURBAN_4] = MeshBuilder::GenerateOBJMTL("suburban4", "OBJ//Buildings//Suburban//house_type18.obj", "MTL//Buildings//Suburban//house_type18.mtl");
 	meshList[GEO_SUBURBAN_5] = MeshBuilder::GenerateOBJMTL("suburban5", "OBJ//Buildings//Suburban//house_type19.obj", "MTL//Buildings//Suburban//house_type19.mtl");
+	meshList[GEO_GRASSBLOCK] = MeshBuilder::GenerateOBJMTL("grassblock", "OBJ//GrassBlock.obj", "MTL//GrassBlock.mtl");
+	//meshList[GEO_FIRE] = MeshBuilder::GenerateOBJMTL("fire", "OBJ//Miscellaneous//fire.obj", "MTL//Miscellaneous//fire.mtl");
 
 	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_2]->textureID = LoadTGA("Image//Building1Texture.tga");

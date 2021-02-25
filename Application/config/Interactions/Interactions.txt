@@ -16,6 +16,11 @@ CHOICE # asdsa
 - precmd: /ns
 # NEXT: ya
 
+CHOICE # asdsa
+- MSG: weeeeeeeeeeeeeeee
+- precmd: /ns
+# NEXT: ya
+
 =========================================
 
 INTERACTION: ya

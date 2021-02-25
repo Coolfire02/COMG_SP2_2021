@@ -198,12 +198,13 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
+	g.addScene(new SceneHouseFire);
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
 	g.addScene(new SceneGuardBuilding);
-	g.addScene(new SceneHouseFire);
+	//g.addScene(new SceneHouseFire);
 	g.addScene(new SceneTimePortal);
 	g.Init();
 
