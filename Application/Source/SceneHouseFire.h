@@ -28,9 +28,6 @@
 * In Init,
 Change Scene Name Accordingly
 Init the Player Entity
-
-TODOs:
-Migrate Most Interaction Handling to Interaction Manager
 */
 
 class SceneHouseFire : public Scene
@@ -41,26 +38,6 @@ class SceneHouseFire : public Scene
 	};
 
 private:
-	//Notification Channel
-	//std::string notificationMessage; //Appears on the top of the screen
-	//float showNotifUntil; //Shows notification until time;
-
-	////Interaction
-	//bool isInteracting;
-	//float interactionElapsed; //Total time spent in Interaction instance
-	//bool canInteractWithSomething;
-	//int completedInteractionsCount[INTERACTION_COUNT]; //Everytime you finish one interaction of any type, it'll add 1 to here.
-
-	//	//Queued Message, commands to execute when message is brought up
-	//std::vector<Interaction*> queuedMessages;
-	//int currentMessage;
-
-	//INTERACTION_TYPE currentInteractionType;
-	//GEOMETRY_TYPE characterOnUI; //When interacting if there is a person talking to you
-
-	//double latestInteractionSwitch; //Use counter to only allow interaction switching every 0.5s
-	//bool passedInteractCooldown(); //Checks if cooldown is reached;
-	//void nextInteraction(); //Handles the next interaction (May end interaction if there is no more to go through0
 	void RenderUI(); //Handles the next interaction (May end interaction if there is no more to go through0
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 
@@ -73,7 +50,7 @@ private:
 	float toggleTimer = 0; //Used for toggling between items
 
 	void RenderSkybox();
-	// void split(std::string txt, char delim, std::vector<std::string>& out);
+	void RenderSceneMeshes();
 
 	//topdown cam map
 	bool camMap;
@@ -93,13 +70,6 @@ public:
 
 	//Game Variables
 	Player* player;
-
-	//Notifications
-	//void sendNotification(std::string msg, double duration);
-
-	//bool runCommand(std::string cmd);
-	//bool loadInteractions(INTERACTION_TYPE type);
-	//void EndInteraction();
 
 	virtual void Init();
 	virtual void Update(double dt);

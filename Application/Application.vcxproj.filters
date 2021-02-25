@@ -119,8 +119,9 @@
     <ClCompile Include="Source\SceneGuardBuilding.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.h" />
     <ClCompile Include="Source\SceneHouseFire.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +256,6 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGuardBuilding.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneHouseFire.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
