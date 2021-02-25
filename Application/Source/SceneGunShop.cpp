@@ -520,8 +520,10 @@ void SceneGunShop::CollisionHandler(double dt) {
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
-					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables))
+					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables)) {
 						Game::iManager.loadInteraction("drugman");
+						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+					}
 					else
 						Game::iManager.loadInteraction("Gunshop1");
 				}
