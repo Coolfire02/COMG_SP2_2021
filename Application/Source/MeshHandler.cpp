@@ -30,8 +30,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_BOOSTMETER] = MeshBuilder::GenerateQuad("boost", Color(1.0f, 1.0f, 0));
 	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("sphere", Color(0.8f, 0.8f, 0.8f));
-	
-	//Text	
+
+	//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Fonts//calibri.tga");
 
@@ -52,6 +52,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_BUILDING_6] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building7.obj", "MTL//Buildings//7.mtl");
 	meshList[GEO_BUILDING_7] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building9.obj", "MTL//Buildings//9.mtl");
 	meshList[GEO_BOSS_BUILDING] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building10.obj", "MTL//Buildings//10.mtl");
+	meshList[GEO_FOUNTAIN] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//fountainRoundDetail.obj", "MTL//Buildings//fountainRoundDetail.mtl");
 	meshList[GEO_NPC] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//NPC.obj", "MTL//NPC.mtl");
 
 	meshList[GEO_SUBURBAN_1] = MeshBuilder::GenerateOBJMTL("suburban1", "OBJ//Buildings//Suburban//house_type15.obj", "MTL//Buildings//Suburban//house_type15.mtl");
@@ -59,7 +60,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SUBURBAN_3] = MeshBuilder::GenerateOBJMTL("suburban3", "OBJ//Buildings//Suburban//house_type17.obj", "MTL//Buildings//Suburban//house_type17.mtl");
 	meshList[GEO_SUBURBAN_4] = MeshBuilder::GenerateOBJMTL("suburban4", "OBJ//Buildings//Suburban//house_type18.obj", "MTL//Buildings//Suburban//house_type18.mtl");
 	meshList[GEO_SUBURBAN_5] = MeshBuilder::GenerateOBJMTL("suburban5", "OBJ//Buildings//Suburban//house_type19.obj", "MTL//Buildings//Suburban//house_type19.mtl");
-	
+
 	meshList[GEO_BUILDING_1]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_2]->textureID = LoadTGA("Image//Building1Texture.tga");
 	meshList[GEO_BUILDING_3]->textureID = LoadTGA("Image//Building1Texture.tga");
@@ -79,7 +80,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_ROAD_END] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_end.obj", "MTL//Roads//road_end.mtl");
 	meshList[GEO_ROAD_STREET_LAMP] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//light_curved.obj", "MTL//Roads//light_curved.mtl");
 	meshList[GEO_ROAD_BLOCK] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//construction_barrier.obj", "MTL//Roads//construction_barrier.mtl");
-	
+
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
@@ -114,7 +115,7 @@ bool MeshHandler::loadMeshes() {
 
 	//meshList[GEO_ENDRACE] = MeshBuilder::GenerateQuad("EndRace", Color(1, 1, 1));
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
-	
+
 	//Title Screen
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
 	meshList[TITLE_BG]->textureID = LoadTGA("Image//titleScreenBG.tga");

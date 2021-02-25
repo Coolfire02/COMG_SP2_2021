@@ -13,6 +13,7 @@ std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = 
 	{"MISSION_VISIT_FOUNTAIN",MISSIONTYPE::MISSION_VISIT_FOUNTAIN},
 	{"MISSION_VISIT_RESTAURANT",MISSIONTYPE::MISSION_VISIT_RESTAURANT},
 	{"MISSION_TALK_TO_NPC",MISSIONTYPE::MISSION_TALK_TO_NPC},
+	{"MISSION_VISIT_GUNSHOP",MISSIONTYPE::MISSION_VISIT_GUNSHOP},
 	//{"MISSION_CALL_RICHARD",MISSIONTYPE::MISSION_CALL_RICHARD},
 	//{"MISSION_FINALE_ANGERY",MISSIONTYPE::MISSION_FINALE_ANGERY},
 	//{"MISSION_FINALE_PEACEFUL",MISSIONTYPE::MISSION_FINALE_PEACEFUL},
@@ -256,7 +257,7 @@ void MissionManager::Update(double dt) {
 		Button* mission = Game::uiManager.getByTypeBM(UI_MISSION)->getButtonByName("Task" + std::to_string(i));
 		if (i < completables.size()) {
 			std::ostringstream ss;
-			ss.precision(1);
+			ss.precision(3);
 			ss << missions[completables.at(i)]->getProgress();
 			std::string str = getMissionNameFormatted(completables.at(i)) + " | " + ss.str() + "% Done\nREEEEEEEEEEEEEEEEE";
 			mission->setText(str);
