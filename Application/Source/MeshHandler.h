@@ -94,6 +94,7 @@ enum GEOMETRY_TYPE {
 	// Time Portal
 	GEO_TIMEPORTAL_WALL,
 	GEO_TIMEPORTAL_DOOR,
+	GEO_DOOR,
 
 	//Title Screen
 	TITLE_BG,

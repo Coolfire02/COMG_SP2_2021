@@ -108,11 +108,11 @@ void SceneTimePortal::Init() {
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
-	//Entity* door = new WorldObject(this, GEO_DOOR, "timeportal");
-	//door->getEntityData()->Translate = Vector3(0, 2.25, 11);
-	////door->getEntityData()->Rotation = Vector3(0, 90, 0);
-	//door->getEntityData()->Scale = Vector3(2, 2, 2);
-	//eManager.spawnWorldEntity(door);
+	Entity* door = new WorldObject(this, GEO_DOOR, "timeportal");
+	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
+	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
+	door->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(door);
 
 
 
