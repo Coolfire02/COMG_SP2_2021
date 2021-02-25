@@ -613,7 +613,7 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						eHeld = true;
 						Game::activeScene = S_GUNSHOP;
-						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 30.0f);
+						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
 					}
 				}
 			}
