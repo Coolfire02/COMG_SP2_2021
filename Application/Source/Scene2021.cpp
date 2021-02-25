@@ -1486,11 +1486,11 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(-270, 0, 67), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(-270, 0, -167), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 
-	//Entity* drugs = new WorldObject(this, MeshHandler::getMesh(GEO_TEXT), "drugs");
-	//drugs->getEntityData()->SetTransform(0,0,0);
-	//drugs->getEntityData()->SetRotate(0,0,0);
-	//drugs->getEntityData()->SetScale(5,5,5);
-	//eManager.spawnWorldEntity(drugs);
+	Entity* drugs = new WorldObject(this, GEO_CUBE, "drugs");
+	drugs->getEntityData()->SetTransform(0,0,0);
+	drugs->getEntityData()->SetRotate(0,0,0);
+	drugs->getEntityData()->SetScale(5,5,5);
+	eManager.spawnWorldEntity(drugs);
 }
 
 void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)

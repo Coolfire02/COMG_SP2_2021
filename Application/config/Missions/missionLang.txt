@@ -31,7 +31,6 @@ MISSION_VISIT_RESTAURANT
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 
-
 MISSION_TALK_TO_NPC
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Chat with the NPCs
