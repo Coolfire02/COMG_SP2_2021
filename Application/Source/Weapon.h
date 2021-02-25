@@ -25,11 +25,12 @@ private:
 	bool shoot = false;
 
 	float reloadTillTime = 0;
-	bool Reload = false;
 
 	double UIcooldown = 0;
 
 public:
+	bool Reload = false;
+
 	Weapon();
 	Weapon(WEAPON_TYPE wType);
 	~Weapon();

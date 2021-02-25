@@ -413,9 +413,6 @@ void Scene2021::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
-
-		Game::iManager.loadInteraction("phoneCall1");
-
 		Vector3 view = (camera.target - camera.position).Normalized();
 
 		if (!player->isDriving())
@@ -498,6 +495,7 @@ void Scene2021::InitLights() {
 }
 
 void Scene2021::CollisionHandler(double dt) {
+	interactionTimer += dt;
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -523,6 +521,7 @@ void Scene2021::CollisionHandler(double dt) {
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				std::cout << "In Range" << std::endl;
+				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -611,23 +610,38 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 90.f) //check if player has collected drugs
+					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 					{
-						if (ePressed && !eHeld)
+						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_VISIT_GUNSHOP && interactionTimer > 2) //do && check if next mission has started to disable this 
 						{
-							eHeld = true;
-							Game::activeScene = S_GUNSHOP;
-							Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
+							Game::iManager.loadInteraction("phoneCall1");
+							interactionTimer = 0;
 						}
 					}
-					else
+					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 					{
-						if (ePressed && !eHeld)
+						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP)
 						{
-							eHeld = true;
-							Game::activeScene = S_GUNSHOP;
-							Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+
+							if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 90.f) //check if player has collected drugs
+							{
+								if (ePressed && !eHeld)
+								{
+									eHeld = true;
+									Game::activeScene = S_GUNSHOP;
+									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
+								}
+							}
+							else
+							{
+								if (ePressed && !eHeld)
+								{
+									eHeld = true;
+									Game::activeScene = S_GUNSHOP;
+									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+								}
+							}
 						}
 					}
 				}

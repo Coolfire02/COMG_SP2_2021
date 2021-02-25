@@ -517,14 +517,12 @@ void Inventory::Update(double dt)
 
 		addCar(SUV);
 	}
-	if (GetAsyncKeyState('1') & 0x0001) //weapon slot 1
-		switchWeapon(0);
-	if (GetAsyncKeyState('2') & 0x0001) //weapon slot 2
-		switchWeapon(1);
-	if (GetAsyncKeyState('3') & 0x0001) //weapon slot 3
-		switchWeapon(2);
-	if (GetAsyncKeyState('4') & 0x0001) //weapon slot 4
-		switchWeapon(3);
+	if (GetAsyncKeyState('1') & 0x0001)
+		switchWeapon(0); //weapon slot 1
+
+	if (GetAsyncKeyState('2') & 0x0001)
+		switchWeapon(1); //weapon slot 2
+
 	if (toggleTimer > 1 && Application::IsKeyPressed('O')) //delete equipped weapon
 	{
 		toggleTimer = 0;

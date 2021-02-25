@@ -200,12 +200,12 @@ void Application::Run()
 
 	g.addScene(new SceneHouseFire);
 	g.addScene(new SceneAssignment2);
+	g.addScene(new SceneTimePortal);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
 	g.addScene(new SceneGuardBuilding);
 	//g.addScene(new SceneHouseFire);
-	g.addScene(new SceneTimePortal);
 	g.Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame

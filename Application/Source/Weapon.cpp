@@ -92,14 +92,24 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			else
 				reloadTillTime = 0;
 
-			if (reloadTillTime > 1) //after 2 seconds, reload complete
+			if (reloadTillTime > 1) //after 1 seconds, reload complete
 			{
 				if (Game::ammo < this->magazineSize)
 				{
-					int reloadAmmo = Game::ammo;
-					this->currentAmmo += reloadAmmo;
-					Game::ammo -= reloadAmmo;
-					Reload = false;
+					int reloadAmmo = this->magazineSize - this->currentAmmo; //get amt to reload
+					int TotalAmmo = Game::ammo;
+					if (reloadAmmo < TotalAmmo) //check if amount to reload is lesser than total ammo
+					{
+						this->currentAmmo += reloadAmmo; //if yes, minus reloadAmmo
+						Game::ammo -= reloadAmmo;
+						Reload = false;
+					}
+					else
+					{
+						this->currentAmmo += TotalAmmo; //else reload total ammo, which means use all remaining total ammo
+						Game::ammo -= TotalAmmo;
+						Reload = false;
+					}
 				}
 				else
 				{
