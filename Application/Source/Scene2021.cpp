@@ -564,6 +564,7 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
 						{
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
@@ -613,6 +614,7 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;

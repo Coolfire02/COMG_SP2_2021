@@ -1,20 +1,14 @@
 =========================================
 
-INTERACTION: asdsa
-- MSG: test 1
-- precmd: /yea 1
-- precmd: TestScene;/yea 1
-- postcmd: /ur mom
-# NEXT: ya
+INTERACTION: timeportal
+- MSG: Enter the time portal and travel back to 2021?
 
-CHOICE # asdsa
-- MSG: lol
-- precmd: /no
+CHOICE # timeportal
+- MSG: No
 
-CHOICE # asdsa
-- MSG: yuh
-- precmd: /ns
-# NEXT: ya
+CHOICE # timeportal
+- MSG: Yes
+- postcmd: /entertimeportal
 
 =========================================
 
@@ -84,9 +78,9 @@ INTERACTION: GunshopFail
 =========================================
 
 INTERACTION: npc1
-- MSG: Hello, nice to meet you.
+- MSG: Hello, nice to meet you.;test.
 
 INTERACTION: npc2
-- MSG: Hey, how're you doing.
+- MSG: Hey, How are you doing?
 
 =========================================
