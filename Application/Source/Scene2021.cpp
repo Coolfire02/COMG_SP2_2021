@@ -414,7 +414,7 @@ void Scene2021::Update(double dt)
 		}
 
 
-		Game::iManager.loadInteraction("phoneCall1");
+		//Game::iManager.loadInteraction("phoneCall1");
 
 		Vector3 view = (camera.target - camera.position).Normalized();
 
