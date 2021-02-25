@@ -145,6 +145,11 @@ void UIManager::Init() {
 			bManagers[i]->deactivateButton("Task2");
 			bManagers[i]->deactivateButton("Task3");
 			bManagers[i]->deactivateButton("Task4");
+			break;
+		case UI_E_TO_INTERACT:
+			createTextButton(bManagers[i], "EInteract", 58, 25, 12.8, 6.4, 0, 0, Color(1, 1, 1), "Press E to interact", 4);
+			bManagers[i]->activateButton("EInteract");
+			break;
 		}
 	}
 
@@ -158,6 +163,7 @@ UIManager::~UIManager()
 void UIManager::Update(Scene* scene, double dt)
 {
 	bManagers[currentMenu]->Update(scene, dt);
+	activeMenus[UI_E_TO_INTERACT] = false;
 	if (uiActive == true)
 	{
 		if (Application::IsKeyPressed('L') && (currentMenu != UI_ITEM_INVENTORY && currentMenu != UI_INTERACTION && currentMenu != UI_MAIN_MENU) && !(currentMenu == UI_ITEM_INVENTORY || currentMenu == UI_WEAPON_INVENTORY || currentMenu == UI_GARAGE_INVENTORY))
@@ -245,7 +251,7 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			case UI_INTERACTION:
 				if (Game::iManager.getQueue().Top()->interactionChoices.empty()) {
-					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && (buttonCollide->justClicked || Application::IsKeyPressed(VK_SPACE))) {
+					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
 						Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->nextInteractionKey);
 					}
 				}
@@ -328,6 +334,10 @@ void UIManager::createButton(ButtonManager* bManager, std::string buttonName, fl
 	namedButton->getTextObject()->setTextOffsetFromTopLeft(offsetX, offsetY);
 	bManager->addButton(namedButton);
 	bManager->deactivateButton(textString);
+}
+
+void UIManager::setUIactive(UI_MENUS ui) {
+	this->activeMenus[ui] = true;
 }
 
 void UIManager::setCurrentUI(UI_MENUS newUI)

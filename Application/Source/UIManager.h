@@ -7,6 +7,7 @@ class Game;
 enum UI_MENUS
 {
 	UI_GENERAL = 0, //renders hp,weapons,item
+	UI_E_TO_INTERACT,
 	UI_MISSION,
 	UI_ITEM_INVENTORY, //renders items owned and can click weapons and cars button
 	UI_WEAPON_INVENTORY, //render weapons owned and can click items and cars button
@@ -44,6 +45,7 @@ public:
 	void createButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture, float offsetX, float offsetY, Color textColour, std::string textString, float textSize);
 	
 	//Setter
+	void setUIactive(UI_MENUS ui);
 	void setCurrentUI(UI_MENUS newUI);
 	void setCurrentBM(ButtonManager* bManager);
 

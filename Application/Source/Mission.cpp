@@ -9,7 +9,7 @@ Mission::~Mission() {
 
 void Mission::addProgress(float progress) {
 	this->progress += progress;
-	if (this->progress > 100.0) {
+	if (this->progress >= 100.0) {
 		this->progress = 100.0;
 		this->complete = true;
 	}

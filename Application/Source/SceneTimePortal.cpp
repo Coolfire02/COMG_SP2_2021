@@ -412,6 +412,18 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
+			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
+				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
+				if (Game::mManager.missionIsCompletable(MISSION_ENTER_TIMEPORTAL, completables)) {
+					if (GetAsyncKeyState('E') & 0x0001) {
+						Game::iManager.loadInteraction("timeportal");
+					}
+				}
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::BULLET) {
 			((Bullet*)entry)->Move(dt);
 			if (((Bullet*)entry)->getTimer() > 5) {

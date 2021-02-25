@@ -517,6 +517,7 @@ void SceneGunShop::CollisionHandler(double dt) {
 			entry->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
