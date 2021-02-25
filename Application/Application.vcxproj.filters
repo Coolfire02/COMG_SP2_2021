@@ -106,21 +106,33 @@
     <ClCompile Include="Source\LoadTGA.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AudioHandler.cpp" />
-    <ClCompile Include="Source\InteractionManager.cpp" />
     <ClCompile Include="Source\InteractionQueue.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mission.cpp" />
-    <ClCompile Include="Source\MissionManager.cpp" />
     <ClCompile Include="Source\Bullet.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneGuardBuilding.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.h" />
     <ClCompile Include="Source\SceneHouseFire.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MissionManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mission.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InteractionManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AudioHandler.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneCorridor.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,16 +250,12 @@
     <ClInclude Include="Source\Vertex.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\AudioHandler.h" />
     <ClInclude Include="Source\Game.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InteractionManager.h" />
     <ClInclude Include="Source\InteractionQueue.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mission.h" />
-    <ClInclude Include="Source\MissionManager.h" />
     <ClInclude Include="Source\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -257,7 +265,19 @@
     <ClInclude Include="Source\SceneGuardBuilding.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneHouseFire.h">
+    <ClInclude Include="Source\AudioHandler.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InteractionManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mission.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MissionManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneCorridor.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
