@@ -114,6 +114,10 @@ enum GEOMETRY_TYPE {
 
 	//UI Garage Cars
 	UI_SEDAN,
+	UI_SEDAN_SPORTS,
+	UI_RACER,
+	UI_POLICE,
+	UI_AMBULANCE,
 	UI_SUV,
 
 	//UI Weapons
