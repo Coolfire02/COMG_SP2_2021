@@ -49,6 +49,7 @@ bool InteractionManager::runCommand(Command cmd) {
 		}
 		else if (splitVar.at(0) == "/buySilencedPistol") {
 			// deduct money, add silenced pistol to inventory
+			Game::inv.addWeap(SILENCER);
 			return true;
 		}
 		else if (splitVar.at(0) == "/buyAmmo") {
