@@ -1457,16 +1457,17 @@ void Scene2021::SpawnBuildings()
 	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
 
+	//spawn drugs
 	Entity* drug = new WorldObject(this, GEO_CUBE, "drugs1");
 	drug->getEntityData()->SetTransform(-325, 1, 288);
 	drug->getEntityData()->SetRotate(0, 0, 0);
-	drug->getEntityData()->SetScale(1, 1, 1);
+	drug->getEntityData()->SetScale(1.5,1.5,1.5);
 	eManager.spawnWorldEntity(drug);
 
 	Entity* drug2 = new WorldObject(this, GEO_CUBE, "drugs2");
-	drug2->getEntityData()->SetTransform(-300, 1, 288);
+	drug2->getEntityData()->SetTransform(-300, 1, -370);
 	drug2->getEntityData()->SetRotate(0, 0, 0);
-	drug2->getEntityData()->SetScale(1, 1, 1);
+	drug2->getEntityData()->SetScale(1.5, 1.5, 1.5);
 	eManager.spawnWorldEntity(drug2);
 }
 
