@@ -10,25 +10,11 @@ CHOICE # timeportal
 - MSG: Yes
 - postcmd: /entertimeportal
 
-CHOICE # asdsa
-- MSG: weeeeeeeeeeeeeeee
-- precmd: /ns
-# NEXT: ya
-
-=========================================
-
-INTERACTION: ya
-- MSG: test 2
-- precmd: /yea 1
-- precmd: Scene2021;/yea 3
-- postcmd: /ur mom
-
 =========================================
 
 INTERACTION: drugman
 - MSG: i give fake id lool
 - postcmd: /giveFakeId
-# NEXT : asdsa
 
 =========================================
 
@@ -79,6 +65,14 @@ INTERACTION: GunshopSuccess
 
 INTERACTION: GunshopFail
 - MSG: Come again next time!
+
+=========================================
+
+INTERACTION: npc1
+- MSG: Hello, nice to meet you.;test.
+
+INTERACTION: npc2
+- MSG: Hey, How are you doing?
 
 =========================================
 
@@ -140,13 +134,5 @@ CHOICE # phoneCall2option2
 CHOICE # phoneCall2option2
 - MSG: Actually, come to think of it. I think I'll figure it out myself.
 # NEXT: phoneCall2option1option2end
-
-=========================================
-
-INTERACTION: npc1
-- MSG: Hello, nice to meet you.;test.
-
-INTERACTION: npc2
-- MSG: Hey, How are you doing?
 
 =========================================
