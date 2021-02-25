@@ -1,5 +1,5 @@
-#ifndef SCENE_CORRIDOR_H
-#define SCENE_CORRIDOR_H
+#ifndef SCENE_TIMEPORTAL_H
+#define SCENE_TIMEPORTAL_H
 
 #include <map>
 
@@ -33,7 +33,7 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
-class SceneCorridor : public Scene
+class SceneTimePortal : public Scene
 {
 	enum INTERACTION_TYPE {
 		TEST,
@@ -82,8 +82,8 @@ private:
 	double bobTime = 0;
 
 public:
-	SceneCorridor();
-	~SceneCorridor();
+	SceneTimePortal();
+	~SceneTimePortal();
 
 	bool eHeld = false;
 	Camera camera;

@@ -1,4 +1,4 @@
-#include "SceneCorridor.h"
+#include "SceneTimePortal.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -14,7 +14,7 @@
 #include "Debug.h"
 #include "Material.h"
 
-SceneCorridor::SceneCorridor() :
+SceneTimePortal::SceneTimePortal() :
 	eManager(this)
 {
 	//Scene
@@ -26,12 +26,12 @@ SceneCorridor::SceneCorridor() :
 	hitboxEnable = false;
 }
 
-SceneCorridor::~SceneCorridor()
+SceneTimePortal::~SceneTimePortal()
 {
 
 }
 
-void SceneCorridor::Init() {
+void SceneTimePortal::Init() {
 
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -158,7 +158,7 @@ void SceneCorridor::Init() {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void SceneCorridor::InitLights()
+void SceneTimePortal::InitLights()
 {
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 450, 0);
@@ -232,7 +232,7 @@ void SceneCorridor::InitLights()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
-void SceneCorridor::Update(double dt)
+void SceneTimePortal::Update(double dt)
 {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -326,7 +326,7 @@ void SceneCorridor::Update(double dt)
 	}
 }
 
-void SceneCorridor::MissionCompleteListener(double dt) {
+void SceneTimePortal::MissionCompleteListener(double dt) {
 	//Mission Handling Examples
 	//for (auto& entry : Game::mManager.getCompletableMissions()) {
 	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
@@ -340,7 +340,7 @@ void SceneCorridor::MissionCompleteListener(double dt) {
 	}
 }
 
-void SceneCorridor::TopDownMapUpdate(double dt)
+void SceneTimePortal::TopDownMapUpdate(double dt)
 {
 	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
@@ -402,7 +402,7 @@ void SceneCorridor::TopDownMapUpdate(double dt)
 	}
 }
 
-void SceneCorridor::CollisionHandler(double dt) {
+void SceneTimePortal::CollisionHandler(double dt) {
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -609,7 +609,7 @@ void SceneCorridor::CollisionHandler(double dt) {
 	fps = (float)1 / dt;
 }
 
-void SceneCorridor::Render()
+void SceneTimePortal::Render()
 {
 
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
@@ -797,7 +797,7 @@ void SceneCorridor::Render()
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 }
 
-void SceneCorridor::RenderSkybox() {
+void SceneTimePortal::RenderSkybox() {
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.PushMatrix();
@@ -847,12 +847,12 @@ void SceneCorridor::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-void SceneCorridor::RenderUI()
+void SceneTimePortal::RenderUI()
 {
 	Game::RenderUI();
 }
 
-void SceneCorridor::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
+void SceneTimePortal::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 {
 	int diffX = v3Tmax.x - v3Tmin.x; //get the diff of min and max X
 	int randomX = rand() % diffX + v3Tmin.x; //get random X position from minX to maxX range
@@ -869,7 +869,7 @@ void SceneCorridor::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 	eManager.spawnMovingEntity(testNPC);
 }
 
-void SceneCorridor::Exit()
+void SceneTimePortal::Exit()
 {
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

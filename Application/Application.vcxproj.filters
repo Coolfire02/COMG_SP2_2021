@@ -115,10 +115,6 @@
     <ClCompile Include="Source\SceneGuardBuilding.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneHouseFire.h" />
-    <ClCompile Include="Source\SceneHouseFire.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MissionManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -131,7 +127,13 @@
     <ClCompile Include="Source\AudioHandler.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneCorridor.cpp">
+    <ClCompile Include="Source\SceneTimePortal.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -277,7 +279,7 @@
     <ClInclude Include="Source\MissionManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneCorridor.h">
+    <ClInclude Include="Source\SceneTimePortal.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
