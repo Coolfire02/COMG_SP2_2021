@@ -12,6 +12,7 @@
 #include "Car.h"
 #include "InteractionManager.h"
 #include "Debug.h"
+#include "AudioHandler.h"
 
 Scene2021::Scene2021() :
 	eManager(this)
@@ -539,9 +540,6 @@ void Scene2021::CollisionHandler(double dt) {
 					}
 				}
 			}
-			((Car*)entry)->Drive(dt);
-			if (player->getCar())
-				BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 		}
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
@@ -626,23 +624,36 @@ void Scene2021::CollisionHandler(double dt) {
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
 				// entry->attacker->cancelNextMovement();
+
+				vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
+
+				ISound* crash = AudioHandler::getEngine()->play3D(
+					AudioHandler::getSoundSource(CAR_CRASH),
+					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+					LOOPED::NOLOOP);
+
+				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
+
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
-				std::cout << backwardsMomentum << std::endl;
-				std::cout << "Car Collided" << std::endl;
+
+				DEBUG_MSG(backwardsMomentum);
+				DEBUG_MSG("Car Collided");
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 				float backwardsMomentum = 0.f;
 				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
+				Math::Clamp(resultantForce, 0.f, 3.0f);
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;
 				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
-				std::cout << "Car Collided" << std::endl;
+				((NPC*)entry->victim)->getRigidBody().hit = true;
+				DEBUG_MSG("Car Collided");
 			}
 		}
 
@@ -676,6 +687,12 @@ void Scene2021::CollisionHandler(double dt) {
 		camera.Move(player->getEntityData()->Translate.x - player->getOldEntityData()->Translate.x,
 			player->getEntityData()->Translate.y - player->getOldEntityData()->Translate.y,
 			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
+	}
+
+
+	if (player->isDriving()) {
+		player->getCar()->Drive(dt);
+		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 	}
 
 	camera.Update(dt);
