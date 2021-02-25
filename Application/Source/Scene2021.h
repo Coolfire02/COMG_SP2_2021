@@ -85,6 +85,7 @@ private:
 	void SpawnBuildings();
 	void SpawnStreetLamps();
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
+	void RenderTexts();
 	//topdown cam map
 	bool camMap;
 

@@ -29,3 +29,13 @@ MISSION_VISIT_RESTAURANT
 - CompletedMessage: nom
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+
+
+MISSION_VISIT_GUNSHOP
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Visit the gun shop
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_VISIT_RESTAURANT 
+	- MISSION_VISIT_FOUNTAIN

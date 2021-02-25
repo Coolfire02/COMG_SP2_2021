@@ -256,7 +256,7 @@ void MissionManager::Update(double dt) {
 		Button* mission = Game::uiManager.getByTypeBM(UI_MISSION)->getButtonByName("Task" + std::to_string(i));
 		if (i < completables.size()) {
 			std::ostringstream ss;
-			ss.precision(1);
+			ss.precision(3);
 			ss << missions[completables.at(i)]->getProgress();
 			std::string str = getMissionNameFormatted(completables.at(i)) + " | " + ss.str() + "% Done\nREEEEEEEEEEEEEEEEE";
 			mission->setText(str);

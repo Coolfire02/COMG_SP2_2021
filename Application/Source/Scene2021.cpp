@@ -187,12 +187,16 @@ void Scene2021::Init()
 	restaurantHitBox->getEntityData()->Translate.Set(25, 0, 0);
 	eManager.spawnWorldEntity(restaurantHitBox);
 
+	CustomEntity* gunShopHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "gunShopHitBox");
+	gunShopHitBox->getEntityData()->Translate.Set(160, 0, -210);
+	eManager.spawnWorldEntity(gunShopHitBox);
+
 	SpawnBuildings();
 	SpawnStreetLamps();
 
 	for (int i = 0; i < 10; i++)
 	{
-		SpawnNPCs(Vector3(-5, 0, -5), Vector3(5, 0, 5), TESTNPC);
+		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
@@ -352,6 +356,7 @@ void Scene2021::Update(double dt)
 	TopDownMapUpdate(dt);
 	CollisionHandler(dt);
 	MissionCompleteListener(dt);
+	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -601,6 +606,13 @@ void Scene2021::CollisionHandler(double dt) {
 				}
 				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
+				}
+				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Game::activeScene = S_GUNSHOP;
+					}
 				}
 			}
 			if (!player->isDriving())
@@ -884,20 +896,6 @@ void Scene2021::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(30, 15, -7);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(3, 3, 3);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "RESTAURANT", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(350, 15, 60);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(3, 3, 3);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "FOUNTAIN", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
@@ -947,6 +945,7 @@ void Scene2021::Render()
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
 	RenderUI();
+	RenderTexts();
 
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
@@ -966,52 +965,64 @@ void Scene2021::Render()
 
 void Scene2021::RenderSkybox() {
 	modelStack.PushMatrix();
-	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
-		modelStack.PushMatrix();
-		modelStack.Translate(-500.f, 0.0f, 0.0f);
-		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(500.f, 0.0f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 500.f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, -500.f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, -500.f);
-		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, 500.f);
-		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(1000.f, 1000.f, 1000.f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
-		modelStack.PopMatrix();
-
+	switch (camera.camType)
+	{
+	case TOPDOWN_FIRSTPERSON:
+		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
+		break;
+	case TOPDOWN_THIRDPERSON:
+		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
+		break;
+	default:
+		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		break;
+	}
+	
+	modelStack.PushMatrix();
+	modelStack.Translate(-500.f, 0.0f, 0.0f);
+	modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
 	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(500.f, 0.0f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 500.f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, -500.f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 0.0f, -500.f);
+	modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 0.0f, 500.f);
+	modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(1000.f, 1000.f, 1000.f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
+	modelStack.PopMatrix();
+
+modelStack.PopMatrix();
 }
 
 void Scene2021::RenderRoads()
@@ -1314,8 +1325,8 @@ void Scene2021::SpawnBuildings()
 	int random3 = (rand() % 6) + 6;
 	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
 
-	int random4 = (rand() % 6) + 6;
-	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+	//gunshop building
+	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(GEO_BUILDING_7));
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -1414,8 +1425,9 @@ void Scene2021::SpawnBuildings()
 	{
 		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
-	}
+	}	
 	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
+	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
 }
 
 void Scene2021::SpawnStreetLamps()
@@ -1433,6 +1445,24 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(218, 0, 10), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(270, 0, -80), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(218, 0, -176), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	
+	initStreetLamps(Vector3(388, 0, -306), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(388, 0, -40), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(340, 0, -153), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	
+	initStreetLamps(Vector3(277, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(77, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-160, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	
+	initStreetLamps(Vector3(151, 0, -391), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-51, 0, -391), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	
+	initStreetLamps(Vector3(-218, 0, -277), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-218, 0, -77), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-218, 0, 157), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	
+	initStreetLamps(Vector3(-270, 0, 67), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+	initStreetLamps(Vector3(-270, 0, -167), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 }
 
 void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
@@ -1450,6 +1480,39 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);
 	eManager.spawnMovingEntity(testNPC);
+}
+
+void Scene2021::RenderTexts()
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(30, 15, -7);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "RESTAURANT", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(350, 15, 60);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "FOUNTAIN", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-190, 15, -200);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(15, 15, 15);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "GOVERNMENT FACILITY", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(165, 15, -205);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(3, 3, 3);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "GUN SHOP", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+
 }
 
 void Scene2021::RenderUI()

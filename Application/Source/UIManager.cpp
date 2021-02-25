@@ -209,7 +209,7 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			case UI_INTERACTION:
 				if (Game::iManager.getQueue().Top()->interactionChoices.empty()) {
-					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && buttonCollide->justClicked) {
+					if (buttonCollide->buttonClicked->getName() == "InteractionButton" && (buttonCollide->justClicked || Application::IsKeyPressed(VK_SPACE))) {
 						Game::iManager.nextInteraction(Game::iManager.getQueue().Top()->nextInteractionKey);
 					}
 				}
