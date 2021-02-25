@@ -540,10 +540,10 @@ void Scene2021::CollisionHandler(double dt) {
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.total_pitch = 0;
 						camera.total_yaw = 0;
+						camera.up = camera.defaultUp;
 						camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
