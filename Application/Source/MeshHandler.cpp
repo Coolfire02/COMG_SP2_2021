@@ -26,12 +26,13 @@ bool MeshHandler::loadMeshes() {
 
 	//General
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("axes", 1, 1, 1);
+	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1,0,0));
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightbulll", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_BOOSTMETER] = MeshBuilder::GenerateQuad("boost", Color(1.0f, 1.0f, 0));
 	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("sphere", Color(0.8f, 0.8f, 0.8f));
-	
-	//Text	
+
+	//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Fonts//calibri.tga");
 
@@ -52,6 +53,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_BUILDING_6] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building7.obj", "MTL//Buildings//7.mtl");
 	meshList[GEO_BUILDING_7] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building9.obj", "MTL//Buildings//9.mtl");
 	meshList[GEO_BOSS_BUILDING] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building10.obj", "MTL//Buildings//10.mtl");
+	meshList[GEO_FOUNTAIN] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//fountainRoundDetail.obj", "MTL//Buildings//fountainRoundDetail.mtl");
 	meshList[GEO_NPC] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//NPC.obj", "MTL//NPC.mtl");
 
 	meshList[GEO_SUBURBAN_1] = MeshBuilder::GenerateOBJMTL("suburban1", "OBJ//Buildings//Suburban//house_type15.obj", "MTL//Buildings//Suburban//house_type15.mtl");
@@ -81,7 +83,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_ROAD_END] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_end.obj", "MTL//Roads//road_end.mtl");
 	meshList[GEO_ROAD_STREET_LAMP] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//light_curved.obj", "MTL//Roads//light_curved.mtl");
 	meshList[GEO_ROAD_BLOCK] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//construction_barrier.obj", "MTL//Roads//construction_barrier.mtl");
-	
+
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
@@ -116,7 +118,7 @@ bool MeshHandler::loadMeshes() {
 
 	//meshList[GEO_ENDRACE] = MeshBuilder::GenerateQuad("EndRace", Color(1, 1, 1));
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
-	
+
 	//Title Screen
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
 	meshList[TITLE_BG]->textureID = LoadTGA("Image//titleScreenBG.tga");
@@ -146,6 +148,14 @@ bool MeshHandler::loadMeshes() {
 	//UI Garage Car
 	meshList[UI_SEDAN] = MeshBuilder::GenerateQuad("sedanUI", Color(1, 1, 1));
 	meshList[UI_SEDAN]->textureID = LoadTGA("Image//sedanUI.tga");
+	meshList[UI_SEDAN_SPORTS] = MeshBuilder::GenerateQuad("sedansportsUI", Color(1, 1, 1));
+	meshList[UI_SEDAN_SPORTS]->textureID = LoadTGA("Image//sedansportsUI.tga");
+	meshList[UI_RACER] = MeshBuilder::GenerateQuad("racerUI", Color(1, 1, 1));
+	meshList[UI_RACER]->textureID = LoadTGA("Image//racerUI.tga");
+	meshList[UI_POLICE] = MeshBuilder::GenerateQuad("policeUI", Color(1, 1, 1));
+	meshList[UI_POLICE]->textureID = LoadTGA("Image//policeUI.tga");
+	meshList[UI_AMBULANCE] = MeshBuilder::GenerateQuad("ambulanceUI", Color(1, 1, 1));
+	meshList[UI_AMBULANCE]->textureID = LoadTGA("Image//ambulanceUI.tga");
 	meshList[UI_SUV] = MeshBuilder::GenerateQuad("suvUI", Color(1, 1, 1));
 	meshList[UI_SUV]->textureID = LoadTGA("Image//suvUI.tga");
 
@@ -165,6 +175,18 @@ bool MeshHandler::loadMeshes() {
 	meshList[GARAGE_FLOOR] = MeshBuilder::GenerateQuad("woodFloor", Color(1, 1, 1));
 	meshList[GARAGE_FLOOR]->textureID = LoadTGA("Image//Garage//woodFloor.tga");
 
+	meshList[BARREL] = MeshBuilder::GenerateOBJMTL("barrel", "OBJ//Garage//barrel.obj", "MTL//Garage//barrel.mtl");
+	meshList[BARRELS] = MeshBuilder::GenerateOBJMTL("barrels", "OBJ//Garage//barrels.obj", "MTL//Garage//barrels.mtl");
+	meshList[BARRELS_RAIL] = MeshBuilder::GenerateOBJMTL("barrels_rail", "OBJ//Garage//barrels_rail.obj", "MTL//Garage//barrels_rail.mtl");
+	meshList[CRATE] = MeshBuilder::GenerateOBJMTL("crate", "OBJ//Garage//crate.obj", "MTL//Garage//crate.mtl");
+	meshList[CRATE_STRONG] = MeshBuilder::GenerateOBJMTL("crateStrong", "OBJ//Garage//crateStrong.obj", "MTL//Garage//crateStrong.mtl");
+	meshList[CRATE_ITEM] = MeshBuilder::GenerateOBJMTL("crateItem", "OBJ//Garage//crateItem.obj", "MTL//Garage//crateItem.mtl");
+	meshList[CRATE_ITEM_STRONG] = MeshBuilder::GenerateOBJMTL("crateItemStrong", "OBJ//Garage//crateItemStrong.obj", "MTL//Garage//crateItemStrong.mtl");
+	meshList[PRESENT_LOW] = MeshBuilder::GenerateOBJMTL("presentLow", "OBJ//Garage//presentLow.obj", "MTL//Garage//presentLow.mtl");
+	meshList[SNOWMAN_FANCY] = MeshBuilder::GenerateOBJMTL("snowmanFancy", "OBJ//Garage//snowmanFancy.obj", "MTL//Garage//snowmanFancy.mtl");
+	meshList[SNOW_PATCH] = MeshBuilder::GenerateOBJMTL("snowPatch", "OBJ//Garage//snowPatch.obj", "MTL//Garage//snowPatch.mtl");
+	meshList[TARGET_A] = MeshBuilder::GenerateOBJMTL("targetA", "OBJ//Garage//targetA.obj", "MTL//Garage//targetA.mtl");
+	meshList[TARGET_B] = MeshBuilder::GenerateOBJMTL("targetB", "OBJ//Garage//targetB.obj", "MTL//Garage//targetB.mtl");
 
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
@@ -237,6 +259,13 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
 	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
 
+	// Time Portal
+	meshList[GEO_TIMEPORTAL_WALL] = MeshBuilder::GenerateQuad("wall", Color(1, 1, 1), 2, 2);
+	meshList[GEO_TIMEPORTAL_WALL]->textureID = LoadTGA("Image//TimePortal/ScifiWall.tga");
+	meshList[GEO_TIMEPORTAL_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal//timeportal.obj");
+	meshList[GEO_TIMEPORTAL_DOOR]->textureID = LoadTGA("Image//TimePortal//timeportal.tga");
+	meshList[GEO_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal//door.obj");
+	meshList[GEO_DOOR]->textureID = LoadTGA("Image//TimePortal//door.tga");
 	//Materials
 
 	/*Material mat;
