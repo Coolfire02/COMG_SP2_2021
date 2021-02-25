@@ -30,12 +30,13 @@ public:
 	void deleteWeapon(WEAPON_TYPE wType);
 
 	//Switching Cars/Items/Weapons
-	void switchCar(CAR_TYPE cartype);
+	void switchCar(int cartype);
 	void switchWeapon(int index);
 	void toggleItem();
 
 	//Getters
-	void getGarageInventory();
+	GarageInventory* getCurrentCar();
+	std::vector<GarageInventory*> getGarageVector();
 	std::vector<Weapon*> getWeaponVector();
 	ItemInventory* getItemInventory();
 	WeaponInventory* getWeaponInventory();

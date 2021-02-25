@@ -146,6 +146,14 @@ bool MeshHandler::loadMeshes() {
 	//UI Garage Car
 	meshList[UI_SEDAN] = MeshBuilder::GenerateQuad("sedanUI", Color(1, 1, 1));
 	meshList[UI_SEDAN]->textureID = LoadTGA("Image//sedanUI.tga");
+	meshList[UI_SEDAN_SPORTS] = MeshBuilder::GenerateQuad("sedansportsUI", Color(1, 1, 1));
+	meshList[UI_SEDAN_SPORTS]->textureID = LoadTGA("Image//sedansportsUI.tga");
+	meshList[UI_RACER] = MeshBuilder::GenerateQuad("racerUI", Color(1, 1, 1));
+	meshList[UI_RACER]->textureID = LoadTGA("Image//racerUI.tga");
+	meshList[UI_POLICE] = MeshBuilder::GenerateQuad("policeUI", Color(1, 1, 1));
+	meshList[UI_POLICE]->textureID = LoadTGA("Image//policeUI.tga");
+	meshList[UI_AMBULANCE] = MeshBuilder::GenerateQuad("ambulanceUI", Color(1, 1, 1));
+	meshList[UI_AMBULANCE]->textureID = LoadTGA("Image//ambulanceUI.tga");
 	meshList[UI_SUV] = MeshBuilder::GenerateQuad("suvUI", Color(1, 1, 1));
 	meshList[UI_SUV]->textureID = LoadTGA("Image//suvUI.tga");
 

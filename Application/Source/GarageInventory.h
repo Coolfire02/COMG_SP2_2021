@@ -17,5 +17,6 @@ public:
 
 	//Getter
 	CAR_TYPE getCarType();
+	std::string getMaxCarSpd(CAR_TYPE carType);
 };
 

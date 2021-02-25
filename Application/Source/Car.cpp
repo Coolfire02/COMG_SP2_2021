@@ -146,6 +146,33 @@ Vector3 Car::getVelocity() {
 	return this->velocity;
 }
 
+float Car::getMaxCarSpeed(CAR_TYPE carType)
+{
+	switch (carType) {
+	case SEDAN:
+		return 0.5f;
+		break;
+	case SEDAN_SPORTS:
+		return 0.75f;
+		break;
+	case RACER:
+		return 1.5f;
+		break;
+	case POLICE:
+		return 0.5f;
+		break;
+	case AMBULANCE:
+		return 0.5f;
+		break;
+	case SUV:
+		return 0.5f;
+		break;
+	default:
+		return 0.f;
+		break;
+	}
+}
+
 /******************************************************************************/
 /*!
 \brief
