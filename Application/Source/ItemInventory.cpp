@@ -20,14 +20,6 @@ ItemInventory::~ItemInventory()
 
 void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 {
-	//for (int i = 0; i < weaponList.size(); i++) //check if player owns weapon
-	//	if (weaponList[i]->getWeaponType() == wType) //if yes return and cancel adding of weapon to prevent duplicate
-	//		return;
-
-	////add weapons to vector
-	//Weapon* temp = new Weapon(wType);
-	//weaponList.push_back(temp);
-	//activeWeapon = temp;
 	if (itemInv.empty()) //If player does not have any item yet
 	{
 		currentItem = new Item(itemtype, amt);
