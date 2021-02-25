@@ -229,6 +229,11 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
 	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
 
+	// Time Portal
+	meshList[GEO_TIMEPORTAL_WALL] = MeshBuilder::GenerateQuad("wall", Color(1, 1, 1), 2, 2);
+	meshList[GEO_TIMEPORTAL_WALL]->textureID = LoadTGA("Image//TimePortal/ScifiWall.tga");
+	meshList[GEO_TIMEPORTAL_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal/door.obj");
+	meshList[GEO_TIMEPORTAL_DOOR]->textureID = LoadTGA("Image//TimePortal/door.tga");
 	//Materials
 
 	/*Material mat;

@@ -82,6 +82,10 @@ enum GEOMETRY_TYPE {
 	GEO_UZI_L_S,
 	GEO_UZI_S,
 
+	// Time Portal
+	GEO_TIMEPORTAL_WALL,
+	GEO_TIMEPORTAL_DOOR,
+
 	//Title Screen
 	TITLE_BG,
 	PLAY_BUTTON,

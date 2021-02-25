@@ -130,12 +130,7 @@
     <ClCompile Include="Source\SceneTimePortal.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneHouseFire.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneHouseFire.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -282,6 +277,7 @@
     <ClInclude Include="Source\SceneTimePortal.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneHouseFire.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

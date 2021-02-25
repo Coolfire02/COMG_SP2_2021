@@ -102,21 +102,8 @@ void SceneTimePortal::Init() {
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
-	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
-	pistol->getEntityData()->SetTransform(20, 5, 0);
-	pistol->getEntityData()->SetScale(10, 10, 10);
-	eManager.spawnWorldEntity(pistol);
-
-	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(40, 0, 0);
-	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building);
-
-	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
-	building2->getEntityData()->SetTransform(-40, 0, 0);
-	building2->getEntityData()->SetRotate(0, 60, 0);
-	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building2);
+	Entity* door = new WorldObject(this, GEO_TIMEPORTAL_DOOR, "door");
+	door->getEntityData()->Translate = Vector3(0, 0, 11);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -293,8 +280,8 @@ void SceneTimePortal::Update(double dt)
 				pLoc += right * (float)dt * playerSpeed;
 			}
 			// SCENE WORLD BOUNDARIES
-			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+			pLoc.x = Math::Clamp(pLoc.x, -10.75f, 10.75f);
+			pLoc.z = Math::Clamp(pLoc.z, -10.75f, 10.75f);
 
 			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 			player->getEntityData()->Translate.x = pLoc.x;
@@ -799,50 +786,51 @@ void SceneTimePortal::Render()
 
 void SceneTimePortal::RenderSkybox() {
 	modelStack.PushMatrix();
-	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
-		modelStack.PushMatrix();
-		modelStack.Translate(-250.0f, 0.0f, 0.0f);
-		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
-		modelStack.PopMatrix();
+	modelStack.Translate(0, 0, 0);
+	modelStack.Scale(0.75, 0.75, 0.75);
+	modelStack.PushMatrix();
+	modelStack.Translate(-15.f, 0.0f, 0.0f);
+	modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_TIMEPORTAL_WALL), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(250.0f, 0.0f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(15.f, 0.0f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_TIMEPORTAL_WALL), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 250.0f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 15.f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_TIMEPORTAL_WALL), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, -250.0f, 0.0f);
-		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, -15.f, 0.0f);
+	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+	modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_GUNSHOP_BOTTOM), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, -250.0f);
-		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 0.0f, -15.f);
+	modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_TIMEPORTAL_WALL), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(0.0f, 0.0f, 250.0f);
-		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
-		modelStack.Scale(500.0f, 500.0f, 500.0f);
-		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
-		modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.0f, 0.0f, 15.f);
+	modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
+	modelStack.Scale(30.0f, 30.0f, 30.0f);
+	this->RenderMesh(MeshHandler::getMesh(GEO_TIMEPORTAL_WALL), lightEnable, GL_REPEAT);
+	modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
 }
