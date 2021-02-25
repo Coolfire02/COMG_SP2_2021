@@ -65,6 +65,9 @@ void Scene2021::MissionCompleteListener(double dt)
 		case MISSIONTYPE::MISSION_TALK_TO_NPC:
 			DEBUG_MSG("Completed Mission Talk To NPC Mission");
 			break;
+		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
+			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
+			break;
 		}
 	}
 }
