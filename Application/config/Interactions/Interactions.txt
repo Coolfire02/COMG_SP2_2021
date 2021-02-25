@@ -109,11 +109,11 @@ INTERACTION: phoneCall2option1
 - MSG: Gilbert: What's this about?
 
 CHOICE # phoneCall2option1
-- MSG: I need a way to sneak into his office. Gary (Gun Shop Owner) told me you could help me with this.
+- MSG: I need a way to sneak into his office. Gary (Gun Shop Owner) said you would be able to help me out.
 # NEXT: phoneCall2option1option1
 
 CHOICE # phoneCall2option1
-- MSG: It's actually a private matter between Mr Bimster and I. Can you just help me out?
+- MSG: It's actually a private matter between Mr Bimster and I. Can you still help me with out?
 # NEXT: phoneCall2option1option2
 
 =========================================
@@ -132,7 +132,20 @@ INTERACTION: phoneCall2option1option2
 # NEXT: phoneCall2option1option2end
 
 INTERACTION: phoneCall2option1option2end
-- MSG: Try again.
+- MSG: *Hangs up*
+
+=========================================
+
+INTERACTION: phoneCall2option2
+- MSG: What do you want from me?
+
+CHOICE # phoneCall2option2
+- MSG: I just need a way to sneak into his office. Gary (Gun Shop Owner) told me alot of great things about you.
+# NEXT: phoneCall2option1option1
+
+CHOICE # phoneCall2option2
+- MSG: Actually, come to think of it. I think I'll figure it out myself.
+# NEXT: phoneCall2option1option2end
 
 =========================================
 

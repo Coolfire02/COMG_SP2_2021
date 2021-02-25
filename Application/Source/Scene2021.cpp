@@ -413,10 +413,14 @@ void Scene2021::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
+
+		Game::iManager.loadInteraction("phoneCall1");
+
 		Vector3 view = (camera.target - camera.position).Normalized();
 
 		if (!player->isDriving())
 			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+
 	}
 }
 
