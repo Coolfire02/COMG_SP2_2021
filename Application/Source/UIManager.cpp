@@ -296,6 +296,7 @@ void UIManager::createButton(ButtonManager* bManager, std::string buttonName, fl
 
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
+	Game::inv.getActiveWeapon()->setUIcooldown(0.5f);
 	if (!bManagers[currentMenu]->getButtonsInteracted().empty()) {
 		for (auto& entry : bManagers[currentMenu]->getButtonsInteracted()) {
 			entry->justClicked = false;

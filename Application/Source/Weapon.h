@@ -27,6 +27,8 @@ private:
 	float reloadTillTime = 0;
 	bool Reload = false;
 
+	double UIcooldown = 0;
+
 public:
 	Weapon();
 	Weapon(WEAPON_TYPE wType);
@@ -40,4 +42,7 @@ public:
 	GEOMETRY_TYPE getMeshType();
 	WEAPON_TYPE getWeaponType();
 	int getWeaponAmmo();
+
+	void setUIcooldown(double);
+	double getUIcooldown();
 };
