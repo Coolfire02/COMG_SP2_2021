@@ -22,6 +22,7 @@
 #include "Scene2021.h"
 #include "SceneGarage.h"
 #include "SceneGunShop.h"
+#include "SceneHouseFire.h"
 #include "SceneGuardBuilding.h"
 #include "InteractionManager.h"
 
@@ -197,11 +198,12 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
-	g.addScene(new SceneGuardBuilding);
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
+	g.addScene(new SceneGuardBuilding);
+	g.addScene(new SceneHouseFire);
 	g.Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame

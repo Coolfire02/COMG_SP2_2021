@@ -177,6 +177,7 @@
     <ClCompile Include="Source\SceneGarage.cpp" />
     <ClCompile Include="Source\SceneGuardBuilding.cpp" />
     <ClCompile Include="Source\SceneGunShop.cpp" />
+    <ClCompile Include="Source\SceneHouseFire.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\UIItem.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />

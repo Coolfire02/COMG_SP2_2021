@@ -44,6 +44,12 @@ void Game::Update(double dt)
 	else if (GetAsyncKeyState('6') & 0x8001) {
 		Game::switchScene(S_GUNSHOP);
 	}
+	else if (GetAsyncKeyState('7') & 0x8001) {
+		Game::switchScene(S_GUARD);
+	}
+	else if (GetAsyncKeyState('8') & 0x8001) {
+		Game::switchScene(S_HOUSEFIRE);
+	}
 
 	gElapsedTime += dt;
 	inv.Update(dt);

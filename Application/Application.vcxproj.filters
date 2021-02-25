@@ -119,6 +119,9 @@
     <ClCompile Include="Source\SceneGuardBuilding.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneHouseFire.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -252,7 +255,11 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGuardBuilding.h">
+<<<<<<< Updated upstream
       <Filter>Header Files\Scenes</Filter>
+=======
+      <Filter>Header Files</Filter>
+>>>>>>> Stashed changes
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
