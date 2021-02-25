@@ -403,9 +403,6 @@ void Scene2021::Update(double dt)
 				Vector3 up = right.Cross(view).Normalized();
 				pLoc += right * (float)dt * playerSpeed;
 			}
-			// SCENE WORLD BOUNDARIES
-			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
 
 			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 			player->getEntityData()->Translate.x = pLoc.x;
@@ -416,10 +413,6 @@ void Scene2021::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
-		//if (player->isDriving()) {
-		//	player->getCar()->Drive(dt);
-		//	BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
-		//}
 		Vector3 view = (camera.target - camera.position).Normalized();
 
 		if (!player->isDriving())
@@ -613,46 +606,48 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
-					if (ePressed && !eHeld)
+					if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 90.f) //check if player has collected drugs
 					{
-						eHeld = true;
-						Game::activeScene = S_GUNSHOP;
-						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+						if (ePressed && !eHeld)
+						{
+							eHeld = true;
+							Game::activeScene = S_GUNSHOP;
+							Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
+						}
+					}
+					else
+					{
+						if (ePressed && !eHeld)
+						{
+							eHeld = true;
+							Game::activeScene = S_GUNSHOP;
+							Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+						}
 					}
 				}
 			}
 			if (!player->isDriving())
 			{
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-					if (entry->victim->getName() == "drugs")
+					if (entry->victim->getName() == "drugs1" || entry->victim->getName() == "drugs2") //player has to collect both drug packages
 					{
 						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 						{
-							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_FOUNTAIN)
+							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP && Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 50)
 							{
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
-									entry->victim->setDead(true);
+									entry->victim->setDead(true); //picked up the drugs
+									Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 20.f);
 								}
 							}
 						}
 					}
-					// player->getEntityData()->Translate += entry->plane * 2;
-					// player->cancelNextMovement();
 					entry->attacker->getEntityData()->Translate -= entry->translationVector;
 					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 				}
 			}
-			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
-				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
-				}
-				else {
-					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
-				}
-			}*/
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
@@ -734,14 +729,6 @@ void Scene2021::CollisionHandler(double dt) {
 	eManager.postCollisionUpdate();
 
 	fps = (float)1 / dt;
-
-	/*if (isInteracting && passedInteractCooldown()) {
-		if (ePressed) {
-			nextInteraction();
-
-		}
-		latestInteractionSwitch = this->elapsed;
-	}*/
 }
 
 void Scene2021::TopDownMapUpdate(double dt)
@@ -1469,7 +1456,18 @@ void Scene2021::SpawnBuildings()
 	}	
 	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
-	initBuildings(Vector3(-325, 1, 288), Vector3(0, 0, 0), Vector3(1,1,1), GEO_CUBE);
+
+	Entity* drug = new WorldObject(this, GEO_CUBE, "drugs1");
+	drug->getEntityData()->SetTransform(-325, 1, 288);
+	drug->getEntityData()->SetRotate(0, 0, 0);
+	drug->getEntityData()->SetScale(1, 1, 1);
+	eManager.spawnWorldEntity(drug);
+
+	Entity* drug2 = new WorldObject(this, GEO_CUBE, "drugs2");
+	drug2->getEntityData()->SetTransform(-300, 1, 288);
+	drug2->getEntityData()->SetRotate(0, 0, 0);
+	drug2->getEntityData()->SetScale(1, 1, 1);
+	eManager.spawnWorldEntity(drug2);
 }
 
 void Scene2021::SpawnStreetLamps()

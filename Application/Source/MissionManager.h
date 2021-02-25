@@ -41,8 +41,11 @@ public:
 
 	//Adds progress only if MissionType is completable returns true if progress added
 	bool addProgress(MISSIONTYPE type, float progress); //Adds progress to mission obj in missions[type]. Adds to missionsUpdatedThisTick(), which will be used in Update(), to figure out what was completed this tick.
+	bool setProgress(MISSIONTYPE type, float progress); //Sets progress to mission
 	//Adds progress regardless if completable (UNSAFE)
 	void addUnsafeProgress(MISSIONTYPE type, float progress);
+
+	float getMissionProgress(MISSIONTYPE type); //Get mission progress level
 	
 	void Update(double dt); //returns the missions that were completed this tick
 	//void displayUIOnScreen(); //Accepts mouse swipe movement to move around the background quad, the background quad will be zoomed in. Hover over missions to see if its completed an a preview

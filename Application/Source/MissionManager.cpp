@@ -208,6 +208,19 @@ bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
 	return false;
 }
 
+bool MissionManager::setProgress(MISSIONTYPE type, float progress) {
+	std::vector<MISSIONTYPE> completable = getCompletableMissions();
+	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
+		missions[type]->setProgress(progress);
+		missionsUpdatedThisTick.push_back(missions[type]);
+		if (missions[type]->isCompleted()) {
+			missionsCompletedThisTick.push_back(missions[type]);
+		}
+		return true;
+	}
+	return false;
+}
+
 void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted()) {
 		missions[type]->addProgress(progress);
@@ -270,6 +283,16 @@ void MissionManager::Update(double dt) {
 
 	missionsCompletedThisTick.clear();
 	return;
+}
+
+float MissionManager::getMissionProgress(MISSIONTYPE type)
+{
+	std::vector<MISSIONTYPE> completables = getCompletableMissions();
+	for (int i = 0; i < getCompletableMissions().size(); i++) {
+		if (getCompletableMissions().at(i) == type) {
+			return missions[getCompletableMissions().at(i)]->getProgress();
+		}
+	}
 }
 
 std::vector<Mission*> MissionManager::getJustCompletedMissions() {
