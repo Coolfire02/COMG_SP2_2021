@@ -72,7 +72,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_ROAD_BEND] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_bend.obj", "MTL//Roads//road_bend.mtl");
 	meshList[GEO_ROAD_END] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//road_end.obj", "MTL//Roads//road_end.mtl");
 	meshList[GEO_ROAD_STREET_LAMP] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//light_curved.obj", "MTL//Roads//light_curved.mtl");
-
+	meshList[GEO_ROAD_BLOCK] = MeshBuilder::GenerateOBJMTL("road1", "OBJ//Roads//construction_barrier.obj", "MTL//Roads//construction_barrier.mtl");
 	
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");

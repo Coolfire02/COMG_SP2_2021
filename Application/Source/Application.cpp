@@ -22,6 +22,7 @@
 #include "Scene2021.h"
 #include "SceneGarage.h"
 #include "SceneGunShop.h"
+#include "SceneGuardBuilding.h"
 #include "InteractionManager.h"
 
 GLFWwindow* m_window;
@@ -196,6 +197,7 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
+	g.addScene(new SceneGuardBuilding);
 	g.addScene(new SceneAssignment2);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
