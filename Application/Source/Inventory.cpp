@@ -312,6 +312,8 @@ void Inventory::Update(double dt)
 	{
 		if (weaponInv->getActiveWeapon() == nullptr)
 			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->disable();
+		else
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrentBorder")->enable();
 
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
