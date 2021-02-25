@@ -22,6 +22,7 @@ SceneHouseFire::SceneHouseFire() :
 
 	//Game
 	fps = 0;
+	camMap = true;
 	lightEnable = true;
 	hitboxEnable = false;
 }
@@ -739,7 +740,7 @@ void SceneHouseFire::Render()
 	}
 
 	this->RenderSkybox();
-
+	this->RenderSceneMeshes();
 	//Floor
 	modelStack.PushMatrix();
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -795,6 +796,33 @@ void SceneHouseFire::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+}
+
+void SceneHouseFire::RenderSceneMeshes() {
+	modelStack.PushMatrix();
+		modelStack.Translate(0, -0.05, 0);
+		modelStack.Scale(1000, 1, 1000);
+		//RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
+	modelStack.PopMatrix();
+
+	//main road stretch
+	modelStack.PushMatrix();
+		modelStack.Translate(0, 0, 0);
+		modelStack.Rotate(90, 0, 1, 0);
+		modelStack.Scale(61, 30, 61);
+		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+
+		modelStack.PushMatrix();
+			modelStack.Translate(1, 0, 0);
+			RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+			modelStack.Translate(-1, 0, 0);
+			RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+		modelStack.PopMatrix();
+
+	modelStack.PopMatrix();
 }
 
 void SceneHouseFire::RenderSkybox() {
