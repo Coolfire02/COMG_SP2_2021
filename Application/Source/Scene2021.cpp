@@ -555,6 +555,7 @@ void Scene2021::CollisionHandler(double dt) {
 			((NPC*)entry)->Walk(dt);
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
 					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++) //loop through each element in vector
@@ -610,6 +611,7 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 90.f) //check if player has collected drugs
 					{
 						if (ePressed && !eHeld)
