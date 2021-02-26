@@ -45,7 +45,7 @@ private:
 	Camera camera2;
 
 	EntityManager eManager;
-	//ButtonManager bManager;
+	ButtonManager bManager;
 
 	//Game Variables
 	Player* player;

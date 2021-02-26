@@ -103,6 +103,10 @@ bool InteractionManager::runCommand(Command cmd) {
 		else if (splitVar.at(0) == "/removeextinguisher") {
 			Game::inv.deleteWeapon(FIRE_EXTINGUISHER);
 		}
+		else if (splitVar.at(0) == "/buysedansports") {
+			Game::inv.addCar(SEDAN_SPORTS);
+			DEBUG_MSG("SEDAN SPORTS BOUGHT");
+		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {
 				//this->addCoins(stoi(splitVar.at(1)));

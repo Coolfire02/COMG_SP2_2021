@@ -10,6 +10,7 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "Car.h"
+#include "AudioHandler.h"
 #include "InteractionManager.h"
 #include "Scene2021.h"
 
@@ -117,20 +118,61 @@ void SceneCarShop::Init()
 	//Mesh* coinMesh;
 	//Entity* newCoin;
 
-	Entity* Hitbox = new CustomEntity(this, new Box(Vector3(-1, 0, -4), Vector3(1, 3.75, 4)), "hitbox");
+	Entity* Hitbox = new CustomEntity(this, new Box(Vector3(-1, 0, 5), Vector3(1, 3.75, -5)), "hitbox");
 	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
-	Hitbox->getEntityData()->Translate = Vector3(-22.5, 0, -7.5);
+	Hitbox->getEntityData()->Translate = Vector3(-22.5, -3, -10);
 	eManager.spawnWorldEntity(Hitbox);
 
-	Hitbox = new CustomEntity(this, new Box(Vector3(-3.25, 0, -1.5), Vector3(3.25, 3.75, 1.5)), "hitbox");
+	Hitbox = new CustomEntity(this, new Box(Vector3(-3.25, 0, 1.5), Vector3(3.25, 3.75, -1.5)), "hitbox");
+	Hitbox->getEntityData()->Translate = Vector3(-13.15, -3, -21.25);
 	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
-	Hitbox->getEntityData()->Translate = Vector3(-13.15, 0, -21.25);
 	eManager.spawnWorldEntity(Hitbox);
 
-	Hitbox = new CustomEntity(this, new Box(Vector3(-0.3, 0, -0.3), Vector3(0.3, 3.75, 0.3)), "hitbox");
+	Hitbox = new CustomEntity(this, new Box(Vector3(-0.3, 0, 0.3), Vector3(0.3, 3.75, -0.3)), "hitbox");
+	Hitbox->getEntityData()->Translate = Vector3(-5.375, -3, 2.125);
 	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
-	Hitbox->getEntityData()->Translate = Vector3(-5.375, 0, 2.125);
 	eManager.spawnWorldEntity(Hitbox);
+
+	Entity* car = new WorldObject(this, GEO_SEDAN_SPORTS, "sedansports");
+	car->getEntityData()->Translate = Vector3(3, 0, -17);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	car = new WorldObject(this, GEO_HATCH_BACK_SPORTS, "hatchback");
+	car->getEntityData()->Translate = Vector3(17, 0, -15);
+	car->getEntityData()->Rotation = Vector3(0, -45, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	car = new WorldObject(this, GEO_TRACTOR_SHOVEL, "tractor");
+	car->getEntityData()->Translate = Vector3(17, 0, 0);
+	car->getEntityData()->Rotation = Vector3(0, -90, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	car = new WorldObject(this, GEO_TRUCK, "truck");
+	car->getEntityData()->Translate = Vector3(17, 0, 15);
+	car->getEntityData()->Rotation = Vector3(0, -135, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	car = new WorldObject(this, GEO_VAN, "van");
+	car->getEntityData()->Translate = Vector3(3, 0, 17);
+	car->getEntityData()->Rotation = Vector3(0, -180, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	car = new WorldObject(this, GEO_RACER, "racer");
+	car->getEntityData()->Translate = Vector3(-12, 0, 17);
+	car->getEntityData()->Rotation = Vector3(0, -225, 0);
+	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnWorldEntity(car);
+
+	Entity* door = new WorldObject(this, GEO_DOOR, "door");
+	door->getEntityData()->Translate = Vector3(-14, 2.25, -17.5);
+	// door->getEntityData()->Rotation = Vector3(0, 90, 0);
+	door->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(door);
 
 	/*Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0.25, 20);
@@ -274,70 +316,72 @@ void SceneCarShop::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
-	CollisionHandler(dt);
+	if (!Game::iManager.isInteracting()) {
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+		TopDownMapUpdate(dt);
+		CollisionHandler(dt);
 
-	Vector3 pLoc = player->getEntityData()->Translate;
-	Vector3 oldLoc = Vector3(pLoc);
+		Vector3 pLoc = player->getEntityData()->Translate;
+		Vector3 oldLoc = Vector3(pLoc);
 
-	//Requires Implementation of Velocity by Joash
-	float playerSpeed = 15.0;
-	if (!((Player*)player)->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-			camera.position.y += CameraBobber;
-		}
-
-		if (Application::IsKeyPressed('W')) {
-
-			if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
-				playerSpeed = 25.f;
+		//Requires Implementation of Velocity by Joash
+		float playerSpeed = 15.0;
+		if (!((Player*)player)->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+				camera.position.y += CameraBobber;
 			}
 
-			pLoc += view * (float)dt * playerSpeed;
+			if (Application::IsKeyPressed('W')) {
 
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
+					playerSpeed = 25.f;
+				}
+
+				pLoc += view * (float)dt * playerSpeed;
+
+			}
+			if (Application::IsKeyPressed('A')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc -= right * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('S')) {
+				pLoc -= view * (float)dt * playerSpeed;
+			}
+
+			if (Application::IsKeyPressed('D')) {
+				Vector3 right = view.Cross(camera.up);
+				right.y = 0;
+				right.Normalize();
+				Vector3 up = right.Cross(view).Normalized();
+				pLoc += right * (float)dt * playerSpeed;
+			}
+			// SCENE WORLD BOUNDARIES
+			pLoc.x = Math::Clamp(pLoc.x, -24.f, 24.f);
+			pLoc.z = Math::Clamp(pLoc.z, -24.f, 24.f);
+
+			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+			player->getEntityData()->Translate.x = pLoc.x;
+			// Skip y since we want level ground
+			player->getEntityData()->Translate.z = pLoc.z;
+
+			bobTime += dt;
+			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
-		if (Application::IsKeyPressed('A')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc -= right * (float)dt * playerSpeed;
+
+		if (player->isDriving()) {
+			player->getCar()->Drive(dt);
+			camera.position.x = Math::Clamp(camera.position.x, -24.f, 24.f);
+			camera.position.z = Math::Clamp(camera.position.z, -49.f, 48.f);
 		}
 
-		if (Application::IsKeyPressed('S')) {
-			pLoc -= view * (float)dt * playerSpeed;
-		}
-
-		if (Application::IsKeyPressed('D')) {
-			Vector3 right = view.Cross(camera.up);
-			right.y = 0;
-			right.Normalize();
-			Vector3 up = right.Cross(view).Normalized();
-			pLoc += right * (float)dt * playerSpeed;
-		}
-		// SCENE WORLD BOUNDARIES
-		pLoc.x = Math::Clamp(pLoc.x, -24.f, 24.f);
-		pLoc.z = Math::Clamp(pLoc.z, -24.f, 24.f);
-
-		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-		player->getEntityData()->Translate.x = pLoc.x;
-		// Skip y since we want level ground
-		player->getEntityData()->Translate.z = pLoc.z;
-
-		bobTime += dt;
-		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+		Vector3 view = (camera.target - camera.position).Normalized();
+		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-		camera.position.x = Math::Clamp(camera.position.x, -24.f, 24.f);
-		camera.position.z = Math::Clamp(camera.position.z, -49.f, 48.f);
-	}
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
 void SceneCarShop::InitLights()
@@ -448,6 +492,40 @@ void SceneCarShop::CollisionHandler(double dt) {
 		}
 
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
+			if (entry->getName().find("hitbox") != std::string::npos) {}
+			else {
+				if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 5) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E')) {
+						if (entry->getName().find("door") != std::string::npos) {
+							ISound* door = AudioHandler::getEngine()->play3D(
+								AudioHandler::getSoundSource(DOOR),
+								AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+								LOOPED::NOLOOP);
+							Game::switchScene(S_2021);
+						}
+						if (entry->getName().find("sedansports") != std::string::npos) {
+							Game::iManager.loadInteraction("buy sedan sports");
+						}
+						if (entry->getName().find("hatchback") != std::string::npos) {
+							Game::iManager.loadInteraction("buy hatchback");
+						}
+						if (entry->getName().find("tractor") != std::string::npos) {
+							Game::iManager.loadInteraction("buy tractor");
+						}
+						if (entry->getName().find("truck") != std::string::npos) {
+							Game::iManager.loadInteraction("buy truck");
+						}
+						if (entry->getName().find("van") != std::string::npos) {
+							Game::iManager.loadInteraction("buy van");
+						}
+						if (entry->getName().find("racer") != std::string::npos) {
+							Game::iManager.loadInteraction("buy racer");
+						}
+					}
+				}
+			}
+
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
@@ -493,6 +571,10 @@ void SceneCarShop::CollisionHandler(double dt) {
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getName().find("hitbox") != std::string::npos) {
+					entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				}
+
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)
@@ -602,14 +684,13 @@ void SceneCarShop::TopDownMapUpdate(double dt)
 
 void SceneCarShop::Render()
 {
-
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
 	glEnableVertexAttribArray(1); // 2nd attribute buffer: color
 
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camMap)
+	if (camMap || Game::uiManager.getCurrentMenu() == UI_MAIN_MENU || Game::uiManager.getCurrentMenu() == UI_CREDITS)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,
@@ -625,8 +706,8 @@ void SceneCarShop::Render()
 
 	}
 
-	
 	modelStack.LoadIdentity();
+
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -644,6 +725,71 @@ void SceneCarShop::Render()
 	else { //Point light
 		Position lightPos_cameraSpace = viewStack.Top() * light[0].position;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
+	}
+
+	switch (camera.camType)
+	{
+	case TOPDOWN_FIRSTPERSON:
+		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
+		}
+		else if (light[1].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		modelStack.PushMatrix();
+		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
+		break;
+	case TOPDOWN_THIRDPERSON:
+		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[1].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		break;
+	case THIRDPERSON:
+		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[2].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+		}
+		break;
+	default:
+		break;
 	}
 
 
@@ -674,7 +820,7 @@ void SceneCarShop::Render()
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
-	modelStack.Translate(17, 0, -0);
+	modelStack.Translate(17, 0, 0);
 	modelStack.Scale(5, 0.4, 5);
 	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
 	modelStack.PopMatrix();
@@ -746,6 +892,7 @@ void SceneCarShop::Render()
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
 	RenderUI();
+	bManager.Render(this);
 
 	std::ostringstream ss;
 	

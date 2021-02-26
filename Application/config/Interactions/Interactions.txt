@@ -244,3 +244,22 @@ INTERACTION: 2021TimePortal4
 INTERACTION: 2021TimePortal5
 - MSG: I need to get out of here and blend in with the people
 - postcmd: /scene2021
+
+=========================================
+
+INTERACTION: buySuccess
+- MSG: Thank you for your patronage!
+
+=========================================
+
+INTERACTION: buy sedan sports
+- MSG: Name: Sedan Sports;Speed: 75 km/h;;Would you like to buy this car?
+
+CHOICE # buy sedan sports
+- MSG: No
+
+CHOICE # buy sedan sports
+- MSG: Yes
+- postcmd: /buysedansports
+# NEXT: buySuccess
+
