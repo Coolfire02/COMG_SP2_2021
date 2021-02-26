@@ -133,7 +133,11 @@
     <ClCompile Include="Source\SceneHouseFire.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Source\SceneCarShop.cpp">
+=======
     <ClCompile Include="Source\SceneUI.cpp">
+>>>>>>> 1ec1b6119bfa4b4ebebbede6555fb8745dc68997
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -285,7 +289,11 @@
     <ClInclude Include="Source\SceneHouseFire.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Source\SceneCarShop.h">
+=======
     <ClInclude Include="Source\SceneUI.h">
+>>>>>>> 1ec1b6119bfa4b4ebebbede6555fb8745dc68997
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

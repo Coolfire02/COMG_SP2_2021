@@ -25,6 +25,7 @@
 #include "SceneHouseFire.h"
 #include "SceneTimePortal.h"
 #include "SceneGuardBuilding.h"
+#include "SceneCarShop.h"
 #include "SceneUI.h"
 
 GLFWwindow* m_window;
@@ -206,6 +207,7 @@ void Application::Run()
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
 	g.addScene(new SceneGuardBuilding);
+	g.addScene(new SceneCarShop);
 	g.addScene(new SceneUI);
 	//g.addScene(new SceneHouseFire);
 	g.Init();

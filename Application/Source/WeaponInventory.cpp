@@ -112,7 +112,8 @@ Return weaponList vector
 /******************************************************************************/
 std::vector<Weapon*> WeaponInventory::getWeaponList()
 {
-	return this->weaponList; //return weaponList vector
+	if (!this->weaponList.empty())
+		return this->weaponList; //return weaponList vector
 }
 
 /******************************************************************************/

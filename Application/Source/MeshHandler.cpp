@@ -88,9 +88,10 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedanSports", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
 	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("raceFuture", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
-	meshList[GEO_POLICE] = MeshBuilder::GenerateOBJMTL("police", "OBJ//Cars//police.obj", "MTL//Cars//police.mtl");
-	meshList[GEO_AMBULANCE] = MeshBuilder::GenerateOBJMTL("ambulance", "OBJ//Cars//ambulance.obj", "MTL//Cars//ambulance.mtl");
-	meshList[GEO_SUV] = MeshBuilder::GenerateOBJMTL("suv", "OBJ//Cars//suv.obj", "MTL//Cars//suv.mtl");
+	meshList[GEO_HATCHBACKSPORTS] = MeshBuilder::GenerateOBJMTL("hatchbackSports", "OBJ//Cars//hatchbackSports.obj", "MTL//Cars//hatchbackSports.mtl");
+	meshList[GEO_TRACTOR] = MeshBuilder::GenerateOBJMTL("tractor", "OBJ//Cars//tractorShovel.obj", "MTL//Cars//tractorShovel.mtl");
+	meshList[GEO_TRUCK] = MeshBuilder::GenerateOBJMTL("truck", "OBJ//Cars//truck.obj", "MTL//Cars//truck.mtl");
+	meshList[GEO_VAN] = MeshBuilder::GenerateOBJMTL("van", "OBJ//Cars//van.obj", "MTL//Cars//van.mtl");
 
 	//Weapons
 	////Sonic characters
