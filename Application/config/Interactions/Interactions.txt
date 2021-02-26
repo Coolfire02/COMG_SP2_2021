@@ -8,11 +8,7 @@ CHOICE # timeportal
 
 CHOICE # timeportal
 - MSG: Yes
-- postcmd: /entertimeportal
-
-CHOICE # timeportal
-- MSG: Yes
-- postcmd: /entertimeportal
+- postcmd: TimePortal;/entertimeportal
 
 =========================================
 

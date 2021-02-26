@@ -273,6 +273,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_TIMEPORTAL_DOOR]->textureID = LoadTGA("Image//TimePortal//timeportal.tga");
 	meshList[GEO_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal//door.obj");
 	meshList[GEO_DOOR]->textureID = LoadTGA("Image//TimePortal//door.tga");
+	meshList[GEO_PORTAL_SCREEN] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
 	//Materials
 
 	/*Material mat;
