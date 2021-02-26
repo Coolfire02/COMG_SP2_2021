@@ -175,7 +175,7 @@ void SceneGarage::Init()
 			eManager.spawnMovingEntity(newCar);
 		}
 	}*/
-	
+	//
 	/*Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0.25, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
@@ -195,40 +195,81 @@ void SceneGarage::Init()
 	eManager.spawnMovingEntity(car3);*/
 
 	SpawnWalls();
-	//SpawnBuildings();
-	//SpawnStreetLamps();
 
-	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
-	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
-	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
-	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(eggmanInteractZone);
+	//initCollidables(Vector3(24.0f, 0.0f, -49.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
 
-	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
-	//shopBase->getEntityData()->transX = -30.0f;
-	//shopBase->getEntityData()->transZ = 33.0f;
-	//shopBase->getEntityData()->scaleX = 6;
-	//shopBase->getEntityData()->scaleY = 3;
-	//shopBase->getEntityData()->scaleZ = 6;
-	//shoeShopX = shopBase->getEntityData()->transX;
-	//shoeShopY = shopBase->getEntityData()->transY;
-	//shoeShopZ = shopBase->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(shopBase);
+	for (int i = 0; i < 10; i++)
+	{
+		initCollidables(Vector3(24.0f, 0.0f, (1.8f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	}
+	for (int i = 0; i < 9; i++)
+	{
+		if (i < 8)
+			initCollidables(Vector3(24.0f, 2.5f, (0.0f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+		initCollidables(Vector3(22.2f, 0.0f, (0.9f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	}
+	
+	for (int i = 0; i < 2; i++)
+	{
+		initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	}
+	
+	initCollidables(Vector3(22.5f, 0.0f, 47.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS_RAIL);
+
+	initCollidables(Vector3(19.0f, 0.0f, -44.0f), Vector3(0.0f, -45.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), SNOWMAN_FANCY);
+
+	for (int i = 0; i < 3; i++)
+	{
+		//1st floor
+		if (i > 0)
+			initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+		initCollidables(Vector3(-22.0f, 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+		if (i == 1)
+			initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		//2nd floor
+		if (i > 0)
+			initCollidables(Vector3(-22.0f + (i * 5.0f), 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+		initCollidables(Vector3(-22.0f, 5.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	}
+
+	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+
+	//Barrel increment of 1.8f between each one
+	//initCollidables(Vector3(24.0f, 0.0f, 1.8f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//initCollidables(Vector3(24.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//initCollidables(Vector3(24.0f, 2.5f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+
+	//Barrels increment of 5.0f between each one
+	//5.5f when rotated
+	//initCollidables(Vector3(-22.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	//initCollidables(Vector3(-22.0f, 0.0f, 5.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	//initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+
+	//Crate increment of 5.0f between each one
+	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+
+	//Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
+	//Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
+	//initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
+	//initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
+	//initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
+	//initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
+	//initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	//initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
 	
-	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
-	//tree->getEntityData()->Translate.Set(60, 1, -30);
-	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
-	//eManager.spawnWorldEntity(tree);
-
-	/*Entity* car = new Car(SEDAN, this, "sedan");
-	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
-	eManager.spawnMovingEntity(car);*/
-
 
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
@@ -330,7 +371,10 @@ void SceneGarage::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
+		camera.position.x = Math::Clamp(camera.position.x, -24.f, 24.f);
+		camera.position.z = Math::Clamp(camera.position.z, -49.f, 49.f);
 	}
+
 	Vector3 view = (camera.target - camera.position).Normalized();
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
@@ -763,9 +807,21 @@ void SceneGarage::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(100, 200, 200);
+	modelStack.Scale(50, 100, 100);
 	RenderMesh(MeshHandler::getMesh(GARAGE_FLOOR), true);
 	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(8.0f, 0.0f, -35.0f);
+	modelStack.Scale(10.0f, 10.0f, 10.0f);
+	RenderMesh(MeshHandler::getMesh(SNOW_PATCH), true);
+	modelStack.PopMatrix();
+
+	/*modelStack.PushMatrix();
+	modelStack.Translate(19.0f, 0.0f, -44.0f);
+	modelStack.Scale(10.0f, 10.0f, 10.0f);
+	RenderMesh(MeshHandler::getMesh(SNOW_PATCH), true);
+	modelStack.PopMatrix();*/
 
 	//modelStack.PushMatrix();
 	//modelStack.Translate(0, 22, 99); 
@@ -773,13 +829,6 @@ void SceneGarage::Render()
 	//modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
 	//RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
 	//modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(20, 0, 0);
-	modelStack.Rotate(0, 1, 0, 0);
-	modelStack.Scale(10, 10, 10);
-	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
-	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
@@ -894,14 +943,14 @@ void SceneGarage::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETR
 }
 void SceneGarage::SpawnWalls()
 {
-	Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
-	Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
-	initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
-	initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
-	initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
-	initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
-	initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
-	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
+	Vector3 uniformWallScale = Vector3(50.0f, 25.0f, 50.0f);
+	Vector3 longWallScale = Vector3(100.0f, 25.0f, 100.0f);
+	initCollidables(Vector3(0.0f, 24.9f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), Vector3(50.0f, 100.0f, 100.0f), GARAGE_WALL); //top
+	initCollidables(Vector3(25.0f, 12.4f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
+	initCollidables(Vector3(-25.0f, 12.4f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 12.4f, 50.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
+	initCollidables(Vector3(0.0f, 12.4f, -50.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 11.0f, 49.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(40.0f, 22.0f, 50.0f), GARAGE_DOOR); //garage door
 }
 
 void SceneGarage::RenderUI()

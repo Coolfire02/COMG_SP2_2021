@@ -103,12 +103,13 @@ void SceneTimePortal::Init() {
 	projectionStack.LoadMatrix(projection);
 
 	Entity* timePortal = new WorldObject(this, GEO_TIMEPORTAL_DOOR, "timeportal");
+	timePortal->setType(TIMEPORTAL);
 	timePortal->getEntityData()->Translate = Vector3(0, 0, -10.5);
 	timePortal->getEntityData()->Rotation = Vector3(0, 90, 0);
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
-	Entity* door = new WorldObject(this, GEO_DOOR, "timeportal");
+	Entity* door = new WorldObject(this, GEO_DOOR, "door");
 	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
 	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
@@ -414,10 +415,10 @@ void SceneTimePortal::CollisionHandler(double dt) {
 	for (auto& entry : eManager.getEntities()) {
 		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
 			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
-				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
 				if (Game::mManager.missionIsCompletable(MISSION_ENTER_TIMEPORTAL, completables)) {
-					if (GetAsyncKeyState('E') & 0x0001) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E')) {
 						Game::iManager.loadInteraction("timeportal");
 					}
 				}
@@ -499,7 +500,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 		//Player Collision with any World Object
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR || entry->victim->getType() == ENTITYTYPE::TIMEPORTAL) {
 				//PUSH Back System. Another Possibility is entry->attacker->cancelNextMovement() but its deprecated and prone to some glitches.
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				DEBUG_MSG("Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z);

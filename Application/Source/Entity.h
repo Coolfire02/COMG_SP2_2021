@@ -61,6 +61,7 @@ public:
 
 	bool isVisible();
 	void setVisibility(bool);
+	void setType(ENTITYTYPE);
 
 	void cancelNextMovement();
 	void loadOriginTRSIntoStacknHitBox();
