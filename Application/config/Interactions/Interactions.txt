@@ -221,3 +221,18 @@ INTERACTION: HouseFire Do Nothing 6
 postcmd: /endhousefire
 
 =========================================
+
+INTERACTION: 2021TimePortal1
+- MSG: What's that smell...?
+- postcmd: TimePortal;/closeblackscreen
+# NEXT: 2021TimePortal2
+
+INTERACTION: 2021TimePortal2
+- MSG: What the?!?!
+
+INTERACTION: 2021TimePortal3
+- MSG: The energy produced to travel back in time must have caused that fire...
+# NEXT: 2021TimePortal4
+
+INTERACTION: 2021TimePortal4
+- MSG: I'd better be more careful when returning to the future

@@ -122,6 +122,10 @@ void SceneTimePortal::Init() {
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
 	eManager.spawnWorldEntity(door);
 
+	Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-2, 0, 2), Vector3(2, 1, -2)), "doorHitbox");
+	doorHitbox->getEntityData()->Translate = Vector3(0, 0, 10);
+	eManager.spawnWorldEntity(doorHitbox);
+
 	Entity* crate;
 	{ // left side
 		crate = new WorldObject(this, CRATE_STRONG, "crate");
@@ -285,11 +289,10 @@ void SceneTimePortal::Update(double dt)
 {
 	if (portalSound->isFinished() && !fireSound->isFinished()) {
 		fireSound->setIsPaused(false);
-		//if (1) {
-		//	Game::iManager.loadInteraction("2021TimePortal1");
-		//}
+		if (Game::iManager.getTimesInteracted("2021TimePortal1") == 0) {
+			Game::iManager.loadInteraction("2021TimePortal1");
+		}
 	}
-		
 
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -381,6 +384,7 @@ void SceneTimePortal::Update(double dt)
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
+
 }
 
 void SceneTimePortal::MissionCompleteListener(double dt) {
@@ -472,6 +476,17 @@ void SceneTimePortal::CollisionHandler(double dt) {
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
 
+		if (entry->getType() == ENTITYTYPE::FIRE) {
+			if (Game::iManager.getTimesInteracted("2021TimePortal2") > 0) {
+				if (camera.isLookingAt(entry->getEntityData()->Translate) && Application::IsMousePressed(0)) {
+					entry->setDead(true);
+					fireSound->stop();
+					Game::mManager.addProgress(MISSION_EXTINGUISH_FIRE, 100.f);
+					Game::iManager.loadInteraction("2021TimePortal3");
+				}
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
 			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
 				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
@@ -549,11 +564,6 @@ void SceneTimePortal::CollisionHandler(double dt) {
 		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
 			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
 
-				if (entry->victim->getType() == ENTITYTYPE::FIRE) {
-					entry->victim->setDead(true);
-					fireSound->stop();
-				}
-
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 					entry->victim->setDead(true);
 				}
@@ -564,6 +574,23 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 		//Player Collision with any World Object
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
+			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				std::vector<MISSIONTYPE> CompletedMissions = Game::mManager.getCompletedMissions();
+				for (auto& mission : CompletedMissions) {
+					if (mission == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+						if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (Application::IsKeyPressed('E')) {
+								ISound* door = AudioHandler::getEngine()->play3D(
+									AudioHandler::getSoundSource(DOOR),
+									AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+									LOOPED::NOLOOP);
+								Game::switchScene(S_2021);
+							}
+						}
+					}
+				}
+			}
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR || entry->victim->getType() == ENTITYTYPE::TIMEPORTAL) {
 				//PUSH Back System. Another Possibility is entry->attacker->cancelNextMovement() but its deprecated and prone to some glitches.
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
@@ -870,7 +897,7 @@ void SceneTimePortal::Render()
 	if (blackScreen)
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_PORTAL_SCREEN), 64, 36, 128, 72);
 
-	if (!portalSound->getIsPaused() && !portalSound->isFinished() && blackScreen) {
+	if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
 		Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
 		text->setTextString("Travelling back to 2021...");
 		text->Render(this);
