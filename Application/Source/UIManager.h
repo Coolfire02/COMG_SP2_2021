@@ -28,6 +28,8 @@ private:
 	bool uiActive;
 	UI_MENUS currentMenu;
 	bool activeMenus[UI_MENU_COUNT];
+	int digitCount(int);
+
 public:
 	UIManager();
 	~UIManager();

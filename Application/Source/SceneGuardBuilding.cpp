@@ -1370,7 +1370,7 @@ void SceneGuardBuilding::SpawnNPCs(Vector3 Position, NPCTYPE geoType)
 
 	//int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
-	Entity* testNPC = new NPC(this, geoType, "test");
+	Entity* testNPC = new NPC(this, geoType, "test", 50);
 	testNPC->getEntityData()->SetTransform(Position.x, Position.y, Position.z);
 	testNPC->getEntityData()->SetRotate(0, 0, 0);
 	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);

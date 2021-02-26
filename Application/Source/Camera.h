@@ -27,6 +27,7 @@ public:
 
 	float yaw;
 	float pitch;
+	float additionalYaw;
 	float total_pitch;
 	float total_yaw;
 
