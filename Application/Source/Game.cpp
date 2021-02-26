@@ -40,8 +40,13 @@ void Game::Update(double dt)
 			Game::uiManager.setCurrentUI(UI_GENERAL);
 		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
 			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_CREDITS)
+			Game::uiManager.setCurrentUI(UI_MAIN_MENU);
 		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
+		{
+			//SceneList[S_RECENT] = SceneList[Game::activeScene];
 			Game::gameExit = true;
+		}
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {

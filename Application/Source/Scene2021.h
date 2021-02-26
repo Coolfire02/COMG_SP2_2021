@@ -41,8 +41,6 @@ class Scene2021 : public Scene
 	};
 
 private:
-
-	Camera camera;
 	Camera camera2;
 
 	EntityManager eManager;
@@ -98,6 +96,8 @@ private:
 	double interactionTimer = 0;
 
 public:
+	Camera camera;
+
 	Scene2021();
 	~Scene2021();
 

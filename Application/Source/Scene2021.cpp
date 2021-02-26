@@ -250,19 +250,19 @@ void Scene2021::Update(double dt)
 			glDisable(GL_CULL_FACE);
 		}
 
-	if (Application::IsKeyPressed('8'))
-	{
-		Scene * var = Game::getSceneByName("GarageScene");
-		static_cast <SceneGarage*>(var)->updateCarSpawn();
-		Game::switchScene(S_2051);
-	}
+		if (Application::IsKeyPressed('8'))
+		{
+			Scene * var = Game::getSceneByName("GarageScene");
+			static_cast <SceneGarage*>(var)->updateCarSpawn();
+			Game::switchScene(S_2051);
+		}
 
-	if (Application::IsKeyPressed('9')) {
-		hitboxEnable = !hitboxEnable;
-	}
-	if (Application::IsKeyPressed('0')) {
-		lightEnable = !lightEnable;
-	}
+		if (Application::IsKeyPressed('9')) {
+			hitboxEnable = !hitboxEnable;
+		}
+		if (Application::IsKeyPressed('0')) {
+			lightEnable = !lightEnable;
+		}
 
 		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 		TopDownMapUpdate(dt);

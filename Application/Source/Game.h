@@ -17,6 +17,7 @@ enum SCENES
 	S_GUNSHOP,
 	S_GARAGE,
 	S_GUARD,
+	//S_RECENT,
 	S_COUNT
 };
 
@@ -28,6 +29,7 @@ public:
 	Game();
 	~Game();
 	
+	static Scene* sceneB4pause;
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
