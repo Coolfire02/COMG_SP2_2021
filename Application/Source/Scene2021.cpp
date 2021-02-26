@@ -177,7 +177,7 @@ void Scene2021::Init()
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* car = new Car(SEDAN, this, "car");
+	Entity* car = new Car(RACER, this, "car");
 	car->getEntityData()->SetTransform(-197, 0.25, -131);
 	car->getEntityData()->SetRotate(0, -90, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
@@ -509,7 +509,6 @@ void Scene2021::CollisionHandler(double dt) {
 			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
 
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-					std::cout << "HEALTH: " << entry->victim->getHealth() << " DMG: " << Game::inv.getActiveWeapon()->getDamage() << std::endl;
 					if (entry->victim->getHealth() <= 0)
 					{
 						entry->victim->setDead(true);
@@ -535,7 +534,7 @@ void Scene2021::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
 					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 					{
-						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_VISIT_GUNSHOP && interactionTimer > 2) //do && check if next mission has started to disable this 
+						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
 						{
 							Game::iManager.loadInteraction("phoneCall1");
 							interactionTimer = 0;
@@ -543,27 +542,24 @@ void Scene2021::CollisionHandler(double dt) {
 					}
 					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP)
+						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
 						{
 							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-
-							if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 90.f) //check if player has collected drugs
+							if (ePressed && !eHeld)
 							{
-								if (ePressed && !eHeld)
-								{
-									eHeld = true;
-									Game::switchScene(S_GUNSHOP);
-									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
-								}
+								eHeld = true;
+								Game::switchScene(S_GUNSHOP);
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
 							}
-							else
+						}
+						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
+						{
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (ePressed && !eHeld)
 							{
-								if (ePressed && !eHeld)
-								{
-									eHeld = true;
-									Game::switchScene(S_GUNSHOP);
-									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
-								}
+								eHeld = true;
+								Game::switchScene(S_GUNSHOP);
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
 							}
 						}
 					}
@@ -574,15 +570,15 @@ void Scene2021::CollisionHandler(double dt) {
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
 					if (entry->victim->getName() == "drugs1" || entry->victim->getName() == "drugs2") //player has to collect both drug packages
 					{
-						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+						for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 						{
-							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP && Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 50) //check if visit gunshop mission is completable and mission progress of it is more than 50
+							if (Game::mManager.getCompletedMissions().at(i) == MISSION_TALK_TO_THE_OWNER) //check if visit gunshop mission is completable and mission progress of it is more than 50
 							{
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
 									entry->victim->setDead(true); //picked up the drugs
-									Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 20.f);
+									Game::mManager.addProgress(MISSIONTYPE::MISSION_COLLECT_THE_GOODS, 50.f);
 								}
 							}
 						}

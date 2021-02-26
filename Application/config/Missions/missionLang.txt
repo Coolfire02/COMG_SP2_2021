@@ -37,7 +37,6 @@ MISSION_VISIT_FOUNTAIN
 - CompletedMessage: splash
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: 
-	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_RESTAURANT
 - GEO_TYPE_Enum: EMPTY
@@ -45,7 +44,6 @@ MISSION_VISIT_RESTAURANT
 - CompletedMessage: nom
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-	- MISSION_EXTINGUISH_FIRE
 
 MISSION_TALK_TO_NPC
 - GEO_TYPE_Enum: EMPTY
@@ -53,7 +51,6 @@ MISSION_TALK_TO_NPC
 - CompletedMessage: hey
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_GUNSHOP
 - GEO_TYPE_Enum: EMPTY
@@ -71,14 +68,23 @@ MISSION_TALK_TO_THE_OWNER
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_VISIT_GUNSHOP
 
 
 MISSION_COLLECT_THE_GOODS
 - GEO_TYPE_Enum: EMPTY
-- ObjectiveMessage: Collect the 'goods' and deliver them to Gary 
+- ObjectiveMessage: Collect the 'goods' for Gary 
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 	- MISSION_TALK_TO_THE_OWNER
+
+MISSION_RETURN_THE_GOODS
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Head back to the Gun Shop and return the 'goods' to Gary 
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_COLLECT_THE_GOODS
 
 #END
