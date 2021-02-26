@@ -348,6 +348,8 @@ void SceneHouseFire::Update(double dt)
 				if (Game::iManager.getTimesInteracted("HouseFire See House Fire") == 0)
 					Game::iManager.loadInteraction("HouseFire See House Fire");
 			}
+			player->getCar()->getEntityData()->Translate.x = Math::Clamp(player->getCar()->getEntityData()->Translate.x, -23.0f, 23.0f);
+
 
 			if (player->isDriving() && pLoc.z >= -470) {
 				player->getCar()->Drive(dt);
@@ -806,9 +808,6 @@ void SceneHouseFire::Render()
 		break;
 	}
 
-	this->RenderSkybox();
-	this->RenderSceneMeshes();
-
 	//Entity Rendering
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
@@ -828,6 +827,9 @@ void SceneHouseFire::Render()
 			delete mesh;
 		}
 	}
+
+	this->RenderSkybox();
+	this->RenderSceneMeshes();
 
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
@@ -876,7 +878,7 @@ void SceneHouseFire::RenderSceneMeshes() {
 	//modelStack.PopMatrix();
 
 	//main road stretch
-	for (int i = 0; i < 5; i++) {
+	for (int i = -3; i < 5; i++) {
 		modelStack.PushMatrix();
 			modelStack.Translate(0, 0, i * -175);
 
@@ -927,6 +929,23 @@ void SceneHouseFire::RenderSceneMeshes() {
 		modelStack.PopMatrix();
 		z += 50;
 	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(37, 0.4, -530);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(20, 50, 1);
+	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(50, 0.4, -520);
+	modelStack.Rotate(0, 0, 1, 0);
+	modelStack.Scale(22, 50, 1);
+	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), true);
+	modelStack.PopMatrix();
+
+
+	
 }
 
 void SceneHouseFire::RenderSkybox() {

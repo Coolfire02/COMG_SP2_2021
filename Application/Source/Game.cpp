@@ -84,9 +84,7 @@ void Game::Update(double dt)
 	}
 
 	if (frameTicker % 2 == 0) {
-		std::stringstream ss;
-		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
-		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
 		++fireFrame;
 	}
 	++frameTicker;
@@ -148,7 +146,6 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
-	
 }
 
 Scene* Game::getActiveScene() {

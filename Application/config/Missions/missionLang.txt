@@ -1,6 +1,21 @@
 #ENUM:GEOMETRY_TYPE(previewImage);Objective;Mission Complete Message
 #========================================
 
+MISSION_FIND_HOUSE
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Find Your House
+- CompletedMessage: Traveller
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions: []
+
+MISSION_INFILTRATE_GOVERNMENT_FACILITY
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Infiltrate 2051 Government Facility
+- CompletedMessage: 
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_FIND_HOUSE
+
 MISSION_ENTER_TIMEPORTAL
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Enter the Time Portal back to 2021

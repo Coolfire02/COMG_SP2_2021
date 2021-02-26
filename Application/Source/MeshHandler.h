@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "MeshBuilder.h"
 #include "EntityDataHandler.h"
+#include "GL/glew.h"
 #include <unordered_map>
 
 enum GEOMETRY_TYPE {
@@ -44,6 +45,7 @@ enum GEOMETRY_TYPE {
 	GEO_ROAD_STREET_LAMP,
 	GEO_ROAD_BLOCK,
 	GEO_TREE,
+
 	GEO_SEDAN,
 	GEO_SEDAN_SPORTS,
 	GEO_RACER,
@@ -157,7 +159,6 @@ enum GEOMETRY_TYPE {
 	UI_CHOICE,
 	UI_CROSSHAIR,
 
-
 	//END
 	NUM_GEOMETRY
 };
@@ -169,6 +170,7 @@ class MeshHandler
 	static bool isLoaded;
 
 public:
+	static GLuint fireTGAs[10];
 	static bool loadMeshes();
 	static bool unloadMeshes();
 	static GEOMETRY_TYPE getGeoTypeByName(std::string geoType);

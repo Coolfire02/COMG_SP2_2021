@@ -69,7 +69,8 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 
 void Inventory::deleteWeapon(WEAPON_TYPE wType)
 {
-	this->weaponInv->delWeapon(wType);
+	if(weaponInv != nullptr)
+		this->weaponInv->delWeapon(wType);
 }
 
 void Inventory::switchCar(int cartype)
@@ -516,7 +517,7 @@ void Inventory::Update(double dt)
 		addCar(POLICE);
 		addCar(RACER);
 
-		addCar(SUV);
+		//addCar(SUV);
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
 		switchWeapon(0); //weapon slot 1

@@ -13,6 +13,7 @@
 #include "InteractionManager.h"
 #include "Debug.h"
 #include "AudioHandler.h"
+#include "SceneGarage.h"
 
 Scene2021::Scene2021() :
 	eManager(this)
@@ -248,6 +249,17 @@ void Scene2021::Update(double dt)
 	}
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
+	}
+
+	if (Application::IsKeyPressed('8'))
+	{
+		Scene * var = Game::getSceneByName("GarageScene");
+		/*for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
+		{
+			static_cast <SceneGarage*>(var)->updateCarSpawn();
+		}*/
+		static_cast <SceneGarage*>(var)->updateCarSpawn();
+		Game::switchScene(S_2051);
 	}
 
 	if (Application::IsKeyPressed('9')) {
