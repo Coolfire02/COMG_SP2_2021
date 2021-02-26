@@ -85,6 +85,10 @@ public:
 	SceneTimePortal();
 	~SceneTimePortal();
 
+	ISound* fireSound;
+	ISound* portalSound;
+	bool blackScreen = false;
+
 	bool eHeld = false;
 	Camera camera;
 	Camera camera2;

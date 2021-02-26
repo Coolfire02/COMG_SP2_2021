@@ -6,13 +6,12 @@
 #include <fstream>
 #include "Debug.h"
 #include "Game.h"
+#include "SceneTimePortal.h"
 #include "Application.h"
 
+const float InteractionManager::INTERACTION_CLICKCOOLDOWN = 2.5f;
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), interactionElapsed(0) { 
-	for (int i = 0; i < INTERACTION_COUNT; ++i) {
-		this->completedInteractionsCount[i] = 0;
-	}
 }
 
 InteractionManager::~InteractionManager()
@@ -60,14 +59,44 @@ bool InteractionManager::runCommand(Command cmd) {
 		else if (splitVar.at(0) == "/entertimeportal") {
 			// year is now 2021
 			// load interaction after a few seconds.
-			Game::mManager.addProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL, 100.0f);
-			return true;
+			if (cmd.scene->getName() == "TimePortal") {
+				((SceneTimePortal*)cmd.scene)->blackScreen = true;
+				((SceneTimePortal*)cmd.scene)->portalSound->setIsPaused(false);
+				Entity* fire = new WorldObject(cmd.scene, GEO_FIRE_GIF, "FIRE");
+				fire->getEntityData()->Translate = Vector3(0, 2, -9.5);
+				fire->getEntityData()->Scale = Vector3(15, 15, 15);
+				fire->setType(FIRE);
+				((SceneTimePortal*)cmd.scene)->eManager.spawnWorldEntity(fire);
+				((SceneTimePortal*)cmd.scene)->player->getEntityData()->Translate = Vector3(0, 0, 0);
+				((SceneTimePortal*)cmd.scene)->camera.Reset();
+				Game::mManager.addProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL, 100.0f);
+				return true;
+			}
+			return false;
 		}
-	}
-	else if (splitVar.size() >= 2) {
-		if (splitVar.at(0) == "/givecoin") {
-			//this->addCoins(stoi(splitVar.at(1)));
-			return true;
+		else if (splitVar.at(0) == "/scene2021") {
+			ISound* door = AudioHandler::getEngine()->play3D(
+				AudioHandler::getSoundSource(DOOR),
+				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+				LOOPED::NOLOOP);
+			Game::switchScene(S_2021);
+		}
+		else if (splitVar.at(0) == "/closeblackscreen") {
+			if (cmd.scene->getName() == "TimePortal") {
+				((SceneTimePortal*)cmd.scene)->blackScreen = false;
+			}
+		}
+		else if (splitVar.at(0) == "/startdrugmission") {
+			Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_THE_OWNER, 100.f);
+		}
+		else if (splitVar.at(0) == "/removeextinguisher") {
+			Game::inv.deleteWeapon(FIRE_EXTINGUISHER);
+		}
+		else if (splitVar.size() >= 2) {
+			if (splitVar.at(0) == "/givecoin") {
+				//this->addCoins(stoi(splitVar.at(1)));
+				return true;
+			}
 		}
 	}
 
@@ -77,10 +106,32 @@ bool InteractionManager::runCommand(Command cmd) {
 /******************************************************************************/
 /*!
 \brief
+Gets the total amount of times this interaction has been loaded
+*/
+/******************************************************************************/
+int InteractionManager::getTimesInteracted(std::string key) {
+	std::map<std::string, int>::iterator it = timesInteracted.find(key);
+	if (it != timesInteracted.end()) {
+		return it->second;
+	}
+	return 0;
+}
+
+
+/******************************************************************************/
+/*!
+\brief
 Pushes interactions from the Interactions map into the queue to be shown on the UI.
 */
 /******************************************************************************/
 bool InteractionManager::loadInteraction(std::string key) {
+	std::map<std::string, int>::iterator it = timesInteracted.find(key);
+	if (it != timesInteracted.end()) {
+		it->second++;
+	}
+	else {
+		timesInteracted.insert(std::make_pair(key, 1));
+	}
 
 	if (key.empty())
 		return false;
@@ -239,14 +290,11 @@ Ends the current interaction chain.
 /******************************************************************************/
 void InteractionManager::EndInteraction()
 {
-	completedInteractionsCount[currentInteractionType]++;
-
 	// isInteracting = false;
 	//for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 	//	runCommand(*entry);
 	//}
 	interactionElapsed = 0;
-	currentInteractionType = INTERACTION_COUNT;
 	Game::uiManager.setCurrentUI(UI_GENERAL);
 	//Application::setCursorEnabled(false);
 }
@@ -259,21 +307,23 @@ Runs the pre and post commands of the current Interaction and pop it from the qu
 /******************************************************************************/
 void InteractionManager::nextInteraction(std::string key)
 {
-	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
-		runCommand(*entry);
-	}
-
-	loadInteraction(key);
-	interactionQueue.popInteraction();
-
-
-	if (isInteracting()) {
-		for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+	if (passedInteractionCooldown()) {
+		for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 			runCommand(*entry);
 		}
-	}
-	else {
-		EndInteraction();
+
+		loadInteraction(key);
+		interactionQueue.popInteraction();
+
+
+		if (isInteracting()) {
+			for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+				runCommand(*entry);
+			}
+		}
+		else {
+			EndInteraction();
+		}
 	}
 }
 
@@ -296,7 +346,8 @@ Returns true if the time elapsed is greater than the cooldown.
 bool InteractionManager::passedInteractionCooldown()
 {
 	const float INTERACTION_COOLDOWN = 0.5f;
-	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
+	if (latestInteractionSwitch + INTERACTION_COOLDOWN < Game::gElapsedTime) {
+		latestInteractionSwitch = Game::gElapsedTime;
 		return true;
 	}
 	return false;

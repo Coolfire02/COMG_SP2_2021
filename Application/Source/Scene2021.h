@@ -86,6 +86,7 @@ private:
 	void SpawnStreetLamps();
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 	void RenderTexts();
+	void TopDownMainMenuUpdate(double dt);
 	//topdown cam map
 	bool camMap;
 
@@ -110,6 +111,7 @@ public:
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
+	void spawnGarageCar(CAR_TYPE carType);
 };
 
 #endif
