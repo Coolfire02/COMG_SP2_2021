@@ -148,6 +148,7 @@ enum GEOMETRY_TYPE {
 	//Textured Quads
 	GEO_MISSION_COMPLETE,
 	GEO_MISSION_TASK,
+	GEO_FIRE_GIF,
 
 	TAILSS,
 	//For non-OBJs

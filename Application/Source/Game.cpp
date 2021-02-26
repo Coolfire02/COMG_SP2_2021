@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Debug.h"
 #include "Application.h"
+#include "LoadTGA.h"
 
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
@@ -28,16 +29,22 @@ void Game::Init()
 	uiManager.Init();
 }
 
+int frameTicker;
+int fireFrame;
 void Game::Update(double dt)
 {
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
-		if (Game::activeScene < S_COUNT - 1) 
+		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
+			SceneList[activeScene]->InitLights();
+		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	if (GetAsyncKeyState(VK_LEFT) & 0x0001) {
-		if (Game::activeScene > 0)
-		Game::activeScene = (SCENES)((int)Game::activeScene - 1);
+		if (Game::activeScene > 0) {
+			Game::activeScene = (SCENES)((int)Game::activeScene - 1);
+			SceneList[activeScene]->InitLights();
+		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	if (Game::cash >= 9999999)
@@ -75,6 +82,14 @@ void Game::Update(double dt)
 		SceneList[activeScene]->elapser(dt);
 		SceneList[activeScene]->Update(dt);
 	}
+
+	if (frameTicker % 2 == 0) {
+		std::stringstream ss;
+		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+		++fireFrame;
+	}
+	++frameTicker;
 }
 
 void Game::InteractionUpdate(double dt)
@@ -129,7 +144,7 @@ void Game::addScene(Scene* scene)
 void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
-
+	SceneList[scene]->InitLights();
 	
 }
 

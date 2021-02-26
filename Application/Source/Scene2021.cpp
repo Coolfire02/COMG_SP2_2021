@@ -452,6 +452,7 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
+			((NPC*)entry)->Walk(dt);
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
@@ -1439,7 +1440,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 	int randomRotation = rand() % 359 + 1;
 
-	Entity* testNPC = new NPC(this, geoType, "test");
+	Entity* testNPC = new NPC(this, geoType, "test", 50);
 	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);

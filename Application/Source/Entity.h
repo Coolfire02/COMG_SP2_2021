@@ -17,6 +17,7 @@ enum ENTITYTYPE {
 	WORLDOBJ,
 	DRUGS,
 	TIMEPORTAL,
+	FIRE,
 	CUSTOM,
 
 	ETYPE_COUNT
@@ -48,6 +49,7 @@ protected:
 public:
 	Entity();
 	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name);
+	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, int health);
 	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, Vector3 pos);
 	~Entity();
 
