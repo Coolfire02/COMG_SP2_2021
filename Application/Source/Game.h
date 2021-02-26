@@ -18,6 +18,7 @@ enum SCENES
 	S_GARAGE,
 	S_GUARD,
 	S_CARSHOP,
+	S_UI,
 	S_COUNT
 };
 
@@ -31,6 +32,7 @@ private:
 	static SCENES toSwitchScene;
 	static double timeToSwitch;
 	static double startSwitchTime;
+	static SCENES prevScene;
 
 public:
 	Game();
@@ -64,4 +66,7 @@ public:
 	static Scene* getActiveScene();
 	static Scene* getSceneByName(std::string);
 	static Scene* getScene();
+
+	static SCENES getPrevSceneENUM();
+	static void setPrevSceneENUM(SCENES);
 };

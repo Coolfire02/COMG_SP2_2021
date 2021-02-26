@@ -4,6 +4,7 @@
 #include "LoadTGA.h"
 
 SCENES Game::activeScene;
+SCENES Game::prevScene = S_HOUSEFIRE;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
@@ -79,10 +80,13 @@ void Game::Update(double dt)
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
 	{
+		prevScene = activeScene;
 		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
 			Game::uiManager.setCurrentUI(UI_GENERAL);
 		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
 			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_CREDITS)
+			Game::uiManager.setCurrentUI(UI_MAIN_MENU);
 		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
 			Game::gameExit = true;
 	}
@@ -126,17 +130,12 @@ void Game::Update(double dt)
 	//	Game::switchScene(S_HOUSEFIRE);
 	//}
 
-
-
 	inv.Update(dt);
 	InteractionUpdate(dt);
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	if (uiManager.getCurrentMenu() != UI_MAIN_MENU && !switchingScene)
-	{
-		SceneList[activeScene]->elapser(dt);
-		SceneList[activeScene]->Update(dt);
-	}
+	SceneList[activeScene]->elapser(dt);
+	SceneList[activeScene]->Update(dt);
 
 	if (frameTicker % 2 == 0) {
 		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
@@ -233,4 +232,14 @@ Scene* Game::getSceneByName(std::string scene)
 Scene* Game::getScene()
 {
 	return SceneList[activeScene]; //return ActiveScene
+}
+
+SCENES Game::getPrevSceneENUM()
+{
+	return prevScene;
+}
+
+void Game::setPrevSceneENUM(SCENES p)
+{
+	prevScene = p;
 }

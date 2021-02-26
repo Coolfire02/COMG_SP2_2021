@@ -180,6 +180,7 @@
     <ClCompile Include="Source\SceneGarage.cpp" />
     <ClCompile Include="Source\SceneGuardBuilding.cpp" />
     <ClCompile Include="Source\SceneGunShop.cpp" />
+    <ClCompile Include="Source\SceneUI.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\UIItem.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="Source\SceneGarage.h" />
     <ClInclude Include="Source\SceneGuardBuilding.h" />
     <ClInclude Include="Source\SceneGunShop.h" />
+    <ClInclude Include="Source\SceneUI.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\UIManager.h" />
     <ClInclude Include="Source\Utility.h" />

@@ -1,5 +1,5 @@
-#ifndef SCENE_2021_H
-#define SCENE_2021_H
+#ifndef SCENE_UI_H
+#define SCENE_UI_H
 
 #include <map>
 
@@ -33,7 +33,7 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
-class Scene2021 : public Scene
+class SceneUI : public Scene
 {
 	enum INTERACTION_TYPE {
 		TEST,
@@ -84,6 +84,7 @@ private:
 	void SpawnStreetLamps();
 	void SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType);
 	void RenderTexts();
+	void TopDownMainMenuUpdate(double dt);
 	//topdown cam map
 	bool camMap;
 
@@ -97,8 +98,8 @@ private:
 public:
 	Camera camera;
 
-	Scene2021();
-	~Scene2021();
+	SceneUI();
+	~SceneUI();
 
 	//Notifications
 

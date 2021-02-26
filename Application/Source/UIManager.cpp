@@ -1,6 +1,7 @@
 #include "UIManager.h"
 #include "Application.h"
 #include <cmath>
+#include "Scene2021.h"
 
 int UIManager::digitCount(int num) //returns number of digits in parameter
 {
@@ -279,7 +280,7 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{
 					setCurrentUI(UI_GENERAL);
-					Game::switchScene(S_HOUSEFIRE);
+					Game::switchScene(Game::getPrevSceneENUM());
 				}
 				if (buttonCollide->buttonClicked->getName() == "MainMenuCreditsButton" && buttonCollide->justClicked)//Main Menu credits button
 				{
@@ -294,11 +295,12 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{
 					setCurrentUI(UI_GENERAL);
-					Game::switchScene(S_HOUSEFIRE);
+					Game::switchScene(Game::getPrevSceneENUM());
 				}
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
 				{
 					setCurrentUI(UI_MAIN_MENU);
+					Game::switchScene(S_UI);
 				}
 				break;
 			case UI_INTERACTION:
