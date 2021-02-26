@@ -176,6 +176,12 @@ void UIManager::Init() {
 			createTextButton(bManagers[i], "EInteract", 58, 25, 12.8, 6.4, 0, 0, Color(1, 1, 1), "Press E to interact", 4);
 			bManagers[i]->activateButton("EInteract");
 			break;
+		case UI_SCENE_TRANSITION:
+			createNoTextButton(bManagers[i], "TransitionBackground", 64, 36, 172, 102, GEOMETRY_TYPE::GEO_BLACK);
+			createTextButton(bManagers[i], "TransitionText", 20, 32, 0.f, 0.f, 0.f, 0.f, Color(0.9, 0.9, 0.9), "", 6.f, FONTTYPE::SUPERMARIO);
+			bManagers[i]->deactivateButton("TransitionBackground");
+			bManagers[i]->deactivateButton("TransitionText");
+			break;
 		}
 	}
 
@@ -381,14 +387,20 @@ void UIManager::changeTextButton(std::string newText, std::string bName)
 
 void UIManager::createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize)
 {
+	createTextButton(bManager, buttonName, originX, originY, quadSizeX, quadSizeY, offsetX, offsetY, textColour, textString, textSize, CALIBRI);
+}
+
+void UIManager::createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize, FONTTYPE type)
+{
 	Button* namedButton;
 	namedButton = new Button(buttonName, originX, originY, quadSizeX, quadSizeY, UI_BLANK);
-	namedButton->spawnTextObject("Text", textColour, CALIBRI, textSize);
+	namedButton->spawnTextObject("Text", textColour, type, textSize);
 	namedButton->getTextObject()->setTextString(textString);
 	namedButton->getTextObject()->setTextOffsetFromTopLeft(offsetX, offsetY);
 	bManager->addButton(namedButton);
 	bManager->deactivateButton(textString);
 }
+
 
 void UIManager::createNoTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture)
 {
@@ -413,6 +425,10 @@ void UIManager::setUIactive(UI_MENUS ui) {
 	this->activeMenus[ui] = true;
 }
 
+UI_MENUS UIManager::getPrevMenu() {
+	return this->prevMenu;
+}
+
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
 	Game::inv.getActiveWeapon()->setUIcooldown(0.5f);
@@ -424,6 +440,7 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 	}
 	
 	Application::setCursorEnabled(false);
+	this->prevMenu = this->currentMenu;
 	this->currentMenu = newUI;
 	switch (newUI)
 	{

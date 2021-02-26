@@ -509,6 +509,8 @@ void SceneHouseFire::CollisionHandler(double dt) {
 						//Player get out of car
 						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving() && this->arrviedAtFinalSpot) {
 							Game::iManager.loadInteraction("HouseFire Out Of Car");
+							Game::mManager.addProgress(MISSIONTYPE::MISSION_FIND_HOUSE, 100.0);
+							
 							player->setDriving(nullptr, false);
 							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 							((Car*)entry)->setPlayer(nullptr);

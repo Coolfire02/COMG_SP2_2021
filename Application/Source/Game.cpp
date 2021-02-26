@@ -18,6 +18,7 @@ double Game::startSwitchTime = 0.0;
 
 Inventory Game::inv;
 UIManager Game::uiManager;
+bool Game::gameExit = false;
 
 Game::Game()
 {

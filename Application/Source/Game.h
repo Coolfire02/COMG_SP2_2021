@@ -40,6 +40,7 @@ public:
 	static int ammo;
 	static int cash;
 	static double gElapsedTime;
+	static bool gameExit;
 
 	static MissionManager mManager;
 	static InteractionManager iManager;

@@ -274,6 +274,9 @@ bool MeshHandler::loadMeshes() {
 
 	meshList[GEO_ROADWAYPOINT] = MeshBuilder::GenerateQuad("roadwaypoint", Color(0, 0, 0));
 	meshList[GEO_ROADWAYPOINT]->textureID = LoadTGA("Image//Miscellaneous//RoadWayPoint.tga");
+
+	meshList[GEO_BLACK] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
+	meshList[GEO_BLACK]->textureID = LoadTGA("Image//Miscellaneous//black_bg.tga");
 	
 	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
 	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");
