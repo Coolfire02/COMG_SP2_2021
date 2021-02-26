@@ -909,71 +909,71 @@ void Scene2021::Render()
 			else {
 				continue;
 			}
-		entity->Render();
+			entity->Render();
 
-		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
-			modelStack.PushMatrix();
-			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
-			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
-			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
-			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
-			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
-			this->RenderMesh(mesh, false);
-			modelStack.PopMatrix();
-			delete mesh;
+			if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
+				modelStack.PushMatrix();
+				Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
+				modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
+				modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+				modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
+				modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
+				modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
+				this->RenderMesh(mesh, false);
+				modelStack.PopMatrix();
+				delete mesh;
+			}
 		}
-	}
 
-	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.Normalize();
+		if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
+			Vector3 view = (camera.target - camera.position).Normalized();
+			Vector3 right = view.Cross(camera.up);
+			right.Normalize();
 
-		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
-		//modelStack.Translate(0.175, -0.1, -0.35);
-		modelStack.Scale(0.8, 0.8, 0.8);
-		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
-		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.25, -0.1, 0.75);
-		modelStack.Rotate(185, 0, 1, 0);
-		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
-		modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
+			//modelStack.Translate(0.175, -0.1, -0.35);
+			modelStack.Scale(0.8, 0.8, 0.8);
+			modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
+			modelStack.Rotate(camera.total_yaw, 0, 1, 0);
+			modelStack.Translate(0.25, -0.1, 0.75);
+			modelStack.Rotate(185, 0, 1, 0);
+			RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
+			modelStack.PopMatrix();
 
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
-	}
-	std::ostringstream ss;
+			RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
+		}
+		std::ostringstream ss;
 
-	//Coins UI
-	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
+		//Coins UI
+		//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
 
-	/*ss.str("");
-	ss.clear();
-	std::string bal = std::to_string(coinBalance);
-	if (coinBalance < 10) bal = "0" + bal;
-	if (coinBalance < 100) bal = "0" + bal;
-	if (coinBalance > 999) bal = "999";
-	ss << bal;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
+		/*ss.str("");
+		ss.clear();
+		std::string bal = std::to_string(coinBalance);
+		if (coinBalance < 10) bal = "0" + bal;
+		if (coinBalance < 100) bal = "0" + bal;
+		if (coinBalance > 999) bal = "999";
+		ss << bal;
+		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	RenderUI();
-	RenderTexts();
+		RenderUI();
+		RenderTexts();
 
-	//Interaction MSG UI
-	if (canInteractWithSomething && !isInteracting) {
+		//Interaction MSG UI
+		if (canInteractWithSomething && !isInteracting) {
+			ss.str("");
+			ss.clear();
+			ss << "Press 'E' to Interact";
+			RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
+		}
+
+		//FPS UI
 		ss.str("");
 		ss.clear();
-		ss << "Press 'E' to Interact";
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
+		ss << "FPS: " << fps;
+		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 	}
-
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
-
 }
 
 void Scene2021::RenderSkybox() {
