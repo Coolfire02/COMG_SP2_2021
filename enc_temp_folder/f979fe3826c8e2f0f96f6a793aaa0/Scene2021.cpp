@@ -900,6 +900,7 @@ void Scene2021::Render()
 			else {
 				continue;
 			}
+		}
 		entity->Render();
 
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
