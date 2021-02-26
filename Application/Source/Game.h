@@ -19,6 +19,7 @@ enum SCENES
 	S_GUARD,
 	S_CARSHOP,
 	S_UI,
+	S_OFFICE,
 	S_COUNT
 };
 
