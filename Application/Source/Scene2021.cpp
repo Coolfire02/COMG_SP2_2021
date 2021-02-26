@@ -13,6 +13,7 @@
 #include "InteractionManager.h"
 #include "Debug.h"
 #include "AudioHandler.h"
+#include "SceneGarage.h"
 
 Scene2021::Scene2021() :
 	eManager(this)
@@ -55,18 +56,23 @@ void Scene2021::MissionCompleteListener(double dt)
 		{
 		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_FOUNTAIN:
 			DEBUG_MSG("Completed Mission Visit Fountain Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_RESTAURANT:
 			DEBUG_MSG("Completed Mission Visit Restaurant Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_TALK_TO_NPC:
 			DEBUG_MSG("Completed Mission Talk To NPC Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
 			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
+			Game::cash += 3000;
 			break;
 		}
 	}
@@ -171,17 +177,11 @@ void Scene2021::Init()
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* car = new Car(RACER, this, "car");
+	Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(-197, 0.25, -131);
 	car->getEntityData()->SetRotate(0, -90, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
-
-	Entity* car2 = new Car(RACER, this, "car");
-	car2->getEntityData()->SetTransform(0, 0.25, 0);
-	car2->getEntityData()->SetRotate(0, -90, 0);
-	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car2);
 
 	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-100, 0, -100), Vector3(100, 2, 100)), "fountainHitBox");
 	fountainHitBox->getEntityData()->Translate.Set(365, 0, 60);
@@ -195,6 +195,10 @@ void Scene2021::Init()
 	gunShopHitBox->getEntityData()->Translate.Set(160, 0, -210);
 	eManager.spawnWorldEntity(gunShopHitBox);
 
+	CustomEntity* garageHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -20), Vector3(15, 2, 20)), "garageHitBox");
+	garageHitBox->getEntityData()->Translate.Set(-320, 0, 240);
+	eManager.spawnWorldEntity(garageHitBox);
+
 	SpawnBuildings();
 	SpawnStreetLamps();
 
@@ -203,38 +207,10 @@ void Scene2021::Init()
 		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
 
-	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
-	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
-	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
-	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(eggmanInteractZone);
-
-	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
-	//shopBase->getEntityData()->transX = -30.0f;
-	//shopBase->getEntityData()->transZ = 33.0f;
-	//shopBase->getEntityData()->scaleX = 6;
-	//shopBase->getEntityData()->scaleY = 3;
-	//shopBase->getEntityData()->scaleZ = 6;
-	//shoeShopX = shopBase->getEntityData()->transX;
-	//shoeShopY = shopBase->getEntityData()->transY;
-	//shoeShopZ = shopBase->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(shopBase);
-
-	//Camera init(starting pos, where it looks at, up
-	player = new Player(this, Vector3(0, 0, 0), "player");
+	//player and camera init
+	player = new Player(this, Vector3(-193, 0.25, -126), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
-
-	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
-	//tree->getEntityData()->Translate.Set(60, 1, -30);
-	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
-	//eManager.spawnWorldEntity(tree);
-
-	/*Entity* car = new Car(SEDAN, this, "sedan");
-	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
-	eManager.spawnMovingEntity(car);*/
-
-
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -243,83 +219,6 @@ void Scene2021::Init()
 	camera2.Init(Vector3(player->getEntityData()->Translate.x, 150, player->getEntityData()->Translate.z),
 		Vector3(0, -50, -1),
 		Vector3(0, 1, 0));
-
-	//Light init
-	//light[0].type = Light::LIGHT_DIRECTIONAL;
-	//light[0].position.set(0, 100, 0);
-	//light[0].color.set(1, 1, 1); //set to white light
-	//light[0].power = 0.5;
-	//light[0].kC = 1.f;
-	//light[0].kL = 0.01f;
-	//light[0].kQ = 0.001f;
-	//light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	//light[0].cosInner = cos(Math::DegreeToRadian(30));
-	//light[0].exponent = 3.f;
-	//light[0].spotDirection.Set(0.f, 1.f, 0.f);
-
-	////2nd light
-	//light[1].type = Light::LIGHT_SPOT;
-	//light[1].position.set(0, 0, 0);
-	//light[1].color.set(1.f,1.f,1.f); //set to white light
-	//light[1].power = 0;
-	//light[1].kC = 1.f;
-	//light[1].kL = 0.1f;
-	//light[1].kQ = 0.01f;
-	//light[1].cosCutoff = cos(Math::DegreeToRadian(45));
-	//light[1].cosInner = cos(Math::DegreeToRadian(30));
-	//light[1].exponent = 3.f;
-	//light[1].spotDirection.Set(0, 0, 1);
-
-	////3rd light
-	//light[2].type = Light::LIGHT_SPOT;
-	//light[2].position.set(0, 0, 0);
-	//light[2].color.set(1.f, 1.f, 1.f); //set to white light
-	//light[2].power = 1;
-	//light[2].kC = 1.f;
-	//light[2].kL = 0.1f;
-	//light[2].kQ = 0.01f;
-	//light[2].cosCutoff = cos(Math::DegreeToRadian(45));
-	//light[2].cosInner = cos(Math::DegreeToRadian(30));
-	//light[2].exponent = 1.f;
-	//light[2].spotDirection.Set(0, 0, 1);
-
-
-	//// Make sure you pass uniform parameters after glUseProgram()
-	////week7
-	//glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	////week6
-	//glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-	//glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
-	//glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-	//glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-	//glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
-	////week7
-	//glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-	//glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-	//glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
-
-	//glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-	//glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
-	//glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-	//glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
-	//glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
-	//glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
-	//glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
-	//glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
-	//glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
-
-	//glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
-	//glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
-	//glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
-	//glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
-	//glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
-	//glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
-	//glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
-	//glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
-	//glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
-
-	////Week 7 - Code to change number of lights
-	//glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 
 	InitLights();
 
@@ -335,18 +234,27 @@ void Scene2021::Init()
 
 void Scene2021::Update(double dt)
 {
-	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
+	{
+		light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+		light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
+		bool ePressed = Application::IsKeyPressed('E');
+		bool pPressed = Application::IsKeyPressed('P');
+		bool tPressed = Application::IsKeyPressed('T');
 
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
+		if (GetAsyncKeyState('1') & 0x8001) {
+			glEnable(GL_CULL_FACE);
+		}
+		else if (GetAsyncKeyState('2') & 0x8001) {
+			glDisable(GL_CULL_FACE);
+		}
+
+	if (Application::IsKeyPressed('8'))
+	{
+		Scene * var = Game::getSceneByName("GarageScene");
+		static_cast <SceneGarage*>(var)->updateCarSpawn();
+		Game::switchScene(S_2051);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -356,68 +264,74 @@ void Scene2021::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
-	MissionCompleteListener(dt);
-	if (!Game::iManager.isInteracting()) {
-		CollisionHandler(dt);
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+		TopDownMapUpdate(dt);
+		if (!Game::iManager.isInteracting()) {
+			CollisionHandler(dt);
 
-		std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+			std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
 
-		Vector3 pLoc = player->getEntityData()->Translate;
-		Vector3 oldLoc = Vector3(pLoc);
+			Vector3 pLoc = player->getEntityData()->Translate;
+			Vector3 oldLoc = Vector3(pLoc);
 
-		//Requires Implementation of Velocity by Joash
-		float playerSpeed = 15.0;
-		if (!((Player*)player)->isDriving()) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-				camera.position.y += CameraBobber;
-			}
-
-			if (Application::IsKeyPressed('W')) {
-
-				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
-					playerSpeed = 25.f;
+			//Requires Implementation of Velocity by Joash
+			float playerSpeed = 15.0;
+			if (!((Player*)player)->isDriving()) {
+				Vector3 view = (camera.target - camera.position).Normalized();
+				if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+					camera.position.y += CameraBobber;
 				}
 
-				pLoc += view * (float)dt * playerSpeed;
+				if (Application::IsKeyPressed('W')) {
 
+					if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
+						playerSpeed = 25.f;
+					}
+
+					pLoc += view * (float)dt * playerSpeed;
+
+				}
+				if (Application::IsKeyPressed('A')) {
+					Vector3 right = view.Cross(camera.up);
+					right.y = 0;
+					right.Normalize();
+					Vector3 up = right.Cross(view).Normalized();
+					pLoc -= right * (float)dt * playerSpeed;
+				}
+
+				if (Application::IsKeyPressed('S')) {
+					pLoc -= view * (float)dt * playerSpeed;
+				}
+
+				if (Application::IsKeyPressed('D')) {
+					Vector3 right = view.Cross(camera.up);
+					right.y = 0;
+					right.Normalize();
+					Vector3 up = right.Cross(view).Normalized();
+					pLoc += right * (float)dt * playerSpeed;
+				}
+
+				// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+				player->getEntityData()->Translate.x = pLoc.x;
+				// Skip y since we want level ground
+				player->getEntityData()->Translate.z = pLoc.z;
+
+				bobTime += dt;
+				CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 			}
-			if (Application::IsKeyPressed('A')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc -= right * (float)dt * playerSpeed;
-			}
 
-			if (Application::IsKeyPressed('S')) {
-				pLoc -= view * (float)dt * playerSpeed;
-			}
+			Vector3 view = (camera.target - camera.position).Normalized();
 
-			if (Application::IsKeyPressed('D')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc += right * (float)dt * playerSpeed;
-			}
+			if (!player->isDriving())
+				Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 
-			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-			player->getEntityData()->Translate.x = pLoc.x;
-			// Skip y since we want level ground
-			player->getEntityData()->Translate.z = pLoc.z;
-
-			bobTime += dt;
-			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
-
-		Vector3 view = (camera.target - camera.position).Normalized();
-
-		if (!player->isDriving())
-			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
-
+		MissionCompleteListener(dt);
+	}
+	else
+	{
+		camera.camType = TOPDOWN_MAINMENU;
+		TopDownMainMenuUpdate(dt);
 	}
 }
 
@@ -496,6 +410,7 @@ void Scene2021::InitLights() {
 
 void Scene2021::CollisionHandler(double dt) {
 	interactionTimer += dt;
+
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -552,7 +467,6 @@ void Scene2021::CollisionHandler(double dt) {
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
 			((NPC*)entry)->Walk(dt);
-
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
@@ -595,7 +509,15 @@ void Scene2021::CollisionHandler(double dt) {
 			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
 
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-					entry->victim->setDead(true);
+					std::cout << "HEALTH: " << entry->victim->getHealth() << " DMG: " << Game::inv.getActiveWeapon()->getDamage() << std::endl;
+					if (entry->victim->getHealth() <= 0)
+					{
+						entry->victim->setDead(true);
+						entry->victim->setHealth(0);
+						Game::cash += 100;
+					}
+					entry->victim->setHealth(entry->victim->getHealth() - Game::inv.getActiveWeapon()->getDamage());
+
 				}
 				DEBUG_MSG("BULLET PEWPEW");
 				entry->attacker->setDead(true);
@@ -630,7 +552,7 @@ void Scene2021::CollisionHandler(double dt) {
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
-									Game::activeScene = S_GUNSHOP;
+									Game::switchScene(S_GUNSHOP);
 									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
 								}
 							}
@@ -639,11 +561,22 @@ void Scene2021::CollisionHandler(double dt) {
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
-									Game::activeScene = S_GUNSHOP;
+									Game::switchScene(S_GUNSHOP);
 									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
 								}
 							}
 						}
+					}
+				}
+				if (entry->victim->getName().find("garageHitBox") != std::string::npos) 
+				{
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Scene* var = Game::getSceneByName("GarageScene");
+						static_cast <SceneGarage*>(var)->updateCarSpawn();
+						Game::switchScene(S_GARAGE);
 					}
 				}
 			}
@@ -654,7 +587,7 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 						{
-							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP && Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 50)
+							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP && Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP) >= 50) //check if visit gunshop mission is completable and mission progress of it is more than 50
 							{
 								if (ePressed && !eHeld)
 								{
@@ -673,9 +606,6 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				// entry->attacker->cancelNextMovement();
-				//crash->drop(); Not Needed since nothing to drop, returns null if no loop. //Plays and clears from memory when finished playing
-
 				if (((Car*)entry->attacker)->getSpeed() > 0.7) {
 					vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
 
@@ -822,7 +752,7 @@ void Scene2021::Render()
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camMap)
+	if (camMap || Game::uiManager.getCurrentMenu() == UI_MAIN_MENU || Game::uiManager.getCurrentMenu() == UI_CREDITS)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,
@@ -838,19 +768,19 @@ void Scene2021::Render()
 
 	}
 
-
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
+	}
 
 	RenderRoads();
-
-	
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -888,10 +818,10 @@ void Scene2021::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		//modelStack.PushMatrix();
-		//modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		//modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
 		break;
 	case TOPDOWN_THIRDPERSON:
 		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
@@ -1020,6 +950,9 @@ void Scene2021::RenderSkybox() {
 		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
 		break;
 	case TOPDOWN_THIRDPERSON:
+		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
+		break;
+	case TOPDOWN_MAINMENU:
 		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
 		break;
 	default:
@@ -1537,10 +1470,11 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 	int randomRotation = rand() % 359 + 1;
 
-	Entity* testNPC = new NPC(this, geoType, "test");
-	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
+	Entity* testNPC = new NPC(this, geoType, "test", 50);
+	testNPC->getEntityData()->SetTransform(randomX, 2, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);
+
 	eManager.spawnMovingEntity(testNPC);
 }
 
@@ -1574,14 +1508,51 @@ void Scene2021::RenderTexts()
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "GUN SHOP", Color(1, 0, 1));
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Translate(-330, 15, 245);
+	modelStack.Rotate(-270, 0, 1, 0);
+	modelStack.Scale(5, 5, 5);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
+	modelStack.PopMatrix();
+}
+float camY = 400;
+int directionY = 1;
+void Scene2021::TopDownMainMenuUpdate(double dt)
+{
+	if (camY > 475)
+		directionY = -1;
+	else if (camY < 100)
+		directionY = 1;
 
+	camY += 10 * dt * directionY;
+
+	camera2.position.Set(0,
+		camY,
+		0);
+
+	camera2.target.Set(0, 0, 0);
+
+	Mtx44 rotation;
+	rotation.SetToRotation(3 * dt, 0, 1, 0);
+	camera2.up = rotation * camera2.up;
 }
 
 void Scene2021::RenderUI()
 {
 	Game::RenderUI();
+
 	if (player->isDriving())
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
+}
+
+void Scene2021::spawnGarageCar(CAR_TYPE carType)
+{
+	Entity* newCar = new Car(carType, this, "newCarFromGarage");
+	newCar->getEntityData()->SetTransform(-320, 0, 245);
+	newCar->getEntityData()->SetRotate(0, 0, 0);
+	newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+
+	this->eManager.spawnMovingEntity(newCar);
 }
 
 void Scene2021::Exit()
@@ -1592,3 +1563,4 @@ void Scene2021::Exit()
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }
+

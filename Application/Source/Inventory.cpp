@@ -14,7 +14,7 @@ Inventory::Inventory()
 
 	//for weapon inven
 	weaponInv = nullptr;
-	addWeap(SILENCER);
+	//addWeap(SILENCER);
 }
 
 Inventory::~Inventory()
@@ -69,7 +69,8 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 
 void Inventory::deleteWeapon(WEAPON_TYPE wType)
 {
-	this->weaponInv->delWeapon(wType);
+	if(weaponInv != nullptr)
+		this->weaponInv->delWeapon(wType);
 }
 
 void Inventory::switchCar(int cartype)
@@ -86,7 +87,8 @@ void Inventory::switchCar(int cartype)
 
 void Inventory::switchWeapon(int index)
 {
-	weaponInv->switchActiveWeapon(index);
+	if(weaponInv != nullptr)
+		weaponInv->switchActiveWeapon(index);
 }
 
 void Inventory::toggleItem()
@@ -170,7 +172,7 @@ void Inventory::Update(double dt)
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemAmount")->disable();
 
 	//Weapons
-	if (weaponInv->getActiveWeapon() == nullptr)
+	if (weaponInv == nullptr || weaponInv->getActiveWeapon() == nullptr)
 	{
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
@@ -299,7 +301,7 @@ void Inventory::Update(double dt)
 	}
 
 	//For Weapon Inventory
-	if (weaponInv->getActiveWeapon() == nullptr && weaponInv->getWeaponList().empty()) //If there is no Item Inventory
+	if (weaponInv == nullptr || weaponInv->getActiveWeapon() == nullptr && weaponInv->getWeaponList().empty()) //If there is no Item Inventory
 	{
 		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < WEAPON_COUNT; i++)
@@ -482,6 +484,7 @@ void Inventory::Update(double dt)
 				break;
 			}
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->enable();
+			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrentBorder")->enable();
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->enable();
 		}
 
@@ -500,9 +503,9 @@ void Inventory::Update(double dt)
 	}
 
 	toggleTimer += dt;
-	if (Application::IsKeyPressed('E')) //pick up weapon
+	if (false && Application::IsKeyPressed('E')) //pick up weapon
 		addWeap(PISTOL);
-	if (Application::IsKeyPressed('F')) //pick up weapon
+	if (false && Application::IsKeyPressed('F')) //pick up weapon
 	{
 		addItem(BURGER, 1);
 		addItem(CORN, 2);
@@ -515,7 +518,7 @@ void Inventory::Update(double dt)
 		addCar(POLICE);
 		addCar(RACER);
 
-		addCar(SUV);
+		//addCar(SUV);
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
 		switchWeapon(0); //weapon slot 1
@@ -543,7 +546,7 @@ int Inventory::getCurrentItemAmt()
 
 Weapon* Inventory::getActiveWeapon()
 {
-	if (weaponInv->getWeaponList().empty())
+	if (weaponInv == nullptr || weaponInv->getWeaponList().empty())
 		return nullptr;
 	else
 		return weaponInv->getActiveWeapon();
