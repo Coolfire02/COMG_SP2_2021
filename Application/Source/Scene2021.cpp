@@ -570,6 +570,7 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						eHeld = true;
 						Scene* var = Game::getSceneByName("GarageScene");
+						static_cast <SceneGarage*>(var)->deletePrevCar();
 						static_cast <SceneGarage*>(var)->updateCarSpawn();
 						Game::switchScene(S_GARAGE);
 					}

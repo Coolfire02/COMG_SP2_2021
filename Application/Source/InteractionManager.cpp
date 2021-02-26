@@ -91,6 +91,7 @@ bool InteractionManager::runCommand(Command cmd) {
 			Game::inv.addWeap(SILENCER);
 		}
 
+
 		else if (splitVar.at(0) == "/closeblackscreen") {
 			if (cmd.scene->getName() == "TimePortal") {
 				((SceneTimePortal*)cmd.scene)->blackScreen = false;

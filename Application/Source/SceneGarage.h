@@ -102,7 +102,7 @@ public:
 	virtual void Render();
 	virtual void Exit();
 
-
+	void deletePrevCar();
 	void updateCarSpawn();
 };
 

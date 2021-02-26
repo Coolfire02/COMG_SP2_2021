@@ -45,13 +45,25 @@ void Car::Init(CAR_TYPE type, Scene* scene, std::string name) {
 		this->maxCarSpeed = 1.5f;
 		this->associatedType = GEO_RACER;
 		break;
-	case HATCHBACKSPORTS:
-		this->maxCarSpeed = 1.f;
-		this->associatedType = GEO_HATCHBACKSPORTS;
+	case POLICE:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_POLICE;
 		break;
-	case TRACTOR:
+	case AMBULANCE:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_AMBULANCE;
+		break;
+	case SUV:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_SUV;
+		break;
+	case HATCH_BACK_SPORTS:
+		this->maxCarSpeed = 1.0f;
+		this->associatedType = GEO_HATCH_BACK_SPORTS;
+		break;
+	case TRACTOR_SHOVEL:
 		this->maxCarSpeed = 0.25f;
-		this->associatedType = GEO_TRACTOR;
+		this->associatedType = GEO_TRACTOR_SHOVEL;
 		break;
 	case TRUCK:
 		this->maxCarSpeed = 0.75f;
@@ -162,10 +174,19 @@ float Car::getMaxCarSpeed(CAR_TYPE carType)
 	case RACER:
 		return 1.5f;
 		break;
-	case HATCHBACKSPORTS:
+	case POLICE:
+		return 0.5f;
+		break;
+	case AMBULANCE:
+		return 0.5f;
+		break;
+	case SUV:
+		return 0.5f;
+		break;
+	case HATCH_BACK_SPORTS:
 		return 1.f;
 		break;
-	case TRACTOR:
+	case TRACTOR_SHOVEL:
 		return 0.25f;
 		break;
 	case TRUCK:

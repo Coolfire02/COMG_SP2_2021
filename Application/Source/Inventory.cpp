@@ -433,16 +433,26 @@ void Inventory::Update(double dt)
 			case RACER:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_RACER);
 				break;
-			case HATCHBACKSPORTS:
+			case POLICE:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_POLICE);
 				break;
-			case TRACTOR:
+			case AMBULANCE:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_AMBULANCE);
 				break;
-			case TRUCK:
+			case SUV:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_SUV);
 				break;
+			case HATCH_BACK_SPORTS:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_HATCH_BACK_SPORTS);
+				break;
+			case TRACTOR_SHOVEL:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_TRACTOR_SHOVEL);
+				break;
+			case TRUCK:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_TRUCK);
+				break;
 			case VAN:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_VAN);
 				break;
 			}
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventorySlot" + std::to_string(i + 1))->enable();
@@ -472,19 +482,33 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_RACER);
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Racer\nSpeed:\n" + currentCar->getMaxCarSpd(RACER) + "km/h");
 				break;
-			case HATCHBACKSPORTS:
+			case POLICE:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_POLICE);
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Police\nSpeed:\n" + currentCar->getMaxCarSpd(HATCHBACKSPORTS) + "km/h");
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Police\nSpeed:\n" + currentCar->getMaxCarSpd(POLICE) + "km/h");
 				break;
-			case TRACTOR:
+			case AMBULANCE:
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_AMBULANCE);
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Ambulance\nSpeed:\n" + currentCar->getMaxCarSpd(TRACTOR) + "km/h");
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Ambulance\nSpeed:\n" + currentCar->getMaxCarSpd(AMBULANCE) + "km/h");
+				break;
+			case SUV:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_SUV);
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("SUV\nSpeed:\n" + currentCar->getMaxCarSpd(SUV) + "km/h");
+				break;
+			case HATCH_BACK_SPORTS:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_HATCH_BACK_SPORTS);
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Police\nSpeed:\n" + currentCar->getMaxCarSpd(HATCH_BACK_SPORTS) + "km/h");
+				break;
+			case TRACTOR_SHOVEL:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_TRACTOR_SHOVEL);
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("Ambulance\nSpeed:\n" + currentCar->getMaxCarSpd(TRACTOR_SHOVEL) + "km/h");
 				break;
 			case TRUCK:
-				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_SUV);
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_TRUCK);
 				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("SUV\nSpeed:\n" + currentCar->getMaxCarSpd(TRUCK) + "km/h");
 				break;
 			case VAN:
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->setQuadImage(UI_VAN);
+				Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryName")->setText("SUV\nSpeed:\n" + currentCar->getMaxCarSpd(VAN) + "km/h");
 				break;
 			}
 			Game::uiManager.getbManagerArray(UI_GARAGE_INVENTORY)->getButtonByName("UIGarageInventoryCurrent")->enable();
@@ -519,10 +543,9 @@ void Inventory::Update(double dt)
 
 		addCar(SEDAN);
 
-		addCar(TRACTOR);
 		addCar(RACER);
 
-		//addCar(SUV);
+		addCar(SUV);
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
 		switchWeapon(0); //weapon slot 1

@@ -609,7 +609,9 @@ void SceneGarage::CollisionHandler(double dt) {
 					Scene* var = Game::getSceneByName("MainScene");
 					static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
 
+
 					entry->attacker->getEntityData()->Translate.Set(0.f, -10.f,0.0f);
+					
 					Game::switchScene(S_2021);
 				}
 			}
@@ -644,63 +646,7 @@ void SceneGarage::CollisionHandler(double dt) {
 void SceneGarage::TopDownMapUpdate(double dt)
 {
 	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		300,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(-view.x, 0, -view.z);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	}
+	
 }
 
 void SceneGarage::Render()
@@ -974,6 +920,25 @@ void SceneGarage::SpawnWalls()
 	initCollidables(Vector3(0.0f, 12.4f, 50.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
 	initCollidables(Vector3(0.0f, 12.4f, -50.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
 	initCollidables(Vector3(0.0f, 11.0f, 49.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(40.0f, 22.0f, 50.0f), GARAGE_DOOR); //garage door
+}
+
+void SceneGarage::deletePrevCar()
+{
+	for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
+	{
+		for (int j = 0; j < this->eManager.getEntities().size(); j++)
+		{
+			Entity* entity = this->eManager.getEntities().at(j);
+			if (entity->getType() == ENTITYTYPE::CAR)
+			{
+				if (entity->getName() == ("garageCar" + std::to_string(i + 1)))
+				{
+					entity->setDead(true);
+				}
+				break;
+			}
+		}
+	}
 }
 
 void SceneGarage::updateCarSpawn()
