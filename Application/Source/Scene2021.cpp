@@ -518,7 +518,6 @@ void Scene2021::CollisionHandler(double dt) {
 				entry->attacker->setDead(true);
 			}
 		}
-		Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
 
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
