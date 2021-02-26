@@ -57,6 +57,12 @@ bool InteractionManager::runCommand(Command cmd) {
 			Game::ammo += 15; // later change ammo to weapon inventory ammo
 			return true;
 		}
+		else if (splitVar.at(0) == "/entertimeportal") {
+			// year is now 2021
+			// load interaction after a few seconds.
+			Game::mManager.addProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL, 100.0f);
+			return true;
+		}
 	}
 	else if (splitVar.size() >= 2) {
 		if (splitVar.at(0) == "/givecoin") {
@@ -65,7 +71,7 @@ bool InteractionManager::runCommand(Command cmd) {
 		}
 	}
 
-	return true;
+	return false;
 }
 
 /******************************************************************************/
@@ -141,11 +147,19 @@ bool InteractionManager::initInteractions(const char* filePath)
 		}
 		else if ((strncmp("- MSG: ", buf, 7) == 0)) {
 			if (interaction != nullptr) {
-				char msg[256];
+				char msg[1024];
+				std::vector<std::string> splitvar;
+				std::string outMsg;
 				strcpy_s(msg, buf + 7);
 				if (msg[strlen(msg) - 1] == '\r')
 					msg[strlen(msg) - 1] = '\0';
-				interaction->interactionText = msg;
+
+				split(msg, ';', splitvar);
+				for (int i = 0; i < splitvar.size(); ++i) {
+					outMsg += splitvar[i];
+					outMsg += '\n';
+				}
+				interaction->interactionText = outMsg;
 			}
 		}
 		else if ((strncmp("- precmd: ", buf, 10) == 0)) {

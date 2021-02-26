@@ -54,6 +54,10 @@ Reset the FirstPersonCamera settings
 /******************************************************************************/
 void Camera::Reset()
 {
+	target = position - Vector3(0, 0, 1);
+	up = defaultUp;
+	total_pitch = 0;
+	total_yaw = 0;
 }
 
 /******************************************************************************/
@@ -67,6 +71,8 @@ To be called every frame. FirstPersonCamera will get user inputs and update its 
 void Camera::Update(double dt)
 {
 	if (Application::cursorEnabled) return;
+	if (Application::IsKeyPressed('P')) Reset();
+
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	right.y = 0;
@@ -92,6 +98,8 @@ void Camera::Update(double dt)
 		}
 		if (pitch != 0)
 		{
+
+
 			total_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
 			if (total_pitch > 79.f) {
 				total_pitch = 79.f;
@@ -110,10 +118,6 @@ void Camera::Update(double dt)
 			rotation.SetToRotation(pitch, right.x, right.y, right.z);
 			view = rotation * view;
 			target = position + view;
-		}
-		if (Application::IsKeyPressed('R'))
-		{
-			Reset();
 		}
 
 		break;

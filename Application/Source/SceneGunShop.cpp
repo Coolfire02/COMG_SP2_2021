@@ -270,7 +270,7 @@ void SceneGunShop::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -517,11 +517,14 @@ void SceneGunShop::CollisionHandler(double dt) {
 			entry->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
-					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables))
+					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables)) {
 						Game::iManager.loadInteraction("drugman");
+						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+					}
 					else
 						Game::iManager.loadInteraction("Gunshop1");
 				}

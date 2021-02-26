@@ -103,22 +103,51 @@ void SceneTimePortal::Init() {
 	projectionStack.LoadMatrix(projection);
 
 	Entity* timePortal = new WorldObject(this, GEO_TIMEPORTAL_DOOR, "timeportal");
+	timePortal->setType(TIMEPORTAL);
 	timePortal->getEntityData()->Translate = Vector3(0, 0, -10.5);
 	timePortal->getEntityData()->Rotation = Vector3(0, 90, 0);
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
-	Entity* door = new WorldObject(this, GEO_DOOR, "timeportal");
+	Entity* door = new WorldObject(this, GEO_DOOR, "door");
 	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
 	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
 	eManager.spawnWorldEntity(door);
 
+	Entity* crate;
+	{ // left side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
-	for (int i = 0; i < 10; i++)
-	{
-		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+	}
+	{ // right side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
 	}
 
 	//Entity* car = new Car(SEDAN, this, "car");
@@ -183,7 +212,7 @@ void SceneTimePortal::InitLights()
 	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[2].type = Light::LIGHT_POINT;
-	light[2].position.set(0, 0, 0);
+	light[2].position.set(0, 8, 0);
 	light[2].color.set(0.8, 1, 1);
 	light[2].power = 0.5f;
 	light[2].kC = 1.f;
@@ -264,7 +293,7 @@ void SceneTimePortal::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -412,6 +441,18 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
+		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
+			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
+				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
+				if (Game::mManager.missionIsCompletable(MISSION_ENTER_TIMEPORTAL, completables)) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E')) {
+						Game::iManager.loadInteraction("timeportal");
+					}
+				}
+			}
+		}
+
 		if (entry->getType() == ENTITYTYPE::BULLET) {
 			((Bullet*)entry)->Move(dt);
 			if (((Bullet*)entry)->getTimer() > 5) {
@@ -487,7 +528,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 		//Player Collision with any World Object
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
-			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR || entry->victim->getType() == ENTITYTYPE::TIMEPORTAL) {
 				//PUSH Back System. Another Possibility is entry->attacker->cancelNextMovement() but its deprecated and prone to some glitches.
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
 				DEBUG_MSG("Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z);
@@ -642,10 +683,10 @@ void SceneTimePortal::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
+	//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+	//modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -765,6 +806,11 @@ void SceneTimePortal::Render()
 		}
 	}
 
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
+	modelStack.PopMatrix();
+
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
 		Vector3 view = (camera.target - camera.position).Normalized();
@@ -794,6 +840,7 @@ void SceneTimePortal::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
 }
 
 void SceneTimePortal::RenderSkybox() {

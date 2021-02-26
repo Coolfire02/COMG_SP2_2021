@@ -1,35 +1,24 @@
 =========================================
 
-INTERACTION: asdsa
-- MSG: test 1
-- precmd: /yea 1
-- precmd: TestScene;/yea 1
-- postcmd: /ur mom
-# NEXT: ya
+INTERACTION: timeportal
+- MSG: Enter the time portal and travel back to 2021?
 
-CHOICE # asdsa
-- MSG: lol
-- precmd: /no
+CHOICE # timeportal
+- MSG: No
 
-CHOICE # asdsa
-- MSG: yuh
-- precmd: /ns
-# NEXT: ya
+CHOICE # timeportal
+- MSG: Yes
+- postcmd: /entertimeportal
 
-=========================================
-
-INTERACTION: ya
-- MSG: test 2
-- precmd: /yea 1
-- precmd: Scene2021;/yea 3
-- postcmd: /ur mom
+CHOICE # timeportal
+- MSG: Yes
+- postcmd: /entertimeportal
 
 =========================================
 
 INTERACTION: drugman
 - MSG: i give fake id lool
 - postcmd: /giveFakeId
-# NEXT : asdsa
 
 =========================================
 
@@ -84,9 +73,78 @@ INTERACTION: GunshopFail
 =========================================
 
 INTERACTION: npc1
-- MSG: Hello, nice to meet you.
+- MSG: Hello, nice to meet you.;test.
 
 INTERACTION: npc2
-- MSG: Hey, how're you doing.
+- MSG: Hey, How are you doing?
+
+=========================================
+
+INTERACTION: phoneCall1
+- MSG: You: Hello! I am Richard Hoeman, from the future.;Is this Mr. Gilbert?
+# NEXT: phoneCall2
+
+INTERACTION: phoneCall2
+- MSG: Gilbert: Yes, speaking.
+
+CHOICE # phoneCall2
+- MSG: I need some info from you about Mr Bimster.;Can you help me with that?
+# NEXT: phoneCall2option1
+
+CHOICE # phoneCall2
+- MSG: Great! Nice to meet you.;Heard that you know alot about Mr Bimster.
+# NEXT: phoneCall2option2
+
+=========================================
+
+INTERACTION: phoneCall2option1
+- MSG: Gilbert: What's this about?
+
+CHOICE # phoneCall2option1
+- MSG: I need a way to sneak into his office.;Gary (Gun Shop Owner) said you would be able to help me out.
+# NEXT: phoneCall2option1option1
+
+CHOICE # phoneCall2option1
+- MSG: It's actually a private matter between Mr Bimster and I.;Can you still help me with out?
+# NEXT: phoneCall2option1option2
+
+=========================================
+
+INTERACTION: phoneCall2option1option1
+- MSG: Gilbert: Oh, Gary... I see. Alright, there's a back door in the building that;you can use. Be sure to be on a lookout for guards. 
+# NEXT: phoneCall2option1option1end
+
+INTERACTION: phoneCall2option1option1end
+- MSG: You: Thank you so much!
+
+=========================================
+
+INTERACTION: phoneCall2option1option2
+- MSG: Gilbert: If you're unable to share with me,;I'm afraid I won't be able to help you out.
+# NEXT: phoneCall2option1option2end
+
+INTERACTION: phoneCall2option1option2end
+- MSG: *Hangs up*
+
+=========================================
+
+INTERACTION: phoneCall2option2
+- MSG: What do you want from me?
+
+CHOICE # phoneCall2option2
+- MSG: I just need a way to sneak into his office.;Gary (Gun Shop Owner) told me;alot of great things about you.
+# NEXT: phoneCall2option1option1
+
+CHOICE # phoneCall2option2
+- MSG: Actually, come to think of it.;I think I'll figure it out myself.
+# NEXT: phoneCall2option1option2end
+
+=========================================
+
+INTERACTION: npc1
+- MSG: Hello, nice to meet you.;test.
+
+INTERACTION: npc2
+- MSG: Hey, How are you doing?
 
 =========================================

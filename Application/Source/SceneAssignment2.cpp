@@ -144,74 +144,6 @@ void SceneAssignment2::Init() {
 	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
 	bManager.addButton(button);
 
-	/*Button* inventoryBackground;
-	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-	bManager.addButton(inventoryBackground);
-	bManager.deactivateButton("UIInventoryBackground");
-
-	Button* itemsButton;
-	itemsButton = new Button(this, "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW);
-	itemsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	itemsButton->getTextObject()->setTextString("Item");
-	itemsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(itemsButton);
-	bManager.deactivateButton("UIItemsInventory");
-
-	Button* itemsBlankButton;
-	itemsBlankButton = new Button(this, "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW);
-	itemsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	itemsBlankButton->getTextObject()->setTextString("Item");
-	itemsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(itemsBlankButton);
-	bManager.deactivateButton("UIItemsInventoryBlank");
-
-	Button* weaponsButton;
-	weaponsButton = new Button(this, "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW);
-	weaponsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	weaponsButton->getTextObject()->setTextString("Guns");
-	weaponsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(weaponsButton);
-	bManager.deactivateButton("UIWeaponsInventory");
-
-	Button* weaponsBlankButton;
-	weaponsBlankButton = new Button(this, "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW);
-	weaponsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	weaponsBlankButton->getTextObject()->setTextString("Guns");
-	weaponsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(weaponsBlankButton);
-	bManager.deactivateButton("UIWeaponsInventoryBlank");
-
-	Button* garageButton;
-	garageButton = new Button(this, "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW);
-	garageButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	garageButton->getTextObject()->setTextString("Cars");
-	garageButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(garageButton);
-	bManager.deactivateButton("UIGarageInventory");
-
-	Button* garageBlankButton;
-	garageBlankButton = new Button(this, "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW);
-	garageBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	garageBlankButton->getTextObject()->setTextString("Cars");
-	garageBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(garageBlankButton);
-	bManager.deactivateButton("UIGarageInventoryBlank");
-
-	Button* titleBackground;
-	titleBackground = new Button(this, "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-	bManager.addButton(titleBackground);
-	bManager.deactivateButton("TitleBackground");
-
-	Button* playButton;
-	playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
-	bManager.addButton(playButton);
-	bManager.deactivateButton("MainMenuPlayButton");*/
-
-	/*Button* playHoverButton;
-	playHoverButton = new Button(this, "HoverPlayButton", 64, 36, 16, 12, UI_BLUE);
-	bManager.addButton(playHoverButton);
-	bManager.deactivateButton("HoverPlayButton");*/
-
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
@@ -242,6 +174,9 @@ void SceneAssignment2::Update(double dt)
 	bool tPressed = Application::IsKeyPressed('T');
 	toggleTimer += dt;
 
+	if (Application::IsKeyPressed('8')) {
+		Game::activeScene = S_GARAGE; //for changing to garage scene testing
+	}
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
 	}
@@ -266,7 +201,7 @@ void SceneAssignment2::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -534,7 +469,7 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (ePressed) {
-					Game::iManager.loadInteraction("asdsa");
+					Game::iManager.loadInteraction("npc2");
 				}
 			}
 

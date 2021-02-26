@@ -453,7 +453,7 @@ void SceneGuardBuilding::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -492,20 +492,9 @@ void SceneGuardBuilding::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
-
-
-
-
-
-
 		if (player->isDriving()) {
 			player->getCar()->Drive(dt);
 		}
-
-
-
-
-
 
 		//MISSION HANDLING
 		for (auto& entry : Game::mManager.getCompletableMissions()) {

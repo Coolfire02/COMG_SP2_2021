@@ -23,6 +23,10 @@ Entity::~Entity() {
 	delete hitBox;
 }
 
+
+void Entity::setType(ENTITYTYPE type) {
+	this->type = type;
+}
 bool Entity::isVisible() {
 	return visible;
 }

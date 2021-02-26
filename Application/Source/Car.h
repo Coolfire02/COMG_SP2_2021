@@ -62,6 +62,7 @@ public:
 	float	 getAccel();
 	float    getSpeed();
 	Vector3  getVelocity();
+	static float	 getMaxCarSpeed(CAR_TYPE carType);
 
 	CAR_TYPE getCartype();
 	Player*  getPlayer();

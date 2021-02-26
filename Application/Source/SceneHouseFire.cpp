@@ -22,7 +22,7 @@ SceneHouseFire::SceneHouseFire() :
 
 	//Game
 	fps = 0;
-	camMap = true;
+	currentCamera = CAM_FIRE;
 	lightEnable = true;
 	hitboxEnable = false;
 }
@@ -108,16 +108,28 @@ void SceneHouseFire::Init() {
 	pistol->getEntityData()->SetScale(10, 10, 10);
 	eManager.spawnWorldEntity(pistol);
 
-	Entity* building = new WorldObject(this, GEO_TREE, "building1");
-	building->getEntityData()->SetTransform(40, 0, 0);
-	building->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building);
+	//Entity* building = new WorldObject(this, GEO_TREE, "building1");
+	//building->getEntityData()->SetTransform(40, 0, 0);
+	//building->getEntityData()->SetScale(0.5, 0.5, 0.5);
+	//eManager.spawnWorldEntity(building);
 
-	Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
-	building2->getEntityData()->SetTransform(-40, 0, 0);
-	building2->getEntityData()->SetRotate(0, 60, 0);
-	building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
-	eManager.spawnWorldEntity(building2);
+	//Entity* building2 = new WorldObject(this, GEO_TREE, "building1");
+	//building2->getEntityData()->SetTransform(-40, 0, 0);
+	//building2->getEntityData()->SetRotate(0, 60, 0);
+	//building2->getEntityData()->SetScale(0.5, 0.5, 0.5);
+	//eManager.spawnWorldEntity(building2);
+
+	Entity* house;
+	int buildingType[20] = {1,4,5,3,2,5,2,2,2,5,1,3,1,1,4,5,2,4,2,3};
+	for (int i = 0; i < 20; i++) {
+		house = new WorldObject(this, (static_cast<GEOMETRY_TYPE>(GEO_SUBURBAN_1 + buildingType[i] - 1)), "SuburbanHouse" + i);
+		house->getEntityData()->SetTransform((i > 9 ? -50 : 50), 0, (i > 9 ? (10 - 60 * (i - 10)) : (10 - 60 * i)));
+		house->getEntityData()->SetScale(20.f, 20.f, 20.f);
+		eManager.spawnWorldEntity(house);
+	}
+
+	//Entity* fire = new WorldObject(this, GEO_FIRE, "fire");
+	//eManager.spawnWorldEntity(fire);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -125,8 +137,8 @@ void SceneHouseFire::Init() {
 	}
 
 	Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0, 60);
-	car->getEntityData()->SetRotate(0, 0, 0);
+	car->getEntityData()->SetTransform(0, 0, -10);
+	car->getEntityData()->SetRotate(0, 180, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
 
@@ -141,8 +153,12 @@ void SceneHouseFire::Init() {
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 				Vector3(0, 1, 0));
 
+	camera3.Init(Vector3(-10, 13, -508),
+		Vector3(10, 8, -515),
+		Vector3(0, 1, 0));
+
 	//Third Person Camera
-	camera2.Init(Vector3(player->getEntityData()->Translate.x, 150, player->getEntityData()->Translate.z),
+	camera2.Init(Vector3(player->getEntityData()->Translate.x, 50, player->getEntityData()->Translate.z),
 		Vector3(0, -50, -1),
 		Vector3(0, 1, 0));
 
@@ -267,7 +283,7 @@ void SceneHouseFire::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -346,7 +362,7 @@ void SceneHouseFire::TopDownMapUpdate(double dt)
 	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
 	{
-		if (!camMap)
+		if (currentCamera != CAM_TP)
 		{
 			switch (camera.camType)
 			{
@@ -357,7 +373,7 @@ void SceneHouseFire::TopDownMapUpdate(double dt)
 				camera.camType = TOPDOWN_THIRDPERSON;
 				break;
 			}
-			camMap = true;
+			currentCamera = CAM_FP;
 		}
 		else
 		{
@@ -370,12 +386,12 @@ void SceneHouseFire::TopDownMapUpdate(double dt)
 				camera.camType = THIRDPERSON;
 				break;
 			}
-			camMap = false;
+			currentCamera = CAM_FP;
 		}
 	}
 
 	camera2.position.Set(player->getEntityData()->Translate.x,
-		300,
+		150,
 		player->getEntityData()->Translate.z);
 
 	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
@@ -428,7 +444,7 @@ void SceneHouseFire::CollisionHandler(double dt) {
 		}
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && currentCamera != CAM_TP) {
 				DEBUG_MSG("In Range");
 				// Show interaction UI
 				if (ePressed && !eHeld) {
@@ -619,20 +635,26 @@ void SceneHouseFire::Render()
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camMap)
+	if (currentCamera == CAM_TP)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,
 			camera2.target.x, camera2.target.y, camera2.target.z,
 			camera2.up.x, camera2.up.y, camera2.up.z);
 	}
-	else
+	else if(currentCamera == CAM_FP)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z,
 			camera.target.x, camera.target.y, camera.target.z,
 			camera.up.x, camera.up.y, camera.up.z);
 
+	}
+	else if (currentCamera == CAM_FIRE) {
+		viewStack.LoadIdentity();
+		viewStack.LookAt(camera3.position.x, camera3.position.y, camera3.position.z,
+			camera3.target.x, camera3.target.y, camera3.target.z,
+			camera3.up.x, camera3.up.y, camera3.up.z);
 	}
 
 
@@ -741,12 +763,6 @@ void SceneHouseFire::Render()
 
 	this->RenderSkybox();
 	this->RenderSceneMeshes();
-	//Floor
-	modelStack.PushMatrix();
-	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(1000, 1000, 1000);
-	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
-	modelStack.PopMatrix();
 
 	//Entity Rendering
 	for (auto& entity : eManager.getEntities()) {
@@ -799,30 +815,52 @@ void SceneHouseFire::Render()
 }
 
 void SceneHouseFire::RenderSceneMeshes() {
-	modelStack.PushMatrix();
-		modelStack.Translate(0, -0.05, 0);
-		modelStack.Scale(1000, 1, 1000);
-		//RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
-	modelStack.PopMatrix();
+
+	//modelStack.PushMatrix();
+	//	modelStack.Translate(0, -0.05, 0);
+	//	modelStack.Scale(1000, 1, 1000);
+	//	RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
+	//modelStack.PopMatrix();
 
 	//main road stretch
-	modelStack.PushMatrix();
-		modelStack.Translate(0, 0, 0);
-		modelStack.Rotate(90, 0, 1, 0);
-		modelStack.Scale(61, 30, 61);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
+	for (int i = 0; i < 5; i++) {
 		modelStack.PushMatrix();
-			modelStack.Translate(1, 0, 0);
-			RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-		modelStack.PopMatrix();
+			modelStack.Translate(0, 0, i * -175);
 
-		modelStack.PushMatrix();
-			modelStack.Translate(-1, 0, 0);
-			RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-		modelStack.PopMatrix();
+			modelStack.PushMatrix();
+				modelStack.Translate(0, 0, 0);
+				modelStack.Rotate(90, 0, 1, 0);
+				modelStack.Scale(61, 30, 61);
+				RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
 
-	modelStack.PopMatrix();
+				modelStack.PushMatrix();
+					modelStack.Translate(1, 0, 0);
+					RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+				modelStack.PopMatrix();
+
+				modelStack.PushMatrix();
+					modelStack.Translate(-1, 0, 0);
+					RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
+				modelStack.PopMatrix();
+
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+				modelStack.Translate(130, -0.5, 0);
+				modelStack.Rotate(0, 0, 1, 0);
+				modelStack.Scale(100, 1, 95);
+				RenderMesh(MeshHandler::getMesh(GEO_GRASSBLOCK), true);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+				modelStack.Translate(-130, -0.5, 0);
+				modelStack.Rotate(0, 0, 1, 0);
+				modelStack.Scale(100, 1, 95);
+				RenderMesh(MeshHandler::getMesh(GEO_GRASSBLOCK), true);
+			modelStack.PopMatrix();
+
+		modelStack.PopMatrix();
+	}
 }
 
 void SceneHouseFire::RenderSkybox() {
