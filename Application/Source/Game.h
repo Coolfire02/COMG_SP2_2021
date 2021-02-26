@@ -24,16 +24,22 @@ enum SCENES
 
 class Game
 {
+
+private:
+	static bool switchingScene;
+	static SCENES toSwitchScene;
+	static double timeToSwitch;
+	static double startSwitchTime;
+
 public:
 	Game();
 	~Game();
-	
+
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
 	static int cash;
 	static double gElapsedTime;
-	static bool gameExit;
 
 	static MissionManager mManager;
 	static InteractionManager iManager;
@@ -52,6 +58,7 @@ public:
 
 	static void addScene(Scene* scene);
 	static void switchScene(static SCENES);
+	static void switchScene(SCENES, float transition, std::string titleText);
 	static Scene* getActiveScene();
 	static Scene* getSceneByName(std::string);
 	static Scene* getScene();

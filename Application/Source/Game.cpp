@@ -10,9 +10,14 @@ InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
 int Game::cash = 0;
+
+bool Game::switchingScene = false;
+SCENES Game::toSwitchScene = S_COUNT;
+double Game::timeToSwitch = 0.0;
+double Game::startSwitchTime = 0.0;
+
 Inventory Game::inv;
 UIManager Game::uiManager;
-bool Game::gameExit = false;
 
 Game::Game()
 {
@@ -34,14 +39,41 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
-	{
-		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
-			Game::uiManager.setCurrentUI(UI_GENERAL);
-		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
-			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
-		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
-			Game::gameExit = true;
+	gElapsedTime += dt;
+
+	if (switchingScene) {
+		if (Game::uiManager.getCurrentMenu() != UI_SCENE_TRANSITION) //Fix if anything tries overriding UI_SCENE_TRANSITION process midway through, there is still the prevUIMenu that will save it and its used for revertion later on anyways.
+			Game::uiManager.setCurrentUI(UI_SCENE_TRANSITION);
+		Button* button = Game::uiManager.getCurrentBM()->getButtonByName("TransitionBackground");
+		Button* txt = Game::uiManager.getCurrentBM()->getButtonByName("TransitionText");
+		if (timeToSwitch < Game::gElapsedTime) {
+			switchingScene = false;
+			toSwitchScene = S_COUNT;
+			Game::uiManager.setCurrentUI(Game::uiManager.getPrevMenu());
+			button->setOrigin(-64, 36);
+			txt->setOrigin(20, 32);
+			Game::uiManager.getCurrentBM()->deactivateButton("TransitionBackground");
+			Game::uiManager.getCurrentBM()->deactivateButton("TransitionText");
+		}
+		else {
+			float totalAniTime = timeToSwitch - startSwitchTime;
+			float timeTillEnd = timeToSwitch - Game::gElapsedTime;
+			float quaterOfTotalTime = totalAniTime / 4.0;
+			if (timeTillEnd > 3 * quaterOfTotalTime) {
+				button->setOrigin(button->getUIInfo().originX + 84 * dt * quaterOfTotalTime, button->getUIInfo().originY);
+			}
+			else if (timeTillEnd < quaterOfTotalTime) {
+				button->setOrigin(button->getUIInfo().originX - 84 * dt * quaterOfTotalTime, button->getUIInfo().originY);
+				txt->disable();
+
+			}
+			else {
+				if (!txt->isEnabled()) {
+					switchScene(toSwitchScene);
+					txt->enable();
+				}
+			}
+		}
 	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
@@ -83,14 +115,17 @@ void Game::Update(double dt)
 	//	Game::switchScene(S_HOUSEFIRE);
 	//}
 
-	gElapsedTime += dt;
+
+
 	inv.Update(dt);
-	InteractionUpdate(dt);		
+	InteractionUpdate(dt);
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	SceneList[activeScene]->elapser(dt);
-	SceneList[activeScene]->Update(dt);
-
+	if (uiManager.getCurrentMenu() != UI_MAIN_MENU && !switchingScene)
+	{
+		SceneList[activeScene]->elapser(dt);
+		SceneList[activeScene]->Update(dt);
+	}
 
 	if (frameTicker % 2 == 0) {
 		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
@@ -101,9 +136,9 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
-	
+
 	if (iManager.isInteracting()) {
-		if(uiManager.getCurrentMenu() != UI_INTERACTION)
+		if (uiManager.getCurrentMenu() != UI_INTERACTION)
 			uiManager.setCurrentUI(UI_INTERACTION);
 
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
@@ -156,6 +191,22 @@ void Game::switchScene(static SCENES scene)
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
 }
+
+void Game::switchScene(static SCENES scene, float transitionTime, std::string text)
+{
+	if (switchingScene != true) {
+		switchingScene = true;
+		startSwitchTime = Game::gElapsedTime;
+		timeToSwitch = Game::gElapsedTime + transitionTime;
+		toSwitchScene = scene;
+		Game::uiManager.setCurrentUI(UI_SCENE_TRANSITION);
+		Game::uiManager.getCurrentBM()->activateButton("TransitionBackground");
+		Game::uiManager.getCurrentBM()->getButtonByName("TransitionBackground")->setOrigin(-64, 36);
+		Game::uiManager.getCurrentBM()->getButtonByName("TransitionText")->setText(text);
+	}
+}
+
+
 
 Scene* Game::getActiveScene() {
 	return nullptr;
