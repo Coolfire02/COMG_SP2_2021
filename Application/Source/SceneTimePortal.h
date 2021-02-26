@@ -85,6 +85,7 @@ public:
 	SceneTimePortal();
 	~SceneTimePortal();
 
+	ISound* fireSound;
 	bool eHeld = false;
 	Camera camera;
 	Camera camera2;

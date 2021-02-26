@@ -149,6 +149,19 @@ void SceneTimePortal::Init() {
 		eManager.spawnWorldEntity(crate);
 
 	}
+	
+	Entity* fire = new WorldObject(this, GEO_FIRE_GIF, "FIRE");
+	fire->getEntityData()->Translate = Vector3(0, 1, -9);
+	fire->getEntityData()->Scale = Vector3(5, 5, 5);
+	fire->setType(FIRE);
+	eManager.spawnWorldEntity(fire);
+
+	/*fireSound = AudioHandler::getEngine()->play3D(
+		AudioHandler::getSoundSource(FIRE_SOUND),
+		AudioHandler::to_vec3df(Vector3(fire->getEntityData()->Translate)),
+		LOOPED::LOOP);*/
+
+	// fireSound->setIsPaused(true);
 
 	//Entity* car = new Car(SEDAN, this, "car");
 	//car->getEntityData()->SetTransform(0, 0, 60);
@@ -441,6 +454,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
+
 		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
 			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
 				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
@@ -806,10 +820,10 @@ void SceneTimePortal::Render()
 		}
 	}
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 1, 0);
+	//RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
+	//modelStack.PopMatrix();
 
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
