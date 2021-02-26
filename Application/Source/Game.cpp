@@ -93,9 +93,7 @@ void Game::Update(double dt)
 
 
 	if (frameTicker % 2 == 0) {
-		std::stringstream ss;
-		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
-		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
 		++fireFrame;
 	}
 	++frameTicker;
@@ -103,8 +101,11 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
+	
 	if (iManager.isInteracting()) {
-		uiManager.setCurrentUI(UI_INTERACTION);
+		if(uiManager.getCurrentMenu() != UI_INTERACTION)
+			uiManager.setCurrentUI(UI_INTERACTION);
+
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
@@ -154,7 +155,6 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
-	
 }
 
 Scene* Game::getActiveScene() {

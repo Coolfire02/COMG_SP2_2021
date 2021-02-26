@@ -31,6 +31,12 @@ void AudioHandler::load() {
 		fileLocation[FIRE_SOUND] = "Media\\fire.mp3";
 		soundSource[FIRE_SOUND] = engine->addSoundSourceFromFile(getFileLocation(FIRE_SOUND), ESM_AUTO_DETECT, true);
 
+		fileLocation[PORTAL] = "Media\\portal.mp3";
+		soundSource[PORTAL] = engine->addSoundSourceFromFile(getFileLocation(PORTAL), ESM_AUTO_DETECT, true);
+
+		fileLocation[DOOR] = "Media\\Door.mp3";
+		soundSource[DOOR] = engine->addSoundSourceFromFile(getFileLocation(DOOR), ESM_AUTO_DETECT, true);
+
 		loaded = true;
 	}
 }

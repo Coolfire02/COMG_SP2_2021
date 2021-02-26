@@ -12,6 +12,7 @@
 #include "Car.h"
 #include "Debug.h"
 #include "InteractionManager.h"
+#include "AudioHandler.h"
 
 SceneGunShop::SceneGunShop() :
 	eManager(this)
@@ -155,6 +156,16 @@ void SceneGunShop::Init() {
 	drugman->getEntityData()->Scale = Vector3(0.5, 0.5, 0.5);
 	eManager.spawnWorldEntity(drugman);
 
+	Entity* door = new WorldObject(this, GEO_DOOR, "door");
+	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
+	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
+	door->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(door);
+
+	Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-2, 0, 2), Vector3(2, 1, -2)), "doorHitbox");
+	doorHitbox->getEntityData()->Translate = Vector3(0, 0, 10);
+	eManager.spawnWorldEntity(doorHitbox);
+
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
 	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
@@ -208,8 +219,6 @@ void SceneGunShop::Init() {
 
 void SceneGunShop::Update(double dt)
 {
-	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -319,9 +328,9 @@ void SceneGunShop::Update(double dt)
 
 void SceneGunShop::InitLights() {
 	light[0].type = Light::LIGHT_POINT;
-	light[0].position.set(0, 450, 0);
+	light[0].position.set(0, 4, 0);
 	light[0].color.set(1, 1, 0.85f);
-	light[0].power = 200;
+	light[0].power = 1;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -343,7 +352,7 @@ void SceneGunShop::InitLights() {
 	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[2].type = Light::LIGHT_POINT;
-	light[2].position.set(0, 0, 0);
+	light[2].position.set(0, 4, 0);
 	light[2].color.set(0.8, 1, 1);
 	light[2].power = 0.5f;
 	light[2].kC = 1.f;
@@ -521,9 +530,8 @@ void SceneGunShop::CollisionHandler(double dt) {
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
-					if (Game::mManager.missionIsCompletable(MISSION_VISIT_GUNSHOP, completables)) {
-						Game::iManager.loadInteraction("drugman");
-						Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
+					if (Game::mManager.missionIsCompletable(MISSION_TALK_TO_THE_OWNER, completables)) {
+						Game::iManager.loadInteraction("Gary1");
 					}
 					else
 						Game::iManager.loadInteraction("Gunshop1");
@@ -554,6 +562,19 @@ void SceneGunShop::CollisionHandler(double dt) {
 			}*/
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+					if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+						if (Application::IsKeyPressed('E')) {
+							ISound* door = AudioHandler::getEngine()->play3D(
+								AudioHandler::getSoundSource(DOOR),
+								AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+								LOOPED::NOLOOP);
+							Game::switchScene(S_2021);
+						}
+					}
+				}
+
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)

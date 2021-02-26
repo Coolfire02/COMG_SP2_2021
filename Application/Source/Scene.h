@@ -5,6 +5,8 @@
 #include "MeshBuilder.h"
 #include "GL/glew.h"
 
+class EntityManager;
+
 class Scene
 {
 
@@ -95,6 +97,7 @@ protected:
 	bool lightEnable;
 
 public:
+
 	Scene() { elapsed = 0.0; }
 	~Scene() {}
 

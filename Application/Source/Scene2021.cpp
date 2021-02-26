@@ -13,6 +13,7 @@
 #include "InteractionManager.h"
 #include "Debug.h"
 #include "AudioHandler.h"
+#include "SceneGarage.h"
 
 Scene2021::Scene2021() :
 	eManager(this)
@@ -245,12 +246,23 @@ void Scene2021::Update(double dt)
 			glDisable(GL_CULL_FACE);
 		}
 
-		if (Application::IsKeyPressed('9')) {
-			hitboxEnable = !hitboxEnable;
-		}
-		if (Application::IsKeyPressed('0')) {
-			lightEnable = !lightEnable;
-		}
+	if (Application::IsKeyPressed('8'))
+	{
+		Scene * var = Game::getSceneByName("GarageScene");
+		/*for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
+		{
+			static_cast <SceneGarage*>(var)->updateCarSpawn();
+		}*/
+		static_cast <SceneGarage*>(var)->updateCarSpawn();
+		Game::switchScene(S_2051);
+	}
+
+	if (Application::IsKeyPressed('9')) {
+		hitboxEnable = !hitboxEnable;
+	}
+	if (Application::IsKeyPressed('0')) {
+		lightEnable = !lightEnable;
+	}
 
 		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 		TopDownMapUpdate(dt);
@@ -540,7 +552,7 @@ void Scene2021::CollisionHandler(double dt) {
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
-									Game::activeScene = S_GUNSHOP;
+									Game::switchScene(S_GUNSHOP);
 									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
 								}
 							}
@@ -549,7 +561,7 @@ void Scene2021::CollisionHandler(double dt) {
 								if (ePressed && !eHeld)
 								{
 									eHeld = true;
-									Game::activeScene = S_GUNSHOP;
+									Game::switchScene(S_GUNSHOP);
 									Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 50.0f);
 								}
 							}
