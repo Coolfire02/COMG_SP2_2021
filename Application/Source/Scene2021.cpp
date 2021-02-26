@@ -314,6 +314,10 @@ void Scene2021::Update(double dt)
 			}
 
 			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+
+			pLoc.x = Math::Clamp(pLoc.x, -500.f, 500.f);
+			pLoc.z = Math::Clamp(pLoc.z, -500.f, 500.f);
+
 			player->getEntityData()->Translate.x = pLoc.x;
 			// Skip y since we want level ground
 			player->getEntityData()->Translate.z = pLoc.z;
@@ -470,7 +474,8 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
 						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (!player->isDriving())
+								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
@@ -485,7 +490,8 @@ void Scene2021::CollisionHandler(double dt) {
 				}
 				else
 				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (!player->isDriving())
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;
@@ -543,12 +549,13 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
 						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (!player->isDriving())
+								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
 								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
 							}
 						}
 						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
@@ -562,7 +569,8 @@ void Scene2021::CollisionHandler(double dt) {
 							}
 						}
 					}
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (!player->isDriving())
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;
@@ -571,7 +579,8 @@ void Scene2021::CollisionHandler(double dt) {
 				}
 				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
 				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (!player->isDriving())
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;

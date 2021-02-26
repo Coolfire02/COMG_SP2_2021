@@ -571,6 +571,7 @@ void SceneGunShop::CollisionHandler(double dt) {
 								AudioHandler::to_vec3df(Vector3(0, 0, 0)),
 								LOOPED::NOLOOP);
 							Game::switchScene(S_2021);
+							player->getEntityData()->Translate.Set(0, 0, 5);
 						}
 					}
 				}

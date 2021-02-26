@@ -232,6 +232,9 @@ velocity = acceleration / time
 /******************************************************************************/
 void Car::Drive(double dt) {
 
+	this->getEntityData()->Translate.x = Math::Clamp(this->getEntityData()->Translate.x, -500.f, 500.f);
+	this->getEntityData()->Translate.z = Math::Clamp(this->getEntityData()->Translate.z, -500.f, 500.f);
+
 	acceleration = 0;
 	float RotateSpeed = 80.f;
 	float friction = carSpeed * -0.5;
