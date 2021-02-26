@@ -220,6 +220,10 @@ void SceneGunShop::Init() {
 void SceneGunShop::Update(double dt)
 {
 
+	light[0].position.set(0, 4, 0);
+	light[1].position.set(0, player->getEntityData()->Translate.y + 2, 0);
+	light[2].position.set(0, player->getEntityData()->Translate.y + 2, 0);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');

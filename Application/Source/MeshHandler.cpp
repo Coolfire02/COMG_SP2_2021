@@ -232,6 +232,12 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SKY_FRONT]->textureID = LoadTGA("Image//Skybox//bluecloud_ft.tga");
 	meshList[GEO_SKY_BACK]->textureID = LoadTGA("Image//Skybox//bluecloud_bk.tga");
 
+	// Car shop
+	meshList[GEO_SHOWROOM] = MeshBuilder::GenerateOBJMTL("showroom", "OBJ//Showroom//Showroom.obj", "MTL//Showroom//Showroom.mtl");
+	meshList[GEO_GRASS] = MeshBuilder::GenerateQuad("grass", Color(1, 1, 1), 100, 100);
+	meshList[GEO_GRASS]->textureID = LoadTGA("Image//Miscellaneous//grass.tga");
+	meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("cylinder", Color(1,1,1), 1);
+
 	// Gun Shop
 	meshList[GEO_GUNSHOP_LEFT] = MeshBuilder::GenerateQuad("left", Color(0.871f, 0.722f, 0.529f), 10, 10);
 	meshList[GEO_GUNSHOP_RIGHT] = MeshBuilder::GenerateQuad("right", Color(0.871f, 0.722f, 0.529f), 10, 10);

@@ -1,5 +1,5 @@
-#ifndef SCENE_CAR_SHOP_H
-#define SCENE_CAR_SHOP_H
+#ifndef SCENE_CARSHOP_H
+#define SCENE_CARSHOP_H
 
 #include <map>
 
@@ -75,12 +75,9 @@ private:
 	float toggleTimer = 0;
 
 	void RenderSkybox();
-	void RenderRoads();
 	void RenderUI();
 	void initCollidables(Vector3 v3, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType);
 	void SpawnWalls();
-	//void SpawnBuildings();
-	//void SpawnStreetLamps();
 
 	//topdown cam map
 	bool camMap;

@@ -13,3 +13,5 @@ Normal of the collided plane.
 Weapon rendering and shooting
 Interaction Manager
 Gun Shop Scene
+Time portal scene
+car shop scene

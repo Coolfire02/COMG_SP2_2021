@@ -27,6 +27,7 @@
 #include "SceneGuardBuilding.h"
 #include "SceneCarShop.h"
 #include "SceneUI.h"
+#include "SceneCarShop.h"
 #include "SceneOffice.h"
 
 GLFWwindow* m_window;

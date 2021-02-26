@@ -11,12 +11,13 @@
 #include "Utility.h"
 #include "Car.h"
 #include "InteractionManager.h"
+#include "Scene2021.h"
 
 SceneCarShop::SceneCarShop() : 
 	eManager(this)
 {
 	//Scene
-	sceneName = "GarageScene";
+	sceneName = "OfficeScene";
 
 	//Game
 	fps = 0;
@@ -116,30 +117,22 @@ void SceneCarShop::Init()
 	//Mesh* coinMesh;
 	//Entity* newCoin;
 
-	//for (int i = 0; i < 10; i++) {
-	//	coinMesh = MeshHandler::getMesh(GEOMETRY_TYPE::GEO_COIN);
-	//	newCoin = new Coin(this, new Box(coinMesh->botLeftPos, coinMesh->topRightPos), "Coin");
-	//	newCoin->getEntityData()->rotXMag = 90.f;
-	//	newCoin->getEntityData()->transX = 0.0f;
-	//	newCoin->getEntityData()->transY = 1.6f;
-	//	newCoin->getEntityData()->transZ = -55.f - i * 5;
-	//	newCoin->getEntityData()->scaleX = 0.3f;
-	//	newCoin->getEntityData()->scaleY = 0.3f;
-	//	newCoin->getEntityData()->scaleZ = 0.3f;
-	//	eManager.spawnWorldEntity(newCoin);
-	//}
+	Entity* Hitbox = new CustomEntity(this, new Box(Vector3(-1, 0, -4), Vector3(1, 3.75, 4)), "hitbox");
+	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
+	Hitbox->getEntityData()->Translate = Vector3(-22.5, 0, -7.5);
+	eManager.spawnWorldEntity(Hitbox);
 
-	//Entity* eggman = new NPC(this, NPCTYPE::EGGMAN, "Eggman");
-	//eggman->getEntityData()->scaleX = 0.04;
-	//eggman->getEntityData()->scaleY = 0.04;
-	//eggman->getEntityData()->scaleZ = 0.04;
-	//eggman->getEntityData()->transX = 11;
-	//eggman->getEntityData()->transY = 0;
-	//eggman->getEntityData()->transZ = -22;
-	//eggman->getEntityData()->rotYMag = -27.f;
-	//eManager.spawnWorldEntity(eggman);
+	Hitbox = new CustomEntity(this, new Box(Vector3(-3.25, 0, -1.5), Vector3(3.25, 3.75, 1.5)), "hitbox");
+	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
+	Hitbox->getEntityData()->Translate = Vector3(-13.15, 0, -21.25);
+	eManager.spawnWorldEntity(Hitbox);
 
-	Entity* car = new Car(SEDAN, this, "car");
+	Hitbox = new CustomEntity(this, new Box(Vector3(-0.3, 0, -0.3), Vector3(0.3, 3.75, 0.3)), "hitbox");
+	Hitbox->getEntityData()->Scale = Vector3(2.5, 2, 2.5);
+	Hitbox->getEntityData()->Translate = Vector3(-5.375, 0, 2.125);
+	eManager.spawnWorldEntity(Hitbox);
+
+	/*Entity* car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0.25, 20);
 	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
@@ -152,72 +145,86 @@ void SceneCarShop::Init()
 	eManager.spawnMovingEntity(car2);
 
 	Entity* car3 = new Car(RACER, this, "car");
-	car3->getEntityData()->SetTransform(10, 0.25, 20);
+	car3->getEntityData()->SetTransform(-5, 0.25, 20);
 	car3->getEntityData()->SetRotate(0, 0, 0);
 	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car3);
-
-	Entity* car4 = new Car(HATCH_BACK_SPORTS, this, "car");
-	car4->getEntityData()->SetTransform(15, 0.25, 20);
-	car4->getEntityData()->SetRotate(0, 0, 0);
-	car4->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car4);
-
-	Entity* car5 = new Car(TRACTOR_SHOVEL, this, "car");
-	car5->getEntityData()->SetTransform(20, 0.25, 20);
-	car5->getEntityData()->SetRotate(0, 0, 0);
-	car5->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car5);
-
-	Entity* car6 = new Car(TRUCK, this, "car");
-	car6->getEntityData()->SetTransform(25, 0.25, 20);
-	car6->getEntityData()->SetRotate(0, 0, 0);
-	car6->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car6);
-
-	Entity* car7 = new Car(VAN, this, "car");
-	car7->getEntityData()->SetTransform(30, 0.25, 20);
-	car7->getEntityData()->SetRotate(0, 0, 0);
-	car7->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car7);
-
+	eManager.spawnMovingEntity(car3);*/
 
 	SpawnWalls();
-	//SpawnBuildings();
-	//SpawnStreetLamps();
 
-	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
-	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
-	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
-	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(eggmanInteractZone);
+	//initCollidables(Vector3(24.0f, 0.0f, -49.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
 
-	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
-	//shopBase->getEntityData()->transX = -30.0f;
-	//shopBase->getEntityData()->transZ = 33.0f;
-	//shopBase->getEntityData()->scaleX = 6;
-	//shopBase->getEntityData()->scaleY = 3;
-	//shopBase->getEntityData()->scaleZ = 6;
-	//shoeShopX = shopBase->getEntityData()->transX;
-	//shoeShopY = shopBase->getEntityData()->transY;
-	//shoeShopZ = shopBase->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(shopBase);
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	initCollidables(Vector3(24.0f, 0.0f, (1.8f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//}
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	if (i < 8)
+	//		initCollidables(Vector3(24.0f, 2.5f, (0.0f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//	initCollidables(Vector3(22.2f, 0.0f, (0.9f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//}
+	//
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	//}
+	//
+	//initCollidables(Vector3(22.5f, 0.0f, 47.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS_RAIL);
+
+	//initCollidables(Vector3(19.0f, 0.0f, -44.0f), Vector3(0.0f, -45.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), SNOWMAN_FANCY);
+
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	//1st floor
+	//	if (i > 0)
+	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//	initCollidables(Vector3(-22.0f, 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//	if (i == 1)
+	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//}
+
+	//for (int i = 0; i < 2; i++)
+	//{
+	//	//2nd floor
+	//	if (i > 0)
+	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//	initCollidables(Vector3(-22.0f, 5.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//}
+
+	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+
+	//Barrel increment of 1.8f between each one
+	//initCollidables(Vector3(24.0f, 0.0f, 1.8f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//initCollidables(Vector3(24.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+	//initCollidables(Vector3(24.0f, 2.5f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
+
+	//Barrels increment of 5.0f between each one
+	//5.5f when rotated
+	//initCollidables(Vector3(-22.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	//initCollidables(Vector3(-22.0f, 0.0f, 5.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+	//initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
+
+	//Crate increment of 5.0f between each one
+	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
+
+	//Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
+	//Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
+	//initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
+	//initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
+	//initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
+	//initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
+	//initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	//initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
-	
-	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
-	//tree->getEntityData()->Translate.Set(60, 1, -30);
-	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
-	//eManager.spawnWorldEntity(tree);
-
-	/*Entity* car = new Car(SEDAN, this, "sedan");
-	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
-	eManager.spawnMovingEntity(car);*/
-
-
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -242,32 +249,16 @@ void SceneCarShop::Init()
 
 void SceneCarShop::Update(double dt)
 {
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	//light[0].position.set(0, 5, 0);
+	//light[1].position.set(0, 5, 0);
+	//light[2].position.set(0, 5, 0);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-
-	//UI item adding testing
-	//if (Application::IsKeyPressed('F'))
-	//{
-	//	inv.addItem(BURGER, 1);
-	//	inv.addItem(EGGPLANT, 2);
-	//	
-	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
-	//	inv.addCar(SUV);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
-	//{
-	//	toggleTimer = 0;
-	//	inv.toggleItem();
-	//	if (inv.getCurrentCarType() == SEDAN)
-	//		inv.switchCar(SUV);
-	//	else
-	//		inv.switchCar(SEDAN);
-	//}
-	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	//{
-	//	inv.addItem(CORN, 3);
-	//}
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -300,7 +291,7 @@ void SceneCarShop::Update(double dt)
 
 		if (Application::IsKeyPressed('W')) {
 
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
+			if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 				playerSpeed = 25.f;
 			}
 
@@ -327,8 +318,8 @@ void SceneCarShop::Update(double dt)
 			pLoc += right * (float)dt * playerSpeed;
 		}
 		// SCENE WORLD BOUNDARIES
-		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+		pLoc.x = Math::Clamp(pLoc.x, -24.f, 24.f);
+		pLoc.z = Math::Clamp(pLoc.z, -24.f, 24.f);
 
 		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 		player->getEntityData()->Translate.x = pLoc.x;
@@ -341,7 +332,10 @@ void SceneCarShop::Update(double dt)
 
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
+		camera.position.x = Math::Clamp(camera.position.x, -24.f, 24.f);
+		camera.position.z = Math::Clamp(camera.position.z, -49.f, 48.f);
 	}
+
 	Vector3 view = (camera.target - camera.position).Normalized();
 	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
@@ -435,6 +429,7 @@ void SceneCarShop::MissionCompleteListener(double dt) {
 }
 
 void SceneCarShop::CollisionHandler(double dt) {
+	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -456,10 +451,10 @@ void SceneCarShop::CollisionHandler(double dt) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
-
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				std::cout << "In Range" << std::endl;
+				if (!player->isDriving())
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -477,10 +472,11 @@ void SceneCarShop::CollisionHandler(double dt) {
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.total_pitch = 0;
-						camera.target = camera.defaultTarget;
+						camera.total_yaw = 0;
+						camera.up = camera.defaultUp;
+						camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
 			}
@@ -496,31 +492,14 @@ void SceneCarShop::CollisionHandler(double dt) {
 				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
-			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
-				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
-				}
-				else {
-					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
-				}
-			}*/
-
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)
 						canInteractWithSomething = true;
-					/*else if (passedInteractCooldown()) {
-						std::string name = entry->victim->getName();
-						if (ePressed) {
-							if (name.compare("interaction_test") == 0) {
-								loadInteractions(TEST);
-							}
-						}
-					}*/
 				}
 			}
+
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
@@ -558,6 +537,36 @@ void SceneCarShop::CollisionHandler(double dt) {
 
 		}
 
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
+			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
+				{
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Scene* var = Game::getSceneByName("MainScene");
+						Game::switchScene(S_2021);
+					}
+				}
+			}
+		}
+		if (entry->attacker->getType() == ENTITYTYPE::CAR)
+		{
+			if (entry->victim->getType() == ENTITYTYPE::CUSTOM)
+			{
+				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
+				{
+					Scene* var = Game::getSceneByName("MainScene");
+					static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
+
+
+					entry->attacker->getEntityData()->Translate.Set(0.f, -10.f,0.0f);
+					
+					Game::switchScene(S_2021);
+				}
+			}
+		}
 	}
 
 	if (foundInteractionZone == false) {
@@ -588,63 +597,7 @@ void SceneCarShop::CollisionHandler(double dt) {
 void SceneCarShop::TopDownMapUpdate(double dt)
 {
 	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		300,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(-view.x, 0, -view.z);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	}
+	
 }
 
 void SceneCarShop::Render()
@@ -675,15 +628,6 @@ void SceneCarShop::Render()
 	
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
-	//RenderRoads();
-
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
@@ -702,83 +646,63 @@ void SceneCarShop::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
 	}
 
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	case TOPDOWN_THIRDPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
 
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	case THIRDPERSON:
-		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
-
-		}
-		else if (light[2].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		break;
-	default:
-		break;
-	}
-
-	//this->RenderSkybox();
+	this->RenderSkybox();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(100, 200, 200);
-	RenderMesh(MeshHandler::getMesh(GARAGE_FLOOR), true);
+	modelStack.Scale(1000, 1000, 1000);
+	RenderMesh(MeshHandler::getMesh(GEO_GRASS), lightEnable, GL_REPEAT);
 	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Scale(2.5, 2, 2.5);
+	RenderMesh(MeshHandler::getMesh(GEO_SHOWROOM), lightEnable);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, -17);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(17, 0, -15);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(17, 0, -0);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(17, 0, 15);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(3, 0, 17);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-12, 0, 17);
+	modelStack.Scale(5, 0.4, 5);
+	RenderMesh(MeshHandler::getMesh(GEO_CYLINDER), lightEnable);
+	modelStack.PopMatrix();
+
+	/*modelStack.PushMatrix();
+	modelStack.Translate(19.0f, 0.0f, -44.0f);
+	modelStack.Scale(10.0f, 10.0f, 10.0f);
+	RenderMesh(MeshHandler::getMesh(SNOW_PATCH), true);
+	modelStack.PopMatrix();*/
 
 	//modelStack.PushMatrix();
 	//modelStack.Translate(0, 22, 99); 
@@ -786,13 +710,6 @@ void SceneCarShop::Render()
 	//modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
 	//RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
 	//modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(20, 0, 0);
-	modelStack.Rotate(0, 1, 0, 0);
-	modelStack.Scale(10, 10, 10);
-	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
-	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
@@ -816,32 +733,21 @@ void SceneCarShop::Render()
 		right.Normalize();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
+		//modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Scale(0.8, 0.8, 0.8);
 		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
 		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.175, -0.1, -0.35);
+		modelStack.Translate(0.25, -0.1, 0.75);
 		modelStack.Rotate(185, 0, 1, 0);
-		modelStack.Scale(0.8, 0.8, 0.8);
 		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
 		modelStack.PopMatrix();
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
+	RenderUI();
 
 	std::ostringstream ss;
-
-	//Coins UI
-	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-	
-	/*ss.str("");
-	ss.clear();
-	std::string bal = std::to_string(coinBalance);
-	if (coinBalance < 10) bal = "0" + bal;
-	if (coinBalance < 100) bal = "0" + bal;
-	if (coinBalance > 999) bal = "999";
-	ss << bal;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
-
 	
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
@@ -908,217 +814,6 @@ void SceneCarShop::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-void SceneCarShop::RenderRoads()
-{
-	//road floor
-	modelStack.PushMatrix();
-	modelStack.Translate(0, -0.05, 0);
-	modelStack.Scale(1000, 1, 1000);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_TILE), true);
-	modelStack.PopMatrix();
-
-	//main road stretch
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 0);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_CROSSING), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-2, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(3, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-4, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(5, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-6, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	for (int i = 0; i < 7; i++)
-		modelStack.PopMatrix();
-
-	//left road stretch
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 244);
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-2, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(3, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-4, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(5, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-6, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(7, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-8, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
-
-	for (int i = 0; i < 9; i++)
-		modelStack.PopMatrix();
-
-	//left road stretch
-	modelStack.PushMatrix();
-	modelStack.Translate(244, 0, 183);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_INTERSECTION_PATH), true);
-
-	for (int i = 0; i < 4; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(1, 0, 0);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	modelStack.Rotate(-90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
-
-	for (int i = 0; i < 3; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(-1, 0, 0);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-1, 0, 0);
-	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
-
-	for (int i = 0; i < 12; i++)
-		modelStack.PopMatrix();
-
-	//left road roundabout stretch (right)
-	modelStack.PushMatrix();
-	modelStack.Translate(366, 0, 61);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_ROUNDABOUT), true);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(366, 0, 183);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-1, 0, 0);
-	modelStack.Rotate(180, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 1);
-	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
-
-	//str road roundabout
-	modelStack.PushMatrix();
-	modelStack.Translate(488, 0, 61);
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_END), true);
-	modelStack.PopMatrix();
-
-	//left road roundabout
-	modelStack.PushMatrix();
-	modelStack.Translate(366, 0, -61);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(61, 30, 61);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-
-	for (int i = 0; i < 4; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(1, 0, 0);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 0, 0);
-	modelStack.Rotate(-90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
-
-	for (int i = 0; i < 9; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(-1, 0, 0);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-1, 0, 0);
-	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_BEND), true);
-
-	for (int i = 0; i < 9; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(-1, 0, 0);
-		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
-	}
-	
-	modelStack.PushMatrix();
-	modelStack.Translate(-1, 0, -1);
-	modelStack.Rotate(-90, 0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_ROAD_END), true);
-
-	for (int i = 0; i < 26; i++)
-		modelStack.PopMatrix();
-}
-
-
 void SceneCarShop::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
 	Entity* collidables = new WorldObject(this, geoType, "building");
@@ -1127,205 +822,64 @@ void SceneCarShop::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMET
 	collidables->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
 	eManager.spawnWorldEntity(collidables);
 }
-void SceneCarShop::SpawnWalls()
-{
-	Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
-	Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
-	initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
-	initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
-	initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
-	initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
-	initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
-	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
-}
-//
-//void SceneCarShop::SpawnBuildings()
-//{
-//	//init of buildings 
-//	srand(time(NULL));
-//
-//	//main road buildings
-//	int random = (rand() % 6) + 4;
-//	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-//
-//	int random2 = (rand() % 6) + 4;
-//	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-//
-//	for (int i = 1; i < 6; i++) //(main road)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-//
-//		int random3 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-//
-//		int random4 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
-//	}
-//
-//	//left and right of (positive z axis) side road buildings
-//	for (int i = 2; i < 4; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
-//
-//		int random3 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
-//
-//		int random4 = (rand() % 6) + 4;
-//		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
-//
-//		int random5 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
-//
-//		int random6 = (rand() % 6) + 4;
-//		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
-//	}
-//
-//	//left side left building
-//	for (int i = 0; i < 4; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-//	}
-//
-//	for (int i = 6; i < 7; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-//	}
-//
-//	int random3 = (rand() % 6) + 4;
-//	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-//
-//	int random4 = (rand() % 6) + 4;
-//	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
-//
-//	for (int i = 0; i < 8; i++)
-//	{
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-//
-//		if (i < 7)
-//		{
-//			int random = (rand() % 6) + 4;
-//			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
-//		}
-//
-//		if (i < 2)
-//		{
-//			int random3 = (rand() % 6) + 4;
-//			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-//		}	
-//	}
-//
-//	//outside buildings
-//	for (int i = 0; i < 8; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
-//	}
-//
-//	//front row
-//	for (int i = 0; i < 6; i++)
-//	{
-//		if (i < 4)
-//		{
-//			int random = (rand() % 6) + 4;
-//			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
-//		}
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
-//
-//		int random3 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
-//
-//		int random4 = (rand() % 6) + 4;
-//		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
-//	}
-//
-//	//front left row
-//	for (int i = 0; i < 8; i++)
-//	{
-//		if (i < 6)
-//		{
-//			int random = (rand() % 6) + 4;
-//			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
-//		}
-//
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
-//
-//		if (i < 7)
-//		{
-//			int random3 = (rand() % 6) + 4;
-//			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
-//
-//			int random4 = (rand() % 6) + 4;
-//			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
-//		}
-//	}
-//
-//	int random5 = (rand() % 6) + 4;
-//	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
-//
-//	int random6 = (rand() % 6) + 4;
-//	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
-//
-//	for (int i = 1; i < 2; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
-//		
-//		int random2 = (rand() % 6) + 4;
-//		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
-//	}
-//
-//	int random7 = (rand() % 6) + 4;
-//	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
-//
-//	int random8 = (rand() % 6) + 4;
-//	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
-//
-//	int random9 = (rand() % 6) + 4;
-//	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
-//
-//	for (int i = 1; i < 7; i++)
-//	{
-//		int random = (rand() % 6) + 4;
-//		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
-//	}
-//
-//}
-//
-//void SceneCarShop::SpawnStreetLamps()
-//{
-//	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(-27.5, 0, -200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(-27.5, 0, 200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-//}
 
+void SceneCarShop::SpawnWalls() {
+//{
+//	Vector3 uniformWallScale = Vector3(50.0f, 25.0f, 50.0f);
+//	Vector3 longWallScale = Vector3(100.0f, 25.0f, 100.0f);
+//	initCollidables(Vector3(0.0f, 9.9f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), Vector3(50.0f, 100.0f, 100.0f), CONCRETE_WALL); //top
+//	initCollidables(Vector3(25.0f, 12.4f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, CONCRETE_WALL); //x-axis
+//	initCollidables(Vector3(-25.0f, 12.4f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, CONCRETE_WALL);
+//	initCollidables(Vector3(0.0f, 12.4f, 50.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, CONCRETE_WALL); // z-axis
+//	initCollidables(Vector3(0.0f, 12.4f, -50.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, CONCRETE_WALL);
+//	initCollidables(Vector3(0.0f, 2.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 1.0f), GEO_DOOR); //door
+//
+//	//Objects
+//	initCollidables(Vector3(20.0f, 2.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 1.0f), GEO_DOOR); //north door
+//	initCollidables(Vector3(-15.0f, 2.0f, 15.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(2.0f, 2.0f, 1.0f), GEO_DOOR); //north door
+//
+//	initCollidables(Vector3(10.0f, 2.0f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 1.0f), GEO_DOOR); //west door
+//	
+//	initCollidables(Vector3(-20.0f, 2.0f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.0f, 2.0f, 1.0f), GEO_DOOR); //east door
+//
+//	//North Walls
+//	initCollidables(Vector3(-10.0f, 4.9f, 0.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve z-axis
+//	initCollidables(Vector3(0.0f, 4.9f, 0.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve z-axis
+//	initCollidables(Vector3(10.0f, 4.9f, 0.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve z-axis
+//	initCollidables(Vector3(20.0f, 4.9f, 0.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve z-axis
+//
+//	initCollidables(Vector3(-15.0f, 4.9f, 5.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(-15.0f, 4.9f, 15.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(-15.0f, 4.9f, 25.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(-15.0f, 4.9f, 35.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//
+//	initCollidables(Vector3(-10.0f, 4.9f, 40.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//	initCollidables(Vector3(0.0f, 4.9f, 40.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//	initCollidables(Vector3(10.0f, 4.9f, 40.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//
+//	initCollidables(Vector3(15.0f, 4.9f, 45.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//
+//	//West Walls
+//	initCollidables(Vector3(5.0f, 4.9f, -45.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(5.0f, 4.9f, -35.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(5.0f, 4.9f, -25.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//	initCollidables(Vector3(5.0f, 4.9f, -15.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards -ve x-axis
+//
+//	initCollidables(Vector3(10.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//	initCollidables(Vector3(20.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//
+//	//East Walls
+//	initCollidables(Vector3(-5.0f, 4.9f, -45.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve x-axis
+//	initCollidables(Vector3(-5.0f, 4.9f, -35.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve x-axis
+//	initCollidables(Vector3(-5.0f, 4.9f, -25.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve x-axis
+//	initCollidables(Vector3(-5.0f, 4.9f, -15.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve x-axis
+//
+//	initCollidables(Vector3(-10.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//	initCollidables(Vector3(-20.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+//
+//	//initCollidables(Vector3(25.0f, 0.0, 25.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), CONCRETE_WALL);
+//	//initCollidables(Vector3(0.0f, 11.0f, 49.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(40.0f, 22.0f, 50.0f), GARAGE_DOOR); //garage door
+}
 
 void SceneCarShop::RenderUI()
 {
