@@ -12,6 +12,7 @@ int Game::ammo = 0;
 int Game::cash = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
+bool Game::gameExit = false;
 
 Game::Game()
 {
@@ -33,6 +34,16 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
+	{
+		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
+			Game::uiManager.setCurrentUI(UI_GENERAL);
+		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
+			Game::gameExit = true;
+	}
+
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
@@ -77,11 +88,9 @@ void Game::Update(double dt)
 	InteractionUpdate(dt);		
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	if (uiManager.getCurrentMenu() != UI_MAIN_MENU)
-	{
-		SceneList[activeScene]->elapser(dt);
-		SceneList[activeScene]->Update(dt);
-	}
+	SceneList[activeScene]->elapser(dt);
+	SceneList[activeScene]->Update(dt);
+
 
 	if (frameTicker % 2 == 0) {
 		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];

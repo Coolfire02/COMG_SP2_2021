@@ -126,9 +126,26 @@ void UIManager::Init() {
 			}
 			break;
 		case UI_MAIN_MENU:
+			Game::switchScene(S_2021);	
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 36.5, 11.1, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 20, 20.9, 3.5, CREDITS_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 10, 11.7, 3.8, QUIT_BUTTON);
 			enableUI();
+			break;
+		case UI_CREDITS:
+			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createButton(bManagers[i], "credits1", 55, 56, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "TEAM 15", 5);
+			createButton(bManagers[i], "credits2", 57, 46, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Joash", 5);
+			createButton(bManagers[i], "credits3", 53, 36, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Yong Hong", 5);
+			createButton(bManagers[i], "credits4", 56, 26, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Jordan", 5);
+			createButton(bManagers[i], "credits5", 55, 16, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Ridwan", 5);
+			createButton(bManagers[i], "credits6", 54.5, 6, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Raphael", 5);
+			break;
+		case UI_PAUSE_MENU:
+			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createNoTextButton(bManagers[i], "PauseMenuPlayButton", 64, 36, 40.2, 7, RESUME_BUTTON);
+			createNoTextButton(bManagers[i], "PauseMenuQuitButton", 64, 13, 13.7, 3.5, MENU_BUTTON);
 			break;
 		case UI_INTERACTION:
 			createButton(bManagers[i], "Choice1", 96, 33.7, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
@@ -256,6 +273,26 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{
 					setCurrentUI(UI_GENERAL);
+					Game::switchScene(S_HOUSEFIRE);
+				}
+				if (buttonCollide->buttonClicked->getName() == "MainMenuCreditsButton" && buttonCollide->justClicked)//Main Menu credits button
+				{
+					setCurrentUI(UI_CREDITS);
+				}
+				if (buttonCollide->buttonClicked->getName() == "MainMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
+				{
+					Game::gameExit = true;
+				}
+				break;
+			case UI_PAUSE_MENU:
+				if (buttonCollide->buttonClicked->getName() == "PauseMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
+				{
+					setCurrentUI(UI_GENERAL);
+					Game::switchScene(S_HOUSEFIRE);
+				}
+				if (buttonCollide->buttonClicked->getName() == "PauseMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
+				{
+					setCurrentUI(UI_MAIN_MENU);
 				}
 				break;
 			case UI_INTERACTION:
@@ -410,6 +447,14 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		break;
 	case UI_INTERACTION:
 		Application::setCursorEnabled(true);
+		break;
+	case UI_CREDITS:
+		Application::setCursorEnabled(true);
+		this->enableUI();
+		break;
+	case UI_PAUSE_MENU:
+		Application::setCursorEnabled(true);
+		this->enableUI();
 		break;
 	}
 }
