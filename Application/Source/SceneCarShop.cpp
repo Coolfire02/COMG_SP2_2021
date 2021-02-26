@@ -1,4 +1,4 @@
-#include "Scene2021.h"
+#include "SceneCarShop.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -11,15 +11,12 @@
 #include "Utility.h"
 #include "Car.h"
 #include "InteractionManager.h"
-#include "Debug.h"
-#include "AudioHandler.h"
-#include "SceneGarage.h"
 
-Scene2021::Scene2021() :
+SceneCarShop::SceneCarShop() : 
 	eManager(this)
 {
 	//Scene
-	sceneName = "MainScene";
+	sceneName = "GarageScene";
 
 	//Game
 	fps = 0;
@@ -36,49 +33,12 @@ Scene2021::Scene2021() :
 	isInteracting = false;
 }
 
-Scene2021::~Scene2021()
+SceneCarShop::~SceneCarShop()
 {
 
 }
 
-void Scene2021::MissionCompleteListener(double dt)
-{
-	//MISSION HANDLING EXAMPLES
-	/*for (auto& entry : Game::mManager.getCompletableMissions()) {
-		DEBUG_MSG("Completable Mission EnumID: " << entry);
-	}
-	if (Application::IsKeyPressed('V')) {
-		Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-	}*/
-	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
-	for (auto& entry : justCompletedMissions) {
-		switch (entry->getType())
-		{
-		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
-			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
-			Game::cash += 1000;
-			break;
-		case MISSIONTYPE::MISSION_VISIT_FOUNTAIN:
-			DEBUG_MSG("Completed Mission Visit Fountain Mission");
-			Game::cash += 1000;
-			break;
-		case MISSIONTYPE::MISSION_VISIT_RESTAURANT:
-			DEBUG_MSG("Completed Mission Visit Restaurant Mission");
-			Game::cash += 1000;
-			break;
-		case MISSIONTYPE::MISSION_TALK_TO_NPC:
-			DEBUG_MSG("Completed Mission Talk To NPC Mission");
-			Game::cash += 1000;
-			break;
-		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
-			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
-			Game::cash += 3000;
-			break;
-		}
-	}
-}
-
-void Scene2021::Init()
+void SceneCarShop::Init() 
 {
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -151,6 +111,8 @@ void Scene2021::Init()
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
+	MeshHandler::loadMeshes();
+
 	//Mesh* coinMesh;
 	//Entity* newCoin;
 
@@ -177,49 +139,95 @@ void Scene2021::Init()
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* car = new Car(RACER, this, "car");
-	car->getEntityData()->SetTransform(-197, 0.25, -131);
-	car->getEntityData()->SetRotate(0, -90, 0);
+	Entity* car = new Car(SEDAN, this, "car");
+	car->getEntityData()->SetTransform(0, 0.25, 20);
+	car->getEntityData()->SetRotate(0, 0, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
 
-	CustomEntity* fountainHitBox = new CustomEntity(this, new Box(Vector3(-100, 0, -100), Vector3(100, 2, 100)), "fountainHitBox");
-	fountainHitBox->getEntityData()->Translate.Set(365, 0, 60);
-	eManager.spawnWorldEntity(fountainHitBox);
+	Entity* car2 = new Car(SEDAN_SPORTS, this, "car");
+	car2->getEntityData()->SetTransform(5, 0.25, 20);
+	car2->getEntityData()->SetRotate(0, 0, 0);
+	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car2);
 
-	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "restaurantHitBox");
-	restaurantHitBox->getEntityData()->Translate.Set(25, 0, 0);
-	eManager.spawnWorldEntity(restaurantHitBox);
+	Entity* car3 = new Car(RACER, this, "car");
+	car3->getEntityData()->SetTransform(10, 0.25, 20);
+	car3->getEntityData()->SetRotate(0, 0, 0);
+	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car3);
 
-	CustomEntity* gunShopHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "gunShopHitBox");
-	gunShopHitBox->getEntityData()->Translate.Set(160, 0, -210);
-	eManager.spawnWorldEntity(gunShopHitBox);
+	Entity* car4 = new Car(HATCHBACKSPORTS, this, "car");
+	car4->getEntityData()->SetTransform(15, 0.25, 20);
+	car4->getEntityData()->SetRotate(0, 0, 0);
+	car4->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car4);
 
-	CustomEntity* garageHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -20), Vector3(15, 2, 20)), "garageHitBox");
-	garageHitBox->getEntityData()->Translate.Set(-320, 0, 240);
-	eManager.spawnWorldEntity(garageHitBox);
+	Entity* car5 = new Car(TRACTOR, this, "car");
+	car5->getEntityData()->SetTransform(20, 0.25, 20);
+	car5->getEntityData()->SetRotate(0, 0, 0);
+	car5->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car5);
 
-	SpawnBuildings();
-	SpawnStreetLamps();
+	Entity* car6 = new Car(TRUCK, this, "car");
+	car6->getEntityData()->SetTransform(25, 0.25, 20);
+	car6->getEntityData()->SetRotate(0, 0, 0);
+	car6->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car6);
 
-	for (int i = 0; i < 20; i++)
-	{
-		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
-	}
+	Entity* car7 = new Car(VAN, this, "car");
+	car7->getEntityData()->SetTransform(30, 0.25, 20);
+	car7->getEntityData()->SetRotate(0, 0, 0);
+	car7->getEntityData()->SetScale(2.5, 2.5, 2.5);
+	eManager.spawnMovingEntity(car7);
 
-	//player and camera init
-	player = new Player(this, Vector3(-193, 0.25, -126), "player");
+
+	SpawnWalls();
+	//SpawnBuildings();
+	//SpawnStreetLamps();
+
+	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
+	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
+	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
+	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
+	//eManager.spawnWorldEntity(eggmanInteractZone);
+
+	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
+	//shopBase->getEntityData()->transX = -30.0f;
+	//shopBase->getEntityData()->transZ = 33.0f;
+	//shopBase->getEntityData()->scaleX = 6;
+	//shopBase->getEntityData()->scaleY = 3;
+	//shopBase->getEntityData()->scaleZ = 6;
+	//shoeShopX = shopBase->getEntityData()->transX;
+	//shoeShopY = shopBase->getEntityData()->transY;
+	//shoeShopZ = shopBase->getEntityData()->transZ;
+	//eManager.spawnWorldEntity(shopBase);
+
+	//Camera init(starting pos, where it looks at, up
+	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
+	
+	//Entity* tree = new WorldObject(this, GEO_TREE, "Shop_Base");
+	//tree->getEntityData()->Translate.Set(60, 1, -30);
+	//tree->getEntityData()->Scale.Set(0.3, 0.3, 0.3);
+	//eManager.spawnWorldEntity(tree);
+
+	/*Entity* car = new Car(SEDAN, this, "sedan");
+	car->getEntityData()->Scale.Set(2.75, 2.75, 2.75);
+	eManager.spawnMovingEntity(car);*/
+
+
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
-		Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
-		Vector3(0, 1, 0));
+				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
+				Vector3(0, 1, 0));
 
 	camera2.Init(Vector3(player->getEntityData()->Translate.x, 150, player->getEntityData()->Translate.z),
 		Vector3(0, -50, -1),
 		Vector3(0, 1, 0));
 
+	//Light init
 	InitLights();
 
 	//Practical 10a
@@ -232,27 +240,40 @@ void Scene2021::Init()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void Scene2021::Update(double dt)
+void SceneCarShop::Update(double dt)
 {
-	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
-
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
+
+	//UI item adding testing
+	//if (Application::IsKeyPressed('F'))
+	//{
+	//	inv.addItem(BURGER, 1);
+	//	inv.addItem(EGGPLANT, 2);
+	//	
+	//	//inv.addWeap(PISTOL); //Error if you try to add weapons
+	//	inv.addCar(SUV);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('Q'))
+	//{
+	//	toggleTimer = 0;
+	//	inv.toggleItem();
+	//	if (inv.getCurrentCarType() == SEDAN)
+	//		inv.switchCar(SUV);
+	//	else
+	//		inv.switchCar(SEDAN);
+	//}
+	//if (toggleTimer > 1 && Application::IsKeyPressed('R'))
+	//{
+	//	inv.addItem(CORN, 3);
+	//}
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
 	}
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('8'))
-	{
-		Scene* var = Game::getSceneByName("GarageScene");
-		static_cast <SceneGarage*>(var)->updateCarSpawn();
-		Game::switchScene(S_2051);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -264,70 +285,69 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	if (!Game::iManager.isInteracting()) {
-		CollisionHandler(dt);
+	CollisionHandler(dt);
 
-		std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+	Vector3 pLoc = player->getEntityData()->Translate;
+	Vector3 oldLoc = Vector3(pLoc);
 
-		Vector3 pLoc = player->getEntityData()->Translate;
-		Vector3 oldLoc = Vector3(pLoc);
-
-		//Requires Implementation of Velocity by Joash
-		float playerSpeed = 15.0;
-		if (!((Player*)player)->isDriving()) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-				camera.position.y += CameraBobber;
-			}
-
-			if (Application::IsKeyPressed('W')) {
-
-				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
-					playerSpeed = 25.f;
-				}
-
-				pLoc += view * (float)dt * playerSpeed;
-
-			}
-			if (Application::IsKeyPressed('A')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc -= right * (float)dt * playerSpeed;
-			}
-
-			if (Application::IsKeyPressed('S')) {
-				pLoc -= view * (float)dt * playerSpeed;
-			}
-
-			if (Application::IsKeyPressed('D')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc += right * (float)dt * playerSpeed;
-			}
-
-			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-			player->getEntityData()->Translate.x = pLoc.x;
-			// Skip y since we want level ground
-			player->getEntityData()->Translate.z = pLoc.z;
-
-			bobTime += dt;
-			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+	//Requires Implementation of Velocity by Joash
+	float playerSpeed = 15.0;
+	if (!((Player*)player)->isDriving()) {
+		Vector3 view = (camera.target - camera.position).Normalized();
+		if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+			camera.position.y += CameraBobber;
 		}
 
-		Vector3 view = (camera.target - camera.position).Normalized();
+		if (Application::IsKeyPressed('W')) {
 
-		if (!player->isDriving())
-			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+			if (Application::IsKeyPressed(VK_LSHIFT)) {
+				playerSpeed = 25.f;
+			}
 
+			pLoc += view * (float)dt * playerSpeed;
+
+		}
+		if (Application::IsKeyPressed('A')) {
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc -= right * (float)dt * playerSpeed;
+		}
+
+		if (Application::IsKeyPressed('S')) {
+			pLoc -= view * (float)dt * playerSpeed;
+		}
+
+		if (Application::IsKeyPressed('D')) {
+			Vector3 right = view.Cross(camera.up);
+			right.y = 0;
+			right.Normalize();
+			Vector3 up = right.Cross(view).Normalized();
+			pLoc += right * (float)dt * playerSpeed;
+		}
+		// SCENE WORLD BOUNDARIES
+		//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
+		//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+
+		// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+		player->getEntityData()->Translate.x = pLoc.x;
+		// Skip y since we want level ground
+		player->getEntityData()->Translate.z = pLoc.z;
+
+		bobTime += dt;
+		CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 	}
-	MissionCompleteListener(dt);
+
+	if (player->isDriving()) {
+		player->getCar()->Drive(dt);
+	}
+	Vector3 view = (camera.target - camera.position).Normalized();
+	Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 }
 
-void Scene2021::InitLights() {
+void SceneCarShop::InitLights()
+{
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 450, 0);
 	light[0].color.set(1, 1, 0.85f);
@@ -400,10 +420,21 @@ void Scene2021::InitLights() {
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
-void Scene2021::CollisionHandler(double dt) {
-	interactionTimer += dt;
+void SceneCarShop::MissionCompleteListener(double dt) {
+	//MISSION HANDLING EXAMPLES
+	//for (auto& entry : Game::mManager.getCompletableMissions()) {
+	//	DEBUG_MSG("Completable Mission EnumID: " << entry);
+	//}
+	//if (Application::IsKeyPressed('V')) {
+	//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+	//}
+	std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
+	for (auto& entry : justCompletedMissions) {
+		//If check for type of mission, e.g. if mission is extinguish fire, add balance.
+	}
+}
 
-	if (Application::IsKeyReleased('E')) eHeld = false;
+void SceneCarShop::CollisionHandler(double dt) {
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -425,10 +456,10 @@ void Scene2021::CollisionHandler(double dt) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
+
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				if (!player->isDriving())
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -446,50 +477,10 @@ void Scene2021::CollisionHandler(double dt) {
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.total_pitch = 0;
-						camera.total_yaw = 0;
-						camera.up = camera.defaultUp;
-						camera.target = camera.position - Vector3(0, 0, 1);
-					}
-				}
-			}
-		}
-
-		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
-		{
-			((NPC*)entry)->Walk(dt);
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
-				{
-					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++) //loop through each element in vector
-					{
-						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Application::setCursorEnabled(true);
-								int random = rand() % 2 + 1;
-								Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
-								Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-								((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
-							}
-						}
-					}
-				}
-				else
-				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
-					{
-						eHeld = true;
-						Application::setCursorEnabled(true);
-						int random = rand() % 2 + 1;
-						Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
-						Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-						((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
+						camera.target = camera.defaultTarget;
 					}
 				}
 			}
@@ -497,132 +488,61 @@ void Scene2021::CollisionHandler(double dt) {
 	}
 
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
-			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
-
-				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-					if (entry->victim->getHealth() <= 0)
-					{
-						entry->victim->setDead(true);
-						entry->victim->setHealth(0);
-						Game::cash += 100;
-					}
-					entry->victim->setHealth(entry->victim->getHealth() - Game::inv.getActiveWeapon()->getDamage());
-
-				}
-				DEBUG_MSG("BULLET PEWPEW");
-				entry->attacker->setDead(true);
+		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
+			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
+				// player->getEntityData()->Translate += entry->plane * 2;
+				// player->cancelNextMovement();
+				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
-		}
 
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
+			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
+				if (player->isDriving()) {
+					std::cout << "In Car" << std::endl;
+				}
+				else {
+					player->cancelNextMovement();
+					std::cout << "Collided" << std::endl;
+				}
+			}*/
+
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
-				}
-				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
-				}
-				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
-					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
-						{
-							Game::iManager.loadInteraction("phoneCall1");
-							interactionTimer = 0;
-						}
-					}
-					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
+				if (entry->victim->getName().find("interaction") != std::string::npos) {
+					foundInteractionZone = true;
+					if (!canInteractWithSomething)
+						canInteractWithSomething = true;
+					/*else if (passedInteractCooldown()) {
+						std::string name = entry->victim->getName();
+						if (ePressed) {
+							if (name.compare("interaction_test") == 0) {
+								loadInteractions(TEST);
 							}
 						}
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
-							}
-						}
-					}
-				}
-				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
-				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
-					{
-						eHeld = true;
-						Scene* var = Game::getSceneByName("GarageScene");
-						static_cast <SceneGarage*>(var)->updateCarSpawn();
-						Game::switchScene(S_GARAGE);
-					}
-				}
-			}
-			if (!player->isDriving())
-			{
-				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-					if (entry->victim->getName() == "drugs1" || entry->victim->getName() == "drugs2") //player has to collect both drug packages
-					{
-						for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-						{
-							if (Game::mManager.getCompletedMissions().at(i) == MISSION_TALK_TO_THE_OWNER) //check if visit gunshop mission is completable and mission progress of it is more than 50
-							{
-								if (ePressed && !eHeld)
-								{
-									eHeld = true;
-									entry->victim->setDead(true); //picked up the drugs
-									Game::mManager.addProgress(MISSIONTYPE::MISSION_COLLECT_THE_GOODS, 50.f);
-								}
-							}
-						}
-					}
-					entry->attacker->getEntityData()->Translate -= entry->translationVector;
-					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+					}*/
 				}
 			}
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				if (((Car*)entry->attacker)->getSpeed() > 0.7) {
-					vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
-
-					ISound* crash = AudioHandler::getEngine()->play3D(
-						AudioHandler::getSoundSource(CAR_CRASH),
-						AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-						LOOPED::NOLOOP);
-				}
-
+				// entry->attacker->cancelNextMovement();
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
-
-				DEBUG_MSG(backwardsMomentum);
-				DEBUG_MSG("Car Collided");
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
+				std::cout << backwardsMomentum << std::endl;
+				std::cout << "Car Collided" << std::endl;
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 				float backwardsMomentum = 0.f;
 				float resultantForce = ((Car*)entry->attacker)->getSpeed() * 5.f;
-				Math::Clamp(resultantForce, 0.f, 3.0f);
 				Vector3 resultantVec = resultantForce * ((Car*)entry->attacker)->getVelocity();
 				resultantVec.y = resultantForce * 0.2f;
 				Math::Clamp(resultantVec.y, 0.f, 1.0f);
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
-				entry->attacker->getEntityData()->Translate -= entry->translationVector;
+				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
-				((NPC*)entry->victim)->getRigidBody().hit = true;
-				DEBUG_MSG("Car Collided");
+				std::cout << "Car Collided" << std::endl;
 			}
 		}
 
@@ -634,13 +554,6 @@ void Scene2021::CollisionHandler(double dt) {
 				resultantVec = d - 2 * d.Dot(n) * n;
 				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-
-				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y; //get NPC rotation
-				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1)); //DOT product of velocity
-				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude(); //get magnitude of velocity
-				if (magnitude != 0)
-					angle = Math::RadianToDegree(acos(velo / magnitude)); //get NPC direction angle
-				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle; //set direction angle
 			}
 
 		}
@@ -658,19 +571,21 @@ void Scene2021::CollisionHandler(double dt) {
 			player->getEntityData()->Translate.z - player->getOldEntityData()->Translate.z);
 	}
 
-
-	if (player->isDriving()) {
-		player->getCar()->Drive(dt);
-		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
-	}
-
 	camera.Update(dt);
 	eManager.postCollisionUpdate();
 
 	fps = (float)1 / dt;
+
+	/*if (isInteracting && passedInteractCooldown()) {
+		if (ePressed) {
+			nextInteraction();
+
+		}
+		latestInteractionSwitch = this->elapsed;
+	}*/
 }
 
-void Scene2021::TopDownMapUpdate(double dt)
+void SceneCarShop::TopDownMapUpdate(double dt)
 {
 	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
@@ -732,15 +647,16 @@ void Scene2021::TopDownMapUpdate(double dt)
 	}
 }
 
-void Scene2021::Render()
+void SceneCarShop::Render()
 {
+
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
 	glEnableVertexAttribArray(1); // 2nd attribute buffer: color
 
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camMap || Game::uiManager.getCurrentMenu() == UI_MAIN_MENU || Game::uiManager.getCurrentMenu() == UI_CREDITS)
+	if (camMap)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,
@@ -756,6 +672,7 @@ void Scene2021::Render()
 
 	}
 
+	
 	modelStack.LoadIdentity();
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
@@ -765,7 +682,7 @@ void Scene2021::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	RenderRoads();
+	//RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -826,6 +743,10 @@ void Scene2021::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
+		modelStack.PushMatrix();
+		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
 		break;
 	case THIRDPERSON:
 		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
@@ -850,23 +771,36 @@ void Scene2021::Render()
 		break;
 	}
 
-	this->RenderSkybox();
+	//this->RenderSkybox();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(1000, 1000, 1000);
-	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
+	modelStack.Scale(100, 200, 200);
+	RenderMesh(MeshHandler::getMesh(GARAGE_FLOOR), true);
+	modelStack.PopMatrix();
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 22, 99); 
+	//modelStack.Rotate(180, 0, 1, 0);
+	//modelStack.Scale(80, 44, 100); //scaling of y-axis is 2x of translate y
+	//RenderMesh(MeshHandler::getMesh(GARAGE_DOOR), true);
+	//modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(20, 0, 0);
+	modelStack.Rotate(0, 1, 0, 0);
+	modelStack.Scale(10, 10, 10);
+	RenderMesh(MeshHandler::getMesh(GARAGE_WALL), true);
 	modelStack.PopMatrix();
 
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
-
 		if (hitboxEnable) { //Downside: Can't view hitbox accurately of Objects that are rotated
 			modelStack.PushMatrix();
 			Mesh* mesh = MeshBuilder::GenerateHitBox("hitbox", *entity->getHitBox()->getThisTickBox());
 			modelStack.Translate(entity->getEntityData()->Translate.x, entity->getEntityData()->Translate.y, entity->getEntityData()->Translate.z);
-			modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
+		    modelStack.Rotate(entity->getEntityData()->Rotation.x, 1, 0, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.y, 0, 1, 0);
 			modelStack.Rotate(entity->getEntityData()->Rotation.z, 0, 0, 1);
 			modelStack.Translate(-entity->getEntityData()->Translate.x, -entity->getEntityData()->Translate.y, -entity->getEntityData()->Translate.z);
@@ -882,23 +816,23 @@ void Scene2021::Render()
 		right.Normalize();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
-		//modelStack.Translate(0.175, -0.1, -0.35);
-		modelStack.Scale(0.8, 0.8, 0.8);
+		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
 		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
 		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.25, -0.1, 0.75);
+		modelStack.Translate(0.175, -0.1, -0.35);
 		modelStack.Rotate(185, 0, 1, 0);
+		modelStack.Scale(0.8, 0.8, 0.8);
 		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
 		modelStack.PopMatrix();
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
+
 	std::ostringstream ss;
 
 	//Coins UI
 	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-
+	
 	/*ss.str("");
 	ss.clear();
 	std::string bal = std::to_string(coinBalance);
@@ -908,9 +842,7 @@ void Scene2021::Render()
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
-	RenderUI();
-	RenderTexts();
-
+	
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {
 		ss.str("");
@@ -918,81 +850,65 @@ void Scene2021::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
-
+	
 	//FPS UI
 	ss.str("");
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
-
 }
 
-void Scene2021::RenderSkybox() {
+void SceneCarShop::RenderSkybox() {
 	modelStack.PushMatrix();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
-		break;
-	case TOPDOWN_MAINMENU:
-		modelStack.Translate(camera2.position.x, camera2.position.y, camera2.position.z);
-		break;
-	default:
-		modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
-		break;
-	}
+	modelStack.Translate(camera.position.x, camera.position.y, camera.position.z);
+		modelStack.PushMatrix();
+		modelStack.Translate(-250.0f, 0.0f, 0.0f);
+		modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-500.f, 0.0f, 0.0f);
-	modelStack.Rotate(90, 0.0f, 1.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_LEFT), false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(250.0f, 0.0f, 0.0f);
+		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(500.f, 0.0f, 0.0f);
-	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_RIGHT), false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(0.0f, 250.0f, 0.0f);
+		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+		modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0.0f, 500.f, 0.0f);
-	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-	modelStack.Rotate(90, 1.0f, 0.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_TOP), false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(0.0f, -250.0f, 0.0f);
+		modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
+		modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0.0f, -500.f, 0.0f);
-	modelStack.Rotate(-90, 0.0f, 1.0f, 0.0f);
-	modelStack.Rotate(90, -1.0f, 0.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BOTTOM), false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(0.0f, 0.0f, -250.0f);
+		modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0.0f, 0.0f, -500.f);
-	modelStack.Rotate(0, 1.0f, 0.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_BACK), false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0.0f, 0.0f, 500.f);
-	modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
-	modelStack.Scale(1000.f, 1000.f, 1000.f);
-	this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(0.0f, 0.0f, 250.0f);
+		modelStack.Rotate(180, 0.0f, 1.0f, 0.0f);
+		modelStack.Scale(500.0f, 500.0f, 500.0f);
+		this->RenderMesh(MeshHandler::getMesh(GEO_SKY_FRONT), false);
+		modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
 }
 
-void Scene2021::RenderRoads()
+void SceneCarShop::RenderRoads()
 {
 	//road floor
 	modelStack.PushMatrix();
@@ -1192,7 +1108,7 @@ void Scene2021::RenderRoads()
 		modelStack.Translate(-1, 0, 0);
 		RenderMesh(MeshHandler::getMesh(GEO_ROAD), true);
 	}
-
+	
 	modelStack.PushMatrix();
 	modelStack.Translate(-1, 0, -1);
 	modelStack.Rotate(-90, 0, 1, 0);
@@ -1203,326 +1119,223 @@ void Scene2021::RenderRoads()
 }
 
 
-void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+void SceneCarShop::initCollidables(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
-	Entity* building = new WorldObject(this, geoType, "building");
-	building->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
-	building->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
-	building->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
-	eManager.spawnWorldEntity(building);
+	Entity* collidables = new WorldObject(this, geoType, "building");
+	collidables->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
+	collidables->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
+	collidables->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
+	eManager.spawnWorldEntity(collidables);
 }
-
-void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+void SceneCarShop::SpawnWalls()
 {
-	Entity* lamp = new WorldObject(this, geoType, "lamp");
-	lamp->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
-	lamp->getEntityData()->SetRotate(v3R.x, v3R.y, v3R.z);
-	lamp->getEntityData()->SetScale(v3S.x, v3S.y, v3S.z);
-	eManager.spawnWorldEntity(lamp);
+	Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
+	Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
+	initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
+	initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
+	initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
+	initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
+	initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
 }
+//
+//void SceneCarShop::SpawnBuildings()
+//{
+//	//init of buildings 
+//	srand(time(NULL));
+//
+//	//main road buildings
+//	int random = (rand() % 6) + 4;
+//	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+//
+//	int random2 = (rand() % 6) + 4;
+//	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+//
+//	for (int i = 1; i < 6; i++) //(main road)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+//
+//		int random3 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+//
+//		int random4 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+//	}
+//
+//	//left and right of (positive z axis) side road buildings
+//	for (int i = 2; i < 4; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
+//
+//		int random3 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
+//
+//		int random4 = (rand() % 6) + 4;
+//		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
+//
+//		int random5 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
+//
+//		int random6 = (rand() % 6) + 4;
+//		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
+//	}
+//
+//	//left side left building
+//	for (int i = 0; i < 4; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+//	}
+//
+//	for (int i = 6; i < 7; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+//	}
+//
+//	int random3 = (rand() % 6) + 4;
+//	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+//
+//	int random4 = (rand() % 6) + 4;
+//	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
+//
+//	for (int i = 0; i < 8; i++)
+//	{
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
+//
+//		if (i < 7)
+//		{
+//			int random = (rand() % 6) + 4;
+//			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
+//		}
+//
+//		if (i < 2)
+//		{
+//			int random3 = (rand() % 6) + 4;
+//			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
+//		}	
+//	}
+//
+//	//outside buildings
+//	for (int i = 0; i < 8; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
+//	}
+//
+//	//front row
+//	for (int i = 0; i < 6; i++)
+//	{
+//		if (i < 4)
+//		{
+//			int random = (rand() % 6) + 4;
+//			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
+//		}
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
+//
+//		int random3 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
+//
+//		int random4 = (rand() % 6) + 4;
+//		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
+//	}
+//
+//	//front left row
+//	for (int i = 0; i < 8; i++)
+//	{
+//		if (i < 6)
+//		{
+//			int random = (rand() % 6) + 4;
+//			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
+//		}
+//
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
+//
+//		if (i < 7)
+//		{
+//			int random3 = (rand() % 6) + 4;
+//			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
+//
+//			int random4 = (rand() % 6) + 4;
+//			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
+//		}
+//	}
+//
+//	int random5 = (rand() % 6) + 4;
+//	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
+//
+//	int random6 = (rand() % 6) + 4;
+//	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
+//
+//	for (int i = 1; i < 2; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
+//		
+//		int random2 = (rand() % 6) + 4;
+//		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
+//	}
+//
+//	int random7 = (rand() % 6) + 4;
+//	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
+//
+//	int random8 = (rand() % 6) + 4;
+//	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
+//
+//	int random9 = (rand() % 6) + 4;
+//	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
+//
+//	for (int i = 1; i < 7; i++)
+//	{
+//		int random = (rand() % 6) + 4;
+//		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
+//	}
+//
+//}
+//
+//void SceneCarShop::SpawnStreetLamps()
+//{
+//	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(-27.5, 0, -200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(-27.5, 0, 200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
+//}
 
-void Scene2021::SpawnBuildings()
-{
-	//init of buildings
-	srand(time(NULL));
 
-	//main road buildings
-	int random = (rand() % 6) + 6;
-	initBuildings(Vector3(50, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.3, 0.5), GEO_BUILDING_1);
-
-	int random2 = (rand() % 6) + 6;
-	initBuildings(Vector3(-60, 0, 0), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-
-	for (int i = 1; i < 6; i++) //(main road)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-
-		int random3 = (rand() % 6) + 6;
-		initBuildings(Vector3(-50, 0, 40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-
-		int random4 = (rand() % 6) + 6;
-		initBuildings(Vector3(-50, 0, -40 * i), Vector3(0, 90, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random4));
-	}
-
-	//left and right of (positive z axis) side road buildings
-	for (int i = 2; i < 4; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(-50 * i, 0, 200), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random2));
-
-		int random3 = (rand() % 6) + 6;
-		initBuildings(Vector3(-50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random3));
-
-		int random4 = (rand() % 6) + 6;
-		initBuildings(Vector3(50 * i, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random4));
-
-		int random5 = (rand() % 6) + 6;
-		initBuildings(Vector3(-50 * i - 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random5));
-
-		int random6 = (rand() % 6) + 6;
-		initBuildings(Vector3(50 * i + 40, 0, 150), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random6));
-	}
-
-	//left side left building
-	for (int i = 0; i < 4; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(190, 0, 50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(190, 0, -50 * i), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-	}
-
-	for (int i = 6; i < 7; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(50 * i, 0, 140), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(50 * i, 0, 180), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-	}
-
-	int random3 = (rand() % 6) + 6;
-	initBuildings(Vector3(110, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-
-	//gunshop building
-	initBuildings(Vector3(160, 0, -190), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(GEO_BUILDING_7));
-
-	for (int i = 0; i < 8; i++)
-	{
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(39 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random2));
-
-		if (i < 7)
-		{
-			int random = (rand() % 6) + 6;
-			initBuildings(Vector3(295, 0, -37 * i), Vector3(0, 0, 0), Vector3(0.4, 0.4, 0.4), GEOMETRY_TYPE(random));
-		}
-
-		if (i < 2)
-		{
-			int random3 = (rand() % 6) + 6;
-			initBuildings(Vector3(-38 * i, 0, -290), Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), GEOMETRY_TYPE(random3));
-		}
-	}
-
-	//outside buildings
-	for (int i = 0; i < 8; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(-65 * i, 0, -425), Vector3(0, 0, 0), Vector3(0.7, 0.5, 0.7), GEOMETRY_TYPE(random2));
-	}
-
-	//front row
-	for (int i = 0; i < 6; i++)
-	{
-		if (i < 4)
-		{
-			int random = (rand() % 6) + 6;
-			initBuildings(Vector3(-310, 0, 55 * i), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
-		}
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(-310, 0, -65 * i), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
-
-		int random3 = (rand() % 6) + 6;
-		initBuildings(Vector3(-370, 0, 80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random3));
-
-		int random4 = (rand() % 6) + 6;
-		initBuildings(Vector3(-370, 0, -80 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
-	}
-
-	//front left row
-	for (int i = 0; i < 8; i++)
-	{
-		if (i < 6)
-		{
-			int random = (rand() % 6) + 6;
-			initBuildings(Vector3(-55 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.6, 0.6, 0.6), GEOMETRY_TYPE(random));
-		}
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(65 * i, 0, 310), Vector3(0, 0, 0), Vector3(0.8, 0.6, 0.8), GEOMETRY_TYPE(random2));
-
-		if (i < 7)
-		{
-			int random3 = (rand() % 6) + 6;
-			initBuildings(Vector3(-80 * i, 0, 370), Vector3(0, 0, 0), Vector3(0.9, 0.9, 0.9), GEOMETRY_TYPE(random3));
-
-			int random4 = (rand() % 6) + 6;
-			initBuildings(Vector3(80 * i, 0, 370), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random4));
-		}
-	}
-
-	int random5 = (rand() % 6) + 6;
-	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
-
-	int random6 = (rand() % 6) + 6;
-	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
-
-	for (int i = 1; i < 2; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(120, 0, 55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random));
-
-		int random2 = (rand() % 6) + 6;
-		initBuildings(Vector3(120, 0, -55 * i), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random2));
-	}
-
-	int random7 = (rand() % 6) + 6;
-	initBuildings(Vector3(120, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random7));
-
-	int random8 = (rand() % 6) + 6;
-	initBuildings(Vector3(120, 0, 70), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random8));
-
-	int random9 = (rand() % 6) + 6;
-	initBuildings(Vector3(120, 0, -80), Vector3(0, 0, 0), Vector3(1, 1, 1), GEOMETRY_TYPE(random9));
-
-	for (int i = 1; i < 7; i++)
-	{
-		int random = (rand() % 6) + 6;
-		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
-	}
-	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
-	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
-
-	//spawn drugs
-	Entity* drug = new WorldObject(this, GEO_CUBE, "drugs1");
-	drug->getEntityData()->SetTransform(-325, 1, 288);
-	drug->getEntityData()->SetRotate(0, 0, 0);
-	drug->getEntityData()->SetScale(1.5, 1.5, 1.5);
-	eManager.spawnWorldEntity(drug);
-
-	Entity* drug2 = new WorldObject(this, GEO_CUBE, "drugs2");
-	drug2->getEntityData()->SetTransform(-300, 1, -370);
-	drug2->getEntityData()->SetRotate(0, 0, 0);
-	drug2->getEntityData()->SetScale(1.5, 1.5, 1.5);
-	eManager.spawnWorldEntity(drug2);
-}
-
-void Scene2021::SpawnStreetLamps()
-{
-	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-27.5, 0, -200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-27.5, 0, 200), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-97.5, 0, 270), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-137.5, 0, 220), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(270, 0, 200), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(218, 0, 140), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(218, 0, 10), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(270, 0, -80), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(218, 0, -176), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	initStreetLamps(Vector3(388, 0, -306), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(388, 0, -40), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(340, 0, -153), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	initStreetLamps(Vector3(277, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(77, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-160, 0, -340), Vector3(0, 0, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	initStreetLamps(Vector3(151, 0, -391), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-51, 0, -391), Vector3(0, 180, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	initStreetLamps(Vector3(-218, 0, -277), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-218, 0, -77), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-218, 0, 157), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-
-	initStreetLamps(Vector3(-270, 0, 67), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-	initStreetLamps(Vector3(-270, 0, -167), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
-}
-
-void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
-{
-	int diffX = v3Tmax.x - v3Tmin.x;
-	int randomX = rand() % diffX + v3Tmin.x;
-
-	int diffZ = v3Tmax.z - v3Tmin.z;
-	int randomZ = rand() % diffZ + v3Tmin.z;
-
-	int randomRotation = rand() % 359 + 1;
-
-	Entity* testNPC = new NPC(this, geoType, "test", 50);
-	testNPC->getEntityData()->SetTransform(randomX, 2, randomZ);
-	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
-	testNPC->getEntityData()->SetScale(3, 3, 3);
-
-	eManager.spawnMovingEntity(testNPC);
-}
-
-void Scene2021::RenderTexts()
-{
-	modelStack.PushMatrix();
-	modelStack.Translate(30, 15, -7);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(3, 3, 3);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "RESTAURANT", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(350, 15, 60);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(3, 3, 3);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "FOUNTAIN", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-190, 15, -200);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(15, 15, 15);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "GOVERNMENT FACILITY", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(165, 15, -205);
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(3, 3, 3);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "GUN SHOP", Color(1, 0, 1));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-330, 15, 245);
-	modelStack.Rotate(-270, 0, 1, 0);
-	modelStack.Scale(5, 5, 5);
-	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
-	modelStack.PopMatrix();
-}
-
-void Scene2021::RenderUI()
+void SceneCarShop::RenderUI()
 {
 	Game::RenderUI();
-
-	if (player->isDriving())
-		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
-void Scene2021::spawnGarageCar(CAR_TYPE carType)
-{
-	Entity* newCar = new Car(carType, this, "newCarFromGarage");
-	newCar->getEntityData()->SetTransform(-320, 0, 245);
-	newCar->getEntityData()->SetRotate(0, 0, 0);
-	newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
-
-	this->eManager.spawnMovingEntity(newCar);
-}
-
-void Scene2021::Exit()
+void SceneCarShop::Exit()
 {
 	// Cleanup VBO here
-	// this->EndInteraction(); //To clear up queuedMessages pointers
+	//this->EndInteraction(); //To clear up queuedMessages pointers
 
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

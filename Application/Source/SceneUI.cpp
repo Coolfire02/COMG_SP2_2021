@@ -1,4 +1,4 @@
-#include "Scene2021.h"
+#include "SceneUI.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "LoadTGA.h"
@@ -15,7 +15,7 @@
 #include "AudioHandler.h"
 #include "SceneGarage.h"
 
-Scene2021::Scene2021() :
+SceneUI::SceneUI() :
 	eManager(this)
 {
 	//Scene
@@ -36,12 +36,12 @@ Scene2021::Scene2021() :
 	isInteracting = false;
 }
 
-Scene2021::~Scene2021()
+SceneUI::~SceneUI()
 {
 
 }
 
-void Scene2021::MissionCompleteListener(double dt)
+void SceneUI::MissionCompleteListener(double dt)
 {
 	//MISSION HANDLING EXAMPLES
 	/*for (auto& entry : Game::mManager.getCompletableMissions()) {
@@ -78,7 +78,7 @@ void Scene2021::MissionCompleteListener(double dt)
 	}
 }
 
-void Scene2021::Init()
+void SceneUI::Init()
 {
 	// Init VBO here
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
@@ -232,102 +232,110 @@ void Scene2021::Init()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void Scene2021::Update(double dt)
+void SceneUI::Update(double dt)
 {
-	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
-
-	bool ePressed = Application::IsKeyPressed('E');
-	bool pPressed = Application::IsKeyPressed('P');
-	bool tPressed = Application::IsKeyPressed('T');
-
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('8'))
+	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
 	{
-		Scene* var = Game::getSceneByName("GarageScene");
-		static_cast <SceneGarage*>(var)->updateCarSpawn();
-		Game::switchScene(S_2051);
-	}
+		light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+		light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
-	if (Application::IsKeyPressed('9')) {
-		hitboxEnable = !hitboxEnable;
-	}
-	if (Application::IsKeyPressed('0')) {
-		lightEnable = !lightEnable;
-	}
+		bool ePressed = Application::IsKeyPressed('E');
+		bool pPressed = Application::IsKeyPressed('P');
+		bool tPressed = Application::IsKeyPressed('T');
 
-	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
-	if (!Game::iManager.isInteracting()) {
-		CollisionHandler(dt);
-
-		std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
-
-		Vector3 pLoc = player->getEntityData()->Translate;
-		Vector3 oldLoc = Vector3(pLoc);
-
-		//Requires Implementation of Velocity by Joash
-		float playerSpeed = 15.0;
-		if (!((Player*)player)->isDriving()) {
-			Vector3 view = (camera.target - camera.position).Normalized();
-			if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-				camera.position.y += CameraBobber;
-			}
-
-			if (Application::IsKeyPressed('W')) {
-
-				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
-					playerSpeed = 25.f;
-				}
-
-				pLoc += view * (float)dt * playerSpeed;
-
-			}
-			if (Application::IsKeyPressed('A')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc -= right * (float)dt * playerSpeed;
-			}
-
-			if (Application::IsKeyPressed('S')) {
-				pLoc -= view * (float)dt * playerSpeed;
-			}
-
-			if (Application::IsKeyPressed('D')) {
-				Vector3 right = view.Cross(camera.up);
-				right.y = 0;
-				right.Normalize();
-				Vector3 up = right.Cross(view).Normalized();
-				pLoc += right * (float)dt * playerSpeed;
-			}
-
-			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-			player->getEntityData()->Translate.x = pLoc.x;
-			// Skip y since we want level ground
-			player->getEntityData()->Translate.z = pLoc.z;
-
-			bobTime += dt;
-			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+		if (GetAsyncKeyState('1') & 0x8001) {
+			glEnable(GL_CULL_FACE);
+		}
+		else if (GetAsyncKeyState('2') & 0x8001) {
+			glDisable(GL_CULL_FACE);
 		}
 
-		Vector3 view = (camera.target - camera.position).Normalized();
+		if (Application::IsKeyPressed('8'))
+		{
+			Scene* var = Game::getSceneByName("GarageScene");
+			static_cast <SceneGarage*>(var)->updateCarSpawn();
+			Game::switchScene(S_2051);
+		}
 
-		if (!player->isDriving())
-			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+		if (Application::IsKeyPressed('9')) {
+			hitboxEnable = !hitboxEnable;
+		}
+		if (Application::IsKeyPressed('0')) {
+			lightEnable = !lightEnable;
+		}
 
+		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
+		TopDownMapUpdate(dt);
+		if (!Game::iManager.isInteracting()) {
+			CollisionHandler(dt);
+
+			std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+
+			Vector3 pLoc = player->getEntityData()->Translate;
+			Vector3 oldLoc = Vector3(pLoc);
+
+			//Requires Implementation of Velocity by Joash
+			float playerSpeed = 15.0;
+			if (!((Player*)player)->isDriving()) {
+				Vector3 view = (camera.target - camera.position).Normalized();
+				if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
+					camera.position.y += CameraBobber;
+				}
+
+				if (Application::IsKeyPressed('W')) {
+
+					if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
+						playerSpeed = 25.f;
+					}
+
+					pLoc += view * (float)dt * playerSpeed;
+
+				}
+				if (Application::IsKeyPressed('A')) {
+					Vector3 right = view.Cross(camera.up);
+					right.y = 0;
+					right.Normalize();
+					Vector3 up = right.Cross(view).Normalized();
+					pLoc -= right * (float)dt * playerSpeed;
+				}
+
+				if (Application::IsKeyPressed('S')) {
+					pLoc -= view * (float)dt * playerSpeed;
+				}
+
+				if (Application::IsKeyPressed('D')) {
+					Vector3 right = view.Cross(camera.up);
+					right.y = 0;
+					right.Normalize();
+					Vector3 up = right.Cross(view).Normalized();
+					pLoc += right * (float)dt * playerSpeed;
+				}
+
+				// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
+				player->getEntityData()->Translate.x = pLoc.x;
+				// Skip y since we want level ground
+				player->getEntityData()->Translate.z = pLoc.z;
+
+				bobTime += dt;
+				CameraBobber = 0.002 * sin(bobTime * playerSpeed);
+			}
+
+			Vector3 view = (camera.target - camera.position).Normalized();
+
+			if (!player->isDriving())
+				Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+
+		}
+		MissionCompleteListener(dt);
 	}
-	MissionCompleteListener(dt);
+	else
+	{
+		camera.camType = TOPDOWN_MAINMENU;
+		TopDownMainMenuUpdate(dt);
+	}
 }
 
-void Scene2021::InitLights() {
+void SceneUI::InitLights() {
 	light[0].type = Light::LIGHT_POINT;
 	light[0].position.set(0, 450, 0);
 	light[0].color.set(1, 1, 0.85f);
@@ -400,7 +408,7 @@ void Scene2021::InitLights() {
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
-void Scene2021::CollisionHandler(double dt) {
+void SceneUI::CollisionHandler(double dt) {
 	interactionTimer += dt;
 
 	if (Application::IsKeyReleased('E')) eHeld = false;
@@ -670,7 +678,7 @@ void Scene2021::CollisionHandler(double dt) {
 	fps = (float)1 / dt;
 }
 
-void Scene2021::TopDownMapUpdate(double dt)
+void SceneUI::TopDownMapUpdate(double dt)
 {
 	//top down camera map
 	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
@@ -732,7 +740,7 @@ void Scene2021::TopDownMapUpdate(double dt)
 	}
 }
 
-void Scene2021::Render()
+void SceneUI::Render()
 {
 	glEnableVertexAttribArray(0); // 1st attribute buffer: vertices
 	glEnableVertexAttribArray(1); // 2nd attribute buffer: color
@@ -760,10 +768,13 @@ void Scene2021::Render()
 
 	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+		modelStack.PopMatrix();
+	}
 
 	RenderRoads();
 
@@ -876,48 +887,10 @@ void Scene2021::Render()
 		}
 	}
 
-	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
-		Vector3 view = (camera.target - camera.position).Normalized();
-		Vector3 right = view.Cross(camera.up);
-		right.Normalize();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x + view.x, camera.position.y + view.y, camera.position.z + view.z);
-		//modelStack.Translate(0.175, -0.1, -0.35);
-		modelStack.Scale(0.8, 0.8, 0.8);
-		modelStack.Rotate(camera.total_pitch, right.x, right.y, right.z);
-		modelStack.Rotate(camera.total_yaw, 0, 1, 0);
-		modelStack.Translate(0.25, -0.1, 0.75);
-		modelStack.Rotate(185, 0, 1, 0);
-		RenderMesh(MeshHandler::getMesh(Game::inv.getActiveWeapon()->getMeshType()), lightEnable);
-		modelStack.PopMatrix();
-
-		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
-	}
 	std::ostringstream ss;
-
-	//Coins UI
-	//RenderMeshOnScreen(MeshHandler::getMesh(GEO_COINS_METER), 9, 55, 15, 13);
-
-	/*ss.str("");
-	ss.clear();
-	std::string bal = std::to_string(coinBalance);
-	if (coinBalance < 10) bal = "0" + bal;
-	if (coinBalance < 100) bal = "0" + bal;
-	if (coinBalance > 999) bal = "999";
-	ss << bal;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
 
 	RenderUI();
 	RenderTexts();
-
-	//Interaction MSG UI
-	if (canInteractWithSomething && !isInteracting) {
-		ss.str("");
-		ss.clear();
-		ss << "Press 'E' to Interact";
-		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
-	}
 
 	//FPS UI
 	ss.str("");
@@ -927,7 +900,7 @@ void Scene2021::Render()
 
 }
 
-void Scene2021::RenderSkybox() {
+void SceneUI::RenderSkybox() {
 	modelStack.PushMatrix();
 	switch (camera.camType)
 	{
@@ -992,7 +965,7 @@ void Scene2021::RenderSkybox() {
 	modelStack.PopMatrix();
 }
 
-void Scene2021::RenderRoads()
+void SceneUI::RenderRoads()
 {
 	//road floor
 	modelStack.PushMatrix();
@@ -1203,7 +1176,7 @@ void Scene2021::RenderRoads()
 }
 
 
-void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+void SceneUI::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
 	Entity* building = new WorldObject(this, geoType, "building");
 	building->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
@@ -1212,7 +1185,7 @@ void Scene2021::initBuildings(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TY
 	eManager.spawnWorldEntity(building);
 }
 
-void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
+void SceneUI::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_TYPE geoType)
 {
 	Entity* lamp = new WorldObject(this, geoType, "lamp");
 	lamp->getEntityData()->SetTransform(v3T.x, v3T.y, v3T.z);
@@ -1221,7 +1194,7 @@ void Scene2021::initStreetLamps(Vector3 v3T, Vector3 v3R, Vector3 v3S, GEOMETRY_
 	eManager.spawnWorldEntity(lamp);
 }
 
-void Scene2021::SpawnBuildings()
+void SceneUI::SpawnBuildings()
 {
 	//init of buildings
 	srand(time(NULL));
@@ -1410,7 +1383,7 @@ void Scene2021::SpawnBuildings()
 	eManager.spawnWorldEntity(drug2);
 }
 
-void Scene2021::SpawnStreetLamps()
+void SceneUI::SpawnStreetLamps()
 {
 	initStreetLamps(Vector3(27.5, 0, -100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 	initStreetLamps(Vector3(27.5, 0, 100), Vector3(0, 90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
@@ -1445,7 +1418,7 @@ void Scene2021::SpawnStreetLamps()
 	initStreetLamps(Vector3(-270, 0, -167), Vector3(0, -90, 0), Vector3(20, 40, 20), GEO_ROAD_STREET_LAMP);
 }
 
-void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
+void SceneUI::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 {
 	int diffX = v3Tmax.x - v3Tmin.x;
 	int randomX = rand() % diffX + v3Tmin.x;
@@ -1463,7 +1436,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 	eManager.spawnMovingEntity(testNPC);
 }
 
-void Scene2021::RenderTexts()
+void SceneUI::RenderTexts()
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(30, 15, -7);
@@ -1500,8 +1473,29 @@ void Scene2021::RenderTexts()
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
 	modelStack.PopMatrix();
 }
+float camY = 400;
+int directionY = 1;
+void SceneUI::TopDownMainMenuUpdate(double dt)
+{
+	if (camY > 475)
+		directionY = -1;
+	else if (camY < 100)
+		directionY = 1;
 
-void Scene2021::RenderUI()
+	camY += 10 * dt * directionY;
+
+	camera2.position.Set(0,
+		camY,
+		0);
+
+	camera2.target.Set(0, 0, 0);
+
+	Mtx44 rotation;
+	rotation.SetToRotation(3 * dt, 0, 1, 0);
+	camera2.up = rotation * camera2.up;
+}
+
+void SceneUI::RenderUI()
 {
 	Game::RenderUI();
 
@@ -1509,7 +1503,7 @@ void Scene2021::RenderUI()
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
-void Scene2021::spawnGarageCar(CAR_TYPE carType)
+void SceneUI::spawnGarageCar(CAR_TYPE carType)
 {
 	Entity* newCar = new Car(carType, this, "newCarFromGarage");
 	newCar->getEntityData()->SetTransform(-320, 0, 245);
@@ -1519,7 +1513,7 @@ void Scene2021::spawnGarageCar(CAR_TYPE carType)
 	this->eManager.spawnMovingEntity(newCar);
 }
 
-void Scene2021::Exit()
+void SceneUI::Exit()
 {
 	// Cleanup VBO here
 	// this->EndInteraction(); //To clear up queuedMessages pointers

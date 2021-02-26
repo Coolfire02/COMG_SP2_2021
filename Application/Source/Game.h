@@ -17,7 +17,7 @@ enum SCENES
 	S_GUNSHOP,
 	S_GARAGE,
 	S_GUARD,
-	//S_RECENT,
+	S_UI,
 	S_COUNT
 };
 
@@ -25,11 +25,18 @@ enum SCENES
 
 class Game
 {
+
+private:
+	static bool switchingScene;
+	static SCENES toSwitchScene;
+	static double timeToSwitch;
+	static double startSwitchTime;
+	static SCENES prevScene;
+
 public:
 	Game();
 	~Game();
-	
-	static Scene* sceneB4pause;
+
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
@@ -54,7 +61,11 @@ public:
 
 	static void addScene(Scene* scene);
 	static void switchScene(static SCENES);
+	static void switchScene(SCENES, float transition, std::string titleText);
 	static Scene* getActiveScene();
 	static Scene* getSceneByName(std::string);
 	static Scene* getScene();
+
+	static SCENES getPrevSceneENUM();
+	static void setPrevSceneENUM(SCENES);
 };
