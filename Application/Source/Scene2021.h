@@ -94,6 +94,8 @@ private:
 	float CameraBobber = 0;
 	double bobTime = 0;
 
+	double interactionTimer = 0;
+
 public:
 	Scene2021();
 	~Scene2021();
