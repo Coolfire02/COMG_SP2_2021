@@ -286,9 +286,9 @@ void SceneHouseFire::Update(double dt)
 	/*
 	*Things put in this if Checks will only run if any Interaction is not showing.
 	*/
+	CollisionHandler(dt);
 	if (!Game::iManager.isInteracting()) {
 		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc
-		CollisionHandler(dt);
 
 		Vector3 pLoc = player->getEntityData()->Translate;
 		Vector3 oldLoc = Vector3(pLoc);
@@ -357,7 +357,7 @@ void SceneHouseFire::Update(double dt)
 				}
 			}
 			else if (!arrviedAtFinalSpot) {
-				Vector3 endPos = Vector3(12, 0, -523);
+				Vector3 endPos = Vector3(8, 0, -523);
 				Vector3 diff = endPos - player->getEntityData()->Translate;
 				diff.Normalize()* dt * 2;
 				player->getEntityData()->Translate.x += diff.x;
@@ -519,7 +519,12 @@ void SceneHouseFire::CollisionHandler(double dt) {
 							camera.position.y += 2;
 							camera.total_pitch = 0;
 							camera.total_yaw = 0;
-							camera.target = camera.position - Vector3(3, 1, -2);
+							camera.up = Vector3(0, 1, 0);
+							camera.target = camera.position - Vector3(-3, 0, 2);
+							Vector3 view = (camera.target - camera.position).Normalized();
+							Vector3 right = view.Cross(camera.up).Normalized();
+							camera.total_yaw = Math::RadianToDegree(acos(view.Dot(Vector3(0, 0, 1))));
+							//camera.up = camera.defaultUp = right.Cross(view).Normalized();
 					}
 				}
 			}

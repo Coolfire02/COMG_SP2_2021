@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "Application.h"
 
+const float InteractionManager::INTERACTION_CLICKCOOLDOWN = 2.5f;
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), interactionElapsed(0) { 
 }
@@ -275,21 +276,23 @@ Runs the pre and post commands of the current Interaction and pop it from the qu
 /******************************************************************************/
 void InteractionManager::nextInteraction(std::string key)
 {
-	for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
-		runCommand(*entry);
-	}
-
-	loadInteraction(key);
-	interactionQueue.popInteraction();
-
-
-	if (isInteracting()) {
-		for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+	if (passedInteractionCooldown()) {
+		for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 			runCommand(*entry);
 		}
-	}
-	else {
-		EndInteraction();
+
+		loadInteraction(key);
+		interactionQueue.popInteraction();
+
+
+		if (isInteracting()) {
+			for (auto& entry : interactionQueue.Top()->preInteractionCMD) {
+				runCommand(*entry);
+			}
+		}
+		else {
+			EndInteraction();
+		}
 	}
 }
 
@@ -312,7 +315,8 @@ Returns true if the time elapsed is greater than the cooldown.
 bool InteractionManager::passedInteractionCooldown()
 {
 	const float INTERACTION_COOLDOWN = 0.5f;
-	if (latestInteractionSwitch + INTERACTION_COOLDOWN < this->elapsed) {
+	if (latestInteractionSwitch + INTERACTION_COOLDOWN < Game::gElapsedTime) {
+		latestInteractionSwitch = Game::gElapsedTime;
 		return true;
 	}
 	return false;

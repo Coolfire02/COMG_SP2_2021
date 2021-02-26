@@ -20,6 +20,8 @@ Handles all the interactions in this file
 /******************************************************************************/
 class InteractionManager {
 
+	static const float INTERACTION_CLICKCOOLDOWN;
+
 	std::map<std::string, Interaction*> Interactions; // map to store Interactions based on their Keys
 	InteractionQueue interactionQueue; // queue for active interactions
 	std::map<std::string, int> timesInteracted;

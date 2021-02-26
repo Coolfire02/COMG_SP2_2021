@@ -94,8 +94,11 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
+	
 	if (iManager.isInteracting()) {
-		uiManager.setCurrentUI(UI_INTERACTION);
+		if(uiManager.getCurrentMenu() != UI_INTERACTION)
+			uiManager.setCurrentUI(UI_INTERACTION);
+
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
