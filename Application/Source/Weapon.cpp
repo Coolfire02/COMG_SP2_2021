@@ -224,3 +224,8 @@ double Weapon::getUIcooldown()
 	if (this != nullptr)
 		return this->UIcooldown;
 }
+
+int Weapon::getDamage()
+{
+	return this->damage;
+}

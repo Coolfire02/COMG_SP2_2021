@@ -148,7 +148,7 @@ void SceneGunShop::Init() {
 	counter->getEntityData()->Rotation = Vector3(0, 90, 0);
 	eManager.spawnWorldEntity(counter);
 
-	Entity* drugman = new NPC(this, DRUGMAN, "drugman");
+	Entity* drugman = new NPC(this, DRUGMAN, "drugman", 50);
 	NPCLookAngle = 0;
 	drugman->getEntityData()->Translate = Vector3(-9.5, 0, -10.5);
 	drugman->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
@@ -209,6 +209,7 @@ void SceneGunShop::Init() {
 void SceneGunShop::Update(double dt)
 {
 	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
 	bool ePressed = Application::IsKeyPressed('E');

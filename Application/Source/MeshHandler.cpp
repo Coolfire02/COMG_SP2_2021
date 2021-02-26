@@ -27,6 +27,7 @@ bool MeshHandler::loadMeshes() {
 	//General
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("axes", 1, 1, 1);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1,0,0));
+	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateCube("cube", Color(0,1,0));
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightbulll", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_BOOSTMETER] = MeshBuilder::GenerateQuad("boost", Color(1.0f, 1.0f, 0));
@@ -41,8 +42,6 @@ bool MeshHandler::loadMeshes() {
 
 	meshList[GEO_TEXT_SUPERMARIO] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT_SUPERMARIO]->textureID = LoadTGA("Image//Fonts//supermario.tga");
-
-	meshList[TAILSS] = MeshBuilder::GenerateOBJMTL("testnpc", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 
 	//OBJS
 	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building1.obj", "MTL//Buildings//1.mtl");
@@ -262,8 +261,13 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
 	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
 
+	meshList[GEO_ROADWAYPOINT] = MeshBuilder::GenerateQuad("roadwaypoint", Color(0, 0, 0));
+	meshList[GEO_ROADWAYPOINT]->textureID = LoadTGA("Image//Miscellaneous//RoadWayPoint.tga");
+	
 	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
 	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");
+	meshList[GEO_FIRE_GIF]->material.kAmbient.Set(1.f, 1.f, 1.f);
+	meshList[GEO_FIRE_GIF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 
 	// Time Portal
 	meshList[GEO_TIMEPORTAL_WALL] = MeshBuilder::GenerateQuad("wall", Color(1, 1, 1), 2, 2);
@@ -272,6 +276,7 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_TIMEPORTAL_DOOR]->textureID = LoadTGA("Image//TimePortal//timeportal.tga");
 	meshList[GEO_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal//door.obj");
 	meshList[GEO_DOOR]->textureID = LoadTGA("Image//TimePortal//door.tga");
+	meshList[GEO_PORTAL_SCREEN] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
 	//Materials
 
 	/*Material mat;

@@ -1,20 +1,20 @@
 #ENUM:GEOMETRY_TYPE(previewImage);Objective;Mission Complete Message
 #========================================
 
-MISSION_EXTINGUISH_FIRE
-- GEO_TYPE_Enum: EMPTY
-- ObjectiveMessage: Extinguish the fire
-- CompletedMessage: Fire Fighter
-* BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions: []
-
 MISSION_ENTER_TIMEPORTAL
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Enter the Time Portal back to 2021
 - CompletedMessage: Time Traveller
 * BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions:
-	- MISSION_EXTINGUISH_FIRE
+* PreRequisiteMissions: []
+
+MISSION_EXTINGUISH_FIRE
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Extinguish the fire
+- CompletedMessage: Fire Fighter
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions: 
+	- MISSION_ENTER_TIMEPORTAL
 
 MISSION_VISIT_FOUNTAIN
 - GEO_TYPE_Enum: EMPTY
@@ -22,7 +22,6 @@ MISSION_VISIT_FOUNTAIN
 - CompletedMessage: splash
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: []
-
 
 MISSION_VISIT_RESTAURANT
 - GEO_TYPE_Enum: EMPTY

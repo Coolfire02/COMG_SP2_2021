@@ -9,12 +9,14 @@ MissionManager Game::mManager;
 InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
+int Game::cash = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
 
 Game::Game()
 {
 	ammo = 20;
+	cash = 0;
 }
 
 Game::~Game()
@@ -31,7 +33,6 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
-
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
@@ -46,6 +47,8 @@ void Game::Update(double dt)
 		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+	if (Game::cash >= 9999999)
+		Game::cash = 9999999;
 	//if (GetAsyncKeyState('3') & 0x8001) {
 	//	Game::switchScene(S_2051);
 	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -91,8 +94,11 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
+	
 	if (iManager.isInteracting()) {
-		uiManager.setCurrentUI(UI_INTERACTION);
+		if(uiManager.getCurrentMenu() != UI_INTERACTION)
+			uiManager.setCurrentUI(UI_INTERACTION);
+
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
