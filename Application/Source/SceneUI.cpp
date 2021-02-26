@@ -1098,7 +1098,7 @@ void SceneUI::SpawnBuildings()
 		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
 	}
-	//initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
+	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
 
 	//spawn drugs

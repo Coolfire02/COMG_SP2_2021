@@ -562,6 +562,12 @@ void Scene2021::CollisionHandler(double dt) {
 							}
 						}
 					}
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Game::switchScene(S_GUNSHOP);
+					}
 				}
 				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
 				{

@@ -36,8 +36,8 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
 			//Weapons UI
-			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "0/0 Ammo", 5.0f);
-			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);
+			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "", 5.0f);
+			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "", 3.0f);
 			
 			createNoTextButton(bManagers[i], "Weapon1", 100, 10, 10, 10, UI_PISTOL);
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
@@ -51,7 +51,7 @@ void UIManager::Init() {
 			}
 
 			//cash
-			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "$" + std::to_string(Game::cash), 5.0f);
+			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "", 5.0f);
 			break;
 		case UI_ITEM_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
