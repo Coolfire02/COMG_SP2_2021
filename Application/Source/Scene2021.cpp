@@ -377,7 +377,7 @@ void Scene2021::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -520,8 +520,8 @@ void Scene2021::CollisionHandler(double dt) {
 		}
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				std::cout << "In Range" << std::endl;
-				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+				if (!player->isDriving())
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -554,13 +554,13 @@ void Scene2021::CollisionHandler(double dt) {
 			((NPC*)entry)->Walk(dt);
 
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
 					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++) //loop through each element in vector
 					{
 						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
 						{
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
@@ -575,6 +575,7 @@ void Scene2021::CollisionHandler(double dt) {
 				}
 				else
 				{
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;
