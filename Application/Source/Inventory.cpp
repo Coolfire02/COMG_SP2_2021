@@ -69,7 +69,8 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 
 void Inventory::deleteWeapon(WEAPON_TYPE wType)
 {
-	this->weaponInv->delWeapon(wType);
+	if(weaponInv != nullptr)
+		this->weaponInv->delWeapon(wType);
 }
 
 void Inventory::switchCar(int cartype)

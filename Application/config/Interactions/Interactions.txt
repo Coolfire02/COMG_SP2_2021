@@ -155,22 +155,12 @@ INTERACTION: HouseFire Out Of Car
 # NEXT: HouseFire Try Entinguish House
 
 CHOICE # HouseFire Out Of Car
-- MSG: Access the Fire Hydrant
-# NEXT: HouseFire Access Fire Hydrant
-
-CHOICE # HouseFire Out Of Car
 - MSG: Call Fire Department
 # NEXT: HouseFire Call Fire Department
 
 CHOICE # HouseFire Out Of Car
 - MSG: Do Nothing. Its too late.
 # NEXT: HouseFire Do Nothing
-
-=========================================
-
-INTERACTION: HouseFire Access Fire Hydrant
-- MSG: Fire hot!
-- postcmd: /burnplayeranimation
 
 =========================================
 

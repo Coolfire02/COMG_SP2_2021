@@ -72,6 +72,7 @@ public:
 
 	bool eHeld = false;
 	bool arrviedAtFinalSpot = false;
+	bool houseDestroyed = false;
 	Camera camera;
 	Camera camera2;
 
