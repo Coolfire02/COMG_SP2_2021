@@ -148,7 +148,6 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
-	
 }
 
 Scene* Game::getActiveScene() {

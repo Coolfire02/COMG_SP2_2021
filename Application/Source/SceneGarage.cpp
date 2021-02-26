@@ -138,7 +138,7 @@ void SceneGarage::Init()
 	//eggman->getEntityData()->transZ = -22;
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
-	if (!Game::inv.getGarageVector().empty())
+	/*if (!Game::inv.getGarageVector().empty())
 	{
 		for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
 		{
@@ -149,7 +149,7 @@ void SceneGarage::Init()
 			
 			eManager.spawnMovingEntity(newCar);
 		}
-	}
+	}*/
 	//Need to update eManager in scene to spawn new cars when you get them
 	/*if (!Game::inv.getGarageVector().empty())
 		return;
@@ -295,6 +295,10 @@ void SceneGarage::Init()
 
 void SceneGarage::Update(double dt)
 {
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -305,7 +309,10 @@ void SceneGarage::Update(double dt)
 	else if (GetAsyncKeyState('2') & 0x8001) {
 		glDisable(GL_CULL_FACE);
 	}
-
+	/*if (Application::IsKeyPressed('8'))
+	{
+		updateCarSpawn();
+	}*/
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
 	}
@@ -372,7 +379,7 @@ void SceneGarage::Update(double dt)
 	if (player->isDriving()) {
 		player->getCar()->Drive(dt);
 		camera.position.x = Math::Clamp(camera.position.x, -24.f, 24.f);
-		camera.position.z = Math::Clamp(camera.position.z, -49.f, 49.f);
+		camera.position.z = Math::Clamp(camera.position.z, -49.f, 48.f);
 	}
 
 	Vector3 view = (camera.target - camera.position).Normalized();
@@ -951,6 +958,46 @@ void SceneGarage::SpawnWalls()
 	initCollidables(Vector3(0.0f, 12.4f, 50.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
 	initCollidables(Vector3(0.0f, 12.4f, -50.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
 	initCollidables(Vector3(0.0f, 11.0f, 49.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(40.0f, 22.0f, 50.0f), GARAGE_DOOR); //garage door
+}
+
+void SceneGarage::updateCarSpawn()
+{
+	for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
+	{
+		int tempStoreJ = 0;
+		for (int j = 0; j < this->eManager.getEntities().size(); j++)
+		{
+			Entity* entity = this->eManager.getEntities().at(j);
+			if (entity->getType() == ENTITYTYPE::CAR)
+			{
+				if (entity->getName() == ("garageCar" + std::to_string(i + 1)))
+				{
+
+				}
+				else
+				{
+					Entity* newCar = new Car(Game::inv.getGarageVector().at(i)->getCarType(), this, "garageCar" + std::to_string(i + 1));
+					newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
+					newCar->getEntityData()->SetRotate(0, 0, 0);
+					newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+
+					this->eManager.spawnMovingEntity(newCar);
+				}
+				break;
+			}
+		}
+
+		if (tempStoreJ == 0)
+		{
+			//Create a new car if there is no cars spawned
+			Entity* newCar = new Car(Game::inv.getGarageVector()[tempStoreJ]->getCarType(), this, "garageCar" + std::to_string(tempStoreJ + 1)); //garageCar1
+			newCar->getEntityData()->SetTransform(5 + (tempStoreJ * 5), 0.25, 20);
+			newCar->getEntityData()->SetRotate(0, 0, 0);
+			newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+
+			this->eManager.spawnMovingEntity(newCar);
+		}
+	}
 }
 
 void SceneGarage::RenderUI()
