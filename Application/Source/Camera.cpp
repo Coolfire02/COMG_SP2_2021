@@ -179,7 +179,7 @@ bool Camera::isLookingAt(Vector3 pos)
 
 	float angle = acos((pow(sideA, 2) + pow(sideC, 2) - pow(sideB, 2)) / (2 * sideA * sideC)) * 180 / 3.14159;
 
-	return angle < 20;
+	return angle < 10;
 }
 
 

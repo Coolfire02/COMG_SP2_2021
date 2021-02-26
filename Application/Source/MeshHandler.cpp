@@ -124,17 +124,9 @@ bool MeshHandler::loadMeshes() {
 
 	//Title Screen
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
-	meshList[TITLE_BG]->textureID = LoadTGA("Image//main_menu_bg.tga");
+	meshList[TITLE_BG]->textureID = LoadTGA("Image//titleScreenBG.tga");
 	meshList[PLAY_BUTTON] = MeshBuilder::GenerateQuad("playButton", Color(1, 1, 1));
 	meshList[PLAY_BUTTON]->textureID = LoadTGA("Image//playButton.tga");
-	meshList[CREDITS_BUTTON] = MeshBuilder::GenerateQuad("creditsButton", Color(1, 1, 1));
-	meshList[CREDITS_BUTTON]->textureID = LoadTGA("Image//creditsButton.tga");
-	meshList[RESUME_BUTTON] = MeshBuilder::GenerateQuad("resumeButton", Color(1, 1, 1));
-	meshList[RESUME_BUTTON]->textureID = LoadTGA("Image//resumeButton.tga");
-	meshList[MENU_BUTTON] = MeshBuilder::GenerateQuad("menuButton", Color(1, 1, 1));
-	meshList[MENU_BUTTON]->textureID = LoadTGA("Image//menuButton.tga");
-	meshList[QUIT_BUTTON] = MeshBuilder::GenerateQuad("quitButton", Color(1, 1, 1));
-	meshList[QUIT_BUTTON]->textureID = LoadTGA("Image//quitButton.tga");
 
 	//General UI
 	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));
@@ -246,8 +238,6 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_PISTOL]->textureID = LoadTGA("Image//GunShop//pistolColor.tga");
 	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJ("pistolSilencer", "OBJ//Weapons//PPK_OBJ.obj");
 	meshList[GEO_PISTOL_S]->textureID = LoadTGA("Image//PPK_TEXTURE.tga");
-	meshList[GEO_FIREEXTINGUISHER] = MeshBuilder::GenerateOBJ("extinguisher", "OBJ//TimePortal//fireextinguisher.obj");
-	meshList[GEO_FIREEXTINGUISHER]->textureID = LoadTGA("Image//TimePortal//fireextinguisher.tga");
 	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
 	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
 	//meshList[GEO_SHOTGUN_S] = MeshBuilder::GenerateOBJMTL("shotgunShort", "OBJ//Weapons//shotgunShort.obj", "MTL//Weapons//shotgunShort.mtl");
@@ -274,6 +264,9 @@ bool MeshHandler::loadMeshes() {
 
 	meshList[GEO_ROADWAYPOINT] = MeshBuilder::GenerateQuad("roadwaypoint", Color(0, 0, 0));
 	meshList[GEO_ROADWAYPOINT]->textureID = LoadTGA("Image//Miscellaneous//RoadWayPoint.tga");
+
+	meshList[GEO_BLACK] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
+	meshList[GEO_BLACK]->textureID = LoadTGA("Image//Miscellaneous//black_bg.tga");
 	
 	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
 	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");

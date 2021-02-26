@@ -21,7 +21,8 @@ MISSION_ENTER_TIMEPORTAL
 - ObjectiveMessage: Enter the Time Portal back to 2021
 - CompletedMessage: Time Traveller
 * BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_INFILTRATE_GOVERNMENT_FACILITY
 
 MISSION_EXTINGUISH_FIRE
 - GEO_TYPE_Enum: EMPTY
@@ -36,7 +37,8 @@ MISSION_VISIT_FOUNTAIN
 - ObjectiveMessage: Visit the fountain in the roundabout
 - CompletedMessage: splash
 * BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions: 
+* PreRequisiteMissions:
+	- MISSION_ENTER_TIMEPORTAL
 	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_RESTAURANT
@@ -45,6 +47,7 @@ MISSION_VISIT_RESTAURANT
 - CompletedMessage: nom
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_ENTER_TIMEPORTAL
 	- MISSION_EXTINGUISH_FIRE
 
 MISSION_TALK_TO_NPC
@@ -53,6 +56,7 @@ MISSION_TALK_TO_NPC
 - CompletedMessage: hey
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_ENTER_TIMEPORTAL
 	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_GUNSHOP
@@ -61,6 +65,7 @@ MISSION_VISIT_GUNSHOP
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_ENTER_TIMEPORTAL
 	- MISSION_TALK_TO_NPC
 	- MISSION_VISIT_RESTAURANT
 	- MISSION_VISIT_FOUNTAIN
@@ -80,5 +85,6 @@ MISSION_COLLECT_THE_GOODS
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 	- MISSION_TALK_TO_THE_OWNER
+>>>>>>> 4da063823794d7c1212dd1bea04ce80485effdf4
 
 #END

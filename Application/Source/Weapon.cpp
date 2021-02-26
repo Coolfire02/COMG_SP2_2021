@@ -37,18 +37,9 @@ Weapon::Weapon(WEAPON_TYPE wType)
 		initSilencer();
 		break;
 
-	case FIRE_EXTINGUISHER:
-		initExtinguisher();
-		break;
-
 	default:
 		break;
 	}
-}
-
-void Weapon::initExtinguisher() {
-	initWeapon(FIRE_EXTINGUISHER, 0, 0);
-	associatedMeshType = GEO_FIREEXTINGUISHER;
 }
 
 /******************************************************************************/
@@ -86,19 +77,7 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 	{
 		this->UIcooldown -= dt;
 		if (Game::uiManager.getCurrentMenu() == UI_GENERAL) {
-			if (this->weaponType == FIRE_EXTINGUISHER && Application::IsMousePressed(0) && !shoot) {
-				shoot = true;
-				ISound* extinguishSound = AudioHandler::getEngine()->play3D(
-					AudioHandler::getSoundSource(SOUNDTYPE::FIRE_EXTINGUISH),
-					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-					LOOPED::NOLOOP,
-					false,
-					true);
-
-				extinguishSound->setVolume(0.3);
-			}
-
-			else if (Application::IsMousePressed(0) && !shoot && !Reload && this->currentAmmo >= 0 && UIcooldown < 0) {
+			if (Application::IsMousePressed(0) && !shoot && !Reload && this->currentAmmo >= 0 && UIcooldown < 0) {
 				shoot = true;
 				if (this->currentAmmo > 0) {
 					//Vector3 view = (cam->target - cam->position).Normalized();

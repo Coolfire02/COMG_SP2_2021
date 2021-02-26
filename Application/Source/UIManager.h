@@ -13,9 +13,8 @@ enum UI_MENUS
 	UI_WEAPON_INVENTORY, //render weapons owned and can click items and cars button
 	UI_GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
 	UI_MAIN_MENU, //renders title screen
-	UI_CREDITS,
-	UI_PAUSE_MENU,
 	UI_INTERACTION,
+	UI_SCENE_TRANSITION, //Scene transition UI
 	UI_MENU_COUNT,
 };
 
@@ -29,6 +28,7 @@ private:
 	float nextKeyPress;
 	bool uiActive;
 	UI_MENUS currentMenu;
+	UI_MENUS prevMenu;
 	bool activeMenus[UI_MENU_COUNT];
 	int digitCount(int);
 
@@ -45,6 +45,7 @@ public:
 
 	void changeTextButton(std::string newText, std::string bName);
 	void createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize);
+	void createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize, FONTTYPE type);
 	void createNoTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture);
 	void createButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture, float offsetX, float offsetY, Color textColour, std::string textString, float textSize);
 	
@@ -55,6 +56,7 @@ public:
 
 	//Getter
 	UI_MENUS getCurrentMenu();
+	UI_MENUS getPrevMenu();
 	bool getUIActiveBool();
 	ButtonManager* getCurrentBM();
 	ButtonManager* getByTypeBM(UI_MENUS UI);

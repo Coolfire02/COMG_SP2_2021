@@ -11,7 +11,6 @@
 #include "Utility.h"
 #include "Car.h"
 #include "InteractionManager.h"
-#include "Scene2021.h"
 
 SceneGarage::SceneGarage() : 
 	eManager(this)
@@ -270,10 +269,8 @@ void SceneGarage::Init()
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
+	
 
-	CustomEntity* garageHitBox = new CustomEntity(this, new Box(Vector3(-24, 0, -5), Vector3(24, 2, 5)), "garageDoorHitBox");
-	garageHitBox->getEntityData()->Translate.Set(0, 0, 49);
-	eManager.spawnWorldEntity(garageHitBox);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -478,7 +475,6 @@ void SceneGarage::MissionCompleteListener(double dt) {
 }
 
 void SceneGarage::CollisionHandler(double dt) {
-	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -500,10 +496,10 @@ void SceneGarage::CollisionHandler(double dt) {
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
+
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				if (!player->isDriving())
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+				std::cout << "In Range" << std::endl;
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -521,11 +517,10 @@ void SceneGarage::CollisionHandler(double dt) {
 						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 						player->PostUpdate(); // set old data to new data, lazy fix for now
 						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
 						camera.position.y += 2;
 						camera.total_pitch = 0;
-						camera.total_yaw = 0;
-						camera.up = camera.defaultUp;
-						camera.target = camera.position - Vector3(0, 0, 1);
+						camera.target = camera.defaultTarget;
 					}
 				}
 			}
@@ -541,14 +536,31 @@ void SceneGarage::CollisionHandler(double dt) {
 				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
 			}
 
+			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
+				if (player->isDriving()) {
+					std::cout << "In Car" << std::endl;
+				}
+				else {
+					player->cancelNextMovement();
+					std::cout << "Collided" << std::endl;
+				}
+			}*/
+
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
 					if (!canInteractWithSomething)
 						canInteractWithSomething = true;
+					/*else if (passedInteractCooldown()) {
+						std::string name = entry->victim->getName();
+						if (ePressed) {
+							if (name.compare("interaction_test") == 0) {
+								loadInteractions(TEST);
+							}
+						}
+					}*/
 				}
 			}
-
 		}
 
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
@@ -586,34 +598,6 @@ void SceneGarage::CollisionHandler(double dt) {
 
 		}
 
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
-				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
-					{
-						eHeld = true;
-						Scene* var = Game::getSceneByName("MainScene");
-						Game::switchScene(S_2021);
-					}
-				}
-			}
-		}
-		if (entry->attacker->getType() == ENTITYTYPE::CAR)
-		{
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM)
-			{
-				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
-				{
-					Scene* var = Game::getSceneByName("MainScene");
-					static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
-
-					entry->attacker->getEntityData()->Translate.Set(0.f, -10.f,0.0f);
-					Game::switchScene(S_2021);
-				}
-			}
-		}
 	}
 
 	if (foundInteractionZone == false) {

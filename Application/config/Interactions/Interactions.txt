@@ -220,7 +220,7 @@ INTERACTION: HouseFire Do Nothing 5
 
 INTERACTION: HouseFire Do Nothing 6
 - MSG: I'm going to mend...;history.
-postcmd: /endhousefire
+- postcmd: /endhousefire
 
 =========================================
 
@@ -238,7 +238,6 @@ INTERACTION: 2021TimePortal3
 
 INTERACTION: 2021TimePortal4
 - MSG: I'd better be more careful when returning to the future
-- postcmd: /removeextinguisher
 
 INTERACTION: 2021TimePortal5
 - MSG: I need to get out of here and blend in with the people
