@@ -134,8 +134,11 @@ void Game::Update(double dt)
 	InteractionUpdate(dt);
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	SceneList[activeScene]->elapser(dt);
-	SceneList[activeScene]->Update(dt);
+	if (Game::uiManager.getCurrentMenu() != UI_PAUSE_MENU)
+	{
+		SceneList[activeScene]->elapser(dt);
+		SceneList[activeScene]->Update(dt);
+	}
 
 	if (frameTicker % 2 == 0) {
 		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
