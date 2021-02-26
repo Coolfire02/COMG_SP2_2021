@@ -115,11 +115,39 @@ void SceneTimePortal::Init() {
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
 	eManager.spawnWorldEntity(door);
 
+	Entity* crate;
+	{ // left side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
-	for (int i = 0; i < 10; i++)
-	{
-		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+	}
+	{ // right side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
 	}
 
 	//Entity* car = new Car(SEDAN, this, "car");
@@ -184,7 +212,7 @@ void SceneTimePortal::InitLights()
 	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[2].type = Light::LIGHT_POINT;
-	light[2].position.set(0, 0, 0);
+	light[2].position.set(0, 8, 0);
 	light[2].color.set(0.8, 1, 1);
 	light[2].power = 0.5f;
 	light[2].kC = 1.f;
@@ -655,10 +683,10 @@ void SceneTimePortal::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
+	//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+	//modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);

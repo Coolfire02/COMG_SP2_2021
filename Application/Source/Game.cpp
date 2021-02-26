@@ -30,13 +30,17 @@ void Game::Update(double dt)
 {
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
-		if (Game::activeScene < S_COUNT - 1) 
+		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
+			SceneList[activeScene]->InitLights();
+		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	if (GetAsyncKeyState(VK_LEFT) & 0x0001) {
-		if (Game::activeScene > 0)
-		Game::activeScene = (SCENES)((int)Game::activeScene - 1);
+		if (Game::activeScene > 0) {
+			Game::activeScene = (SCENES)((int)Game::activeScene - 1);
+			SceneList[activeScene]->InitLights();
+		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	//if (GetAsyncKeyState('3') & 0x8001) {
@@ -126,7 +130,7 @@ void Game::addScene(Scene* scene)
 void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
-
+	SceneList[scene]->InitLights();
 	
 }
 

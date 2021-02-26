@@ -22,7 +22,8 @@ Entity::~Entity() {
 	delete oldData;
 	delete hitBox;
 }
-
+
+
 void Entity::setType(ENTITYTYPE type) {
 	this->type = type;
 }

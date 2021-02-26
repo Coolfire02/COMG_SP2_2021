@@ -492,20 +492,9 @@ void SceneGuardBuilding::Update(double dt)
 			CameraBobber = 0.002 * sin(bobTime * playerSpeed);
 		}
 
-
-
-
-
-
-
 		if (player->isDriving()) {
 			player->getCar()->Drive(dt);
 		}
-
-
-
-
-
 
 		//MISSION HANDLING
 		for (auto& entry : Game::mManager.getCompletableMissions()) {
