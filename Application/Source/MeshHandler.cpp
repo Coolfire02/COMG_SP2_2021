@@ -259,6 +259,9 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
 	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
 
+	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
+	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");
+
 	// Time Portal
 	meshList[GEO_TIMEPORTAL_WALL] = MeshBuilder::GenerateQuad("wall", Color(1, 1, 1), 2, 2);
 	meshList[GEO_TIMEPORTAL_WALL]->textureID = LoadTGA("Image//TimePortal/ScifiWall.tga");

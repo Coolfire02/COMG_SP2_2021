@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Debug.h"
 #include "Application.h"
+#include "LoadTGA.h"
 
 SCENES Game::activeScene;
 std::vector<Scene*> Game::SceneList;
@@ -26,6 +27,7 @@ void Game::Init()
 	uiManager.Init();
 }
 
+int frameTicker;
 void Game::Update(double dt)
 {
 
@@ -76,6 +78,11 @@ void Game::Update(double dt)
 		SceneList[activeScene]->elapser(dt);
 		SceneList[activeScene]->Update(dt);
 	}
+
+	std::stringstream ss;
+	ss << "Image//Fire Gif//" << frameTicker % 10 + 1 << ".tga";
+	MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+	frameTicker++;
 }
 
 void Game::InteractionUpdate(double dt)
