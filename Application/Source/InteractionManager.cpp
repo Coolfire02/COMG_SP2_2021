@@ -74,10 +74,20 @@ bool InteractionManager::runCommand(Command cmd) {
 			}
 			return false;
 		}
+		else if (splitVar.at(0) == "/scene2021") {
+			ISound* door = AudioHandler::getEngine()->play3D(
+				AudioHandler::getSoundSource(DOOR),
+				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+				LOOPED::NOLOOP);
+			Game::switchScene(S_2021);
+		}
 		else if (splitVar.at(0) == "/closeblackscreen") {
 			if (cmd.scene->getName() == "TimePortal") {
 				((SceneTimePortal*)cmd.scene)->blackScreen = false;
 			}
+		}
+		else if (splitVar.at(0) == "/startdrugmission") {
+			Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_THE_OWNER, 100.f);
 		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {

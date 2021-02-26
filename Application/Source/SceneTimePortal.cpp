@@ -540,18 +540,6 @@ void SceneTimePortal::CollisionHandler(double dt) {
 				}
 			}
 		}
-
-		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
-		{
-
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (ePressed) {
-					Game::iManager.loadInteraction("asdsa");
-				}
-			}
-
-			//((NPC*)entry)->Walk(dt);
-		}
 	}
 
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
@@ -581,11 +569,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 						if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
 							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (Application::IsKeyPressed('E')) {
-								ISound* door = AudioHandler::getEngine()->play3D(
-									AudioHandler::getSoundSource(DOOR),
-									AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-									LOOPED::NOLOOP);
-								Game::switchScene(S_2021);
+								Game::iManager.loadInteraction("2021TimePortal5");
 							}
 						}
 					}

@@ -12,9 +12,21 @@ CHOICE # timeportal
 
 =========================================
 
-INTERACTION: drugman
-- MSG: i give fake id lool
-- postcmd: /giveFakeId
+INTERACTION: Gary1
+- MSG: Gary: How can I help you?
+# NEXT: Gary2
+
+INTERACTION: Gary2
+- MSG: I was hoping you could help me get a fake ID.
+# NEXT: Gary3
+
+INTERACTION: Gary3
+- MSG: Alright, but only if you complete a task for me.
+# NEXT: Gary4
+
+INTERACTION: Gary4
+- MSG: Our 'goods' have been delayed due to unforeseen circumstances.;However, they've been hidden in a certain corner in the city before being seized.;I'll need you to bring them back here.
+- postcmd: /startdrugmission 
 
 =========================================
 
@@ -236,3 +248,7 @@ INTERACTION: 2021TimePortal3
 
 INTERACTION: 2021TimePortal4
 - MSG: I'd better be more careful when returning to the future
+
+INTERACTION: 2021TimePortal5
+- MSG: I need to get out of here and blend in with the people
+- postcmd: /scene2021
