@@ -178,7 +178,7 @@ void SceneUI::Init()
 	//eManager.spawnWorldEntity(eggman);
 
 	Entity* car = new Car(RACER, this, "car");
-	car->getEntityData()->SetTransform(-197, 0.25, -131);
+	car->getEntityData()->SetTransform(0, 0, 0);
 	car->getEntityData()->SetRotate(0, -90, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car);
@@ -208,7 +208,7 @@ void SceneUI::Init()
 	}
 
 	//player and camera init
-	player = new Player(this, Vector3(-193, 0.25, -126), "player");
+	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
 
@@ -234,105 +234,27 @@ void SceneUI::Init()
 
 void SceneUI::Update(double dt)
 {
-	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
-	{
-		light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
-		light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	TopDownMainMenuUpdate(dt);
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
 
-		bool ePressed = Application::IsKeyPressed('E');
-		bool pPressed = Application::IsKeyPressed('P');
-		bool tPressed = Application::IsKeyPressed('T');
+	bool ePressed = Application::IsKeyPressed('E');
+	bool pPressed = Application::IsKeyPressed('P');
+	bool tPressed = Application::IsKeyPressed('T');
 
-		if (GetAsyncKeyState('1') & 0x8001) {
-			glEnable(GL_CULL_FACE);
-		}
-		else if (GetAsyncKeyState('2') & 0x8001) {
-			glDisable(GL_CULL_FACE);
-		}
-
-		if (Application::IsKeyPressed('8'))
-		{
-			Scene* var = Game::getSceneByName("GarageScene");
-			static_cast <SceneGarage*>(var)->updateCarSpawn();
-			Game::switchScene(S_2051);
-		}
-
-		if (Application::IsKeyPressed('9')) {
-			hitboxEnable = !hitboxEnable;
-		}
-		if (Application::IsKeyPressed('0')) {
-			lightEnable = !lightEnable;
-		}
-
-		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-		TopDownMapUpdate(dt);
-		if (!Game::iManager.isInteracting()) {
-			CollisionHandler(dt);
-
-			std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
-
-			Vector3 pLoc = player->getEntityData()->Translate;
-			Vector3 oldLoc = Vector3(pLoc);
-
-			//Requires Implementation of Velocity by Joash
-			float playerSpeed = 15.0;
-			if (!((Player*)player)->isDriving()) {
-				Vector3 view = (camera.target - camera.position).Normalized();
-				if (Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D')) {
-					camera.position.y += CameraBobber;
-				}
-
-				if (Application::IsKeyPressed('W')) {
-
-					if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
-						playerSpeed = 25.f;
-					}
-
-					pLoc += view * (float)dt * playerSpeed;
-
-				}
-				if (Application::IsKeyPressed('A')) {
-					Vector3 right = view.Cross(camera.up);
-					right.y = 0;
-					right.Normalize();
-					Vector3 up = right.Cross(view).Normalized();
-					pLoc -= right * (float)dt * playerSpeed;
-				}
-
-				if (Application::IsKeyPressed('S')) {
-					pLoc -= view * (float)dt * playerSpeed;
-				}
-
-				if (Application::IsKeyPressed('D')) {
-					Vector3 right = view.Cross(camera.up);
-					right.y = 0;
-					right.Normalize();
-					Vector3 up = right.Cross(view).Normalized();
-					pLoc += right * (float)dt * playerSpeed;
-				}
-
-				// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
-				player->getEntityData()->Translate.x = pLoc.x;
-				// Skip y since we want level ground
-				player->getEntityData()->Translate.z = pLoc.z;
-
-				bobTime += dt;
-				CameraBobber = 0.002 * sin(bobTime * playerSpeed);
-			}
-
-			Vector3 view = (camera.target - camera.position).Normalized();
-
-			if (!player->isDriving())
-				Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
-
-		}
-		MissionCompleteListener(dt);
+	if (GetAsyncKeyState('1') & 0x8001) {
+		glEnable(GL_CULL_FACE);
 	}
-	else
-	{
-		camera.camType = TOPDOWN_MAINMENU;
-		TopDownMainMenuUpdate(dt);
+	else if (GetAsyncKeyState('2') & 0x8001) {
+		glDisable(GL_CULL_FACE);
 	}
+
+	CollisionHandler(dt);
+
+	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+
+	Vector3 pLoc = player->getEntityData()->Translate;
+	Vector3 oldLoc = Vector3(pLoc);
 }
 
 void SceneUI::InitLights() {
@@ -421,83 +343,17 @@ void SceneUI::CollisionHandler(double dt) {
 	std::vector<CollidedWith*> collided = eManager.preCollisionUpdate();
 
 	//Entity Collision Handling
-	for (auto& entry : eManager.getEntities()) {
-		if (entry->getType() == ENTITYTYPE::BULLET) {
-			((Bullet*)entry)->Move(dt);
-			if (((Bullet*)entry)->getTimer() > 5) {
-				entry->setDead(true);
-			}
-		}
-
-		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			// entry->getEntityData()->Rotation.x += 2 * dt;
-			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
-		}
+	for (auto& entry : eManager.getEntities())
+	{
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
 				if (!player->isDriving())
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-				// Show interaction UI
-				if (ePressed && !eHeld) {
-					eHeld = true;
+				{
 					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
 						std::cout << "Player Set" << std::endl;
-					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
-						player->setDriving(nullptr, false);
-						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
-						((Car*)entry)->setPlayer(nullptr);
-						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
-						player->PostUpdate(); // set old data to new data, lazy fix for now
-						camera.position = player->getEntityData()->Translate;
-						camera.position.y += 2;
-						camera.total_pitch = 0;
-						camera.total_yaw = 0;
-						camera.up = camera.defaultUp;
-						camera.target = camera.position - Vector3(0, 0, 1);
-					}
-				}
-			}
-		}
-
-		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
-		{
-			((NPC*)entry)->Walk(dt);
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
-				{
-					for (int i = 0; i < ((NPC*)entry)->getIDList().size(); i++) //loop through each element in vector
-					{
-						if (((NPC*)entry)->getIDList().at(i) != ((NPC*)entry)->getID()) //check if vector consists of previously interacted NPC ID 
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Application::setCursorEnabled(true);
-								int random = rand() % 2 + 1;
-								Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
-								Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-								((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
-							}
-						}
-					}
-				}
-				else
-				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
-					{
-						eHeld = true;
-						Application::setCursorEnabled(true);
-						int random = rand() % 2 + 1;
-						Game::iManager.loadInteraction("npc" + std::to_string(random)); //set random text interaction
-						Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_NPC, 35.0f);
-						((NPC*)entry)->getIDList().push_back(((NPC*)entry)->getID()); //push back current NPC ID to store in vector
 					}
 				}
 			}
@@ -505,112 +361,8 @@ void SceneUI::CollisionHandler(double dt) {
 	}
 
 	for (auto& entry : collided) {
-		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
-			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
-
-				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-					if (entry->victim->getHealth() <= 0)
-					{
-						entry->victim->setDead(true);
-						entry->victim->setHealth(0);
-						Game::cash += 100;
-					}
-					entry->victim->setHealth(entry->victim->getHealth() - Game::inv.getActiveWeapon()->getDamage());
-
-				}
-				DEBUG_MSG("BULLET PEWPEW");
-				entry->attacker->setDead(true);
-			}
-		}
-
-		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("fountainHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_FOUNTAIN, 100.0);
-				}
-				if (entry->victim->getName().find("restaurantHitBox") != std::string::npos) {
-					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
-				}
-				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
-					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
-						{
-							Game::iManager.loadInteraction("phoneCall1");
-							interactionTimer = 0;
-						}
-					}
-					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed drug collection mission
-							}
-						}
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
-							}
-						}
-					}
-				}
-				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
-				{
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
-					{
-						eHeld = true;
-						Scene* var = Game::getSceneByName("GarageScene");
-						static_cast <SceneGarage*>(var)->updateCarSpawn();
-						Game::switchScene(S_GARAGE);
-					}
-				}
-			}
-			if (!player->isDriving())
-			{
-				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR) {
-					if (entry->victim->getName() == "drugs1" || entry->victim->getName() == "drugs2") //player has to collect both drug packages
-					{
-						for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-						{
-							if (Game::mManager.getCompletedMissions().at(i) == MISSION_TALK_TO_THE_OWNER) //check if visit gunshop mission is completable and mission progress of it is more than 50
-							{
-								if (ePressed && !eHeld)
-								{
-									eHeld = true;
-									entry->victim->setDead(true); //picked up the drugs
-									Game::mManager.addProgress(MISSIONTYPE::MISSION_COLLECT_THE_GOODS, 50.f);
-								}
-							}
-						}
-					}
-					entry->attacker->getEntityData()->Translate -= entry->translationVector;
-					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
-				}
-			}
-		}
-
 		if (entry->attacker->getType() == ENTITYTYPE::CAR) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				if (((Car*)entry->attacker)->getSpeed() > 0.7) {
-					vec3df v = AudioHandler::to_vec3df(entry->attacker->getOldEntityData()->Translate);
-
-					ISound* crash = AudioHandler::getEngine()->play3D(
-						AudioHandler::getSoundSource(CAR_CRASH),
-						AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-						LOOPED::NOLOOP);
-				}
-
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector; //+ ((Car*)entry->attacker)->getVelocity();
@@ -633,26 +385,6 @@ void SceneUI::CollisionHandler(double dt) {
 				DEBUG_MSG("Car Collided");
 			}
 		}
-
-		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
-			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
-				Vector3 resultantVec;
-				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
-				Vector3 n = entry->normal;
-				resultantVec = d - 2 * d.Dot(n) * n;
-				((NPC*)entry->attacker)->getRigidBody().velocity = resultantVec;
-				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-
-				float angle = ((NPC*)entry->attacker)->getEntityData()->Rotation.y; //get NPC rotation
-				float velo = ((NPC*)entry->attacker)->getRigidBody().velocity.Dot(Vector3(0, 0, 1)); //DOT product of velocity
-				float magnitude = ((NPC*)entry->attacker)->getRigidBody().velocity.Magnitude(); //get magnitude of velocity
-				if (magnitude != 0)
-					angle = Math::RadianToDegree(acos(velo / magnitude)); //get NPC direction angle
-				((NPC*)entry->attacker)->getEntityData()->Rotation.y = -angle; //set direction angle
-			}
-
-		}
-
 	}
 
 	if (foundInteractionZone == false) {
@@ -672,7 +404,7 @@ void SceneUI::CollisionHandler(double dt) {
 		BoostMeterGauge = 10 * player->getCar()->getBoostMeter();
 	}
 
-	camera.Update(dt);
+	//camera.Update(dt);
 	eManager.postCollisionUpdate();
 
 	fps = (float)1 / dt;
@@ -1366,7 +1098,7 @@ void SceneUI::SpawnBuildings()
 		int random = (rand() % 6) + 6;
 		initBuildings(Vector3(440, 0, -55 * i), Vector3(0, 90, 0), Vector3(0.7, 0.8, 0.7), GEOMETRY_TYPE(random));
 	}
-	initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
+	//initBuildings(Vector3(-140, 0, -100), Vector3(0, 270, 0), Vector3(5, 1.5, 1.5), GEO_BOSS_BUILDING);
 	initBuildings(Vector3(365, -2, 60), Vector3(0, 0, 0), Vector3(16, 16, 16), GEO_FOUNTAIN);
 
 	//spawn drugs
@@ -1498,9 +1230,6 @@ void SceneUI::TopDownMainMenuUpdate(double dt)
 void SceneUI::RenderUI()
 {
 	Game::RenderUI();
-
-	if (player->isDriving())
-		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
 void SceneUI::spawnGarageCar(CAR_TYPE carType)

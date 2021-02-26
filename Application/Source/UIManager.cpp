@@ -127,7 +127,7 @@ void UIManager::Init() {
 			}
 			break;
 		case UI_MAIN_MENU:
-			Game::switchScene(S_2021);	
+			Game::switchScene(S_UI);	
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
 			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 36.5, 11.1, PLAY_BUTTON);
 			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 20, 20.9, 3.5, CREDITS_BUTTON);
