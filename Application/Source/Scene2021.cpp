@@ -55,18 +55,23 @@ void Scene2021::MissionCompleteListener(double dt)
 		{
 		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_FOUNTAIN:
 			DEBUG_MSG("Completed Mission Visit Fountain Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_RESTAURANT:
 			DEBUG_MSG("Completed Mission Visit Restaurant Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_TALK_TO_NPC:
 			DEBUG_MSG("Completed Mission Talk To NPC Mission");
+			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
 			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
+			Game::cash += 3000;
 			break;
 		}
 	}
@@ -253,7 +258,6 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-	MissionCompleteListener(dt);
 	if (!Game::iManager.isInteracting()) {
 		CollisionHandler(dt);
 
@@ -314,6 +318,7 @@ void Scene2021::Update(double dt)
 			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 
 	}
+	MissionCompleteListener(dt);
 }
 
 void Scene2021::InitLights() {
@@ -391,6 +396,7 @@ void Scene2021::InitLights() {
 
 void Scene2021::CollisionHandler(double dt) {
 	interactionTimer += dt;
+
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -446,8 +452,6 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
-			((NPC*)entry)->Walk(dt);
-
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				if (((NPC*)entry)->getIDList().size() != 0) //if vector size != 0
 				{
@@ -490,7 +494,15 @@ void Scene2021::CollisionHandler(double dt) {
 			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
 
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
-					entry->victim->setDead(true);
+					std::cout << "HEALTH: " << entry->victim->getHealth() << " DMG: " << Game::inv.getActiveWeapon()->getDamage() << std::endl;
+					if (entry->victim->getHealth() <= 0)
+					{
+						entry->victim->setDead(true);
+						entry->victim->setHealth(0);
+						Game::cash += 100;
+					}
+					entry->victim->setHealth(entry->victim->getHealth() - Game::inv.getActiveWeapon()->getDamage());
+
 				}
 				DEBUG_MSG("BULLET PEWPEW");
 				entry->attacker->setDead(true);
@@ -1431,6 +1443,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);
+
 	eManager.spawnMovingEntity(testNPC);
 }
 
@@ -1470,6 +1483,7 @@ void Scene2021::RenderTexts()
 void Scene2021::RenderUI()
 {
 	Game::RenderUI();
+
 	if (player->isDriving())
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }

@@ -8,12 +8,14 @@ MissionManager Game::mManager;
 InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
+int Game::cash = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
 
 Game::Game()
 {
 	ammo = 20;
+	cash = 0;
 }
 
 Game::~Game()
@@ -28,7 +30,6 @@ void Game::Init()
 
 void Game::Update(double dt)
 {
-
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) 
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
@@ -39,6 +40,8 @@ void Game::Update(double dt)
 		Game::activeScene = (SCENES)((int)Game::activeScene - 1);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+	if (Game::cash >= 9999999)
+		Game::cash = 9999999;
 	//if (GetAsyncKeyState('3') & 0x8001) {
 	//	Game::switchScene(S_2051);
 	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

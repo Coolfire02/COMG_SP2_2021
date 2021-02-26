@@ -66,6 +66,16 @@ Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matr
 */
 /******************************************************************************/
 void NPC::Render() {
+
+	if (getHealth() < 50)
+	{
+		this->scene->modelStack.PushMatrix();
+		this->scene->modelStack.Translate(getEntityData()->Translate.x, getEntityData()->Translate.y + 5, getEntityData()->Translate.z);
+		this->scene->modelStack.Scale(getHealth() * 0.05, 0.3, 0.1);
+		this->scene->RenderMesh(MeshHandler::getMesh(GEO_HEALTHBAR), false);
+		this->scene->modelStack.PopMatrix();
+	}
+
 	this->scene->modelStack.PushMatrix();
 		this->loadOriginTRSIntoStacknHitBox();
 		if (this->isVisible()) this->scene->RenderMesh(associatedNPCMesh, this->scene->isLightEnabled());

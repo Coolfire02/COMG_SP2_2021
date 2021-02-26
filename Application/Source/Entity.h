@@ -24,6 +24,9 @@ enum ENTITYTYPE {
 
 class Entity 
 {
+private:
+	int health;
+
 protected:
 	Scene *scene;
 	std::string name;
@@ -71,5 +74,8 @@ public:
 	void PostUpdate(); //Called just before EManager's Update is finished
 
 	virtual void Render() = 0;
+
+	int getHealth();
+	void setHealth(int);
 };
 
