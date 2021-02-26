@@ -1,6 +1,12 @@
 #include "NPC.h"
 int NPC::IDcounter = 0;
 
+/******************************************************************************/
+/*!
+\brief
+Overloaded constructor that sets variables based on parameters
+*/
+/******************************************************************************/
 NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYPE::LIVE_NPC, name) , npcType(npcType) {
 	switch (type) {
 	case TESTNPC:
@@ -69,13 +75,13 @@ void NPC::Render() {
 /******************************************************************************/
 /*!
 \brief
-Calculate random angle where the NPC will face and walk towards using frame ticker
+Calculate random angle where the NPC will face and walk towards using a timer
 */
 /******************************************************************************/
 void NPC::Walk(double dt)
 {
 	NPCtimer += dt;
-	if (NPCtimer > 5)
+	if (NPCtimer > 10)
 	{
 		if (!this->RB.hit) {
 			int randomDir = rand() % 360 + 1; //get random direction
@@ -91,11 +97,23 @@ void NPC::Walk(double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns NPC's ID
+*/
+/******************************************************************************/
 int NPC::getID()
 {
 	return this->ID;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns NPC IDList
+*/
+/******************************************************************************/
 std::vector<int>& NPC::getIDList()
 {
 	return IDList;

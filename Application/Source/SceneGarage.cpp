@@ -330,7 +330,7 @@ void SceneGarage::Update(double dt)
 
 		if (Application::IsKeyPressed('W')) {
 
-			if (Application::IsKeyPressed(VK_LSHIFT)) {
+			if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 				playerSpeed = 25.f;
 			}
 

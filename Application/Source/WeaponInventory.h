@@ -20,11 +20,7 @@ public:
 	Weapon* getActiveWeapon();
 	std::vector<Weapon*> getWeaponList();
 
-	//void Update(Camera*, double);
 	void addWeapon(WEAPON_TYPE wType);
 	void delWeapon(WEAPON_TYPE wType);
 	void switchActiveWeapon(int i);
-
-	void setAmmo(int);
-	int getAmmo();
 };
