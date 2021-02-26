@@ -23,6 +23,4 @@ public:
 	void addWeapon(WEAPON_TYPE wType);
 	void delWeapon(WEAPON_TYPE wType);
 	void switchActiveWeapon(int i);
-
-	int getWeaponDamage();
 };

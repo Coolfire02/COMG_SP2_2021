@@ -13,8 +13,6 @@ enum UI_MENUS
 	UI_WEAPON_INVENTORY, //render weapons owned and can click items and cars button
 	UI_GARAGE_INVENTORY, //renders cars owned and can click items and weapons button
 	UI_MAIN_MENU, //renders title screen
-	UI_CREDITS,
-	UI_PAUSE_MENU,
 	UI_INTERACTION,
 	UI_MENU_COUNT,
 };
@@ -30,8 +28,6 @@ private:
 	bool uiActive;
 	UI_MENUS currentMenu;
 	bool activeMenus[UI_MENU_COUNT];
-	int digitCount(int);
-
 public:
 	UIManager();
 	~UIManager();

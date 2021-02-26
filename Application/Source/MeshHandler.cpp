@@ -4,7 +4,6 @@
 
 bool MeshHandler::isLoaded = false;
 Mesh* MeshHandler::meshList[NUM_GEOMETRY];
-GLuint MeshHandler::fireTGAs[10];
 std::unordered_map<std::string, GEOMETRY_TYPE> const MeshHandler::geoTypeTable = {
 	{"EMPTY",GEOMETRY_TYPE::EMPTY},
 	{"GEO_AXES",GEOMETRY_TYPE::GEO_AXES}
@@ -28,7 +27,6 @@ bool MeshHandler::loadMeshes() {
 	//General
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("axes", 1, 1, 1);
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(1,0,0));
-	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateCube("cube", Color(0,1,0));
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightbulll", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("floor", Color(1.0f, 1.0f, 1.0f));
 	meshList[GEO_BOOSTMETER] = MeshBuilder::GenerateQuad("boost", Color(1.0f, 1.0f, 0));
@@ -43,6 +41,8 @@ bool MeshHandler::loadMeshes() {
 
 	meshList[GEO_TEXT_SUPERMARIO] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT_SUPERMARIO]->textureID = LoadTGA("Image//Fonts//supermario.tga");
+
+	meshList[TAILSS] = MeshBuilder::GenerateOBJMTL("testnpc", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 
 	//OBJS
 	meshList[GEO_BUILDING_1] = MeshBuilder::GenerateOBJMTL("building1", "OBJ//Buildings//Building1.obj", "MTL//Buildings//1.mtl");
@@ -86,11 +86,12 @@ bool MeshHandler::loadMeshes() {
 
 	//Cars
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
-	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedanSports", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
-	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("raceFuture", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
-	meshList[GEO_POLICE] = MeshBuilder::GenerateOBJMTL("police", "OBJ//Cars//police.obj", "MTL//Cars//police.mtl");
-	meshList[GEO_AMBULANCE] = MeshBuilder::GenerateOBJMTL("ambulance", "OBJ//Cars//ambulance.obj", "MTL//Cars//ambulance.mtl");
-	meshList[GEO_SUV] = MeshBuilder::GenerateOBJMTL("suv", "OBJ//Cars//suv.obj", "MTL//Cars//suv.mtl");
+	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedansports", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
+	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("racer", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
+	meshList[GEO_HATCHBACKSPORTS] = MeshBuilder::GenerateOBJMTL("hatchbacksports", "OBJ//Cars//hatchbackSports.obj", "MTL//Cars//hatchbackSports.mtl");
+	meshList[GEO_TRACTOR] = MeshBuilder::GenerateOBJMTL("tractor", "OBJ//Cars//tractor.obj", "MTL//Cars//tractor.mtl");
+	meshList[GEO_TRUCK] = MeshBuilder::GenerateOBJMTL("truck", "OBJ//Cars//truck.obj", "MTL//Cars//truck.mtl");
+	meshList[GEO_VAN] = MeshBuilder::GenerateOBJMTL("van", "OBJ//Cars//van.obj", "MTL//Cars//van.mtl");
 
 	//Weapons
 	////Sonic characters
@@ -124,17 +125,9 @@ bool MeshHandler::loadMeshes() {
 
 	//Title Screen
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
-	meshList[TITLE_BG]->textureID = LoadTGA("Image//main_menu_bg.tga");
+	meshList[TITLE_BG]->textureID = LoadTGA("Image//titleScreenBG.tga");
 	meshList[PLAY_BUTTON] = MeshBuilder::GenerateQuad("playButton", Color(1, 1, 1));
 	meshList[PLAY_BUTTON]->textureID = LoadTGA("Image//playButton.tga");
-	meshList[CREDITS_BUTTON] = MeshBuilder::GenerateQuad("creditsButton", Color(1, 1, 1));
-	meshList[CREDITS_BUTTON]->textureID = LoadTGA("Image//creditsButton.tga");
-	meshList[RESUME_BUTTON] = MeshBuilder::GenerateQuad("resumeButton", Color(1, 1, 1));
-	meshList[RESUME_BUTTON]->textureID = LoadTGA("Image//resumeButton.tga");
-	meshList[MENU_BUTTON] = MeshBuilder::GenerateQuad("menuButton", Color(1, 1, 1));
-	meshList[MENU_BUTTON]->textureID = LoadTGA("Image//menuButton.tga");
-	meshList[QUIT_BUTTON] = MeshBuilder::GenerateQuad("quitButton", Color(1, 1, 1));
-	meshList[QUIT_BUTTON]->textureID = LoadTGA("Image//quitButton.tga");
 
 	//General UI
 	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));
@@ -161,8 +154,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_SEDAN]->textureID = LoadTGA("Image//sedanUI.tga");
 	meshList[UI_SEDAN_SPORTS] = MeshBuilder::GenerateQuad("sedansportsUI", Color(1, 1, 1));
 	meshList[UI_SEDAN_SPORTS]->textureID = LoadTGA("Image//sedansportsUI.tga");
-	meshList[UI_RACER] = MeshBuilder::GenerateQuad("racerFutureUI", Color(1, 1, 1));
-	meshList[UI_RACER]->textureID = LoadTGA("Image//racerFutureUI.tga");
+	meshList[UI_RACER] = MeshBuilder::GenerateQuad("racerUI", Color(1, 1, 1));
+	meshList[UI_RACER]->textureID = LoadTGA("Image//racerUI.tga");
 	meshList[UI_POLICE] = MeshBuilder::GenerateQuad("policeUI", Color(1, 1, 1));
 	meshList[UI_POLICE]->textureID = LoadTGA("Image//policeUI.tga");
 	meshList[UI_AMBULANCE] = MeshBuilder::GenerateQuad("ambulanceUI", Color(1, 1, 1));
@@ -246,8 +239,6 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_PISTOL]->textureID = LoadTGA("Image//GunShop//pistolColor.tga");
 	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJ("pistolSilencer", "OBJ//Weapons//PPK_OBJ.obj");
 	meshList[GEO_PISTOL_S]->textureID = LoadTGA("Image//PPK_TEXTURE.tga");
-	meshList[GEO_FIREEXTINGUISHER] = MeshBuilder::GenerateOBJ("extinguisher", "OBJ//TimePortal//fireextinguisher.obj");
-	meshList[GEO_FIREEXTINGUISHER]->textureID = LoadTGA("Image//TimePortal//fireextinguisher.tga");
 	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
 	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
 	//meshList[GEO_SHOTGUN_S] = MeshBuilder::GenerateOBJMTL("shotgunShort", "OBJ//Weapons//shotgunShort.obj", "MTL//Weapons//shotgunShort.mtl");
@@ -272,17 +263,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_MISSION_TASK] = MeshBuilder::GenerateQuad("missiontask", Color(0, 0, 0));
 	meshList[GEO_MISSION_TASK]->textureID = LoadTGA("Image//MissionTask.tga");
 
-	meshList[GEO_ROADWAYPOINT] = MeshBuilder::GenerateQuad("roadwaypoint", Color(0, 0, 0));
-	meshList[GEO_ROADWAYPOINT]->textureID = LoadTGA("Image//Miscellaneous//RoadWayPoint.tga");
-	
 	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
 	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");
-	for (int i = 0; i < 10; i++) {
-		std::string str = "Image//Fire Gif//" + std::to_string(i + 1) + ".tga";
-		fireTGAs[i] = LoadTGA(str.c_str());
-	}
-	meshList[GEO_FIRE_GIF]->material.kAmbient.Set(1.f, 1.f, 1.f);
-	meshList[GEO_FIRE_GIF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 
 	// Time Portal
 	meshList[GEO_TIMEPORTAL_WALL] = MeshBuilder::GenerateQuad("wall", Color(1, 1, 1), 2, 2);
@@ -291,7 +273,6 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_TIMEPORTAL_DOOR]->textureID = LoadTGA("Image//TimePortal//timeportal.tga");
 	meshList[GEO_DOOR] = MeshBuilder::GenerateOBJ("door", "OBJ//TimePortal//door.obj");
 	meshList[GEO_DOOR]->textureID = LoadTGA("Image//TimePortal//door.tga");
-	meshList[GEO_PORTAL_SCREEN] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
 	//Materials
 
 	/*Material mat;

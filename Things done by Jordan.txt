@@ -13,7 +13,3 @@ weapon switching ui
 scene 2021 missions
 weapons ammo
 
-implmented health to entities (NPC)
-implemented car boost and meter gauge
-implemented cash and ammo
-

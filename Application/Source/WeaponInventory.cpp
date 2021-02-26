@@ -138,8 +138,3 @@ void WeaponInventory::switchActiveWeapon(int index)
 		}
 	}
 }
-
-int WeaponInventory::getWeaponDamage()
-{
-	return activeWeapon->getDamage();
-}

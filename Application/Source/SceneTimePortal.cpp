@@ -18,7 +18,7 @@ SceneTimePortal::SceneTimePortal() :
 	eManager(this)
 {
 	//Scene
-	sceneName = "TimePortal";
+	sceneName = "Corridor";
 
 	//Game
 	fps = 0;
@@ -109,27 +109,11 @@ void SceneTimePortal::Init() {
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
-	Entity* fireExtinguisher = new WorldObject(this, GEO_FIREEXTINGUISHER, "fireextinguisher");
-	fireExtinguisher->getEntityData()->Translate = Vector3(-10.75, 0.75, 10.75);
-	fireExtinguisher->getEntityData()->Scale = Vector3(2, 2, 2);
-	eManager.spawnWorldEntity(fireExtinguisher);
-
-	portalSound = AudioHandler::getEngine()->play3D(
-		AudioHandler::getSoundSource(PORTAL),
-		AudioHandler::to_vec3df(Vector3(0,0,0)),
-		LOOPED::NOLOOP,
-		true,
-		true);
-
 	Entity* door = new WorldObject(this, GEO_DOOR, "door");
 	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
 	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
 	eManager.spawnWorldEntity(door);
-
-	Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-2, 0, 2), Vector3(2, 1, -2)), "doorHitbox");
-	doorHitbox->getEntityData()->Translate = Vector3(0, 0, 10);
-	eManager.spawnWorldEntity(doorHitbox);
 
 	Entity* crate;
 	{ // left side
@@ -165,21 +149,6 @@ void SceneTimePortal::Init() {
 		eManager.spawnWorldEntity(crate);
 
 	}
-	
-	/*Entity* fire = new WorldObject(this, GEO_FIRE_GIF, "FIRE");
-	fire->getEntityData()->Translate = Vector3(0, 1, -9);
-	fire->getEntityData()->Scale = Vector3(5, 5, 5);
-	fire->setType(FIRE);
-	eManager.spawnWorldEntity(fire);*/
-
-	fireSound = AudioHandler::getEngine()->play3D(
-		AudioHandler::getSoundSource(FIRE_SOUND),
-		AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-		LOOPED::LOOP,
-		true,
-		true);
-
-	// fireSound->setIsPaused(true);
 
 	//Entity* car = new Car(SEDAN, this, "car");
 	//car->getEntityData()->SetTransform(0, 0, 60);
@@ -292,13 +261,6 @@ void SceneTimePortal::InitLights()
 
 void SceneTimePortal::Update(double dt)
 {
-	if (portalSound->isFinished() && !fireSound->isFinished()) {
-		fireSound->setIsPaused(false);
-		if (Game::iManager.getTimesInteracted("2021TimePortal1") == 0) {
-			Game::iManager.loadInteraction("2021TimePortal1");
-		}
-	}
-
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -389,7 +351,6 @@ void SceneTimePortal::Update(double dt)
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
-
 }
 
 void SceneTimePortal::MissionCompleteListener(double dt) {
@@ -413,29 +374,29 @@ void SceneTimePortal::TopDownMapUpdate(double dt)
 	{
 		if (!camMap)
 		{
-switch (camera.camType)
-{
-case FIRSTPERSON:
-	camera.camType = TOPDOWN_FIRSTPERSON;
-	break;
-case THIRDPERSON:
-	camera.camType = TOPDOWN_THIRDPERSON;
-	break;
-}
-camMap = true;
+			switch (camera.camType)
+			{
+			case FIRSTPERSON:
+				camera.camType = TOPDOWN_FIRSTPERSON;
+				break;
+			case THIRDPERSON:
+				camera.camType = TOPDOWN_THIRDPERSON;
+				break;
+			}
+			camMap = true;
 		}
 		else
 		{
-		switch (camera.camType)
-		{
-		case TOPDOWN_FIRSTPERSON:
-			camera.camType = FIRSTPERSON;
-			break;
-		case TOPDOWN_THIRDPERSON:
-			camera.camType = THIRDPERSON;
-			break;
-		}
-		camMap = false;
+			switch (camera.camType)
+			{
+			case TOPDOWN_FIRSTPERSON:
+				camera.camType = FIRSTPERSON;
+				break;
+			case TOPDOWN_THIRDPERSON:
+				camera.camType = THIRDPERSON;
+				break;
+			}
+			camMap = false;
 		}
 	}
 
@@ -480,18 +441,6 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
-
-		if (entry->getType() == ENTITYTYPE::FIRE) {
-			if (Game::iManager.getTimesInteracted("2021TimePortal2") > 0) {
-				if (camera.isLookingAt(entry->getEntityData()->Translate) && Application::IsMousePressed(0) && Game::inv.getActiveWeapon()->getWeaponType() == FIRE_EXTINGUISHER) {
-					entry->setDead(true);
-					fireSound->stop();
-					Game::mManager.addProgress(MISSION_EXTINGUISH_FIRE, 100.f);
-					Game::iManager.loadInteraction("2021TimePortal3");
-				}
-			}
-		}
-
 		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
 			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
 				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
@@ -512,15 +461,6 @@ void SceneTimePortal::CollisionHandler(double dt) {
 		}
 
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
-			if (entry->getName().find("fireextinguisher") != std::string::npos) {
-				if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
-					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (Application::IsKeyPressed('E')) {
-						Game::inv.addWeap(FIRE_EXTINGUISHER);
-						entry->setDead(true);
-					}
-				}
-			}
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
@@ -531,28 +471,40 @@ void SceneTimePortal::CollisionHandler(double dt) {
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
-					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
-						player->setDriving((Car*)entry, true);
-						((Car*)entry)->setPlayer(player);
-						camera.camType = THIRDPERSON;
-						DEBUG_MSG("Player Set");
-					}
-					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
-						player->setDriving(nullptr, false);
-						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
-						((Car*)entry)->setPlayer(nullptr);
-						camera.camType = FIRSTPERSON;
-						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
-						player->PostUpdate(); // set old data to new data, lazy fix for now
-						camera.position = player->getEntityData()->Translate;
-						camera.up = camera.defaultUp;
-						camera.position.y += 2;
-						camera.total_pitch = 0;
-						camera.total_yaw = 0;
-						camera.target = camera.position - Vector3(0, 0, 1);
+						if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
+							player->setDriving((Car*)entry, true);
+							((Car*)entry)->setPlayer(player);
+							camera.camType = THIRDPERSON;
+							DEBUG_MSG("Player Set");
+						}
+						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
+							player->setDriving(nullptr, false);
+							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
+							((Car*)entry)->setPlayer(nullptr);
+							camera.camType = FIRSTPERSON;
+							player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
+							player->PostUpdate(); // set old data to new data, lazy fix for now
+							camera.position = player->getEntityData()->Translate;
+							camera.up = camera.defaultUp;
+							camera.position.y += 2;
+							camera.total_pitch = 0;
+							camera.total_yaw = 0;
+							camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
 			}
+		}
+
+		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
+		{
+
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
+				if (ePressed) {
+					Game::iManager.loadInteraction("asdsa");
+				}
+			}
+
+			//((NPC*)entry)->Walk(dt);
 		}
 	}
 
@@ -576,19 +528,6 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 		//Player Collision with any World Object
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				std::vector<MISSIONTYPE> CompletedMissions = Game::mManager.getCompletedMissions();
-				for (auto& mission : CompletedMissions) {
-					if (mission == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
-						if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (Application::IsKeyPressed('E')) {
-								Game::iManager.loadInteraction("2021TimePortal5");
-							}
-						}
-					}
-				}
-			}
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC || entry->victim->getType() == ENTITYTYPE::WORLDOBJ || entry->victim->getType() == ENTITYTYPE::CAR || entry->victim->getType() == ENTITYTYPE::TIMEPORTAL) {
 				//PUSH Back System. Another Possibility is entry->attacker->cancelNextMovement() but its deprecated and prone to some glitches.
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
@@ -867,10 +806,10 @@ void SceneTimePortal::Render()
 		}
 	}
 
-	//modelStack.PushMatrix();
-	//modelStack.Translate(0, 1, 0);
-	//RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
-	//modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
+	modelStack.PopMatrix();
 
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
@@ -891,17 +830,6 @@ void SceneTimePortal::Render()
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
-
-	if (blackScreen)
-		RenderMeshOnScreen(MeshHandler::getMesh(GEO_PORTAL_SCREEN), 64, 36, 128, 72);
-
-	if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
-		Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
-		text->setTextString("Travelling back to 2021...");
-		text->Render(this);
-		//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
-	}
-
 
 	RenderUI();
 	bManager.Render(this);
@@ -981,7 +909,7 @@ void SceneTimePortal::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
-	Entity* testNPC = new NPC(this, geoType, "test", 50);
+	Entity* testNPC = new NPC(this, geoType, "test");
 	testNPC->getEntityData()->SetTransform(randomX, 0, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);

@@ -10,7 +10,6 @@ enum WEAPON_TYPE
 {
 	PISTOL = 0,
 	SILENCER,
-	FIRE_EXTINGUISHER,
 	WEAPON_COUNT
 };
 
@@ -36,7 +35,6 @@ public:
 	Weapon(WEAPON_TYPE wType);
 	~Weapon();
 
-	void initExtinguisher();
 	void initPistol();
 	void initSilencer();
 	void Update(Scene*, EntityManager*, Vector3, Vector3, double);
@@ -48,6 +46,4 @@ public:
 
 	void setUIcooldown(double);
 	double getUIcooldown();
-
-	int getDamage();
 };

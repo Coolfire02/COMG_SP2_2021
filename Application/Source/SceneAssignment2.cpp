@@ -916,7 +916,7 @@ void SceneAssignment2::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType
 
 	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
-	Entity* testNPC = new NPC(this, geoType, "test", 50);
+	Entity* testNPC = new NPC(this, geoType, "test");
 	testNPC->getEntityData()->SetTransform(randomX, 0, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);

@@ -8,13 +8,6 @@ Entity::Entity()
 Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name) : scene(associatedScene), type(type), dead(false), name(name), useNewData(true), visible(true) {
 	this->data = new EntityData();
 	this->oldData = new EntityData();
-	this->health = 0;
-}
-
-Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, int health) : scene(associatedScene), type(type), dead(false), name(name), useNewData(true), visible(true) {
-	this->data = new EntityData();
-	this->oldData = new EntityData();
-	this->health = health;
 }
 
 Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, Vector3 pos) : scene(associatedScene), type(type), dead(false), name(name), useNewData(true), visible(true) {
@@ -22,7 +15,6 @@ Entity::Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, Vector
 	this->oldData = new EntityData();
 	this->data->Translate = pos;
 	this->oldData->Translate = pos;
-	this->health = 50;
 }
 
 Entity::~Entity() {
@@ -110,16 +102,6 @@ void Entity::PreUpdate() {
 
 void Entity::PostUpdate() {
 	oldData->setValuesTo(data);
-}
-
-int Entity::getHealth()
-{
-	return this->health;
-}
-
-void Entity::setHealth(int h)
-{
-	this->health = h;
 }
 
 bool Entity::isDead() {

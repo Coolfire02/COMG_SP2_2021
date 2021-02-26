@@ -101,9 +101,6 @@ public:
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
-
-
-	void updateCarSpawn();
 };
 
 #endif

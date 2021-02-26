@@ -99,7 +99,7 @@ void Camera::Update(double dt)
 		if (pitch != 0)
 		{
 
-			
+
 			total_pitch += (float)(-CAMERA_SPEED * Application::camera_pitch * (float)dt);
 			if (total_pitch > 79.f) {
 				total_pitch = 79.f;
@@ -179,7 +179,7 @@ bool Camera::isLookingAt(Vector3 pos)
 
 	float angle = acos((pow(sideA, 2) + pow(sideC, 2) - pow(sideB, 2)) / (2 * sideA * sideC)) * 180 / 3.14159;
 
-	return angle < 20;
+	return angle < 3;
 }
 
 

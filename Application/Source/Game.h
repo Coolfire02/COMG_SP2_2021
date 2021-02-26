@@ -12,7 +12,7 @@ enum SCENES
 {
 	S_HOUSEFIRE = 0,
 	S_2051,
-	S_TIMEPORTAL,
+	S_CORRIDOR,
 	S_2021,
 	S_GUNSHOP,
 	S_GARAGE,
@@ -31,9 +31,7 @@ public:
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
-	static int cash;
 	static double gElapsedTime;
-	static bool gameExit;
 
 	static MissionManager mManager;
 	static InteractionManager iManager;

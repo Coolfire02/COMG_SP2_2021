@@ -7,7 +7,7 @@ int NPC::IDcounter = 0;
 Overloaded constructor that sets variables based on parameters
 */
 /******************************************************************************/
-NPC::NPC(Scene* scene, NPCTYPE type, std::string name, int health) : Entity(scene, ENTITYTYPE::LIVE_NPC, name, health) , npcType(npcType) {
+NPC::NPC(Scene* scene, NPCTYPE type, std::string name) : Entity(scene, ENTITYTYPE::LIVE_NPC, name) , npcType(npcType) {
 	switch (type) {
 	case TESTNPC:
 		this->associatedNPCMesh = MeshHandler::getMesh(GEO_NPC);
@@ -21,7 +21,6 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name, int health) : Entity(scen
 	}
 	IDcounter++;
 	this->ID = IDcounter;
-	this->maxHealth = health;
 	this->hitBox = new HitBox(new Box(*associatedNPCMesh->botLeftPos, *associatedNPCMesh->topRightPos));
 }
 
@@ -67,20 +66,6 @@ Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matr
 */
 /******************************************************************************/
 void NPC::Render() {
-	int maxScale = this->getHealth() * 0.05; //get max scale of healthbar
-	if (maxScale > 5) //if maxscale of health bar is too high
-		maxScale = 5; //set to max
-
-	if (this->getHealth() < this->maxHealth) //spawn healthbar on top of NPC if health is lesser than max health
-	{
-		this->scene->modelStack.PushMatrix();
-		this->scene->modelStack.Translate(getEntityData()->Translate.x, getEntityData()->Translate.y + 3, getEntityData()->Translate.z);
-		this->scene->modelStack.Rotate(this->getEntityData()->Rotation.y, 0, 1, 0);
-		this->scene->modelStack.Scale(maxScale, 0.3, 0.01);
-		this->scene->RenderMesh(MeshHandler::getMesh(GEO_HEALTHBAR), false);
-		this->scene->modelStack.PopMatrix();
-	}
-
 	this->scene->modelStack.PushMatrix();
 		this->loadOriginTRSIntoStacknHitBox();
 		if (this->isVisible()) this->scene->RenderMesh(associatedNPCMesh, this->scene->isLightEnabled());

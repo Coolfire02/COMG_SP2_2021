@@ -17,7 +17,6 @@ enum ENTITYTYPE {
 	WORLDOBJ,
 	DRUGS,
 	TIMEPORTAL,
-	FIRE,
 	CUSTOM,
 
 	ETYPE_COUNT
@@ -25,9 +24,6 @@ enum ENTITYTYPE {
 
 class Entity 
 {
-private:
-	int health;
-
 protected:
 	Scene *scene;
 	std::string name;
@@ -49,7 +45,6 @@ protected:
 public:
 	Entity();
 	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name);
-	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, int health);
 	Entity(Scene* associatedScene, ENTITYTYPE type, std::string name, Vector3 pos);
 	~Entity();
 
@@ -76,8 +71,5 @@ public:
 	void PostUpdate(); //Called just before EManager's Update is finished
 
 	virtual void Render() = 0;
-
-	int getHealth();
-	void setHealth(int);
 };
 

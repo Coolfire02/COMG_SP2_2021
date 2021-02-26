@@ -73,13 +73,12 @@ class NPC : public Entity
 	static int IDcounter;
 	int ID;
 	std::vector<int> IDList;
-	float maxHealth;
 
 public:
 
 	NPCTYPE getNPCType();
 
-	NPC(Scene*, NPCTYPE, std::string, int);
+	NPC(Scene*, NPCTYPE, std::string);
 	~NPC();
 
 	RigidBody& getRigidBody();

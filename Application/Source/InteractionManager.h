@@ -20,12 +20,16 @@ Handles all the interactions in this file
 /******************************************************************************/
 class InteractionManager {
 
-	static const float INTERACTION_CLICKCOOLDOWN;
+	enum INTERACTION_TYPE {
+		TEST,
+		INTERACTION_COUNT,
+	};
 
 	std::map<std::string, Interaction*> Interactions; // map to store Interactions based on their Keys
 	InteractionQueue interactionQueue; // queue for active interactions
-	std::map<std::string, int> timesInteracted;
-	
+	INTERACTION_TYPE currentInteractionType; // lol nobrainer
+
+	int completedInteractionsCount[INTERACTION_COUNT];
 	double latestInteractionSwitch;
 	float interactionElapsed; //Total time spent in Interaction instance
 	double elapsed;
@@ -34,7 +38,6 @@ public:
 	InteractionManager();
 	~InteractionManager();
 
-	int getTimesInteracted(std::string interactionID);
 	InteractionQueue& getQueue();	
 	bool runCommand(Command cmd);
 	bool loadInteraction(std::string key);

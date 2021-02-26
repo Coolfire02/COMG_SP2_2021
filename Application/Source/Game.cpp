@@ -9,15 +9,12 @@ MissionManager Game::mManager;
 InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
-int Game::cash = 0;
 Inventory Game::inv;
 UIManager Game::uiManager;
-bool Game::gameExit = false;
 
 Game::Game()
 {
 	ammo = 20;
-	cash = 0;
 }
 
 Game::~Game()
@@ -34,15 +31,6 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
-	{
-		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
-			Game::uiManager.setCurrentUI(UI_GENERAL);
-		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
-			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
-		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
-			Game::gameExit = true;
-	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
@@ -58,8 +46,6 @@ void Game::Update(double dt)
 		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	if (Game::cash >= 9999999)
-		Game::cash = 9999999;
 	//if (GetAsyncKeyState('3') & 0x8001) {
 	//	Game::switchScene(S_2051);
 	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -88,12 +74,16 @@ void Game::Update(double dt)
 	InteractionUpdate(dt);		
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	SceneList[activeScene]->elapser(dt);
-	SceneList[activeScene]->Update(dt);
-
+	if (uiManager.getCurrentMenu() != UI_MAIN_MENU)
+	{
+		SceneList[activeScene]->elapser(dt);
+		SceneList[activeScene]->Update(dt);
+	}
 
 	if (frameTicker % 2 == 0) {
-		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
+		std::stringstream ss;
+		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
 		++fireFrame;
 	}
 	++frameTicker;
@@ -101,11 +91,8 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
-	
 	if (iManager.isInteracting()) {
-		if(uiManager.getCurrentMenu() != UI_INTERACTION)
-			uiManager.setCurrentUI(UI_INTERACTION);
-
+		uiManager.setCurrentUI(UI_INTERACTION);
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
@@ -155,6 +142,7 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
+	
 }
 
 Scene* Game::getActiveScene() {
