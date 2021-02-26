@@ -4,6 +4,7 @@
 
 bool MeshHandler::isLoaded = false;
 Mesh* MeshHandler::meshList[NUM_GEOMETRY];
+GLuint MeshHandler::fireTGAs[10];
 std::unordered_map<std::string, GEOMETRY_TYPE> const MeshHandler::geoTypeTable = {
 	{"EMPTY",GEOMETRY_TYPE::EMPTY},
 	{"GEO_AXES",GEOMETRY_TYPE::GEO_AXES}
@@ -266,6 +267,10 @@ bool MeshHandler::loadMeshes() {
 	
 	meshList[GEO_FIRE_GIF] = MeshBuilder::GenerateQuad("Fire", Color(1, 1, 1));
 	meshList[GEO_FIRE_GIF]->textureID = LoadTGA("Image//Fire Gif//1.tga");
+	for (int i = 0; i < 10; i++) {
+		std::string str = "Image//Fire Gif//" + std::to_string(i + 1) + ".tga";
+		fireTGAs[i] = LoadTGA(str.c_str());
+	}
 	meshList[GEO_FIRE_GIF]->material.kAmbient.Set(1.f, 1.f, 1.f);
 	meshList[GEO_FIRE_GIF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 
