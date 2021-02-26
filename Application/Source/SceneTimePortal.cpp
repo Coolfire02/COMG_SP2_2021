@@ -109,6 +109,11 @@ void SceneTimePortal::Init() {
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
+	Entity* fireExtinguisher = new WorldObject(this, GEO_FIREEXTINGUISHER, "fireextinguisher");
+	fireExtinguisher->getEntityData()->Translate = Vector3(-10.75, 0.75, 10.75);
+	fireExtinguisher->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(fireExtinguisher);
+
 	portalSound = AudioHandler::getEngine()->play3D(
 		AudioHandler::getSoundSource(PORTAL),
 		AudioHandler::to_vec3df(Vector3(0,0,0)),
@@ -408,29 +413,29 @@ void SceneTimePortal::TopDownMapUpdate(double dt)
 	{
 		if (!camMap)
 		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
+switch (camera.camType)
+{
+case FIRSTPERSON:
+	camera.camType = TOPDOWN_FIRSTPERSON;
+	break;
+case THIRDPERSON:
+	camera.camType = TOPDOWN_THIRDPERSON;
+	break;
+}
+camMap = true;
 		}
 		else
 		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
+		switch (camera.camType)
+		{
+		case TOPDOWN_FIRSTPERSON:
+			camera.camType = FIRSTPERSON;
+			break;
+		case TOPDOWN_THIRDPERSON:
+			camera.camType = THIRDPERSON;
+			break;
+		}
+		camMap = false;
 		}
 	}
 
@@ -478,7 +483,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::FIRE) {
 			if (Game::iManager.getTimesInteracted("2021TimePortal2") > 0) {
-				if (camera.isLookingAt(entry->getEntityData()->Translate) && Application::IsMousePressed(0)) {
+				if (camera.isLookingAt(entry->getEntityData()->Translate) && Application::IsMousePressed(0) && Game::inv.getActiveWeapon()->getWeaponType() == FIRE_EXTINGUISHER) {
 					entry->setDead(true);
 					fireSound->stop();
 					Game::mManager.addProgress(MISSION_EXTINGUISH_FIRE, 100.f);
@@ -507,6 +512,15 @@ void SceneTimePortal::CollisionHandler(double dt) {
 		}
 
 		if (entry->getType() == ENTITYTYPE::WORLDOBJ) {
+			if (entry->getName().find("fireextinguisher") != std::string::npos) {
+				if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E')) {
+						Game::inv.addWeap(FIRE_EXTINGUISHER);
+						entry->setDead(true);
+					}
+				}
+			}
 			// entry->getEntityData()->Rotation.x += 2 * dt;
 			// if (entry->getEntityData()->Rotation.x > 360) entry->getEntityData()->Rotation.x -= 360;
 		}
@@ -517,25 +531,25 @@ void SceneTimePortal::CollisionHandler(double dt) {
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
-						if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
-							player->setDriving((Car*)entry, true);
-							((Car*)entry)->setPlayer(player);
-							camera.camType = THIRDPERSON;
-							DEBUG_MSG("Player Set");
-						}
-						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
-							player->setDriving(nullptr, false);
-							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
-							((Car*)entry)->setPlayer(nullptr);
-							camera.camType = FIRSTPERSON;
-							player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
-							player->PostUpdate(); // set old data to new data, lazy fix for now
-							camera.position = player->getEntityData()->Translate;
-							camera.up = camera.defaultUp;
-							camera.position.y += 2;
-							camera.total_pitch = 0;
-							camera.total_yaw = 0;
-							camera.target = camera.position - Vector3(0, 0, 1);
+					if (((Car*)entry)->getPlayer() == nullptr && !player->isDriving()) {
+						player->setDriving((Car*)entry, true);
+						((Car*)entry)->setPlayer(player);
+						camera.camType = THIRDPERSON;
+						DEBUG_MSG("Player Set");
+					}
+					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
+						player->setDriving(nullptr, false);
+						camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
+						((Car*)entry)->setPlayer(nullptr);
+						camera.camType = FIRSTPERSON;
+						player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
+						player->PostUpdate(); // set old data to new data, lazy fix for now
+						camera.position = player->getEntityData()->Translate;
+						camera.up = camera.defaultUp;
+						camera.position.y += 2;
+						camera.total_pitch = 0;
+						camera.total_yaw = 0;
+						camera.target = camera.position - Vector3(0, 0, 1);
 					}
 				}
 			}
