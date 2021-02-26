@@ -786,11 +786,6 @@ void SceneTimePortal::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 1, 0);
-	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), true);
-	modelStack.PopMatrix();
-
 	//Entity Rendering
 	for (auto& entity : eManager.getEntities()) {
 		entity->Render();
@@ -810,6 +805,11 @@ void SceneTimePortal::Render()
 			delete mesh;
 		}
 	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 1, 0);
+	RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
+	modelStack.PopMatrix();
 
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
@@ -840,6 +840,7 @@ void SceneTimePortal::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
 }
 
 void SceneTimePortal::RenderSkybox() {

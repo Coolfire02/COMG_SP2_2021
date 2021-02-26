@@ -28,6 +28,7 @@ void Game::Init()
 }
 
 int frameTicker;
+int fireFrame;
 void Game::Update(double dt)
 {
 
@@ -79,10 +80,13 @@ void Game::Update(double dt)
 		SceneList[activeScene]->Update(dt);
 	}
 
-	std::stringstream ss;
-	ss << "Image//Fire Gif//" << frameTicker % 10 + 1 << ".tga";
-	MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
-	frameTicker++;
+	if (frameTicker % 2 == 0) {
+		std::stringstream ss;
+		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+		++fireFrame;
+	}
+	++frameTicker;
 }
 
 void Game::InteractionUpdate(double dt)
