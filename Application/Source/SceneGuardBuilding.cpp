@@ -285,6 +285,10 @@ void SceneGuardBuilding::Init() {
 
 void SceneGuardBuilding::Update(double dt)
 {
+	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
+	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+	light[2].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -342,7 +346,7 @@ void SceneGuardBuilding::Update(double dt)
 		Game::inv.addItem(BURGER, 1);
 		Game::inv.addItem(EGGPLANT, 2);
 		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		//Game::inv.addCar(SUV);
+		//Game::inv.addCar(TRACTOR);
 	}
 	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
 	{
@@ -528,10 +532,10 @@ void SceneGuardBuilding::InitLights()
 	light[0].exponent = 1.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	light[1].type = Light::LIGHT_POINT;
+	light[1].type = Light::LIGHT_SPOT;
 	light[1].position.set(0, 0, 0);
-	light[1].color.set(1, 0.5, 0);
-	light[1].power = 1.4f;
+	light[1].color.set(1, 0, 1);
+	light[1].power = 0.f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
 	light[1].kQ = 0.001f;
@@ -542,14 +546,14 @@ void SceneGuardBuilding::InitLights()
 
 	light[2].type = Light::LIGHT_POINT;
 	light[2].position.set(0, 0, 0);
-	light[2].color.set(0, 1, 1);
-	light[2].power = 1.2f;
+	light[2].color.set(0.8, 1, 1);
+	light[2].power = 0.5f;
 	light[2].kC = 1.f;
 	light[2].kL = 0.01f;
 	light[2].kQ = 0.001f;
 	light[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	light[2].cosInner = cos(Math::DegreeToRadian(30));
-	light[2].exponent = 3.f;
+	light[2].exponent = 2.f;
 	light[2].spotDirection.Set(0.f, 1.f, 0.f);
 
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
@@ -585,7 +589,7 @@ void SceneGuardBuilding::InitLights()
 	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
 
 	//Week 7 - Code to change number of lights
-	glUniform1i(m_parameters[U_NUMLIGHTS], 2);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 }
 
 void SceneGuardBuilding::MissionCompleteListener(double dt) {
@@ -1370,7 +1374,7 @@ void SceneGuardBuilding::SpawnNPCs(Vector3 Position, NPCTYPE geoType)
 
 	//int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
-	Entity* testNPC = new NPC(this, geoType, "test");
+	Entity* testNPC = new NPC(this, geoType, "test", 50);
 	testNPC->getEntityData()->SetTransform(Position.x, Position.y, Position.z);
 	testNPC->getEntityData()->SetRotate(0, 0, 0);
 	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);

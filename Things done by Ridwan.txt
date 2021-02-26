@@ -1,5 +1,8 @@
-Interaction Stack.
-Garage Inventory.
-Item Inventory.
-Inventory Class.
-UI.
+Interaction Queue
+Garage Inventory Class
+Item Class
+Item Inventory Class
+Inventory Class
+UIManager Class
+UI for Item, Weapon and Garage Inventory
+Scene Garage

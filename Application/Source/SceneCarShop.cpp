@@ -157,13 +157,13 @@ void SceneCarShop::Init()
 	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car3);
 
-	Entity* car4 = new Car(HATCHBACKSPORTS, this, "car");
+	Entity* car4 = new Car(HATCH_BACK_SPORTS, this, "car");
 	car4->getEntityData()->SetTransform(15, 0.25, 20);
 	car4->getEntityData()->SetRotate(0, 0, 0);
 	car4->getEntityData()->SetScale(2.5, 2.5, 2.5);
 	eManager.spawnMovingEntity(car4);
 
-	Entity* car5 = new Car(TRACTOR, this, "car");
+	Entity* car5 = new Car(TRACTOR_SHOVEL, this, "car");
 	car5->getEntityData()->SetTransform(20, 0.25, 20);
 	car5->getEntityData()->SetRotate(0, 0, 0);
 	car5->getEntityData()->SetScale(2.5, 2.5, 2.5);

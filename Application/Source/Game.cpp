@@ -4,17 +4,27 @@
 #include "LoadTGA.h"
 
 SCENES Game::activeScene;
+SCENES Game::prevScene = S_HOUSEFIRE;
 std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
 int Game::ammo = 0;
+int Game::cash = 0;
+
+bool Game::switchingScene = false;
+SCENES Game::toSwitchScene = S_COUNT;
+double Game::timeToSwitch = 0.0;
+double Game::startSwitchTime = 0.0;
+
 Inventory Game::inv;
 UIManager Game::uiManager;
+bool Game::gameExit = false;
 
 Game::Game()
 {
 	ammo = 20;
+	cash = 0;
 }
 
 Game::~Game()
@@ -31,6 +41,55 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
+	gElapsedTime += dt;
+
+	if (switchingScene) {
+		if (Game::uiManager.getCurrentMenu() != UI_SCENE_TRANSITION) //Fix if anything tries overriding UI_SCENE_TRANSITION process midway through, there is still the prevUIMenu that will save it and its used for revertion later on anyways.
+			Game::uiManager.setCurrentUI(UI_SCENE_TRANSITION);
+		Button* button = Game::uiManager.getCurrentBM()->getButtonByName("TransitionBackground");
+		Button* txt = Game::uiManager.getCurrentBM()->getButtonByName("TransitionText");
+		if (timeToSwitch < Game::gElapsedTime) {
+			switchingScene = false;
+			toSwitchScene = S_COUNT;
+			Game::uiManager.setCurrentUI(Game::uiManager.getPrevMenu());
+			button->setOrigin(-64, 36);
+			txt->setOrigin(20, 32);
+			Game::uiManager.getCurrentBM()->deactivateButton("TransitionBackground");
+			Game::uiManager.getCurrentBM()->deactivateButton("TransitionText");
+		}
+		else {
+			float totalAniTime = timeToSwitch - startSwitchTime;
+			float timeTillEnd = timeToSwitch - Game::gElapsedTime;
+			float quaterOfTotalTime = totalAniTime / 4.0;
+			if (timeTillEnd > 3 * quaterOfTotalTime) {
+				button->setOrigin(button->getUIInfo().originX + 84 * dt * quaterOfTotalTime, button->getUIInfo().originY);
+			}
+			else if (timeTillEnd < quaterOfTotalTime) {
+				button->setOrigin(button->getUIInfo().originX - 84 * dt * quaterOfTotalTime, button->getUIInfo().originY);
+				txt->disable();
+
+			}
+			else {
+				if (!txt->isEnabled()) {
+					switchScene(toSwitchScene);
+					txt->enable();
+				}
+			}
+		}
+	}
+
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
+	{
+		prevScene = activeScene;
+		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
+			Game::uiManager.setCurrentUI(UI_GENERAL);
+		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_CREDITS)
+			Game::uiManager.setCurrentUI(UI_MAIN_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
+			Game::gameExit = true;
+	}
 
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
@@ -46,6 +105,8 @@ void Game::Update(double dt)
 		}
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
+	if (Game::cash >= 9999999)
+		Game::cash = 9999999;
 	//if (GetAsyncKeyState('3') & 0x8001) {
 	//	Game::switchScene(S_2051);
 	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -69,21 +130,18 @@ void Game::Update(double dt)
 	//	Game::switchScene(S_HOUSEFIRE);
 	//}
 
-	gElapsedTime += dt;
 	inv.Update(dt);
-	InteractionUpdate(dt);		
+	InteractionUpdate(dt);
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	if (uiManager.getCurrentMenu() != UI_MAIN_MENU)
+	if (uiManager.getCurrentMenu() != UI_PAUSE_MENU)
 	{
 		SceneList[activeScene]->elapser(dt);
 		SceneList[activeScene]->Update(dt);
 	}
 
 	if (frameTicker % 2 == 0) {
-		std::stringstream ss;
-		ss << "Image//Fire Gif//" << fireFrame % 10 + 1 << ".tga";
-		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = LoadTGA(ss.str().c_str());
+		MeshHandler::getMesh(GEO_FIRE_GIF)->textureID = MeshHandler::fireTGAs[fireFrame % 10];
 		++fireFrame;
 	}
 	++frameTicker;
@@ -91,8 +149,11 @@ void Game::Update(double dt)
 
 void Game::InteractionUpdate(double dt)
 {
+
 	if (iManager.isInteracting()) {
-		uiManager.setCurrentUI(UI_INTERACTION);
+		if (uiManager.getCurrentMenu() != UI_INTERACTION)
+			uiManager.setCurrentUI(UI_INTERACTION);
+
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
@@ -142,8 +203,23 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
-	
 }
+
+void Game::switchScene(static SCENES scene, float transitionTime, std::string text)
+{
+	if (switchingScene != true) {
+		switchingScene = true;
+		startSwitchTime = Game::gElapsedTime;
+		timeToSwitch = Game::gElapsedTime + transitionTime;
+		toSwitchScene = scene;
+		Game::uiManager.setCurrentUI(UI_SCENE_TRANSITION);
+		Game::uiManager.getCurrentBM()->activateButton("TransitionBackground");
+		Game::uiManager.getCurrentBM()->getButtonByName("TransitionBackground")->setOrigin(-64, 36);
+		Game::uiManager.getCurrentBM()->getButtonByName("TransitionText")->setText(text);
+	}
+}
+
+
 
 Scene* Game::getActiveScene() {
 	return nullptr;
@@ -159,4 +235,14 @@ Scene* Game::getSceneByName(std::string scene)
 Scene* Game::getScene()
 {
 	return SceneList[activeScene]; //return ActiveScene
+}
+
+SCENES Game::getPrevSceneENUM()
+{
+	return prevScene;
+}
+
+void Game::setPrevSceneENUM(SCENES p)
+{
+	prevScene = p;
 }

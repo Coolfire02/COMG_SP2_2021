@@ -1,28 +1,44 @@
 #ENUM:GEOMETRY_TYPE(previewImage);Objective;Mission Complete Message
 #========================================
 
-MISSION_EXTINGUISH_FIRE
+MISSION_FIND_HOUSE
 - GEO_TYPE_Enum: EMPTY
-- ObjectiveMessage: Extinguish the fire
-- CompletedMessage: Fire Fighter
+- ObjectiveMessage: Find Your House
+- CompletedMessage: Traveller
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: []
+
+MISSION_INFILTRATE_GOVERNMENT_FACILITY
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Infiltrate 2051 Government Facility
+- CompletedMessage: 
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_FIND_HOUSE
 
 MISSION_ENTER_TIMEPORTAL
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Enter the Time Portal back to 2021
 - CompletedMessage: Time Traveller
 * BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions:
-	- MISSION_EXTINGUISH_FIRE
+* PreRequisiteMissions: []
+	- MISSION_FIND_HOUSE
+
+MISSION_EXTINGUISH_FIRE
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Extinguish the fire
+- CompletedMessage: Fire Fighter
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions: 
+	- MISSION_ENTER_TIMEPORTAL
 
 MISSION_VISIT_FOUNTAIN
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Visit the fountain in the roundabout
 - CompletedMessage: splash
 * BlackListedPreRequisiteMissions: []
-* PreRequisiteMissions: []
-
+* PreRequisiteMissions: 
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_RESTAURANT
 - GEO_TYPE_Enum: EMPTY
@@ -30,6 +46,7 @@ MISSION_VISIT_RESTAURANT
 - CompletedMessage: nom
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_TALK_TO_NPC
 - GEO_TYPE_Enum: EMPTY
@@ -37,7 +54,7 @@ MISSION_TALK_TO_NPC
 - CompletedMessage: hey
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_GUNSHOP
 - GEO_TYPE_Enum: EMPTY
@@ -45,5 +62,48 @@ MISSION_VISIT_GUNSHOP
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_TALK_TO_NPC
+	- MISSION_VISIT_RESTAURANT
+	- MISSION_VISIT_FOUNTAIN
+
+MISSION_TALK_TO_THE_OWNER
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Talk to the owner 
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_VISIT_GUNSHOP
+
+MISSION_COLLECT_THE_GOODS
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Collect the 'goods' for Gary 
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_TALK_TO_THE_OWNER
+
+MISSION_RETURN_THE_GOODS
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Head back to the Gun Shop and return the 'goods' to Gary 
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_COLLECT_THE_GOODS
+
+MISSION_GET_INFO_FROM_GILBERT
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Chat with gilbert
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_RETURN_THE_GOODS
+
+MISSION_SNEAK_INTO_THE_BUILDING
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Sneak into the government building through the back door
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_GET_INFO_FROM_GILBERT
 
 #END

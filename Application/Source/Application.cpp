@@ -25,6 +25,9 @@
 #include "SceneHouseFire.h"
 #include "SceneTimePortal.h"
 #include "SceneGuardBuilding.h"
+#include "SceneCarShop.h"
+#include "SceneUI.h"
+#include "SceneOffice.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -198,6 +201,8 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
+	//g.addScene(new SceneOffice);
+
 	g.addScene(new SceneHouseFire);
 	g.addScene(new SceneAssignment2);
 	g.addScene(new SceneTimePortal);
@@ -205,11 +210,14 @@ void Application::Run()
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
 	g.addScene(new SceneGuardBuilding);
+	g.addScene(new SceneCarShop);
+	g.addScene(new SceneUI);
+	g.addScene(new SceneOffice);
 	//g.addScene(new SceneHouseFire);
 	g.Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	while (!glfwWindowShouldClose(m_window) && !Game::gameExit)
 	{
 		GetMouseUpdate();
 		double dt = m_timer.getElapsedTime();

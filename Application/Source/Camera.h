@@ -12,7 +12,8 @@ enum CAMERATYPE {
 	FIRSTPERSON,
 	THIRDPERSON,
 	TOPDOWN_FIRSTPERSON,
-	TOPDOWN_THIRDPERSON
+	TOPDOWN_THIRDPERSON,
+	TOPDOWN_MAINMENU
 };
 
 class Camera
@@ -27,6 +28,7 @@ public:
 
 	float yaw;
 	float pitch;
+	float additionalYaw;
 	float total_pitch;
 	float total_yaw;
 

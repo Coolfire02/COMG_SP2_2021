@@ -8,17 +8,25 @@ CHOICE # timeportal
 
 CHOICE # timeportal
 - MSG: Yes
-- postcmd: /entertimeportal
-
-CHOICE # timeportal
-- MSG: Yes
-- postcmd: /entertimeportal
+- postcmd: TimePortal;/entertimeportal
 
 =========================================
 
-INTERACTION: drugman
-- MSG: i give fake id lool
-- postcmd: /giveFakeId
+INTERACTION: Gary1
+- MSG: Gary: How can I help you?
+# NEXT: Gary2
+
+INTERACTION: Gary2
+- MSG: I was hoping you could help me get a fake ID.
+# NEXT: Gary3
+
+INTERACTION: Gary3
+- MSG: Alright, but only if you complete a task for me.
+# NEXT: Gary4
+
+INTERACTION: Gary4
+- MSG: Our 'goods' have been delayed due to unforeseen circumstances.;However, they've been hidden in a certain corner in the city before being seized.;I'll need you to bring them back here.
+- postcmd: /startdrugmission 
 
 =========================================
 
@@ -113,6 +121,7 @@ CHOICE # phoneCall2option1
 INTERACTION: phoneCall2option1option1
 - MSG: Gilbert: Oh, Gary... I see. Alright, there's a back door in the building that;you can use. Be sure to be on a lookout for guards. 
 # NEXT: phoneCall2option1option1end
+- postcmd: /completedCall
 
 INTERACTION: phoneCall2option1option1end
 - MSG: You: Thank you so much!
@@ -148,3 +157,90 @@ INTERACTION: npc2
 - MSG: Hey, How are you doing?
 
 =========================================
+
+INTERACTION: HouseFire See House Fire
+- MSG: My house...
+
+=========================================
+
+INTERACTION: HouseFire Out Of Car
+- MSG: Its all on fire... 
+# NEXT: HouseFire Try Entinguish House
+
+CHOICE # HouseFire Out Of Car
+- MSG: Call Fire Department
+# NEXT: HouseFire Call Fire Department
+
+CHOICE # HouseFire Out Of Car
+- MSG: Do Nothing. Its too late.
+# NEXT: HouseFire Do Nothing
+
+=========================================
+
+INTERACTION: HouseFire Call Fire Department
+- MSG: Ring...
+# NEXT: HouseFire Fire Department Response
+
+=========================================
+
+INTERACTION: HouseFire Fire Department Response
+- MSG: Fire Station: Hi, all our Fire Fighting Units;are busy. This was an automated reply.;Thank you.
+# NEXT: HouseFire Do Nothing
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing
+- MSG: Thats it, its all gone.
+# NEXT: HouseFire Do Nothing 2
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing 2
+- MSG: "Bimster" ...
+# NEXT: HouseFire Do Nothing 3
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing 3
+- MSG: My life ruined by a single soul.
+# NEXT: HouseFire Do Nothing 4
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing 4
+- MSG: If he never existed in history;I could get back what I lost.
+# NEXT: HouseFire Do Nothing 5
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing 5
+- MSG: The world would suffer less from harsh global-warming;that happened because of him.
+# NEXT: HouseFire Do Nothing 6
+
+=========================================
+
+INTERACTION: HouseFire Do Nothing 6
+- MSG: I'm going to mend...;history.
+- postcmd: /endhousefire
+
+=========================================
+
+INTERACTION: 2021TimePortal1
+- MSG: What's that smell...?
+- postcmd: TimePortal;/closeblackscreen
+# NEXT: 2021TimePortal2
+
+INTERACTION: 2021TimePortal2
+- MSG: What the?!?!
+
+INTERACTION: 2021TimePortal3
+- MSG: The energy produced to travel back in time must have caused that fire...
+# NEXT: 2021TimePortal4
+
+INTERACTION: 2021TimePortal4
+- MSG: I'd better be more careful when returning to the future
+- postcmd: /removeextinguisher
+
+INTERACTION: 2021TimePortal5
+- MSG: I need to get out of here and blend in with the people
+- postcmd: /scene2021

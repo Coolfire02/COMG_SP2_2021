@@ -45,20 +45,32 @@ void Car::Init(CAR_TYPE type, Scene* scene, std::string name) {
 		this->maxCarSpeed = 1.5f;
 		this->associatedType = GEO_RACER;
 		break;
-	case HATCHBACKSPORTS:
-		this->maxCarSpeed = 1.0f;
-		this->associatedType = GEO_HATCHBACKSPORTS;
+	case POLICE:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_POLICE;
 		break;
-	case TRACTOR:
-		this->maxCarSpeed = 0.75f;
-		this->associatedType = GEO_TRACTOR;
+	case AMBULANCE:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_AMBULANCE;
+		break;
+	case SUV:
+		this->maxCarSpeed = 0.5f;
+		this->associatedType = GEO_SUV;
+		break;
+	case HATCH_BACK_SPORTS:
+		this->maxCarSpeed = 1.0f;
+		this->associatedType = GEO_HATCH_BACK_SPORTS;
+		break;
+	case TRACTOR_SHOVEL:
+		this->maxCarSpeed = 0.25f;
+		this->associatedType = GEO_TRACTOR_SHOVEL;
 		break;
 	case TRUCK:
-		this->maxCarSpeed = 0.5f;
+		this->maxCarSpeed = 0.75f;
 		this->associatedType = GEO_TRUCK;
 		break;
 	case VAN:
-		this->maxCarSpeed = 0.75f;
+		this->maxCarSpeed = 0.6f;
 		this->associatedType = GEO_VAN;
 		break;
 	default:
@@ -171,6 +183,18 @@ float Car::getMaxCarSpeed(CAR_TYPE carType)
 	case SUV:
 		return 0.5f;
 		break;
+	case HATCH_BACK_SPORTS:
+		return 1.f;
+		break;
+	case TRACTOR_SHOVEL:
+		return 0.25f;
+		break;
+	case TRUCK:
+		return 0.75f;
+		break;
+	case VAN:
+		return 0.6f;
+		break;
 	default:
 		return 0.f;
 		break;
@@ -207,6 +231,9 @@ velocity = acceleration / time
 */
 /******************************************************************************/
 void Car::Drive(double dt) {
+
+	this->getEntityData()->Translate.x = Math::Clamp(this->getEntityData()->Translate.x, -500.f, 500.f);
+	this->getEntityData()->Translate.z = Math::Clamp(this->getEntityData()->Translate.z, -500.f, 500.f);
 
 	acceleration = 0;
 	float RotateSpeed = 80.f;

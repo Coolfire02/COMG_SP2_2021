@@ -28,6 +28,17 @@ void AudioHandler::load() {
 		fileLocation[GUN_PISTOL_RELOAD] = "Media\\Pistol\\Reload.wav";
 		soundSource[GUN_PISTOL_RELOAD] = engine->addSoundSourceFromFile(getFileLocation(GUN_PISTOL_RELOAD), ESM_AUTO_DETECT, true);
 
+		fileLocation[FIRE_SOUND] = "Media\\fire.mp3";
+		soundSource[FIRE_SOUND] = engine->addSoundSourceFromFile(getFileLocation(FIRE_SOUND), ESM_AUTO_DETECT, true);
+
+		fileLocation[PORTAL] = "Media\\portal.mp3";
+		soundSource[PORTAL] = engine->addSoundSourceFromFile(getFileLocation(PORTAL), ESM_AUTO_DETECT, true);
+
+		fileLocation[DOOR] = "Media\\Door.mp3";
+		soundSource[DOOR] = engine->addSoundSourceFromFile(getFileLocation(DOOR), ESM_AUTO_DETECT, true);
+
+		fileLocation[FIRE_EXTINGUISH] = "Media\\fireextinguish.mp3";
+		soundSource[FIRE_EXTINGUISH] = engine->addSoundSourceFromFile(getFileLocation(FIRE_EXTINGUISH), ESM_AUTO_DETECT, true);
 
 		loaded = true;
 	}

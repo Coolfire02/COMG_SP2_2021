@@ -1,5 +1,12 @@
 #include "UIManager.h"
 #include "Application.h"
+#include <cmath>
+#include "Scene2021.h"
+
+int UIManager::digitCount(int num) //returns number of digits in parameter
+{
+	return int(log10(num) + 1);
+}
 
 UIManager::UIManager()
 {
@@ -29,8 +36,8 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "UIItemCurrent", 120, 20, 11, 11, UI_BLUE);
 
 			//Weapons UI
-			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "0/0 Ammo", 5.0f);
-			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "0", 3.0f);
+			createTextButton(bManagers[i], "AmmoCount", 85.5, 8, 1,1, 0,0, Color(1,1,1), "", 5.0f);
+			createTextButton(bManagers[i], "TotalAmmoCount", 91, 5, 1,1, 0,0, Color(1,0,1), "", 3.0f);
 			
 			createNoTextButton(bManagers[i], "Weapon1", 100, 10, 10, 10, UI_PISTOL);
 			createNoTextButton(bManagers[i], "Weapon2", 110, 10, 10, 10, UI_SILENCER);
@@ -42,6 +49,9 @@ void UIManager::Init() {
 			{
 				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j + 1), 100 + (j * 10), 10, 11, 11, UI_BLUE);
 			}
+
+			//cash
+			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "", 5.0f);
 			break;
 		case UI_ITEM_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
@@ -117,9 +127,26 @@ void UIManager::Init() {
 			}
 			break;
 		case UI_MAIN_MENU:
+			Game::switchScene(S_UI);	
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 36.5, 11.1, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 20, 20.9, 3.5, CREDITS_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 10, 11.7, 3.8, QUIT_BUTTON);
 			enableUI();
+			break;
+		case UI_CREDITS:
+			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createButton(bManagers[i], "credits1", 55, 56, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "TEAM 15", 5);
+			createButton(bManagers[i], "credits2", 57, 46, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Joash", 5);
+			createButton(bManagers[i], "credits3", 53, 36, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Yong Hong", 5);
+			createButton(bManagers[i], "credits4", 56, 26, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Jordan", 5);
+			createButton(bManagers[i], "credits5", 55, 16, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Ridwan", 5);
+			createButton(bManagers[i], "credits6", 54.5, 6, 1, 1, UI_BLANK, 0, 0, Color(0,0,0), "Raphael", 5);
+			break;
+		case UI_PAUSE_MENU:
+			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createNoTextButton(bManagers[i], "PauseMenuPlayButton", 64, 36, 40.2, 7, RESUME_BUTTON);
+			createNoTextButton(bManagers[i], "PauseMenuQuitButton", 64, 13, 13.7, 3.5, MENU_BUTTON);
 			break;
 		case UI_INTERACTION:
 			createButton(bManagers[i], "Choice1", 96, 33.7, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
@@ -128,7 +155,7 @@ void UIManager::Init() {
 			createButton(bManagers[i], "Choice4", 96, 63.2, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
 
 
-			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 28, UI_TEXTBOX, 3, 12, Color(1, 1, 1), "", 5.0f);
+			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 28, UI_TEXTBOX, 3, 12, Color(1, 1, 1), "", 4.0f);
 			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
 		case UI_MISSION:
@@ -149,6 +176,12 @@ void UIManager::Init() {
 		case UI_E_TO_INTERACT:
 			createTextButton(bManagers[i], "EInteract", 58, 25, 12.8, 6.4, 0, 0, Color(1, 1, 1), "Press E to interact", 4);
 			bManagers[i]->activateButton("EInteract");
+			break;
+		case UI_SCENE_TRANSITION:
+			createNoTextButton(bManagers[i], "TransitionBackground", 64, 36, 172, 102, GEOMETRY_TYPE::GEO_BLACK);
+			createTextButton(bManagers[i], "TransitionText", 20, 32, 0.f, 0.f, 0.f, 0.f, Color(0.9, 0.9, 0.9), "", 6.f, FONTTYPE::SUPERMARIO);
+			bManagers[i]->deactivateButton("TransitionBackground");
+			bManagers[i]->deactivateButton("TransitionText");
 			break;
 		}
 	}
@@ -247,6 +280,27 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "MainMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{
 					setCurrentUI(UI_GENERAL);
+					Game::switchScene(Game::getPrevSceneENUM());
+				}
+				if (buttonCollide->buttonClicked->getName() == "MainMenuCreditsButton" && buttonCollide->justClicked)//Main Menu credits button
+				{
+					setCurrentUI(UI_CREDITS);
+				}
+				if (buttonCollide->buttonClicked->getName() == "MainMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
+				{
+					Game::gameExit = true;
+				}
+				break;
+			case UI_PAUSE_MENU:
+				if (buttonCollide->buttonClicked->getName() == "PauseMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
+				{
+					setCurrentUI(UI_GENERAL);
+					Game::switchScene(Game::getPrevSceneENUM());
+				}
+				if (buttonCollide->buttonClicked->getName() == "PauseMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
+				{
+					setCurrentUI(UI_MAIN_MENU);
+					Game::switchScene(S_UI);
 				}
 				break;
 			case UI_INTERACTION:
@@ -271,7 +325,34 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			}
 		}
-		
+		if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+		{
+			switch (digitCount(Game::cash))
+			{
+			case 1:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(122, 65);
+				break;
+			case 2:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(120, 65);
+				break;
+			case 3:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(118, 65);
+				break;
+			case 4:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(116, 65);
+				break;
+			case 5:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(114, 65);
+				break;
+			case 6:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(112, 65);
+				break;
+			case 7:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(110, 65);
+				break;
+			}
+			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setText("$" + std::to_string(Game::cash));
+		}
 	}
 }
 
@@ -308,14 +389,20 @@ void UIManager::changeTextButton(std::string newText, std::string bName)
 
 void UIManager::createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize)
 {
+	createTextButton(bManager, buttonName, originX, originY, quadSizeX, quadSizeY, offsetX, offsetY, textColour, textString, textSize, CALIBRI);
+}
+
+void UIManager::createTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, float offsetX, float offsetY, Color textColour, std::string textString, float textSize, FONTTYPE type)
+{
 	Button* namedButton;
 	namedButton = new Button(buttonName, originX, originY, quadSizeX, quadSizeY, UI_BLANK);
-	namedButton->spawnTextObject("Text", textColour, CALIBRI, textSize);
+	namedButton->spawnTextObject("Text", textColour, type, textSize);
 	namedButton->getTextObject()->setTextString(textString);
 	namedButton->getTextObject()->setTextOffsetFromTopLeft(offsetX, offsetY);
 	bManager->addButton(namedButton);
 	bManager->deactivateButton(textString);
 }
+
 
 void UIManager::createNoTextButton(ButtonManager* bManager, std::string buttonName, float originX, float originY, float quadSizeX, float quadSizeY, GEOMETRY_TYPE quadTexture)
 {
@@ -340,6 +427,10 @@ void UIManager::setUIactive(UI_MENUS ui) {
 	this->activeMenus[ui] = true;
 }
 
+UI_MENUS UIManager::getPrevMenu() {
+	return this->prevMenu;
+}
+
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
 	Game::inv.getActiveWeapon()->setUIcooldown(0.5f);
@@ -351,6 +442,7 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 	}
 	
 	Application::setCursorEnabled(false);
+	this->prevMenu = this->currentMenu;
 	this->currentMenu = newUI;
 	switch (newUI)
 	{
@@ -374,6 +466,14 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		break;
 	case UI_INTERACTION:
 		Application::setCursorEnabled(true);
+		break;
+	case UI_CREDITS:
+		Application::setCursorEnabled(true);
+		this->enableUI();
+		break;
+	case UI_PAUSE_MENU:
+		Application::setCursorEnabled(true);
+		this->enableUI();
 		break;
 	}
 }

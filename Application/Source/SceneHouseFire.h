@@ -71,6 +71,8 @@ public:
 	~SceneHouseFire();
 
 	bool eHeld = false;
+	bool arrviedAtFinalSpot = false;
+	bool houseDestroyed = false;
 	Camera camera;
 	Camera camera2;
 
@@ -78,6 +80,7 @@ public:
 
 	//Game Variables
 	Player* player;
+	Car* car;
 
 	virtual void Init();
 	virtual void Update(double dt);

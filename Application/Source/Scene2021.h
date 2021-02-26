@@ -41,8 +41,6 @@ class Scene2021 : public Scene
 	};
 
 private:
-
-	Camera camera;
 	Camera camera2;
 
 	EntityManager eManager;
@@ -97,6 +95,8 @@ private:
 	double interactionTimer = 0;
 
 public:
+	Camera camera;
+
 	Scene2021();
 	~Scene2021();
 
@@ -110,6 +110,8 @@ public:
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
+
+	void spawnGarageCar(CAR_TYPE carType);
 };
 
 #endif
