@@ -63,8 +63,8 @@ bool InteractionManager::runCommand(Command cmd) {
 				((SceneTimePortal*)cmd.scene)->blackScreen = true;
 				((SceneTimePortal*)cmd.scene)->portalSound->setIsPaused(false);
 				Entity* fire = new WorldObject(cmd.scene, GEO_FIRE_GIF, "FIRE");
-				fire->getEntityData()->Translate = Vector3(0, 1, -9);
-				fire->getEntityData()->Scale = Vector3(5, 5, 5);
+				fire->getEntityData()->Translate = Vector3(0, 2, -9.5);
+				fire->getEntityData()->Scale = Vector3(15, 15, 15);
 				fire->setType(FIRE);
 				((SceneTimePortal*)cmd.scene)->eManager.spawnWorldEntity(fire);
 				((SceneTimePortal*)cmd.scene)->player->getEntityData()->Translate = Vector3(0, 0, 0);
@@ -88,6 +88,9 @@ bool InteractionManager::runCommand(Command cmd) {
 		}
 		else if (splitVar.at(0) == "/startdrugmission") {
 			Game::mManager.addProgress(MISSIONTYPE::MISSION_TALK_TO_THE_OWNER, 100.f);
+		}
+		else if (splitVar.at(0) == "/removeextinguisher") {
+			Game::inv.deleteWeapon(FIRE_EXTINGUISHER);
 		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {

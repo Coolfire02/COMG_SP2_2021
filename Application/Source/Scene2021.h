@@ -111,6 +111,7 @@ public:
 	virtual void TopDownMapUpdate(double dt);
 	virtual void Render();
 	virtual void Exit();
+	void spawnGarageCar(CAR_TYPE carType);
 };
 
 #endif

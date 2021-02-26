@@ -246,6 +246,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_PISTOL]->textureID = LoadTGA("Image//GunShop//pistolColor.tga");
 	meshList[GEO_PISTOL_S] = MeshBuilder::GenerateOBJ("pistolSilencer", "OBJ//Weapons//PPK_OBJ.obj");
 	meshList[GEO_PISTOL_S]->textureID = LoadTGA("Image//PPK_TEXTURE.tga");
+	meshList[GEO_FIREEXTINGUISHER] = MeshBuilder::GenerateOBJ("extinguisher", "OBJ//TimePortal//fireextinguisher.obj");
+	meshList[GEO_FIREEXTINGUISHER]->textureID = LoadTGA("Image//TimePortal//fireextinguisher.tga");
 	//meshList[GEO_RLM] = MeshBuilder::GenerateOBJMTL("rocketlauncherModern", "OBJ//Weapons//rocketlauncherModern.obj", "MTL//Weapons//rocketlauncherModern.mtl");
 	//meshList[GEO_SHOTGUN] = MeshBuilder::GenerateOBJMTL("shotgun", "OBJ//Weapons//shotgun.obj", "MTL//Weapons//shotgun.mtl");
 	//meshList[GEO_SHOTGUN_S] = MeshBuilder::GenerateOBJMTL("shotgunShort", "OBJ//Weapons//shotgunShort.obj", "MTL//Weapons//shotgunShort.mtl");
