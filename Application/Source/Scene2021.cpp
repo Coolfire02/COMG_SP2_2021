@@ -195,6 +195,10 @@ void Scene2021::Init()
 	gunShopHitBox->getEntityData()->Translate.Set(160, 0, -210);
 	eManager.spawnWorldEntity(gunShopHitBox);
 
+	CustomEntity* garageHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -20), Vector3(15, 2, 20)), "garageHitBox");
+	garageHitBox->getEntityData()->Translate.Set(-320, 0, 240);
+	eManager.spawnWorldEntity(garageHitBox);
+
 	SpawnBuildings();
 	SpawnStreetLamps();
 
@@ -249,10 +253,6 @@ void Scene2021::Update(double dt)
 	if (Application::IsKeyPressed('8'))
 	{
 		Scene * var = Game::getSceneByName("GarageScene");
-		/*for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
-		{
-			static_cast <SceneGarage*>(var)->updateCarSpawn();
-		}*/
 		static_cast <SceneGarage*>(var)->updateCarSpawn();
 		Game::switchScene(S_2051);
 	}
@@ -566,6 +566,17 @@ void Scene2021::CollisionHandler(double dt) {
 								}
 							}
 						}
+					}
+				}
+				if (entry->victim->getName().find("garageHitBox") != std::string::npos) 
+				{
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Scene* var = Game::getSceneByName("GarageScene");
+						static_cast <SceneGarage*>(var)->updateCarSpawn();
+						Game::switchScene(S_GARAGE);
 					}
 				}
 			}
@@ -1497,7 +1508,12 @@ void Scene2021::RenderTexts()
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "GUN SHOP", Color(1, 0, 1));
 	modelStack.PopMatrix();
 
-
+	modelStack.PushMatrix();
+	modelStack.Translate(-330, 15, 245);
+	modelStack.Rotate(-270, 0, 1, 0);
+	modelStack.Scale(5, 5, 5);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
+	modelStack.PopMatrix();
 }
 float camY = 400;
 int directionY = 1;
@@ -1529,6 +1545,16 @@ void Scene2021::RenderUI()
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_BOOSTMETER), 64, 2, BoostMeterGauge, 2);
 }
 
+void Scene2021::spawnGarageCar(CAR_TYPE carType)
+{
+	Entity* newCar = new Car(carType, this, "newCarFromGarage");
+	newCar->getEntityData()->SetTransform(-320, 0, 245);
+	newCar->getEntityData()->SetRotate(0, 0, 0);
+	newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+
+	this->eManager.spawnMovingEntity(newCar);
+}
+
 void Scene2021::Exit()
 {
 	// Cleanup VBO here
@@ -1537,3 +1563,4 @@ void Scene2021::Exit()
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }
+
