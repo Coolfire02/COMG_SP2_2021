@@ -18,7 +18,7 @@ SceneTimePortal::SceneTimePortal() :
 	eManager(this)
 {
 	//Scene
-	sceneName = "Corridor";
+	sceneName = "TimePortal";
 
 	//Game
 	fps = 0;
@@ -109,6 +109,13 @@ void SceneTimePortal::Init() {
 	timePortal->getEntityData()->Scale = Vector3(0.1, 0.1, 0.1);
 	eManager.spawnWorldEntity(timePortal);
 
+	portalSound = AudioHandler::getEngine()->play3D(
+		AudioHandler::getSoundSource(PORTAL),
+		AudioHandler::to_vec3df(Vector3(0,0,0)),
+		LOOPED::NOLOOP,
+		true,
+		true);
+
 	Entity* door = new WorldObject(this, GEO_DOOR, "door");
 	door->getEntityData()->Translate = Vector3(0, 2.25, 11);
 	//door->getEntityData()->Rotation = Vector3(0, 90, 0);
@@ -150,16 +157,18 @@ void SceneTimePortal::Init() {
 
 	}
 	
-	Entity* fire = new WorldObject(this, GEO_FIRE_GIF, "FIRE");
+	/*Entity* fire = new WorldObject(this, GEO_FIRE_GIF, "FIRE");
 	fire->getEntityData()->Translate = Vector3(0, 1, -9);
 	fire->getEntityData()->Scale = Vector3(5, 5, 5);
 	fire->setType(FIRE);
-	eManager.spawnWorldEntity(fire);
+	eManager.spawnWorldEntity(fire);*/
 
-	/*fireSound = AudioHandler::getEngine()->play3D(
+	fireSound = AudioHandler::getEngine()->play3D(
 		AudioHandler::getSoundSource(FIRE_SOUND),
-		AudioHandler::to_vec3df(Vector3(fire->getEntityData()->Translate)),
-		LOOPED::LOOP);*/
+		AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+		LOOPED::LOOP,
+		true,
+		true);
 
 	// fireSound->setIsPaused(true);
 
@@ -274,6 +283,14 @@ void SceneTimePortal::InitLights()
 
 void SceneTimePortal::Update(double dt)
 {
+	if (portalSound->isFinished() && !fireSound->isFinished()) {
+		fireSound->setIsPaused(false);
+		//if (1) {
+		//	Game::iManager.loadInteraction("2021TimePortal1");
+		//}
+	}
+		
+
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
@@ -531,6 +548,11 @@ void SceneTimePortal::CollisionHandler(double dt) {
 		//Bullet Collision
 		if (entry->attacker->getType() == ENTITYTYPE::BULLET) {
 			if (entry->victim->getType() != ENTITYTYPE::PLAYER) {
+
+				if (entry->victim->getType() == ENTITYTYPE::FIRE) {
+					entry->victim->setDead(true);
+					fireSound->stop();
+				}
 
 				if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
 					entry->victim->setDead(true);
@@ -844,6 +866,17 @@ void SceneTimePortal::Render()
 
 		RenderMeshOnScreen(MeshHandler::getMesh(UI_CROSSHAIR), 64, 36, 2, 2);
 	}
+
+	if (blackScreen)
+		RenderMeshOnScreen(MeshHandler::getMesh(GEO_PORTAL_SCREEN), 64, 36, 128, 72);
+
+	if (!portalSound->getIsPaused() && !portalSound->isFinished() && blackScreen) {
+		Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
+		text->setTextString("Travelling back to 2021...");
+		text->Render(this);
+		//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
+	}
+
 
 	RenderUI();
 	bManager.Render(this);

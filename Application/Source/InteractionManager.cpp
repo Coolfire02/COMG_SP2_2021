@@ -6,6 +6,7 @@
 #include <fstream>
 #include "Debug.h"
 #include "Game.h"
+#include "SceneTimePortal.h"
 #include "Application.h"
 
 
@@ -60,14 +61,31 @@ bool InteractionManager::runCommand(Command cmd) {
 		else if (splitVar.at(0) == "/entertimeportal") {
 			// year is now 2021
 			// load interaction after a few seconds.
-			Game::mManager.addProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL, 100.0f);
-			return true;
+			if (cmd.scene->getName() == "TimePortal") {
+				((SceneTimePortal*)cmd.scene)->blackScreen = true;
+				((SceneTimePortal*)cmd.scene)->portalSound->setIsPaused(false);
+				Entity* fire = new WorldObject(cmd.scene, GEO_FIRE_GIF, "FIRE");
+				fire->getEntityData()->Translate = Vector3(0, 1, -9);
+				fire->getEntityData()->Scale = Vector3(5, 5, 5);
+				fire->setType(FIRE);
+				((SceneTimePortal*)cmd.scene)->eManager.spawnWorldEntity(fire);
+				((SceneTimePortal*)cmd.scene)->player->getEntityData()->Translate = Vector3(0, 0, 0);
+				((SceneTimePortal*)cmd.scene)->camera.Reset();
+				Game::mManager.addProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL, 100.0f);
+				return true;
+			}
+			return false;
 		}
-	}
-	else if (splitVar.size() >= 2) {
-		if (splitVar.at(0) == "/givecoin") {
-			//this->addCoins(stoi(splitVar.at(1)));
-			return true;
+		else if (splitVar.at(0) == "/closeblackscreen") {
+			if (cmd.scene->getName() == "TimePortal") {
+				((SceneTimePortal*)cmd.scene)->blackScreen = false;
+			}
+		}
+		else if (splitVar.size() >= 2) {
+			if (splitVar.at(0) == "/givecoin") {
+				//this->addCoins(stoi(splitVar.at(1)));
+				return true;
+			}
 		}
 	}
 

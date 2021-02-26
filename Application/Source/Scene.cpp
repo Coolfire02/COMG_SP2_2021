@@ -4,7 +4,6 @@
 #include "LoadTGA.h"
 #include <Windows.h>
 #include <sstream>
-
 #include "shader.hpp"
 #include "Utility.h"
 #include "Application.h"
