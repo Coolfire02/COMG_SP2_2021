@@ -22,6 +22,7 @@ MISSION_ENTER_TIMEPORTAL
 - CompletedMessage: Time Traveller
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: []
+	- MISSION_FIND_HOUSE
 
 MISSION_EXTINGUISH_FIRE
 - GEO_TYPE_Enum: EMPTY
@@ -37,6 +38,7 @@ MISSION_VISIT_FOUNTAIN
 - CompletedMessage: splash
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: 
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_RESTAURANT
 - GEO_TYPE_Enum: EMPTY
@@ -44,6 +46,7 @@ MISSION_VISIT_RESTAURANT
 - CompletedMessage: nom
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_TALK_TO_NPC
 - GEO_TYPE_Enum: EMPTY
@@ -51,6 +54,7 @@ MISSION_TALK_TO_NPC
 - CompletedMessage: hey
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_EXTINGUISH_FIRE
 
 MISSION_VISIT_GUNSHOP
 - GEO_TYPE_Enum: EMPTY

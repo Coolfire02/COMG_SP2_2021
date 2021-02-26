@@ -134,7 +134,7 @@ void Game::Update(double dt)
 	InteractionUpdate(dt);
 	mManager.Update(dt);
 	uiManager.Update(SceneList[activeScene], dt);
-	if (Game::uiManager.getCurrentMenu() != UI_PAUSE_MENU)
+	if (uiManager.getCurrentMenu() != UI_PAUSE_MENU)
 	{
 		SceneList[activeScene]->elapser(dt);
 		SceneList[activeScene]->Update(dt);

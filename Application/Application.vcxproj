@@ -176,6 +176,7 @@
     <ClCompile Include="Source\Scene2021.cpp" />
     <ClCompile Include="Source\SceneCarShop.cpp" />
     <ClCompile Include="Source\SceneHouseFire.cpp" />
+    <ClCompile Include="Source\SceneOffice.cpp" />
     <ClCompile Include="Source\SceneTimePortal.cpp" />
     <ClCompile Include="Source\SceneGarage.cpp" />
     <ClCompile Include="Source\SceneGuardBuilding.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Source\Scene2021.h" />
     <ClInclude Include="Source\SceneCarShop.h" />
     <ClInclude Include="Source\SceneHouseFire.h" />
+    <ClInclude Include="Source\SceneOffice.h" />
     <ClInclude Include="Source\SceneTimePortal.h" />
     <ClInclude Include="Source\SceneGarage.h" />
     <ClInclude Include="Source\SceneGuardBuilding.h" />
