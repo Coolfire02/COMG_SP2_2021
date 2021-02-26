@@ -31,10 +31,7 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);

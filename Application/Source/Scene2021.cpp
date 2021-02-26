@@ -203,26 +203,6 @@ void Scene2021::Init()
 		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
 
-<<<<<<< HEAD
-	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
-	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
-	//eggmanInteractZone->getEntityData()->transY = eggman->getEntityData()->transY;
-	//eggmanInteractZone->getEntityData()->transZ = eggman->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(eggmanInteractZone);
-
-	//Entity* shopBase = new WorldObject(this, GEO_SHOPBASE, "Shop_Base");
-	//shopBase->getEntityData()->transX = -30.0f;
-	//shopBase->getEntityData()->transZ = 33.0f;
-	//shopBase->getEntityData()->scaleX = 6;
-	//shopBase->getEntityData()->scaleY = 3;
-	//shopBase->getEntityData()->scaleZ = 6;
-	//shoeShopX = shopBase->getEntityData()->transX;
-	//shoeShopY = shopBase->getEntityData()->transY;
-	//shoeShopZ = shopBase->getEntityData()->transZ;
-	//eManager.spawnWorldEntity(shopBase);
-
-=======
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 	//Camera init(starting pos, where it looks at, up
 	player = new Player(this, Vector3(0, 0, 0), "player");
 	camera.playerPtr = player;
@@ -340,22 +320,11 @@ void Scene2021::Update(double dt)
 {
 	light[0].position.set(player->getEntityData()->Translate.x, 450, player->getEntityData()->Translate.z);
 	light[1].position.set(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z);
-<<<<<<< HEAD
-=======
 	light[2].position.set(camera.position.x, camera.position.y, camera.position.z);
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
 	bool tPressed = Application::IsKeyPressed('T');
-<<<<<<< HEAD
-
-	if (GetAsyncKeyState('1') & 0x8001) {
-		glEnable(GL_CULL_FACE);
-	}
-	else if (GetAsyncKeyState('2') & 0x8001) {
-		glDisable(GL_CULL_FACE);
-=======
 
 	if (GetAsyncKeyState('1') & 0x8001) {
 		glEnable(GL_CULL_FACE);
@@ -373,7 +342,6 @@ void Scene2021::Update(double dt)
 		}*/
 		static_cast <SceneGarage*>(var)->updateCarSpawn();
 		Game::switchScene(S_2051);
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -385,10 +353,7 @@ void Scene2021::Update(double dt)
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
 	TopDownMapUpdate(dt);
-<<<<<<< HEAD
 	MissionCompleteListener(dt);
-=======
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 	if (!Game::iManager.isInteracting()) {
 		CollisionHandler(dt);
 
@@ -396,7 +361,6 @@ void Scene2021::Update(double dt)
 
 		Vector3 pLoc = player->getEntityData()->Translate;
 		Vector3 oldLoc = Vector3(pLoc);
-<<<<<<< HEAD
 
 		//Requires Implementation of Velocity by Joash
 		float playerSpeed = 15.0;
@@ -435,7 +399,6 @@ void Scene2021::Update(double dt)
 				pLoc += right * (float)dt * playerSpeed;
 			}
 
-=======
 
 		//Requires Implementation of Velocity by Joash
 		float playerSpeed = 15.0;
@@ -474,7 +437,6 @@ void Scene2021::Update(double dt)
 				pLoc += right * (float)dt * playerSpeed;
 			}
 
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 			player->getEntityData()->Translate.x = pLoc.x;
 			// Skip y since we want level ground
@@ -1609,11 +1571,7 @@ void Scene2021::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 	int randomRotation = rand() % 359 + 1;
 
-<<<<<<< HEAD
-	Entity* testNPC = new NPC(this, geoType, "test");
-=======
 	Entity* testNPC = new NPC(this, geoType, "test", 50);
->>>>>>> parent of 7164fb0 (Merge branch 'main' of github.com:Coolfire02/COMG_SP2_2021 into main)
 	testNPC->getEntityData()->SetTransform(randomX, 1, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3, 3, 3);
