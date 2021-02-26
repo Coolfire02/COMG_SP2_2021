@@ -199,6 +199,10 @@ void Scene2021::Init()
 	garageHitBox->getEntityData()->Translate.Set(-320, 0, 240);
 	eManager.spawnWorldEntity(garageHitBox);
 
+	CustomEntity* backDoorHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "backDoorHitBox");
+	backDoorHitBox->getEntityData()->Translate.Set(-75, 0, -45);
+	eManager.spawnWorldEntity(backDoorHitBox);
+
 	SpawnBuildings();
 	SpawnStreetLamps();
 
@@ -514,6 +518,7 @@ void Scene2021::CollisionHandler(double dt) {
 				entry->attacker->setDead(true);
 			}
 		}
+		Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
 
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
@@ -526,10 +531,13 @@ void Scene2021::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
 					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 					{
-						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
+						for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
 						{
-							Game::iManager.loadInteraction("phoneCall1");
-							interactionTimer = 0;
+							if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && Game::mManager.getCompletableMissions().at(j) == MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT && interactionTimer > 2) //do && check if next mission has started to disable this 
+							{
+								Game::iManager.loadInteraction("phoneCall1");
+								interactionTimer = 0;
+							}
 						}
 					}
 					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
@@ -567,6 +575,23 @@ void Scene2021::CollisionHandler(double dt) {
 						Game::switchScene(S_GARAGE);
 					}
 				}
+				if (entry->victim->getName().find("backDoorHitBox") != std::string::npos)
+				{
+					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+					{
+						if (Game::mManager.getCompletableMissions().at(i) == MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING && interactionTimer > 2) //do && check if next mission has started to disable this 
+						{
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (ePressed && !eHeld)
+							{
+								eHeld = true;
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING, 100.0f); //completed drug collection mission
+								//switch to INSIDE OFFICE BUILDING SCENE
+							}
+						}
+					}
+				}
+				
 			}
 			if (!player->isDriving())
 			{

@@ -56,6 +56,10 @@ bool InteractionManager::runCommand(Command cmd) {
 			Game::ammo += 15; // later change ammo to weapon inventory ammo
 			return true;
 		}
+		if (splitVar.at(0) == "/completedCall") {
+			Game::mManager.setProgress(MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT, 100.0f); //completed drug collection mission
+			return true;
+		}
 		else if (splitVar.at(0) == "/entertimeportal") {
 			// year is now 2021
 			// load interaction after a few seconds.

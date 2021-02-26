@@ -121,6 +121,7 @@ CHOICE # phoneCall2option1
 INTERACTION: phoneCall2option1option1
 - MSG: Gilbert: Oh, Gary... I see. Alright, there's a back door in the building that;you can use. Be sure to be on a lookout for guards. 
 # NEXT: phoneCall2option1option1end
+- postcmd: /completedCall
 
 INTERACTION: phoneCall2option1option1end
 - MSG: You: Thank you so much!

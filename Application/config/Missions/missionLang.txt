@@ -70,7 +70,6 @@ MISSION_TALK_TO_THE_OWNER
 * PreRequisiteMissions:
 	- MISSION_VISIT_GUNSHOP
 
-
 MISSION_COLLECT_THE_GOODS
 - GEO_TYPE_Enum: EMPTY
 - ObjectiveMessage: Collect the 'goods' for Gary 
@@ -86,5 +85,21 @@ MISSION_RETURN_THE_GOODS
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 	- MISSION_COLLECT_THE_GOODS
+
+MISSION_GET_INFO_FROM_GILBERT
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Chat with gilbert
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_RETURN_THE_GOODS
+
+MISSION_SNEAK_INTO_THE_BUILDING
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Sneak into the government building through the back door
+- CompletedMessage: pew
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_GET_INFO_FROM_GILBERT
 
 #END
