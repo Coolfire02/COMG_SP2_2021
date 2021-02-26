@@ -77,6 +77,16 @@ void Game::Update(double dt)
 		}
 	}
 
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
+	{
+		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
+			Game::uiManager.setCurrentUI(UI_GENERAL);
+		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
+			Game::gameExit = true;
+	}
+
 	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
 		if (Game::activeScene < S_COUNT - 1) {
 			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
