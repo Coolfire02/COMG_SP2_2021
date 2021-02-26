@@ -27,6 +27,7 @@
 #include "SceneGuardBuilding.h"
 #include "SceneCarShop.h"
 #include "SceneUI.h"
+#include "SceneOffice.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -200,6 +201,8 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
+	//g.addScene(new SceneOffice);
+
 	g.addScene(new SceneHouseFire);
 	g.addScene(new SceneAssignment2);
 	g.addScene(new SceneTimePortal);
@@ -209,6 +212,7 @@ void Application::Run()
 	g.addScene(new SceneGuardBuilding);
 	g.addScene(new SceneCarShop);
 	g.addScene(new SceneUI);
+	g.addScene(new SceneOffice);
 	//g.addScene(new SceneHouseFire);
 	g.Init();
 
