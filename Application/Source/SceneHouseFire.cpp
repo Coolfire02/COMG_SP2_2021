@@ -22,7 +22,7 @@ SceneHouseFire::SceneHouseFire() :
 
 	//Game
 	fps = 0;
-	currentCamera = CAM_FIRE;
+	currentCamera = CAM_FP;
 	lightEnable = true;
 	hitboxEnable = false;
 }
@@ -136,7 +136,7 @@ void SceneHouseFire::Init() {
 		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
 	}
 
-	Entity* car = new Car(SEDAN, this, "car");
+	car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, -10);
 	car->getEntityData()->SetRotate(0, 180, 0);
 	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
@@ -145,16 +145,24 @@ void SceneHouseFire::Init() {
 	//Camera init(starting pos, where it looks at, up
 
 	player = new Player(this, Vector3(0, 0, 0), "player");
+	player->getEntityData()->setValuesTo(car->getEntityData());
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
 
-	//First Person Camera
-	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
-				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
-				Vector3(0, 1, 0));
+	player->setDriving((Car*)car, true);
+	((Car*)car)->setPlayer(player);
 
-	camera3.Init(Vector3(-10, 13, -508),
-		Vector3(10, 8, -515),
+	//First Person Camera
+	camera.Init(Vector3(car->getEntityData()->Translate.x, car->getEntityData()->Translate.y, car->getEntityData()->Translate.z),
+				Vector3(car->getEntityData()->Translate.x, car->getEntityData()->Translate.y + 2, car->getEntityData()->Translate.z - 1),
+				Vector3(0, 1, 0));
+	camera.camType = THIRDPERSON;
+	Mtx44 rotation;
+	rotation.SetToRotation(180, 0.f, 1.f, 0.f);
+	camera.TPSPositionVector = rotation * camera.TPSPositionVector;
+
+	camera3.Init(Vector3(-20, 13, -508),
+		Vector3(10, 8, -513),
 		Vector3(0, 1, 0));
 
 	//Third Person Camera
@@ -263,6 +271,18 @@ void SceneHouseFire::Update(double dt)
 		lightEnable = !lightEnable;
 	}
 
+	if (player->getEntityData()->Translate.z < -498) {
+		if (currentCamera == CAMERATYPE::CAM_FP) {
+			if(!this->arrviedAtFinalSpot)
+				currentCamera = CAMERATYPE::CAM_FIRE;
+		}
+	}
+	else {
+		if (currentCamera == CAMERATYPE::CAM_FIRE) {
+			if (currentCamera = CAMERATYPE::CAM_FP);
+		}
+	}
+
 	/*
 	*Things put in this if Checks will only run if any Interaction is not showing.
 	*/
@@ -310,8 +330,7 @@ void SceneHouseFire::Update(double dt)
 				pLoc += right * (float)dt * playerSpeed;
 			}
 			// SCENE WORLD BOUNDARIES
-			//pLoc.x = Math::Clamp(pLoc.x, -40.f, 40.f);
-			//pLoc.z = Math::Clamp(pLoc.z, -40.f, 40.f);
+			pLoc.z = Math::Clamp(pLoc.z, -540.f, 0.f);
 
 			// START MOVEMENT, TRIGGERED NEXT FRAME IF MOVEMENT NOT CANCELLED
 			player->getEntityData()->Translate.x = pLoc.x;
@@ -323,15 +342,44 @@ void SceneHouseFire::Update(double dt)
 		}
 
 		if (player->isDriving()) {
-			player->getCar()->Drive(dt);
+			float currentZ = player->getCar()->getEntityData()->Translate.z;
+
+			if (currentZ < -340) {
+				if (Game::iManager.getTimesInteracted("HouseFire See House Fire") == 0)
+					Game::iManager.loadInteraction("HouseFire See House Fire");
+			}
+
+			if (player->isDriving() && pLoc.z >= -470) {
+				player->getCar()->Drive(dt);
+				if (player->getCar()->getEntityData()->Translate.z < -540.f) {
+					player->getCar()->getEntityData()->Translate.z = -540.f;
+					player->getCar()->setVelocity(Vector3(0, 0, 0));
+				}
+			}
+			else if (!arrviedAtFinalSpot) {
+				Vector3 endPos = Vector3(12, 0, -523);
+				Vector3 diff = endPos - player->getEntityData()->Translate;
+				diff.Normalize()* dt * 2;
+				player->getEntityData()->Translate.x += diff.x;
+				player->getEntityData()->Translate.y += diff.y;
+				player->getEntityData()->Translate.z += diff.z;
+				player->getCar()->getEntityData()->Translate.x += diff.x;
+				player->getCar()->getEntityData()->Translate.y += diff.y;
+				player->getCar()->getEntityData()->Translate.z += diff.z;
+				player->getCar()->setVelocity(Vector3(0, 0, 0));
+				if (player->getEntityData()->Translate.z < -523) {
+					this->arrviedAtFinalSpot = true;
+				}
+			}
 		}
+		
 		//MISSION HANDLING
 		for (auto& entry : Game::mManager.getCompletableMissions()) {
 			//DEBUG_MSG("Completable Mission EnumID: " << entry);
 		}
-		if (Application::IsKeyPressed('V')) {
-			Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
-		}
+		//if (Application::IsKeyPressed('V')) {
+		//	Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
+		//}
 		std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
 		for (auto& entry : justCompletedMissions) {
 			if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
@@ -453,12 +501,16 @@ void SceneHouseFire::CollisionHandler(double dt) {
 							player->setDriving((Car*)entry, true);
 							((Car*)entry)->setPlayer(player);
 							camera.camType = THIRDPERSON;
+							camera.additionalYaw = 180.f;
 							DEBUG_MSG("Player Set");
 						}
-						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
+						//Player get out of car
+						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving() && this->arrviedAtFinalSpot) {
+							Game::iManager.loadInteraction("HouseFire Out Of Car");
 							player->setDriving(nullptr, false);
 							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 							((Car*)entry)->setPlayer(nullptr);
+							currentCamera = CAM_FP;
 							camera.camType = FIRSTPERSON;
 							player->getEntityData()->Translate.Set(entry->getEntityData()->Translate.x + 6, 0, entry->getEntityData()->Translate.z);
 							player->PostUpdate(); // set old data to new data, lazy fix for now
@@ -467,22 +519,10 @@ void SceneHouseFire::CollisionHandler(double dt) {
 							camera.position.y += 2;
 							camera.total_pitch = 0;
 							camera.total_yaw = 0;
-							camera.target = camera.position - Vector3(0, 0, 1);
+							camera.target = camera.position - Vector3(3, 1, -2);
 					}
 				}
 			}
-		}
-
-		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
-		{
-
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
-				if (ePressed) {
-					Game::iManager.loadInteraction("asdsa");
-				}
-			}
-
-			//((NPC*)entry)->Walk(dt);
 		}
 	}
 
@@ -808,6 +848,14 @@ void SceneHouseFire::Render()
 
 	//FPS UI
 	std::ostringstream ss;
+
+	ss.str("");
+	ss.clear();
+	ss << "X: " << player->getEntityData()->Translate.x 
+		<< " Y: " << player->getEntityData()->Translate.y
+		<< " Z: " << player->getEntityData()->Translate.z;
+	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 30);
+
 	ss.str("");
 	ss.clear();
 	ss << "FPS: " << fps;
@@ -860,6 +908,19 @@ void SceneHouseFire::RenderSceneMeshes() {
 			modelStack.PopMatrix();
 
 		modelStack.PopMatrix();
+	}
+
+
+	//Way point
+	float z = -470;
+	while (z < car->getEntityData()->Translate.z) {
+		modelStack.PushMatrix();
+		modelStack.Translate(0.3, 0.4, z);
+		modelStack.Rotate(-90, 1, 0, 0);
+		modelStack.Scale(20, 50, 1);
+		RenderMesh(MeshHandler::getMesh(GEO_ROADWAYPOINT), true);
+		modelStack.PopMatrix();
+		z += 50;
 	}
 }
 

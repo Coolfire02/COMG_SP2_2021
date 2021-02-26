@@ -10,9 +10,6 @@
 
 
 InteractionManager::InteractionManager() : latestInteractionSwitch(0), interactionElapsed(0) { 
-	for (int i = 0; i < INTERACTION_COUNT; ++i) {
-		this->completedInteractionsCount[i] = 0;
-	}
 }
 
 InteractionManager::~InteractionManager()
@@ -77,10 +74,32 @@ bool InteractionManager::runCommand(Command cmd) {
 /******************************************************************************/
 /*!
 \brief
+Gets the total amount of times this interaction has been loaded
+*/
+/******************************************************************************/
+int InteractionManager::getTimesInteracted(std::string key) {
+	std::map<std::string, int>::iterator it = timesInteracted.find(key);
+	if (it != timesInteracted.end()) {
+		return it->second;
+	}
+	return 0;
+}
+
+
+/******************************************************************************/
+/*!
+\brief
 Pushes interactions from the Interactions map into the queue to be shown on the UI.
 */
 /******************************************************************************/
 bool InteractionManager::loadInteraction(std::string key) {
+	std::map<std::string, int>::iterator it = timesInteracted.find(key);
+	if (it != timesInteracted.end()) {
+		it->second++;
+	}
+	else {
+		timesInteracted.insert(std::make_pair(key, 1));
+	}
 
 	if (key.empty())
 		return false;
@@ -239,14 +258,11 @@ Ends the current interaction chain.
 /******************************************************************************/
 void InteractionManager::EndInteraction()
 {
-	completedInteractionsCount[currentInteractionType]++;
-
 	// isInteracting = false;
 	//for (auto& entry : interactionQueue.Top()->postInteractionCMD) {
 	//	runCommand(*entry);
 	//}
 	interactionElapsed = 0;
-	currentInteractionType = INTERACTION_COUNT;
 	Game::uiManager.setCurrentUI(UI_GENERAL);
 	//Application::setCursorEnabled(false);
 }
