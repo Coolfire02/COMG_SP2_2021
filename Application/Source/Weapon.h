@@ -46,4 +46,6 @@ public:
 
 	void setUIcooldown(double);
 	double getUIcooldown();
+
+	int getDamage();
 };

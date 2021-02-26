@@ -1,5 +1,11 @@
 #include "UIManager.h"
 #include "Application.h"
+#include <cmath>
+
+int UIManager::digitCount(int num) //returns number of digits in parameter
+{
+	return int(log10(num) + 1);
+}
 
 UIManager::UIManager()
 {
@@ -42,6 +48,9 @@ void UIManager::Init() {
 			{
 				createNoTextButton(bManagers[i], "UIWeaponCurrent" + std::to_string(j + 1), 100 + (j * 10), 10, 11, 11, UI_BLUE);
 			}
+
+			//cash
+			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "$" + std::to_string(Game::cash), 5.0f);
 			break;
 		case UI_ITEM_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
@@ -271,7 +280,34 @@ void UIManager::Update(Scene* scene, double dt)
 				break;
 			}
 		}
-		
+		if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
+		{
+			switch (digitCount(Game::cash))
+			{
+			case 1:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(122, 65);
+				break;
+			case 2:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(120, 65);
+				break;
+			case 3:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(118, 65);
+				break;
+			case 4:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(116, 65);
+				break;
+			case 5:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(114, 65);
+				break;
+			case 6:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(112, 65);
+				break;
+			case 7:
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(110, 65);
+				break;
+			}
+			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setText("$" + std::to_string(Game::cash));
+		}
 	}
 }
 

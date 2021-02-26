@@ -1,10 +1,23 @@
 #include "WeaponInventory.h"
 #include <iostream>
+
+/******************************************************************************/
+/*!
+\brief
+Initialise activeWeapon to nullptr
+*/
+/******************************************************************************/
 WeaponInventory::WeaponInventory()
 {
 	activeWeapon = nullptr;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Overloaded constructor to create a new weaponInventory with a weapon to start off with
+*/
+/******************************************************************************/
 WeaponInventory::WeaponInventory(WEAPON_TYPE wType)
 {
 	activeWeapon = new Weapon(wType); //add new weapon with corresponding weaponType to argument
@@ -15,6 +28,12 @@ WeaponInventory::~WeaponInventory()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets active weapon based on position of vector
+*/
+/******************************************************************************/
 void WeaponInventory::setActiveWeapon(int wType)
 {
 	for (int i = 0; i < weaponList.size(); i++)
@@ -27,22 +46,30 @@ void WeaponInventory::setActiveWeapon(int wType)
 	}
 }
 
-//void WeaponInventory::Update(Camera* cam, double dt) {
-//	activeWeapon->Update(cam, dt);
-//}
-
+/******************************************************************************/
+/*!
+\brief
+Add weapon function that also pushes back into the weaponList vector
+*/
+/******************************************************************************/
 void WeaponInventory::addWeapon(WEAPON_TYPE wType)
 {
 	for (int i = 0; i < weaponList.size(); i++) //check if player owns weapon
 		if (weaponList[i]->getWeaponType() == wType) //if yes return and cancel adding of weapon to prevent duplicate
 			return;
 
-	//add weapons to vector
+	//add weapon to vector
 	Weapon* temp = new Weapon(wType);
 	weaponList.push_back(temp);
 	activeWeapon = temp;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Delete weapon function that removes current equipped weapon (activeWeapon)
+*/
+/******************************************************************************/
 void WeaponInventory::delWeapon(WEAPON_TYPE wType)
 {
 	for (int i = 0; i < weaponList.size(); i++)
@@ -66,16 +93,34 @@ void WeaponInventory::delWeapon(WEAPON_TYPE wType)
 	else activeWeapon = nullptr;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Return activeWeapon
+*/
+/******************************************************************************/
 Weapon* WeaponInventory::getActiveWeapon()
 {
 	return this->activeWeapon; //return activeWeapon
 }
 
+/******************************************************************************/
+/*!
+\brief
+Return weaponList vector
+*/
+/******************************************************************************/
 std::vector<Weapon*> WeaponInventory::getWeaponList()
 {
 	return this->weaponList; //return weaponList vector
 }
 
+/******************************************************************************/
+/*!
+\brief
+Function that switches your current activeWeapon
+*/
+/******************************************************************************/
 void WeaponInventory::switchActiveWeapon(int index)
 {
 	if (this->weaponList.size() > index) { //switch active weapon to index of vector
@@ -94,11 +139,7 @@ void WeaponInventory::switchActiveWeapon(int index)
 	}
 }
 
-void WeaponInventory::setAmmo(int) {
-
-}
-
-int WeaponInventory::getAmmo()
+int WeaponInventory::getWeaponDamage()
 {
-	return 0;
+	return activeWeapon->getDamage();
 }

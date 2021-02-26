@@ -148,7 +148,7 @@ void SceneGunShop::Init() {
 	counter->getEntityData()->Rotation = Vector3(0, 90, 0);
 	eManager.spawnWorldEntity(counter);
 
-	Entity* drugman = new NPC(this, DRUGMAN, "drugman");
+	Entity* drugman = new NPC(this, DRUGMAN, "drugman", 50);
 	NPCLookAngle = 0;
 	drugman->getEntityData()->Translate = Vector3(-9.5, 0, -10.5);
 	drugman->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
@@ -270,7 +270,7 @@ void SceneGunShop::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 

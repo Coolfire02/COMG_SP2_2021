@@ -115,12 +115,53 @@ void SceneTimePortal::Init() {
 	door->getEntityData()->Scale = Vector3(2, 2, 2);
 	eManager.spawnWorldEntity(door);
 
+	Entity* crate;
+	{ // left side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 
-	for (int i = 0; i < 10; i++)
-	{
-		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(-10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
 	}
+	{ // right side
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 2, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(8, 0, -10);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+		crate = new WorldObject(this, CRATE_STRONG, "crate");
+		crate->getEntityData()->Translate = Vector3(10, 0, -8);
+		crate->getEntityData()->Scale = Vector3(4, 4, 4);
+		eManager.spawnWorldEntity(crate);
+
+	}
+	
+	Entity* fire = new WorldObject(this, GEO_FIRE_GIF, "FIRE");
+	fire->getEntityData()->Translate = Vector3(0, 1, -9);
+	fire->getEntityData()->Scale = Vector3(5, 5, 5);
+	fire->setType(FIRE);
+	eManager.spawnWorldEntity(fire);
+
+	/*fireSound = AudioHandler::getEngine()->play3D(
+		AudioHandler::getSoundSource(FIRE_SOUND),
+		AudioHandler::to_vec3df(Vector3(fire->getEntityData()->Translate)),
+		LOOPED::LOOP);*/
+
+	// fireSound->setIsPaused(true);
 
 	//Entity* car = new Car(SEDAN, this, "car");
 	//car->getEntityData()->SetTransform(0, 0, 60);
@@ -184,7 +225,7 @@ void SceneTimePortal::InitLights()
 	light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[2].type = Light::LIGHT_POINT;
-	light[2].position.set(0, 0, 0);
+	light[2].position.set(0, 8, 0);
 	light[2].color.set(0.8, 1, 1);
 	light[2].power = 0.5f;
 	light[2].kC = 1.f;
@@ -265,7 +306,7 @@ void SceneTimePortal::Update(double dt)
 
 			if (Application::IsKeyPressed('W')) {
 
-				if (Application::IsKeyPressed(VK_LSHIFT)) {
+				if (Application::IsKeyPressed(VK_LSHIFT) && Game::inv.getActiveWeapon() == nullptr) {
 					playerSpeed = 25.f;
 				}
 
@@ -413,6 +454,7 @@ void SceneTimePortal::CollisionHandler(double dt) {
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
+
 		if (entry->getType() == ENTITYTYPE::TIMEPORTAL) {
 			if ((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude() < 4) {
 				std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
@@ -655,10 +697,10 @@ void SceneTimePortal::Render()
 	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
+	//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
+	//modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -778,6 +820,11 @@ void SceneTimePortal::Render()
 		}
 	}
 
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 1, 0);
+	//RenderMesh(MeshHandler::getMesh(GEO_FIRE_GIF), false);
+	//modelStack.PopMatrix();
+
 	//Rendering Weapon
 	if (Game::inv.getActiveWeapon() != nullptr && !player->isDriving()) {
 		Vector3 view = (camera.target - camera.position).Normalized();
@@ -807,6 +854,7 @@ void SceneTimePortal::Render()
 	ss.clear();
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
 }
 
 void SceneTimePortal::RenderSkybox() {
@@ -875,7 +923,7 @@ void SceneTimePortal::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
 
 	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
 
-	Entity* testNPC = new NPC(this, geoType, "test");
+	Entity* testNPC = new NPC(this, geoType, "test", 50);
 	testNPC->getEntityData()->SetTransform(randomX, 0, randomZ);
 	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
 	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);

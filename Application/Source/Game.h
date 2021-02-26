@@ -31,6 +31,7 @@ public:
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;
+	static int cash;
 	static double gElapsedTime;
 
 	static MissionManager mManager;
