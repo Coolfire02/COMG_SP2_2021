@@ -88,8 +88,11 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_SEDAN] = MeshBuilder::GenerateOBJMTL("sedan", "OBJ//Cars//sedan.obj", "MTL//Cars//sedan.mtl");
 	meshList[GEO_SEDAN_SPORTS] = MeshBuilder::GenerateOBJMTL("sedanSports", "OBJ//Cars//sedanSports.obj", "MTL//Cars//sedanSports.mtl");
 	meshList[GEO_RACER] = MeshBuilder::GenerateOBJMTL("raceFuture", "OBJ//Cars//raceFuture.obj", "MTL//Cars//raceFuture.mtl");
-	meshList[GEO_HATCHBACKSPORTS] = MeshBuilder::GenerateOBJMTL("hatchbackSports", "OBJ//Cars//hatchbackSports.obj", "MTL//Cars//hatchbackSports.mtl");
-	meshList[GEO_TRACTOR] = MeshBuilder::GenerateOBJMTL("tractor", "OBJ//Cars//tractorShovel.obj", "MTL//Cars//tractorShovel.mtl");
+	meshList[GEO_POLICE] = MeshBuilder::GenerateOBJMTL("police", "OBJ//Cars//police.obj", "MTL//Cars//police.mtl");
+	meshList[GEO_AMBULANCE] = MeshBuilder::GenerateOBJMTL("ambulance", "OBJ//Cars//ambulance.obj", "MTL//Cars//ambulance.mtl");
+	meshList[GEO_SUV] = MeshBuilder::GenerateOBJMTL("suv", "OBJ//Cars//suv.obj", "MTL//Cars//suv.mtl");
+	meshList[GEO_HATCH_BACK_SPORTS] = MeshBuilder::GenerateOBJMTL("hatchbackSports", "OBJ//Cars//hatchbackSports.obj", "MTL//Cars//hatchbackSports.mtl");
+	meshList[GEO_TRACTOR_SHOVEL] = MeshBuilder::GenerateOBJMTL("tractorShovel", "OBJ//Cars//tractorShovel.obj", "MTL//Cars//tractorShovel.mtl");
 	meshList[GEO_TRUCK] = MeshBuilder::GenerateOBJMTL("truck", "OBJ//Cars//truck.obj", "MTL//Cars//truck.mtl");
 	meshList[GEO_VAN] = MeshBuilder::GenerateOBJMTL("van", "OBJ//Cars//van.obj", "MTL//Cars//van.mtl");
 
@@ -170,6 +173,14 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_AMBULANCE]->textureID = LoadTGA("Image//ambulanceUI.tga");
 	meshList[UI_SUV] = MeshBuilder::GenerateQuad("suvUI", Color(1, 1, 1));
 	meshList[UI_SUV]->textureID = LoadTGA("Image//suvUI.tga");
+	meshList[UI_HATCH_BACK_SPORTS] = MeshBuilder::GenerateQuad("hatchBackSportsUI", Color(1, 1, 1));
+	meshList[UI_HATCH_BACK_SPORTS]->textureID = LoadTGA("Image//hatchBackSportsUI.tga");
+	meshList[UI_TRACTOR_SHOVEL] = MeshBuilder::GenerateQuad("tractorShovelUI", Color(1, 1, 1));
+	meshList[UI_TRACTOR_SHOVEL]->textureID = LoadTGA("Image//tractorShovelUI.tga");
+	meshList[UI_TRUCK] = MeshBuilder::GenerateQuad("truckUI", Color(1, 1, 1));
+	meshList[UI_TRUCK]->textureID = LoadTGA("Image//truckUI.tga");
+	meshList[UI_VAN] = MeshBuilder::GenerateQuad("vanUI", Color(1, 1, 1));
+	meshList[UI_VAN]->textureID = LoadTGA("Image//vanUI.tga");
 
 	//UI Weapons
 	meshList[UI_PISTOL] = MeshBuilder::GenerateQuad("pistolUI", Color(1, 1, 1));
