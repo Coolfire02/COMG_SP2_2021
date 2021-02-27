@@ -351,8 +351,15 @@ Vector3 Vector3::GetMidpoint(const Vector3& lhs, const Vector3& rhs) const
 	return Vector3((lhs.x + rhs.x) / 2.0f, (lhs.y + rhs.y) / 2.0f, (lhs.z + rhs.z) / 2.0f);
 }
 
+double inline __declspec (naked) __fastcall sqrt14(double n)
+{
+	_asm fld qword ptr[esp + 4]
+		_asm fsqrt
+	_asm ret 8
+}
+
 float Vector3::Magnitude() {
-	return sqrtf(pow(x, 2) + pow(y, 2) + pow(z, 2));
+	return sqrt14(pow(x, 2) + pow(y, 2) + pow(z, 2));
 }
 
 /******************************************************************************/

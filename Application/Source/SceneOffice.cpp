@@ -479,7 +479,7 @@ void SceneOffice::CollisionHandler(double dt) {
 						{
 							if (Game::mManager.getCompletableMissions().at(i) != MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE) //do && check if next mission has started to disable this 
 							{
-								Game::switchScene(S_2021, 5.0, "      EXITING OFFICE");
+								Game::switchScene(S_2021);
 							}
 							else
 							{
