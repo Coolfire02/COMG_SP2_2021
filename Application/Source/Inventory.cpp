@@ -13,8 +13,7 @@ Inventory::Inventory()
 	itemInventory = new ItemInventory();
 
 	//for weapon inven
-	weaponInv = nullptr;
-	//addWeap(SILENCER);
+	weaponInv = new WeaponInventory(PISTOL);
 }
 
 Inventory::~Inventory()
@@ -23,10 +22,7 @@ Inventory::~Inventory()
 
 void Inventory::addWeap(WEAPON_TYPE weaponType)
 {
-	if (weaponInv == nullptr)
-		weaponInv = new WeaponInventory(weaponType);
-	else
-		weaponInv->addWeapon(weaponType);
+	weaponInv->addWeapon(weaponType);
 }
 
 void Inventory::addCar(CAR_TYPE cartype)
@@ -69,7 +65,7 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 
 void Inventory::deleteWeapon(WEAPON_TYPE wType)
 {
-	if(weaponInv != nullptr)
+	if(this->weaponInv->getActiveWeapon() != nullptr)
 		this->weaponInv->delWeapon(wType);
 }
 
@@ -174,8 +170,11 @@ void Inventory::Update(double dt)
 	//Weapons
 	if (weaponInv == nullptr || weaponInv->getActiveWeapon() == nullptr)
 	{
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
+		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponBorder" + std::to_string(i + 1))->disable();
 			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent" + std::to_string(i + 1))->disable();
 		}
 	}

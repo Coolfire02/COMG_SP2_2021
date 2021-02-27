@@ -200,7 +200,7 @@ void Scene2021::Init()
 	eManager.spawnWorldEntity(garageHitBox);
 
 	CustomEntity* backDoorHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "backDoorHitBox");
-	backDoorHitBox->getEntityData()->Translate.Set(-75, 0, -45);
+	backDoorHitBox->getEntityData()->Translate.Set(-87, 0, -13);
 	eManager.spawnWorldEntity(backDoorHitBox);
 
 	SpawnBuildings();
@@ -330,7 +330,8 @@ void Scene2021::Update(double dt)
 		Vector3 view = (camera.target - camera.position).Normalized();
 
 		if (!player->isDriving())
-			Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
+			if (Game::inv.getActiveWeapon() != nullptr)
+				Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 
 	}
 	MissionCompleteListener(dt);
@@ -552,17 +553,17 @@ void Scene2021::CollisionHandler(double dt) {
 						{
 							if (!player->isDriving())
 								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
+							if (ePressed && !eHeld && Game::sceneCooldown > 3)
 							{
 								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
+								Game::switchScene(S_GUNSHOP, 5.0, "    ENTERING GUNSHOP");
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
 							}
 						}
 						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
 						{
 							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
+							if (ePressed && !eHeld && Game::sceneCooldown > 3)
 							{
 								eHeld = true;
 								Game::switchScene(S_GUNSHOP);
@@ -572,23 +573,23 @@ void Scene2021::CollisionHandler(double dt) {
 					}
 					if (!player->isDriving())
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
+					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
-						Game::switchScene(S_GUNSHOP);
+						Game::switchScene(S_GUNSHOP, 5.0, "    ENTERING GUNSHOP");
 					}
 				}
 				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
 				{
 					if (!player->isDriving())
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
+					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
 						Scene* var = Game::getSceneByName("GarageScene");
 						static_cast <SceneGarage*>(var)->deletePrevCar();
 						static_cast <SceneGarage*>(var)->updateCarSpawn();
-						Game::switchScene(S_GARAGE);
+						Game::switchScene(S_GARAGE, 3.0, "ENTERING GARAGE");
 					}
 				}
 				if (entry->victim->getName().find("backDoorHitBox") != std::string::npos)
@@ -1455,6 +1456,12 @@ void Scene2021::SpawnBuildings()
 	drug2->getEntityData()->SetRotate(0, 0, 0);
 	drug2->getEntityData()->SetScale(1.5, 1.5, 1.5);
 	eManager.spawnWorldEntity(drug2);
+
+	Entity* backDoor = new WorldObject(this, GEO_DOOR, "backDoor");
+	backDoor->getEntityData()->SetTransform(-95, 3, -14);
+	backDoor->getEntityData()->SetRotate(0, -90, 0);
+	backDoor->getEntityData()->SetScale(3, 3, 3);
+	eManager.spawnWorldEntity(backDoor);
 }
 
 void Scene2021::SpawnStreetLamps()

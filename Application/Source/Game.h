@@ -39,6 +39,7 @@ public:
 	Game();
 	~Game();
 
+	static double sceneCooldown;
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
 	static int ammo;

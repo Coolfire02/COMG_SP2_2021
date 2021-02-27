@@ -170,7 +170,15 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 			}
 			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->setText(std::to_string(this->currentAmmo) + "/" + std::to_string(this->magazineSize));
 			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->setText(std::to_string(Game::ammo));
+			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->enable();
+			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->enable();
 		}
+		
+	}
+	else
+	{
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->disable();
+		Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->disable();
 	}
 }
 
