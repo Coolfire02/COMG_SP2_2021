@@ -475,6 +475,7 @@ void SceneFinale::CollisionHandler(double dt) {
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
 					if (Game::mManager.missionIsCompletable(MISSION_INTERROGATE_BIMSTER, completables)) {
 						Game::iManager.loadInteraction("bimster");
+						Game::mManager.setProgress(MISSIONTYPE::MISSION_INTERROGATE_BIMSTER, 100.0f);
 					}
 				}
 			}

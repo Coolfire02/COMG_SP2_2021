@@ -128,5 +128,6 @@ MISSION_INTERROGATE_BIMSTER
 - CompletedMessage: Interrogate Bimster
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_ESCAPE_THE_OFFICE
 
 #END
