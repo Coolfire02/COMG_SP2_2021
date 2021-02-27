@@ -809,13 +809,6 @@ void SceneTimePortal::Render()
 	RenderUI();
 	bManager.Render(this);
 
-	//FPS UI
-	std::ostringstream ss;
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
-
 }
 
 void SceneTimePortal::RenderSkybox() {
