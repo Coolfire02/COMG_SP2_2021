@@ -128,10 +128,11 @@ void UIManager::Init() {
 			break;
 		case UI_MAIN_MENU:
 			Game::switchScene(S_UI);	
+			createNoTextButton(bManagers[i], "GameTitle", 64, 55, 71.7, 21.0, GAME_TITLE);
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 36, 36.5, 11.1, PLAY_BUTTON);
-			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 20, 20.9, 3.5, CREDITS_BUTTON);
-			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 10, 11.7, 3.8, QUIT_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 25, 16.2, 5, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 15, 20.9, 3.5, CREDITS_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 7, 11.7, 3.8, QUIT_BUTTON);
 			enableUI();
 			break;
 		case UI_CREDITS:

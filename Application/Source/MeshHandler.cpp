@@ -127,6 +127,8 @@ bool MeshHandler::loadMeshes() {
 	//meshList[GEO_ENDRACE]->textureID = LoadTGA("Image//EndRace.tga");
 
 	//Title Screen
+	meshList[GAME_TITLE] = MeshBuilder::GenerateQuad("gameTitle", Color(1, 1, 1));
+	meshList[GAME_TITLE]->textureID = LoadTGA("Image//gameTitle.tga");
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
 	meshList[TITLE_BG]->textureID = LoadTGA("Image//main_menu_bg.tga");
 	meshList[PLAY_BUTTON] = MeshBuilder::GenerateQuad("playButton", Color(1, 1, 1));
