@@ -390,6 +390,16 @@ void UIManager::Update(Scene* scene, double dt)
 		}
 		if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
 		{
+
+			if (Game::inv.getActiveWeapon() == nullptr) {
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->disable();
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->disable();
+			}
+			else {
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("AmmoCount")->enable();
+				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("TotalAmmoCount")->enable();
+			}
+
 			int digit = digitCount(Game::cash);
 			float x = 119 - ((digit-1 > 0 ? digit : 0) * 3.0);
 			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(x, 65);

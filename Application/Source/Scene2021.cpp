@@ -205,7 +205,7 @@ void Scene2021::Init()
 	SpawnBuildings();
 	SpawnStreetLamps();
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
@@ -679,6 +679,7 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				if (((NPC*)entry->attacker)->getSemiCollision() && entry->victim->getType() == ENTITYTYPE::CUSTOM) continue;
 				Vector3 resultantVec;
 				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
 				Vector3 n = entry->normal;

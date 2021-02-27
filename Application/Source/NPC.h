@@ -75,6 +75,7 @@ class NPC : public Entity
 	int ID;
 	std::vector<int> IDList;
 	float maxHealth;
+	bool semiCollision;
 
 public:
 
@@ -83,6 +84,7 @@ public:
 	NPC(Scene*, NPCTYPE, std::string, int);
 	~NPC();
 
+	bool getSemiCollision();
 	RigidBody& getRigidBody();
 	void Update(double);
 	void Render();

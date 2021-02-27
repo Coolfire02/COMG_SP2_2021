@@ -22,6 +22,7 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name, int health) : Entity(scen
 		this->associatedNPCMesh = nullptr;
 		break;
 	}
+	semiCollision = true;
 	IDcounter++;
 	this->ID = IDcounter;
 	this->maxHealth = health;
@@ -51,6 +52,16 @@ returns the NPC type.
 /******************************************************************************/
 NPCTYPE NPC::getNPCType() {
 	return npcType;
+}
+
+/******************************************************************************/
+/*!
+\brief
+Returns whether this NPC should interact with most things
+*/
+/******************************************************************************/
+bool NPC::getSemiCollision() {
+	return semiCollision;
 }
 
 /******************************************************************************/
