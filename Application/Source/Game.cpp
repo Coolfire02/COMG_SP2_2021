@@ -46,6 +46,7 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
+
 	sceneCooldown += dt;
 	gElapsedTime += dt;
 	FPS = 1 / dt;
