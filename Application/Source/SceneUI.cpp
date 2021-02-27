@@ -1205,8 +1205,7 @@ void SceneUI::RenderTexts()
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
 	modelStack.PopMatrix();
 }
-float camY = 400;
-int directionY = 1;
+
 void SceneUI::TopDownMainMenuUpdate(double dt)
 {
 	if (camY > 475)
