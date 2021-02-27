@@ -22,7 +22,7 @@ MISSION_ENTER_TIMEPORTAL
 - CompletedMessage: Time Traveller
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions: []
-	- MISSION_FIND_HOUSE
+	- MISSION_INFILTRATE_GOVERNMENT_FACILITY
 
 MISSION_EXTINGUISH_FIRE
 - GEO_TYPE_Enum: EMPTY

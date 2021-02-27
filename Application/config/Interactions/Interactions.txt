@@ -339,6 +339,7 @@ INTERACTION: guards2
 
 INTERACTION: guards3
 - MSG: Guard: What?
+- postcmd: /addpistol
 
 INTERACTION: guards4
 - MSG: Bimster shall know pain . . .;Shinra Tensei . . .

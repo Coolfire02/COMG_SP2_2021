@@ -13,7 +13,7 @@ Inventory::Inventory()
 	itemInventory = new ItemInventory();
 
 	//for weapon inven
-	weaponInv = new WeaponInventory(PISTOL);
+	weaponInv = new WeaponInventory;
 }
 
 Inventory::~Inventory()

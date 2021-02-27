@@ -956,9 +956,9 @@ void Scene2021::Render()
 	if (coinBalance > 999) bal = "999";
 	ss << bal;
 	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 0, 0), 5, 7, 52.5);*/
-
-	RenderUI();
+	
 	RenderTexts();
+	RenderUI();
 
 	//Interaction MSG UI
 	if (canInteractWithSomething && !isInteracting) {

@@ -102,7 +102,6 @@ bool InteractionManager::runCommand(Command cmd) {
 
 		else if (splitVar.at(0) == "/endhousefire") {
 			Game::switchScene(S_GUARD, 5.0, "Infiltrate TimePortal");
-			Game::inv.addWeap(PISTOL);
 		}
 
 
@@ -183,7 +182,11 @@ bool InteractionManager::runCommand(Command cmd) {
 				Game::iManager.loadInteraction("insufficientmoney");
 			}
 		}
+		else if (splitVar.at(0) == "/addpistol") {
+			Game::inv.addWeap(PISTOL);
+		}
 		else if (splitVar.at(0) == "/entertimeportalroom") {
+		Game::mManager.addProgress(MISSION_INFILTRATE_GOVERNMENT_FACILITY, 100.f);
 			ISound* door = AudioHandler::getEngine()->play3D(
 				AudioHandler::getSoundSource(DOOR),
 				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
