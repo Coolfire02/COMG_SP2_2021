@@ -82,7 +82,6 @@ void Game::Update(double dt)
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
 	{
-		prevScene = activeScene;
 		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
 			Game::uiManager.setCurrentUI(UI_GENERAL);
 		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)

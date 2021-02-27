@@ -128,11 +128,11 @@ void UIManager::Init() {
 			break;
 		case UI_MAIN_MENU:
 			Game::switchScene(S_UI);	
-			createNoTextButton(bManagers[i], "GameTitle", 64, 55, 71.7, 21.0, GAME_TITLE);
+			createNoTextButton(bManagers[i], "GameTitle", 64, 50, 102.4, 51.2, GAME_TITLE);
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 25, 16.2, 5, PLAY_BUTTON);
-			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 15, 20.9, 3.5, CREDITS_BUTTON);
-			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 7, 11.7, 3.8, QUIT_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 23, 25.45, 10, PLAY_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 15, 25.45, 10, CREDITS_BUTTON);
+			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 7, 25.45, 10, QUIT_BUTTON);
 			enableUI();
 			break;
 		case UI_CREDITS:
@@ -146,8 +146,8 @@ void UIManager::Init() {
 			break;
 		case UI_PAUSE_MENU:
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-			createNoTextButton(bManagers[i], "PauseMenuPlayButton", 64, 36, 40.2, 7, RESUME_BUTTON);
-			createNoTextButton(bManagers[i], "PauseMenuQuitButton", 64, 13, 13.7, 3.5, MENU_BUTTON);
+			createNoTextButton(bManagers[i], "PauseMenuPlayButton", 64, 36, 50.2, 20, RESUME_BUTTON);
+			createNoTextButton(bManagers[i], "PauseMenuQuitButton", 64, 13, 25.45, 10, MENU_BUTTON);
 			break;
 		case UI_INTERACTION:
 			createButton(bManagers[i], "Choice1", 96, 33.7, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
@@ -300,6 +300,7 @@ void UIManager::Update(Scene* scene, double dt)
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
 				{
 					setCurrentUI(UI_MAIN_MENU);
+					Game::setPrevSceneENUM(Game::activeScene);
 					Game::switchScene(S_UI);
 				}
 				break;

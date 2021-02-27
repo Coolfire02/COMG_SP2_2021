@@ -128,19 +128,19 @@ bool MeshHandler::loadMeshes() {
 
 	//Title Screen
 	meshList[GAME_TITLE] = MeshBuilder::GenerateQuad("gameTitle", Color(1, 1, 1));
-	meshList[GAME_TITLE]->textureID = LoadTGA("Image//gameTitle.tga");
+	meshList[GAME_TITLE]->textureID = LoadTGA("Image//logo.tga");
 	meshList[TITLE_BG] = MeshBuilder::GenerateQuad("titleScreenBG", Color(1, 1, 1));
 	meshList[TITLE_BG]->textureID = LoadTGA("Image//main_menu_bg.tga");
 	meshList[PLAY_BUTTON] = MeshBuilder::GenerateQuad("playButton", Color(1, 1, 1));
-	meshList[PLAY_BUTTON]->textureID = LoadTGA("Image//playButton.tga");
+	meshList[PLAY_BUTTON]->textureID = LoadTGA("Image//play.tga");
 	meshList[CREDITS_BUTTON] = MeshBuilder::GenerateQuad("creditsButton", Color(1, 1, 1));
-	meshList[CREDITS_BUTTON]->textureID = LoadTGA("Image//creditsButton.tga");
+	meshList[CREDITS_BUTTON]->textureID = LoadTGA("Image//credits.tga");
 	meshList[RESUME_BUTTON] = MeshBuilder::GenerateQuad("resumeButton", Color(1, 1, 1));
-	meshList[RESUME_BUTTON]->textureID = LoadTGA("Image//resumeButton.tga");
+	meshList[RESUME_BUTTON]->textureID = LoadTGA("Image//resume.tga");
 	meshList[MENU_BUTTON] = MeshBuilder::GenerateQuad("menuButton", Color(1, 1, 1));
-	meshList[MENU_BUTTON]->textureID = LoadTGA("Image//menuButton.tga");
+	meshList[MENU_BUTTON]->textureID = LoadTGA("Image//menu.tga");
 	meshList[QUIT_BUTTON] = MeshBuilder::GenerateQuad("quitButton", Color(1, 1, 1));
-	meshList[QUIT_BUTTON]->textureID = LoadTGA("Image//quitButton.tga");
+	meshList[QUIT_BUTTON]->textureID = LoadTGA("Image//quit.tga");
 
 	//General UI
 	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));
