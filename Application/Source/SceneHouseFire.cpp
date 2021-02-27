@@ -103,11 +103,6 @@ void SceneHouseFire::Init() {
 	projection.SetToPerspective(45.0f, 128.0f / 72.0f, 0.1f, 867.f);
 	projectionStack.LoadMatrix(projection);
 
-	Entity* pistol = new WorldObject(this, GEO_PISTOL, "pistol");
-	pistol->getEntityData()->SetTransform(20, 5, 0);
-	pistol->getEntityData()->SetScale(10, 10, 10);
-	eManager.spawnWorldEntity(pistol);
-
 	//Entity* building = new WorldObject(this, GEO_TREE, "building1");
 	//building->getEntityData()->SetTransform(40, 0, 0);
 	//building->getEntityData()->SetScale(0.5, 0.5, 0.5);
@@ -130,11 +125,6 @@ void SceneHouseFire::Init() {
 
 	//Entity* fire = new WorldObject(this, GEO_FIRE, "fire");
 	//eManager.spawnWorldEntity(fire);
-
-	for (int i = 0; i < 10; i++)
-	{
-		SpawnNPCs(Vector3(-50, 0, -50), Vector3(50,0,50), TESTNPC);
-	}
 
 	car = new Car(SEDAN, this, "car");
 	car->getEntityData()->SetTransform(0, 0, -10);
@@ -886,23 +876,6 @@ void SceneHouseFire::RenderSkybox() {
 void SceneHouseFire::RenderUI()
 {
 	Game::RenderUI();
-}
-
-void SceneHouseFire::SpawnNPCs(Vector3 v3Tmin, Vector3 v3Tmax, NPCTYPE geoType)
-{
-	int diffX = v3Tmax.x - v3Tmin.x; //get the diff of min and max X
-	int randomX = rand() % diffX + v3Tmin.x; //get random X position from minX to maxX range
-
-	int diffZ = v3Tmax.z - v3Tmin.z; //get the diff of min and max X
-	int randomZ = rand() % diffZ + v3Tmin.z; //get random X position from minX to maxX range
-
-	int randomRotation = rand() % 359 + 1; //get random rotation for NPC
-
-	Entity* testNPC = new NPC(this, geoType, "test", 50);
-	testNPC->getEntityData()->SetTransform(randomX, 0, randomZ);
-	testNPC->getEntityData()->SetRotate(0, randomRotation, 0);
-	testNPC->getEntityData()->SetScale(3.5, 3.5, 3.5);
-	eManager.spawnMovingEntity(testNPC);
 }
 
 void SceneHouseFire::Exit()

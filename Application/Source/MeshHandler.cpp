@@ -327,6 +327,25 @@ bool MeshHandler::loadMeshes() {
 	meshList[GEO_PORTAL_SCREEN] = MeshBuilder::GenerateQuad("black", Color(0, 0, 0));
 	//Materials
 
+	meshList[SETTINGS_BUTTON] = MeshBuilder::GenerateQuad("settingsButton", Color(1, 1, 1));
+	meshList[SETTINGS_BUTTON]->textureID = LoadTGA("Image//settings.tga");
+
+
+	meshList[SETTINGS_PANEL] = MeshBuilder::GenerateQuad("settingspanel", Color(1, 1, 1));
+	meshList[SETTINGS_PANEL]->textureID = LoadTGA("Image//Miscellaneous//SettingsPanel.tga");
+
+	meshList[SETTINGS_BUTTON_ON] = MeshBuilder::GenerateQuad("settingsON", Color(1, 1, 1));
+	meshList[SETTINGS_BUTTON_ON]->textureID = LoadTGA("Image//Miscellaneous//SettingsON.tga");
+
+	meshList[SETTINGS_BUTTON_OFF] = MeshBuilder::GenerateQuad("settingsOFF", Color(1, 1, 1));
+	meshList[SETTINGS_BUTTON_OFF]->textureID = LoadTGA("Image//Miscellaneous//SettingsOFF.tga");
+
+	meshList[SETTINGS_TEXT_SANDBOX] = MeshBuilder::GenerateQuad("settings_SANDBOX", Color(1, 1, 1));
+	meshList[SETTINGS_TEXT_SANDBOX]->textureID = LoadTGA("Image//sandbox.tga");
+
+	meshList[SETTINGS_TEXT_FPS] = MeshBuilder::GenerateQuad("settings_FPS", Color(1, 1, 1));
+	meshList[SETTINGS_TEXT_FPS]->textureID = LoadTGA("Image//fps.tga");
+
 	/*Material mat;
 	mat.kAmbient.Set(0.3f, 0.3f, 0.3f);
 	mat.kDiffuse.Set(0.5f, 0.5f, 0.5f);

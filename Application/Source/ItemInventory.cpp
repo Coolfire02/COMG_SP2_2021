@@ -3,8 +3,6 @@
 ItemInventory::ItemInventory()
 {
 	currentItem = nullptr;
-
-	
 }
 
 ItemInventory::ItemInventory(ITEM_TYPE itemtype, int amt)

@@ -64,14 +64,18 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 			//		}
 			//	}
 			//}
-			Collider c = movingE->getHitBox()->collidedWith(worldE->getHitBox());
-			if (c.collided) {
-				//std::cout << "Collision detected!" << std::endl;
-				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.translationVector, c.normal));
-			}
-			else {
-				/*std::cout << "No Collision detected!" << std::endl;
-				std::cout << "" << std::endl;*/
+
+			//Lag Fixing
+			if ((movingE->getEntityData()->Translate - worldE->getEntityData()->Translate).Magnitude() < 100) {
+				Collider c = movingE->getHitBox()->collidedWith(worldE->getHitBox());
+				if (c.collided) {
+					//std::cout << "Collision detected!" << std::endl;
+					thisTick.push_back(new CollidedWith(movingE, worldE, true, c.translationVector, c.normal));
+				}
+				else {
+					/*std::cout << "No Collision detected!" << std::endl;
+					std::cout << "" << std::endl;*/
+				}
 			}
 		}
 	}

@@ -5,7 +5,9 @@
 
 int UIManager::digitCount(int num) //returns number of digits in parameter
 {
-	return int(log10(num) + 1);
+	if (num >= 10)
+		return int(log10(num) + 1);
+	else return 0;
 }
 
 UIManager::UIManager()
@@ -51,7 +53,7 @@ void UIManager::Init() {
 			}
 
 			//cash
-			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "", 5.0f);
+			createTextButton(bManagers[i], "Cash", 120, 65, 1, 1, 0, 0, Color(1, 1, 1), "", 5.0f, FONTTYPE::SUPERMARIO);
 			break;
 		case UI_ITEM_INVENTORY:
 			createNoTextButton(bManagers[i], "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
@@ -128,12 +130,31 @@ void UIManager::Init() {
 			break;
 		case UI_MAIN_MENU:
 			Game::switchScene(S_UI);	
-			createNoTextButton(bManagers[i], "GameTitle", 64, 50, 102.4, 51.2, GAME_TITLE);
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createNoTextButton(bManagers[i], "GameTitle", 64, 50, 102.4, 51.2, GAME_TITLE);
 			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 23, 25.45, 10, PLAY_BUTTON);
 			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 15, 25.45, 10, CREDITS_BUTTON);
 			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 7, 25.45, 10, QUIT_BUTTON);
+
+			createNoTextButton(bManagers[i], "SettingsButton", 14.25, 4, 25.45, 10, SETTINGS_BUTTON);
+
 			enableUI();
+			break;
+		case UI_SETTINGS:
+			//Game::switchScene(S_UI);
+			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createNoTextButton(bManagers[i], "settingsBG", 64, 36, 128, 72, SETTINGS_PANEL);
+			
+			createNoTextButton(bManagers[i], "sandBox", 50, 60, 25, 10, SETTINGS_TEXT_SANDBOX);
+			createNoTextButton(bManagers[i], "sandBox_toggle", 80, 60, 16, 6, (GEOMETRY_TYPE)((int)SETTINGS_BUTTON_OFF + Game::settings[SETTINGS::SETTING_SAND_BOX_MODE]));
+
+			createNoTextButton(bManagers[i], "FPS", 42, 53, 25, 10, SETTINGS_TEXT_FPS);
+			createNoTextButton(bManagers[i], "FPS_toggle", 80, 53, 16, 6, (GEOMETRY_TYPE)((int)SETTINGS_BUTTON_OFF + Game::settings[SETTINGS::SETTING_FPS]));
+
+			break;
+		case UI_FPS:
+			createTextButton(bManagers[i], "FPS", 123, -1, 12, 6.4, 0, 0, Color(1, 1, 1), "60", 3, FONTTYPE::SUPERMARIO);
+
 			break;
 		case UI_CREDITS:
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
@@ -148,6 +169,8 @@ void UIManager::Init() {
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
 			createNoTextButton(bManagers[i], "PauseMenuPlayButton", 64, 36, 50.2, 20, RESUME_BUTTON);
 			createNoTextButton(bManagers[i], "PauseMenuQuitButton", 64, 13, 25.45, 10, MENU_BUTTON);
+
+			createNoTextButton(bManagers[i], "SettingsButton", 14.25, 4, 25.45, 10, SETTINGS_BUTTON);
 			break;
 		case UI_INTERACTION:
 			createButton(bManagers[i], "Choice1", 96, 33.7, 58, 7.4, UI_CHOICE, 9, 5.5, Color(1, 1, 1), "", 3.5f);
@@ -197,6 +220,26 @@ void UIManager::Update(Scene* scene, double dt)
 {
 	bManagers[currentMenu]->Update(scene, dt);
 	activeMenus[UI_E_TO_INTERACT] = false;
+	if (Game::settings[SETTING_FPS]) {
+		std::ostringstream ss;
+		ss.precision(3);
+		ss << Game::FPS;
+		Button* bt = this->getByTypeBM(UI_FPS)->getButtonByName("FPS");
+		bt->setText(ss.str());
+		if (Game::FPS < 20) {
+			bt->getTextObject()->setColor(Color(0.85f, 0.1f, 0.1f));
+		}
+		else if (Game::FPS < 40) {
+			bt->getTextObject()->setColor(Color(0.85f, 0.85f, 0.1f));
+		}
+		else {
+			bt->getTextObject()->setColor(Color(0.1f, 0.9f, 0.1f));
+		}
+		activeMenus[UI_FPS] = true;
+	}
+	else {
+		activeMenus[UI_FPS] = false;
+	}
 	if (uiActive == true)
 	{
 		if (Application::IsKeyPressed('L') && (currentMenu != UI_ITEM_INVENTORY && currentMenu != UI_INTERACTION && currentMenu != UI_MAIN_MENU) && !(currentMenu == UI_ITEM_INVENTORY || currentMenu == UI_WEAPON_INVENTORY || currentMenu == UI_GARAGE_INVENTORY))
@@ -290,6 +333,23 @@ void UIManager::Update(Scene* scene, double dt)
 				{
 					Game::gameExit = true;
 				}
+				else if (buttonCollide->buttonClicked->getName() == "SettingsButton" && buttonCollide->justClicked) 
+				{
+					setCurrentUI(UI_SETTINGS);
+				}
+				break;
+			case UI_SETTINGS:
+				if (buttonCollide->buttonClicked->getName() == "sandBox_toggle" && buttonCollide->justClicked)//Main Menu play button
+				{
+					Game::settings[SETTINGS::SETTING_SAND_BOX_MODE] = !Game::settings[SETTINGS::SETTING_SAND_BOX_MODE];
+					buttonCollide->buttonClicked->setQuadImage((GEOMETRY_TYPE)((int)SETTINGS_BUTTON_OFF + Game::settings[SETTINGS::SETTING_SAND_BOX_MODE]));
+				}
+				else if (buttonCollide->buttonClicked->getName() == "FPS_toggle" && buttonCollide->justClicked)//Main Menu play button
+				{
+					Game::settings[SETTINGS::SETTING_FPS] = !Game::settings[SETTINGS::SETTING_FPS];
+					buttonCollide->buttonClicked->setQuadImage((GEOMETRY_TYPE)((int)SETTINGS_BUTTON_OFF + Game::settings[SETTINGS::SETTING_FPS]));
+				}
+
 				break;
 			case UI_PAUSE_MENU:
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
@@ -302,6 +362,10 @@ void UIManager::Update(Scene* scene, double dt)
 					setCurrentUI(UI_MAIN_MENU);
 					Game::setPrevSceneENUM(Game::activeScene);
 					Game::switchScene(S_UI);
+				}
+				else if (buttonCollide->buttonClicked->getName() == "SettingsButton" && buttonCollide->justClicked)
+				{
+					setCurrentUI(UI_SETTINGS);
 				}
 				break;
 			case UI_INTERACTION:
@@ -328,30 +392,9 @@ void UIManager::Update(Scene* scene, double dt)
 		}
 		if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
 		{
-			switch (digitCount(Game::cash))
-			{
-			case 1:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(122, 65);
-				break;
-			case 2:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(120, 65);
-				break;
-			case 3:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(118, 65);
-				break;
-			case 4:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(116, 65);
-				break;
-			case 5:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(114, 65);
-				break;
-			case 6:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(112, 65);
-				break;
-			case 7:
-				Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(110, 65);
-				break;
-			}
+			int digit = digitCount(Game::cash);
+			float x = 119 - ((digit-1 > 0 ? digit : 0) * 3.0);
+			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setOrigin(x, 65);
 			Game::uiManager.getByTypeBM(UI_GENERAL)->getButtonByName("Cash")->setText("$" + std::to_string(Game::cash));
 		}
 	}
@@ -434,6 +477,7 @@ UI_MENUS UIManager::getPrevMenu() {
 
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
+	activeMenus[UI_MISSION] = true;
 	Game::inv.getActiveWeapon()->setUIcooldown(0.5f);
 	if (!bManagers[currentMenu]->getButtonsInteracted().empty()) {
 		for (auto& entry : bManagers[currentMenu]->getButtonsInteracted()) {
@@ -454,6 +498,11 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		Application::setCursorEnabled(true);
 		//this->enableUI();
 		break;
+	case UI_SETTINGS:
+		Application::setCursorEnabled(true);
+		this->enableUI();
+		activeMenus[UI_MISSION] = false;
+		break;
 	case UI_WEAPON_INVENTORY:
 		Application::setCursorEnabled(true);
 		//this->enableUI();
@@ -464,16 +513,19 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		break;
 	case UI_INTERACTION:
 		Application::setCursorEnabled(true);
 		break;
 	case UI_CREDITS:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		this->enableUI();
 		break;
 	case UI_PAUSE_MENU:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		this->enableUI();
 		break;
 	}
