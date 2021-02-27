@@ -349,13 +349,11 @@ void UIManager::Update(Scene* scene, double dt)
 					Game::settings[SETTINGS::SETTING_FPS] = !Game::settings[SETTINGS::SETTING_FPS];
 					buttonCollide->buttonClicked->setQuadImage((GEOMETRY_TYPE)((int)SETTINGS_BUTTON_OFF + Game::settings[SETTINGS::SETTING_FPS]));
 				}
-
 				break;
 			case UI_PAUSE_MENU:
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuPlayButton" && buttonCollide->justClicked)//Main Menu play button
 				{
 					setCurrentUI(UI_GENERAL);
-					Game::switchScene(Game::getPrevSceneENUM());
 				}
 				if (buttonCollide->buttonClicked->getName() == "PauseMenuQuitButton" && buttonCollide->justClicked)//Main Menu quit button
 				{
