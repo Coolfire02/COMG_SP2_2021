@@ -108,7 +108,7 @@ Weapon* WeaponInventory::getActiveWeapon()
 /*!
 \brief
 Return weaponList vector
-*/
+*/	
 /******************************************************************************/
 std::vector<Weapon*> WeaponInventory::getWeaponList()
 {
