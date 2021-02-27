@@ -432,7 +432,7 @@ void SceneFinale::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::CAR) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !camMap) {
-				std::cout << "In Range" << std::endl;
+				DEBUG_MSG( "In Range" );
 				// Show interaction UI
 				if (ePressed && !eHeld) {
 					eHeld = true;
@@ -440,7 +440,7 @@ void SceneFinale::CollisionHandler(double dt) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
+						DEBUG_MSG( "Player Set" );
 					}
 					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
@@ -489,16 +489,16 @@ void SceneFinale::CollisionHandler(double dt) {
 				// player->getEntityData()->Translate += entry->plane * 2;
 				// player->cancelNextMovement();
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+				DEBUG_MSG( "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z );
 			}
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
+					DEBUG_MSG( "In Car" );
 				}
 				else {
 					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
+					DEBUG_MSG( "Collided" );
 				}
 			}*/
 
@@ -538,8 +538,8 @@ void SceneFinale::CollisionHandler(double dt) {
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
-				std::cout << backwardsMomentum << std::endl;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG( backwardsMomentum );
+				DEBUG_MSG( "Car Collided" );
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
@@ -551,7 +551,7 @@ void SceneFinale::CollisionHandler(double dt) {
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG( "Car Collided" );
 			}
 		}
 
@@ -635,8 +635,6 @@ void SceneFinale::Render()
 
 	
 	modelStack.LoadIdentity();
-
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -726,12 +724,6 @@ void SceneFinale::Render()
 
 	RenderUI();
 	bManager.Render(this);
-
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 
 	Position lightPosition_cameraspace = viewStack.Top() * light[1].position;
 	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);

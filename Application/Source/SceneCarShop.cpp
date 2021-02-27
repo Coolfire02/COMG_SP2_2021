@@ -13,6 +13,7 @@
 #include "AudioHandler.h"
 #include "InteractionManager.h"
 #include "Scene2021.h"
+#include "Debug.h"
 
 SceneCarShop::SceneCarShop() : 
 	eManager(this)
@@ -539,7 +540,7 @@ void SceneCarShop::CollisionHandler(double dt) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
+						DEBUG_MSG( "Player Set" );
 					}
 					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
@@ -566,7 +567,7 @@ void SceneCarShop::CollisionHandler(double dt) {
 				// player->getEntityData()->Translate += entry->plane * 2;
 				// player->cancelNextMovement();
 				entry->attacker->getEntityData()->Translate -= entry->translationVector;
-				std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+				DEBUG_MSG( "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z );
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
@@ -589,8 +590,8 @@ void SceneCarShop::CollisionHandler(double dt) {
 				float backwardsMomentum = -((Car*)entry->attacker)->getSpeed() * 0.5f;
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
-				std::cout << backwardsMomentum << std::endl;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG( backwardsMomentum );
+				DEBUG_MSG( "Car Collided" );
 			}
 
 			if (entry->victim->getType() == ENTITYTYPE::LIVE_NPC) {
@@ -602,7 +603,7 @@ void SceneCarShop::CollisionHandler(double dt) {
 				((Car*)entry->attacker)->setSpeed(backwardsMomentum);
 				entry->attacker->getEntityData()->Translate -= entry->translationVector + ((Car*)entry->attacker)->getVelocity();
 				((NPC*)entry->victim)->getRigidBody().velocity = resultantVec;
-				std::cout << "Car Collided" << std::endl;
+				DEBUG_MSG( "Car Collided" );
 			}
 		}
 
@@ -896,12 +897,7 @@ void SceneCarShop::Render()
 		ss << "Press 'E' to Interact";
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
-	
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
+
 }
 
 void SceneCarShop::RenderSkybox() {

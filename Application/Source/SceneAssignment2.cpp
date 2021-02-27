@@ -502,11 +502,11 @@ void SceneAssignment2::CollisionHandler(double dt) {
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
+					DEBUG_MSG( "In Car" );
 				}
 				else {
 					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
+					DEBUG_MSG( "Collided" );
 				}
 			}*/
 
@@ -639,18 +639,6 @@ void SceneAssignment2::Render()
 
 
 	modelStack.LoadIdentity();
-
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
@@ -837,12 +825,6 @@ void SceneAssignment2::Render()
 	//	ss << inv.getCurrentItemAmt();
 	//	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 115, 25);
 	//}
-
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 	//Position light0Position_cameraspace = viewStack.Top() * light[0].position;
 	//glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &light0Position_cameraspace.x);
 	//Position light1Position_cameraspace = viewStack.Top() * light[1].position;

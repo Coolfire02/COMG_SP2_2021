@@ -737,11 +737,11 @@ void SceneGuardBuilding::CollisionHandler(double dt) {
 
 			/*if (entry->victim->getType() == ENTITYTYPE::CAR) {
 				if (player->isDriving()) {
-					std::cout << "In Car" << std::endl;
+					DEBUG_MSG( "In Car" );
 				}
 				else {
 					player->cancelNextMovement();
-					std::cout << "Collided" << std::endl;
+					DEBUG_MSG( "Collided" );
 				}
 			}*/
 
@@ -1091,13 +1091,6 @@ void SceneGuardBuilding::Render()
 	//}
 
 
-
-
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 	//Position light0Position_cameraspace = viewStack.Top() * light[0].position;
 	//glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &light0Position_cameraspace.x);
 	//Position light1Position_cameraspace = viewStack.Top() * light[1].position;

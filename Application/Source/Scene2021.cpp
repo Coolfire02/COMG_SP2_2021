@@ -270,7 +270,7 @@ void Scene2021::Update(double dt)
 	if (!Game::iManager.isInteracting()) {
 		CollisionHandler(dt);
 
-		std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+		DEBUG_MSG("X: " << camera.position.x << " Z: " << camera.position.z);
 
 		Vector3 pLoc = player->getEntityData()->Translate;
 		Vector3 oldLoc = Vector3(pLoc);
@@ -444,7 +444,7 @@ void Scene2021::CollisionHandler(double dt) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
+						DEBUG_MSG("Player Set");
 					}
 					else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving()) {
 						player->setDriving(nullptr, false);
@@ -638,7 +638,7 @@ void Scene2021::CollisionHandler(double dt) {
 						}
 					}
 					entry->attacker->getEntityData()->Translate -= entry->translationVector;
-					std::cout << "Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z << std::endl;
+					DEBUG_MSG("Collided " << entry->translationVector.x << " " << entry->translationVector.y << " " << entry->translationVector.z);
 				}
 			}
 		}
@@ -809,13 +809,6 @@ void Scene2021::Render()
 
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
 	RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
@@ -977,11 +970,6 @@ void Scene2021::Render()
 		RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(1, 1, 1), 4, 20, 10);
 	}
 
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 }
 
 void Scene2021::RenderSkybox() {

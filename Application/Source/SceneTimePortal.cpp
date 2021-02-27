@@ -674,12 +674,6 @@ void SceneTimePortal::Render()
 
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
 
 	//modelStack.PushMatrix();
 	//modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);

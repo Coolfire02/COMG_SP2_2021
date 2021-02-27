@@ -251,7 +251,7 @@ void SceneUI::Update(double dt)
 
 	CollisionHandler(dt);
 
-	std::cout << "X: " << camera.position.x << " Z: " << camera.position.z << std::endl;
+	DEBUG_MSG( "X: " << camera.position.x << " Z: " << camera.position.z );
 
 	Vector3 pLoc = player->getEntityData()->Translate;
 	Vector3 oldLoc = Vector3(pLoc);
@@ -353,7 +353,7 @@ void SceneUI::CollisionHandler(double dt) {
 						player->setDriving((Car*)entry, true);
 						((Car*)entry)->setPlayer(player);
 						camera.camType = THIRDPERSON;
-						std::cout << "Player Set" << std::endl;
+						DEBUG_MSG("Player Set");
 					}
 				}
 			}
@@ -623,12 +623,6 @@ void SceneUI::Render()
 
 	RenderUI();
 	RenderTexts();
-
-	//FPS UI
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 
 }
 
