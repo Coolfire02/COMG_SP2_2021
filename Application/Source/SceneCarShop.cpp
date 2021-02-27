@@ -318,7 +318,6 @@ void SceneCarShop::Update(double dt)
 
 	if (!Game::iManager.isInteracting()) {
 		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-		TopDownMapUpdate(dt);
 		CollisionHandler(dt);
 
 		Vector3 pLoc = player->getEntityData()->Translate;
@@ -674,12 +673,6 @@ void SceneCarShop::CollisionHandler(double dt) {
 		}
 		latestInteractionSwitch = this->elapsed;
 	}*/
-}
-
-void SceneCarShop::TopDownMapUpdate(double dt)
-{
-	//top down camera map
-	
 }
 
 void SceneCarShop::Render()

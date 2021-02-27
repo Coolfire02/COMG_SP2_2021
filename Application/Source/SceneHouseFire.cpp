@@ -407,68 +407,6 @@ void SceneHouseFire::MissionCompleteListener(double dt) {
 	}
 }
 
-void SceneHouseFire::TopDownMapUpdate(double dt)
-{
-	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (currentCamera != CAM_TP)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			currentCamera = CAM_FP;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			currentCamera = CAM_FP;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		150,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(-view.x, 0, -view.z);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	}
-}
-
 void SceneHouseFire::CollisionHandler(double dt) {
 	if (Application::IsKeyReleased('E')) eHeld = false;
 	bool ePressed = Application::IsKeyPressed('E');
@@ -476,8 +414,6 @@ void SceneHouseFire::CollisionHandler(double dt) {
 	bool tPressed = Application::IsKeyPressed('T');
 
 	bool foundInteractionZone = false;
-
-	TopDownMapUpdate(dt);
 
 	//Nearby Checks (Cars, NPCS) -- Whatever you need range checks for.
 	for (auto& entry : eManager.getEntities()) {
@@ -755,59 +691,6 @@ void SceneHouseFire::Render()
 	else { //Point light
 		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
 		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-	}
-
-
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	case TOPDOWN_THIRDPERSON:
-		if (light[1].type == Light::LIGHT_DIRECTIONAL) {
-			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
-			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
-		}
-		else if (light[1].type == Light::LIGHT_SPOT) {
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-		}
-		else { //Point light
-			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
-		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-		break;
-	default:
-		break;
 	}
 
 	//Entity Rendering

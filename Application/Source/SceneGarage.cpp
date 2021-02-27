@@ -324,7 +324,6 @@ void SceneGarage::Update(double dt)
 	}
 
 	//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-	TopDownMapUpdate(dt);
 	CollisionHandler(dt);
 
 	Vector3 pLoc = player->getEntityData()->Translate;
@@ -641,12 +640,6 @@ void SceneGarage::CollisionHandler(double dt) {
 		}
 		latestInteractionSwitch = this->elapsed;
 	}*/
-}
-
-void SceneGarage::TopDownMapUpdate(double dt)
-{
-	//top down camera map
-	
 }
 
 void SceneGarage::Render()

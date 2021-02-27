@@ -267,7 +267,6 @@ void SceneGunShop::Update(double dt)
 
 	if (!Game::iManager.isInteracting()) {
 		//Keys that are used inside checks (Not reliant detection if checking for pressed inside conditions etc)
-		TopDownMapUpdate(dt);
 		CollisionHandler(dt);
 
 		Vector3 pLoc = player->getEntityData()->Translate;
@@ -401,68 +400,6 @@ void SceneGunShop::InitLights() {
 
 	//Week 7 - Code to change number of lights
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
-}
-
-void SceneGunShop::TopDownMapUpdate(double dt)
-{
-	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		300,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(-view.x, 0, -view.z);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	}
 }
 
 void SceneGunShop::CollisionHandler(double dt) {
