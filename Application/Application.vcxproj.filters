@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\Text.cpp" />
     <ClCompile Include="Source\SceneOffice.cpp" />
+    <ClCompile Include="Source\SceneFinale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AudioHandler.h" />
@@ -102,5 +103,6 @@
     <ClInclude Include="Source\Text.h" />
     <ClInclude Include="Source\UIItem.h" />
     <ClInclude Include="Source\SceneOffice.h" />
+    <ClInclude Include="Source\SceneFinale.h" />
   </ItemGroup>
 </Project>

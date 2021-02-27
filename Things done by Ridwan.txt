@@ -8,3 +8,4 @@ UI for Item, Weapon and Garage Inventory
 
 Scene Garage
 Scene Office
+Scene Finale

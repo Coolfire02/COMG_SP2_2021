@@ -605,13 +605,32 @@ void SceneGarage::CollisionHandler(double dt) {
 			{
 				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
 				{
-					Scene* var = Game::getSceneByName("MainScene");
-					static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
+					if (Game::sceneCooldown > 3)
+					{
+						Scene* var = Game::getSceneByName("MainScene");
+						static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
 
+						for (auto& entry2 : eManager.getEntities())
+						{
+							if (((Car*)entry2)->getPlayer() != nullptr && player->isDriving()) 
+							{
+								player->setDriving(nullptr, false);
+								camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
+								((Car*)entry2)->setPlayer(nullptr);
+								camera.camType = FIRSTPERSON;
+								player->getEntityData()->Translate.Set(entry2->getEntityData()->Translate.x + 6, 0, entry2->getEntityData()->Translate.z);
+								player->PostUpdate(); // set old data to new data, lazy fix for now
+								camera.position = player->getEntityData()->Translate;
+								camera.position.y += 2;
+								camera.total_pitch = 0;
+								camera.total_yaw = 0;
+								camera.up = camera.defaultUp;
+								camera.target = camera.position - Vector3(0, 0, 1);
+							}
+						}
 
-					entry->attacker->getEntityData()->Translate.Set(0.f, -10.f,0.0f);
-					
-					Game::switchScene(S_2021);
+						Game::switchScene(S_2021);
+					}
 				}
 			}
 		}
@@ -950,22 +969,34 @@ void SceneGarage::updateCarSpawn()
 				}
 				else
 				{
-					Entity* newCar = new Car(Game::inv.getGarageVector().at(i)->getCarType(), this, "garageCar" + std::to_string(i + 1));
-					newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
-					newCar->getEntityData()->SetRotate(0, 0, 0);
-					newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+					if (i <= 3)
+					{
+						Entity* newCar = new Car(Game::inv.getGarageVector().at(i)->getCarType(), this, "garageCar" + std::to_string(i + 1));
+						newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
+						newCar->getEntityData()->SetRotate(0, 0, 0);
+						newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
 
-					this->eManager.spawnMovingEntity(newCar);
+						this->eManager.spawnMovingEntity(newCar);
+					}
+					else
+					{
+						Entity* newCar = new Car(Game::inv.getGarageVector().at(i)->getCarType(), this, "garageCar" + std::to_string(i + 1));
+						newCar->getEntityData()->SetTransform(0 - (i * 5), 0.25, 20);
+						newCar->getEntityData()->SetRotate(0, 0, 0);
+						newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
+
+						this->eManager.spawnMovingEntity(newCar);
+					}
 				}
 				break;
 			}
 		}
 
-		if (tempStoreJ == 0)
+		if (Game::inv.getGarageVector().size() == 1)
 		{
 			//Create a new car if there is no cars spawned
-			Entity* newCar = new Car(Game::inv.getGarageVector()[tempStoreJ]->getCarType(), this, "garageCar" + std::to_string(tempStoreJ + 1)); //garageCar1
-			newCar->getEntityData()->SetTransform(5 + (tempStoreJ * 5), 0.25, 20);
+			Entity* newCar = new Car(Game::inv.getGarageVector()[0]->getCarType(), this, "garageCar" + std::to_string(0 + 1)); //garageCar1
+			newCar->getEntityData()->SetTransform(5 + (0 * 5), 0.25, 20);
 			newCar->getEntityData()->SetRotate(0, 0, 0);
 			newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
 
