@@ -25,7 +25,7 @@ bool Game::gameExit = false;
 Game::Game()
 {
 	ammo = 0;
-	cash = 10000;
+	cash = 0;
 }
 
 Game::~Game()
@@ -82,7 +82,6 @@ void Game::Update(double dt)
 
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x0001)
 	{
-		prevScene = activeScene;
 		if (Game::uiManager.getCurrentMenu() == UI_PAUSE_MENU)
 			Game::uiManager.setCurrentUI(UI_GENERAL);
 		else if (Game::uiManager.getCurrentMenu() == UI_GENERAL)

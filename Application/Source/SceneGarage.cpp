@@ -976,16 +976,14 @@ void SceneGarage::updateCarSpawn()
 						newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
 						newCar->getEntityData()->SetRotate(0, 0, 0);
 						newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
-
 						this->eManager.spawnMovingEntity(newCar);
 					}
 					else
 					{
 						Entity* newCar = new Car(Game::inv.getGarageVector().at(i)->getCarType(), this, "garageCar" + std::to_string(i + 1));
-						newCar->getEntityData()->SetTransform(0 - (i * 5), 0.25, 20);
+						newCar->getEntityData()->SetTransform(15 - (i * 5), 0.25, 20);
 						newCar->getEntityData()->SetRotate(0, 0, 0);
 						newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
-
 						this->eManager.spawnMovingEntity(newCar);
 					}
 				}
