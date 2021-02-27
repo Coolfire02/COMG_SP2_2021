@@ -608,7 +608,9 @@ void SceneGarage::CollisionHandler(double dt) {
 					if (Game::sceneCooldown > 3)
 					{
 						Scene* var = Game::getSceneByName("MainScene");
-						static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
+
+						if (player->isDriving())
+							static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
 
 						for (auto& entry2 : eManager.getEntities())
 						{
@@ -947,7 +949,6 @@ void SceneGarage::deletePrevCar()
 				{
 					entity->setDead(true);
 				}
-				break;
 			}
 		}
 	}
@@ -992,7 +993,7 @@ void SceneGarage::updateCarSpawn()
 			}
 		}
 
-		if (Game::inv.getGarageVector().size() == 1)
+		if (i == 0)
 		{
 			//Create a new car if there is no cars spawned
 			Entity* newCar = new Car(Game::inv.getGarageVector()[0]->getCarType(), this, "garageCar" + std::to_string(0 + 1)); //garageCar1

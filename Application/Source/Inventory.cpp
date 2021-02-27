@@ -523,8 +523,9 @@ void Inventory::Update(double dt)
 		addWeap(SILENCER);
 
 		addCar(SEDAN);
-
+		addCar(HATCH_BACK_SPORTS);
 		addCar(RACER);
+		addCar(TRACTOR_SHOVEL);
 
 	}
 	if (GetAsyncKeyState('1') & 0x0001)
