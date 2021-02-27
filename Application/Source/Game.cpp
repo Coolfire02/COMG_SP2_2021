@@ -164,9 +164,14 @@ void Game::InteractionUpdate(double dt)
 			for (int i = 1; i < iManager.getQueue().Top()->interactionChoices.size() + 1; ++i) {
 				std::stringstream ss;
 				ss << "Choice" << i;
-				if (Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.find("\n") != std::string::npos) {
+				std::size_t pos = Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.find("\n");
+				if (Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.find("\n") != std::string::npos && pos != Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.size() - 1) {
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setSize(2.5f);
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setTextOffsetFromTopLeft(9, 3.5);
+				}
+				else {
+					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setSize(3.5f);
+					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setTextOffsetFromTopLeft(9, 5.5);
 				}
 				uiManager.getCurrentBM()->getButtonByName(ss.str())->setText(Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText);
 				uiManager.getCurrentBM()->activateButton(ss.str());
