@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "LoadTGA.h"
 
+bool Game::SAND_BOX_MODE = false;
+
 SCENES Game::activeScene;
 SCENES Game::prevScene = S_HOUSEFIRE;
 std::vector<Scene*> Game::SceneList;

@@ -39,6 +39,8 @@ public:
 	Game();
 	~Game();
 
+	static bool SAND_BOX_MODE;
+
 	static double sceneCooldown;
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;

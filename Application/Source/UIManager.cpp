@@ -128,11 +128,12 @@ void UIManager::Init() {
 			break;
 		case UI_MAIN_MENU:
 			Game::switchScene(S_UI);	
-			createNoTextButton(bManagers[i], "GameTitle", 64, 50, 102.4, 51.2, GAME_TITLE);
 			createNoTextButton(bManagers[i], "TitleBackground", 64, 36, 128, 72, TITLE_BG);
+			createNoTextButton(bManagers[i], "GameTitle", 64, 50, 102.4, 51.2, GAME_TITLE);
 			createNoTextButton(bManagers[i], "MainMenuPlayButton", 64, 23, 25.45, 10, PLAY_BUTTON);
 			createNoTextButton(bManagers[i], "MainMenuCreditsButton", 64, 15, 25.45, 10, CREDITS_BUTTON);
 			createNoTextButton(bManagers[i], "MainMenuQuitButton", 64, 7, 25.45, 10, QUIT_BUTTON);
+
 			enableUI();
 			break;
 		case UI_CREDITS:
@@ -434,6 +435,7 @@ UI_MENUS UIManager::getPrevMenu() {
 
 void UIManager::setCurrentUI(UI_MENUS newUI)
 {
+	activeMenus[UI_MISSION] = true;
 	Game::inv.getActiveWeapon()->setUIcooldown(0.5f);
 	if (!bManagers[currentMenu]->getButtonsInteracted().empty()) {
 		for (auto& entry : bManagers[currentMenu]->getButtonsInteracted()) {
@@ -464,16 +466,19 @@ void UIManager::setCurrentUI(UI_MENUS newUI)
 		break;
 	case UI_MAIN_MENU:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		break;
 	case UI_INTERACTION:
 		Application::setCursorEnabled(true);
 		break;
 	case UI_CREDITS:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		this->enableUI();
 		break;
 	case UI_PAUSE_MENU:
 		Application::setCursorEnabled(true);
+		activeMenus[UI_MISSION] = false;
 		this->enableUI();
 		break;
 	}
