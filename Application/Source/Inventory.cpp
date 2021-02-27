@@ -300,7 +300,7 @@ void Inventory::Update(double dt)
 	}
 
 	//For Weapon Inventory
-	if (weaponInv == nullptr || weaponInv->getActiveWeapon() == nullptr && weaponInv->getWeaponList().empty()) //If there is no Item Inventory
+	if (weaponInv == nullptr || weaponInv->getWeaponList().empty()) //If there is no Item Inventory
 	{
 		Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIInventoryBackground")->enable();
 		for (int i = 0; i < WEAPON_COUNT; i++)
@@ -550,7 +550,7 @@ int Inventory::getCurrentItemAmt()
 
 Weapon* Inventory::getActiveWeapon()
 {
-	if (weaponInv == nullptr || weaponInv->getWeaponList().empty())
+	if (weaponInv->getActiveWeapon() == nullptr || weaponInv == nullptr || weaponInv->getWeaponList().empty())
 		return nullptr;
 	else
 		return weaponInv->getActiveWeapon();

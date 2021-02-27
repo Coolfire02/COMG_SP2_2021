@@ -10,6 +10,7 @@ Initialise activeWeapon to nullptr
 WeaponInventory::WeaponInventory()
 {
 	activeWeapon = nullptr;
+	weaponList = std::vector<Weapon*>();
 }
 
 /******************************************************************************/
@@ -76,8 +77,7 @@ void WeaponInventory::delWeapon(WEAPON_TYPE wType)
 	{
 		if (weaponList[i]->getWeaponType() == wType) //cycle through the vector and find the weapon type to be removed
 		{
-			delete weaponList[i]; //del weapon
-			weaponList[i] = nullptr; //set to nullptr
+			weaponList.erase(weaponList.begin() + i); //del weapon
 		}
 	}
 
