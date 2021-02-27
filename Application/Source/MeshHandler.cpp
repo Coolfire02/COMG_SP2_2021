@@ -189,7 +189,9 @@ bool MeshHandler::loadMeshes() {
 	meshList[UI_PISTOL]->textureID = LoadTGA("Image//pistolUI.tga");
 	meshList[UI_SILENCER] = MeshBuilder::GenerateQuad("silencerUI", Color(1, 1, 1));
 	meshList[UI_SILENCER]->textureID = LoadTGA("Image//silencerUI.tga");
-
+	meshList[UI_FIRE_EXTINGUISHER] = MeshBuilder::GenerateQuad("fireExtinguisherUI", Color(1, 1, 1));
+	meshList[UI_FIRE_EXTINGUISHER]->textureID = LoadTGA("Image//fireExtinguisherUI.tga");
+	
 	//Garage
 	meshList[GARAGE_WALL] = MeshBuilder::GenerateQuad("garageWall", Color(1, 1, 1));
 	meshList[GARAGE_WALL]->textureID = LoadTGA("Image//Garage//garageWall.tga");
