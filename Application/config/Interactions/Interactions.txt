@@ -347,30 +347,32 @@ INTERACTION: guards4
 
 =========================================
 
-INTERACTION: bimster1
+INTERACTION: bimster
 - MSG: Bimster: What?! Where am I? Who are you?!;Why am I here?!?!
 
-CHOICE # bimster1
+CHOICE # bimster
 - MSG: I am Pain . . . Destroyer of worlds . . .
-# NEXT: bimster2
+# NEXT: bimster1
 
-CHOICE # bimster1
+CHOICE # bimster
 - MSG: You took . . . everything from me . . .
-# NEXT: bimster2
+# NEXT: bimster1
 
-INTERACTION: bimster2
+INTERACTION: bimster1
 - MSG: Bimster: What do you mean?!
-# NEXT: bimster3
+# NEXT: bimster2
 
 INTERACTION: bimster3
 - MSG: Bimster: Let me out this instant!
 
 CHOICE # bimster3
 - MSG: My pain is far greater than yours . . .
+- postcmd: /passive
 # NEXT: bimster4
 
 CHOICE # bimster3
 - MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
+- postcmd: /aggressive
 # NEXT: bimster4
 
 INTERACTION: bimster4

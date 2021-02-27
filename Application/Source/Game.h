@@ -39,6 +39,8 @@ public:
 	Game();
 	~Game();
 
+	static int BimsterSavePoints;
+
 	static double sceneCooldown;
 	static SCENES activeScene;
 	static std::vector<Scene*> SceneList;
