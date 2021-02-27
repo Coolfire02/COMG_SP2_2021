@@ -213,7 +213,6 @@ bool InteractionManager::runCommand(Command cmd) {
 				Command* cmd = new Command("/killBimster", Game::SceneList[Game::activeScene]);
 				interaction->interactionText = "Kill him.";
 				interaction->postInteractionCMD.push_back(cmd);
-				interaction->nextInteractionKey = "bimsterKill2";
 				interactionQueue.Top()->interactionChoices.push_back(interaction);
 			}
 		}
@@ -231,6 +230,7 @@ bool InteractionManager::runCommand(Command cmd) {
 					LOOPED::NOLOOP,
 					false,
 					true);
+				Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_TO_2051, 100.0f);
 			}
 		}
 		else if (splitVar.size() >= 2) {
