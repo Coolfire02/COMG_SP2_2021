@@ -163,6 +163,14 @@ void SceneGuardBuilding::Init() {
 	SpawnNPCs(Vector3(10, 0, -50), TESTNPC);
 	SpawnNPCs(Vector3(-10, 0, -50), TESTNPC);
 
+	Entity* door = new WorldObject(this, GEO_DOOR, "door");
+	door->getEntityData()->SetTransform(0, 2.25, -60);
+	door->getEntityData()->Scale = Vector3(2, 2, 2);
+	eManager.spawnWorldEntity(door);
+
+	Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-3, 0, -3), Vector3(3, 3, 3)), "doorHitbox");
+	doorHitbox->getEntityData()->SetTransform(0, 0, -60);
+	eManager.spawnWorldEntity(doorHitbox);
 
 
 	//camera.Init(Vector3(player->getEntityData()->Translate.x + 4, player->getEntityData()->Translate.y + 4, player->getEntityData()->Translate.z + 4),
@@ -173,6 +181,11 @@ void SceneGuardBuilding::Init() {
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 		Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
 		Vector3(0, 1, 0));
+
+
+	Mtx44 rotation;
+	rotation.SetToRotation(180, 0, 1, 0);
+	camera.TPSPositionVector = rotation * camera.TPSPositionVector;
 
 	camera2.Init(Vector3(player->getEntityData()->Translate.x, 150, player->getEntityData()->Translate.z),
 		Vector3(0, -50, -1),
@@ -665,8 +678,11 @@ void SceneGuardBuilding::CollisionHandler(double dt) {
 
 		if (entry->getType() == ENTITYTYPE::LIVE_NPC)
 		{
-			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 20) 
+			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 30) 
 			{
+				if (Game::iManager.getTimesInteracted("guards") == 0)
+					Game::iManager.loadInteraction("guards");
+
 				DEBUG_MSG("Too close!");
 
 				//NPC Chase
@@ -731,6 +747,12 @@ void SceneGuardBuilding::CollisionHandler(double dt) {
 			}*/
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
+				if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E'))
+						Game::iManager.loadInteraction("guards4");
+				}
+
 				if (entry->victim->getName().find("interaction") != std::string::npos) {
 					foundInteractionZone = true;
 					//if (!canInteractWithSomething)
@@ -859,8 +881,6 @@ void SceneGuardBuilding::Render()
 
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
 	//modelStack.PushMatrix();
 	//modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
 	//RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
@@ -889,25 +909,6 @@ void SceneGuardBuilding::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPos_cameraSpace.x);
 	}
 
-	if (light[2].type == Light::LIGHT_DIRECTIONAL) {
-		Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
-		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
-
-	}
-	else if (light[2].type == Light::LIGHT_SPOT) {
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-		Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
-	}
-	else { //Point light
-		Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
-		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
-	}
-
-
 	switch (camera.camType)
 	{
 	case TOPDOWN_FIRSTPERSON:
@@ -915,14 +916,12 @@ void SceneGuardBuilding::Render()
 			Vector3 lightDir(light[1].position.x, light[1].position.y, light[1].position.z);
 			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDir_cameraSpace.x);
-
 		}
 		else if (light[1].type == Light::LIGHT_SPOT) {
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 			Vector3 spotDir_cameraSpace = viewStack.Top() * light[1].spotDirection;
 			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
-
 		}
 		else { //Point light
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
@@ -951,22 +950,30 @@ void SceneGuardBuilding::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
+		break;
+	case THIRDPERSON:
+		if (light[2].type == Light::LIGHT_DIRECTIONAL) {
+			Vector3 lightDir(light[2].position.x, light[2].position.y, light[2].position.z);
+			Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDir_cameraSpace.x);
+
+		}
+		else if (light[2].type == Light::LIGHT_SPOT) {
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+			Vector3 spotDir_cameraSpace = viewStack.Top() * light[2].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDir_cameraSpace.x);
+
+		}
+		else { //Point light
+			Position lightPos_cameraSpace = viewStack.Top() * light[2].position;
+			glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPos_cameraSpace.x);
+		}
 		break;
 	default:
 		break;
 	}
-
 	this->RenderSkybox();
-
-
-
-
-
-
 
 	//Floor
 	modelStack.PushMatrix();

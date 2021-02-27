@@ -96,12 +96,13 @@ bool InteractionManager::runCommand(Command cmd) {
 				AudioHandler::getSoundSource(DOOR),
 				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
 				LOOPED::NOLOOP);
-			Game::switchScene(S_2021, 1, "");
+
+			Game::switchScene(S_2021, 5.0, "back to the past.");
 		}
 
 		else if (splitVar.at(0) == "/endhousefire") {
 			Game::switchScene(S_GUARD, 5.0, "Infiltrate TimePortal");
-			Game::inv.addWeap(SILENCER);
+			Game::inv.addWeap(PISTOL);
 		}
 
 
@@ -181,6 +182,14 @@ bool InteractionManager::runCommand(Command cmd) {
 			else {
 				Game::iManager.loadInteraction("insufficientmoney");
 			}
+		}
+		else if (splitVar.at(0) == "/entertimeportalroom") {
+			ISound* door = AudioHandler::getEngine()->play3D(
+				AudioHandler::getSoundSource(DOOR),
+				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+				LOOPED::NOLOOP);
+
+			Game::switchScene(S_TIMEPORTAL, 5.0, "enter the timeportal");
 		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {

@@ -21,11 +21,11 @@ INTERACTION: Gary2
 # NEXT: Gary3
 
 INTERACTION: Gary3
-- MSG: Alright, but only if you complete a task for me.
+- MSG: Gary: Alright, but only if you complete a task for me.
 # NEXT: Gary4
 
 INTERACTION: Gary4
-- MSG: Our 'goods' have been delayed due to unforeseen circumstances.;However, they've been hidden in a certain corner in the city before being seized.;I'll need you to bring them back here.
+- MSG: Gary: Our 'goods' have been delayed due to unforeseen circumstances.;However, they've been hidden in a certain corner in the city before being seized.;I'll need you to bring them back here.
 - postcmd: /startdrugmission 
 
 =========================================
@@ -253,7 +253,7 @@ INTERACTION: buySuccess
 =========================================
 
 INTERACTION: buy sedan sports
-- MSG: Name: Sedan Sports;Speed: 75 km/h;Price: $2000;;Would you like to buy this car?
+- MSG: Name: Sedan Sports;Speed: 75 km/h;Price: $2000;Would you like to buy this car?
 
 CHOICE # buy sedan sports
 - MSG: No
@@ -277,7 +277,7 @@ CHOICE # buy hatchback
 =========================================
 
 INTERACTION: buy tractor
-- MSG: Name: Shovel Tractor;Speed: 25 km/h;Price: $100;;Would you like to buy this car?
+- MSG: Name: Shovel Tractor;Speed: 25 km/h;Price: $100;Would you like to buy this car?
 
 CHOICE # buy tractor
 - MSG: No
@@ -289,7 +289,7 @@ CHOICE # buy tractor
 =========================================
 
 INTERACTION: buy truck
-- MSG: Name: Truck;Speed: 75 km/h;Price: $2000;;Would you like to buy this car?
+- MSG: Name: Truck;Speed: 75 km/h;Price: $2000;Would you like to buy this car?
 
 CHOICE # buy truck
 - MSG: No
@@ -301,7 +301,7 @@ CHOICE # buy truck
 =========================================
 
 INTERACTION: buy van
-- MSG: Name: Van;Speed: 60 km/h;Price;Price: $1500;;Would you like to buy this car?
+- MSG: Name: Van;Speed: 60 km/h;Price;Price: $1500;Would you like to buy this car?
 
 CHOICE # buy van
 - MSG: No
@@ -313,7 +313,7 @@ CHOICE # buy van
 =========================================
 
 INTERACTION: buy racer
-- MSG: Name: Racer;Speed: 75 km/h;Price: $4000;;Would you like to buy this car?
+- MSG: Name: Racer;Speed: 150 km/h;Price: $4000;Would you like to buy this car?
 
 CHOICE # buy racer
 - MSG: No
@@ -326,3 +326,23 @@ CHOICE # buy racer
 
 INTERACTION: insufficientmoney
 - MSG: I'm sorry but you don't have enough money.;Come back next time!
+
+=========================================
+
+INTERACTION: guards
+- MSG: Guard: What are you doing here? You're not supposed to be here today!
+# NEXT: guards2
+
+INTERACTION: guards2
+- MSG: I'm sorry for this . . .
+# NEXT: guards3
+
+INTERACTION: guards3
+- MSG: Guard: What?
+
+INTERACTION: guards4
+- MSG: Bimster shall know pain . . .;Shinra Tensei . . .
+- postcmd: /entertimeportalroom
+
+=========================================
+
