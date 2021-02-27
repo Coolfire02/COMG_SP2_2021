@@ -480,7 +480,7 @@ void SceneUI::Render()
 	// Render VBO here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (camMap || Game::uiManager.getCurrentMenu() == UI_MAIN_MENU || Game::uiManager.getCurrentMenu() == UI_CREDITS)
+	if (camMap || Game::uiManager.getCurrentMenu() == UI_MAIN_MENU || Game::uiManager.getCurrentMenu() == UI_CREDITS || Game::uiManager.getCurrentMenu() == UI_SETTINGS)
 	{
 		viewStack.LoadIdentity();
 		viewStack.LookAt(camera2.position.x, camera2.position.y, camera2.position.z,

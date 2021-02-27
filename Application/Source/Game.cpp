@@ -3,7 +3,8 @@
 #include "Application.h"
 #include "LoadTGA.h"
 
-bool Game::SAND_BOX_MODE = false;
+bool Game::settings[SETTINGS_COUNT];
+float Game::FPS = 60.f;
 
 SCENES Game::activeScene;
 SCENES Game::prevScene = S_HOUSEFIRE;
@@ -47,6 +48,7 @@ void Game::Update(double dt)
 {
 	sceneCooldown += dt;
 	gElapsedTime += dt;
+	FPS = 1 / dt;
 
 	if (switchingScene) {
 		if (Game::uiManager.getCurrentMenu() != UI_SCENE_TRANSITION) //Fix if anything tries overriding UI_SCENE_TRANSITION process midway through, there is still the prevUIMenu that will save it and its used for revertion later on anyways.
@@ -91,48 +93,29 @@ void Game::Update(double dt)
 			Game::uiManager.setCurrentUI(UI_PAUSE_MENU);
 		else if (Game::uiManager.getCurrentMenu() == UI_CREDITS)
 			Game::uiManager.setCurrentUI(UI_MAIN_MENU);
+		else if (Game::uiManager.getCurrentMenu() == UI_SETTINGS)
+			Game::uiManager.setCurrentUI(Game::uiManager.getPrevMenu());
 		else if (Game::uiManager.getCurrentMenu() == UI_MAIN_MENU)
 			Game::gameExit = true;
 	}
-
-	if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
-		if (Game::activeScene < S_COUNT - 1) {
-			Game::activeScene = (SCENES)((int)Game::activeScene + 1);
-			SceneList[activeScene]->InitLights();
+	if (Game::settings[SETTINGS::SETTING_SAND_BOX_MODE]) {
+		if (GetAsyncKeyState(VK_RIGHT) & 0x0001) {
+			if (Game::activeScene < S_COUNT - 1) {
+				Game::activeScene = (SCENES)((int)Game::activeScene + 1);
+				SceneList[activeScene]->InitLights();
+			}
+			//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if (GetAsyncKeyState(VK_LEFT) & 0x0001) {
-		if (Game::activeScene > 0) {
-			Game::activeScene = (SCENES)((int)Game::activeScene - 1);
-			SceneList[activeScene]->InitLights();
+		if (GetAsyncKeyState(VK_LEFT) & 0x0001) {
+			if (Game::activeScene > 0) {
+				Game::activeScene = (SCENES)((int)Game::activeScene - 1);
+				SceneList[activeScene]->InitLights();
+			}
+			//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	if (Game::cash >= 9999999)
 		Game::cash = 9999999;
-	//if (GetAsyncKeyState('3') & 0x8001) {
-	//	Game::switchScene(S_2051);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//}
-	//else if (GetAsyncKeyState('4') & 0x8001) {
-	//	Game::switchScene(S_2021);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//}
-	//else if (GetAsyncKeyState('5') & 0x8001) {
-	//	//game.switchScene(S_2021);
-	//	Game::switchScene(S_GARAGE);
-	//	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//}
-	//else if (GetAsyncKeyState('6') & 0x8001) {
-	//	Game::switchScene(S_GUNSHOP);
-	//}
-	//else if (GetAsyncKeyState('7') & 0x8001) {
-	//	Game::switchScene(S_GUARD);
-	//}
-	//else if (GetAsyncKeyState('8') & 0x8001) {
-	//	Game::switchScene(S_HOUSEFIRE);
-	//}
 
 	inv.Update(dt);
 	InteractionUpdate(dt);

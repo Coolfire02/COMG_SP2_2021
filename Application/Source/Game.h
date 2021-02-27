@@ -25,6 +25,12 @@ enum SCENES
 
 //Interface
 
+enum SETTINGS {
+	SETTING_SAND_BOX_MODE,
+	SETTING_FPS,
+	SETTINGS_COUNT
+};
+
 class Game
 {
 
@@ -39,8 +45,9 @@ public:
 	Game();
 	~Game();
 
-	static bool SAND_BOX_MODE;
 	static int BimsterSavePoints;
+	static bool settings[SETTINGS_COUNT];
+	static float FPS;
 
 	static double sceneCooldown;
 	static SCENES activeScene;
