@@ -1,4 +1,5 @@
 #include "Mission.h"
+#include "Game.h"
 
 Mission::Mission(MISSIONTYPE type, MissionInfo missionInfo) :
 type(type), progress(0.f), complete(false), missionInfo(missionInfo) {}
@@ -12,6 +13,7 @@ void Mission::addProgress(float progress) {
 	if (this->progress >= 100.0) {
 		this->progress = 100.0;
 		this->complete = true;
+		Game::cash += 1000;
 	}
 }
 
@@ -21,6 +23,7 @@ void Mission::setProgress(float progress) {
 	else if (!complete && this->progress >= 100) {
 		complete = true;
 		this->progress = 100.0;
+		Game::cash += 1000;
 	}
 }
 

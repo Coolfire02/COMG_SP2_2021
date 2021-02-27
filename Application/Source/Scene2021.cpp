@@ -56,23 +56,18 @@ void Scene2021::MissionCompleteListener(double dt)
 		{
 		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_FOUNTAIN:
 			DEBUG_MSG("Completed Mission Visit Fountain Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_RESTAURANT:
 			DEBUG_MSG("Completed Mission Visit Restaurant Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_TALK_TO_NPC:
 			DEBUG_MSG("Completed Mission Talk To NPC Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
 			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
-			Game::cash += 3000;
 			break;
 		}
 	}
@@ -187,7 +182,7 @@ void Scene2021::Init()
 	fountainHitBox->getEntityData()->Translate.Set(365, 0, 60);
 	eManager.spawnWorldEntity(fountainHitBox);
 
-	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "restaurantHitBox");
+	CustomEntity* restaurantHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "restaurantHitBox");
 	restaurantHitBox->getEntityData()->Translate.Set(25, 0, 0);
 	eManager.spawnWorldEntity(restaurantHitBox);
 
@@ -198,6 +193,10 @@ void Scene2021::Init()
 	CustomEntity* garageHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -20), Vector3(15, 2, 20)), "garageHitBox");
 	garageHitBox->getEntityData()->Translate.Set(-320, 0, 240);
 	eManager.spawnWorldEntity(garageHitBox);
+
+	CustomEntity* carShopHitBox = new CustomEntity(this, new Box(Vector3(-25, 0, -25), Vector3(25, 2, 25)), "carShopHitBox");
+	carShopHitBox->getEntityData()->Translate.Set(407, 0, 123);
+	eManager.spawnWorldEntity(carShopHitBox);
 
 	CustomEntity* backDoorHitBox = new CustomEntity(this, new Box(Vector3(-15, 0, -15), Vector3(15, 2, 15)), "backDoorHitBox");
 	backDoorHitBox->getEntityData()->Translate.Set(-87, 0, -13);
@@ -556,7 +555,7 @@ void Scene2021::CollisionHandler(double dt) {
 							if (ePressed && !eHeld && Game::sceneCooldown > 3)
 							{
 								eHeld = true;
-								Game::switchScene(S_GUNSHOP, 5.0, "    ENTERING GUNSHOP");
+								Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
 							}
 						}
@@ -576,7 +575,7 @@ void Scene2021::CollisionHandler(double dt) {
 					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
-						Game::switchScene(S_GUNSHOP, 5.0, "    ENTERING GUNSHOP");
+						Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
 					}
 				}
 				if (entry->victim->getName().find("garageHitBox") != std::string::npos)
@@ -589,7 +588,16 @@ void Scene2021::CollisionHandler(double dt) {
 						Scene* var = Game::getSceneByName("GarageScene");
 						static_cast <SceneGarage*>(var)->deletePrevCar();
 						static_cast <SceneGarage*>(var)->updateCarSpawn();
-						Game::switchScene(S_GARAGE, 3.0, "ENTERING GARAGE");
+						Game::switchScene(S_GARAGE, 5.0, "     ENTERING GARAGE");
+					}
+				}
+				if (entry->victim->getName().find("carShopHitBox") != std::string::npos) {
+					if (!player->isDriving())
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						Game::switchScene(S_CARSHOP, 5.0, "   ENTERING CAR SHOP");
 					}
 				}
 				if (entry->victim->getName().find("backDoorHitBox") != std::string::npos)
@@ -598,7 +606,8 @@ void Scene2021::CollisionHandler(double dt) {
 					{
 						if (Game::mManager.getCompletableMissions().at(i) == MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING && interactionTimer > 2) //do && check if next mission has started to disable this 
 						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (!player->isDriving())
+								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (ePressed && !eHeld)
 							{
 								eHeld = true;
@@ -1412,11 +1421,7 @@ void Scene2021::SpawnBuildings()
 		}
 	}
 
-	int random5 = (rand() % 6) + 6;
-	initBuildings(Vector3(430, 0, 200), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random5));
-
-	int random6 = (rand() % 6) + 6;
-	initBuildings(Vector3(480, 0, 150), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEOMETRY_TYPE(random6));
+	initBuildings(Vector3(438, 0, 146), Vector3(0, 0, 0), Vector3(0.7, 0.7, 0.7), GEO_BUILDING_7);
 
 	for (int i = 1; i < 2; i++)
 	{
@@ -1552,6 +1557,13 @@ void Scene2021::RenderTexts()
 	modelStack.Rotate(-270, 0, 1, 0);
 	modelStack.Scale(5, 5, 5);
 	RenderText(MeshHandler::getMesh(GEO_TEXT), "GARAGE", Color(1, 0, 1));
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(420, 15, 125);
+	modelStack.Rotate(225, 0, 1, 0);
+	modelStack.Scale(5, 5, 5);
+	RenderText(MeshHandler::getMesh(GEO_TEXT), "CAR SHOP", Color(1, 0, 1));
 	modelStack.PopMatrix();
 }
 
