@@ -272,7 +272,7 @@ CHOICE # buy hatchback
 
 CHOICE # buy hatchback
 - MSG: Yes
-- postcmd: /buytractor
+- postcmd: /buyhatchback
 
 =========================================
 
