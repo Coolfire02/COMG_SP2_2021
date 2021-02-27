@@ -104,7 +104,6 @@ MISSION_SNEAK_INTO_THE_BUILDING
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-	- MISSION_GET_INFO_FROM_GILBERT
 
 MISSION_ABDUCT_BIMSTER
 - GEO_TYPE_Enum: EMPTY
@@ -129,5 +128,13 @@ MISSION_INTERROGATE_BIMSTER
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
 	- MISSION_ESCAPE_THE_OFFICE
+
+MISSION_RETURN_TO_2051
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Question your nemesis
+- CompletedMessage: Interrogate Bimster
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_INTERROGATE_BIMSTER
 
 #END

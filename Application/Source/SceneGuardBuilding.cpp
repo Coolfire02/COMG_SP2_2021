@@ -191,10 +191,6 @@ void SceneGuardBuilding::Init() {
 		Vector3(0, -50, -1),
 		Vector3(0, 1, 0));
 
-
-
-
-
 	if (((Car*)playersCar)->getPlayer() == nullptr && !player->isDriving()) {
 		player->setDriving((Car*)playersCar, true);
 		((Car*)playersCar)->setPlayer(player);
@@ -202,87 +198,6 @@ void SceneGuardBuilding::Init() {
 		//camera.target = Vector3(0, 0, -40);
 		DEBUG_MSG("Player Set");
 	}
-
-
-
-	
-
-	//Buttons
-
-	//Button* button;
-	//button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
-	//button->spawnTextObject("Text", Color(0, 1, 0), CALIBRI, 1);
-	//button->getTextObject()->setTextString("Test");
-	//button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
-	//bManager.addButton(button);
-
-	/*Button* inventoryBackground;
-	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
-	bManager.addButton(inventoryBackground);
-	bManager.deactivateButton("UIInventoryBackground");
-
-	Button* itemsButton;
-	itemsButton = new Button(this, "UIItemsInventory", 21.5, 63, 15, 5, UI_WINDOW);
-	itemsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	itemsButton->getTextObject()->setTextString("Item");
-	itemsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(itemsButton);
-	bManager.deactivateButton("UIItemsInventory");
-
-	Button* itemsBlankButton;
-	itemsBlankButton = new Button(this, "UIItemsInventoryBlank", 21.5, 63, 15, 5, UI_WINDOW);
-	itemsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	itemsBlankButton->getTextObject()->setTextString("Item");
-	itemsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(itemsBlankButton);
-	bManager.deactivateButton("UIItemsInventoryBlank");
-
-	Button* weaponsButton;
-	weaponsButton = new Button(this, "UIWeaponsInventory", 36.5, 63, 15, 5, UI_WINDOW);
-	weaponsButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	weaponsButton->getTextObject()->setTextString("Guns");
-	weaponsButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(weaponsButton);
-	bManager.deactivateButton("UIWeaponsInventory");
-
-	Button* weaponsBlankButton;
-	weaponsBlankButton = new Button(this, "UIWeaponsInventoryBlank", 36.5, 63, 15, 5, UI_WINDOW);
-	weaponsBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	weaponsBlankButton->getTextObject()->setTextString("Guns");
-	weaponsBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(weaponsBlankButton);
-	bManager.deactivateButton("UIWeaponsInventoryBlank");
-
-	Button* garageButton;
-	garageButton = new Button(this, "UIGarageInventory", 51.5, 63, 15, 5, UI_WINDOW);
-	garageButton->spawnTextObject("Text", Color(0, 0, 0), CALIBRI, 1);
-	garageButton->getTextObject()->setTextString("Cars");
-	garageButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(garageButton);
-	bManager.deactivateButton("UIGarageInventory");
-
-	Button* garageBlankButton;
-	garageBlankButton = new Button(this, "UIGarageInventoryBlank", 51.5, 63, 15, 5, UI_WINDOW);
-	garageBlankButton->spawnTextObject("Text", Color(1, 0.3, 0.3), CALIBRI, 1);
-	garageBlankButton->getTextObject()->setTextString("Cars");
-	garageBlankButton->getTextObject()->setTextOffsetFromTopLeft(2, 5);
-	bManager.addButton(garageBlankButton);
-	bManager.deactivateButton("UIGarageInventoryBlank");
-
-	Button* titleBackground;
-	titleBackground = new Button(this, "TitleBackground", 64, 36, 128, 72, TITLE_BG);
-	bManager.addButton(titleBackground);
-	bManager.deactivateButton("TitleBackground");
-
-	Button* playButton;
-	playButton = new Button(this, "MainMenuPlayButton", 64, 36, 16, 12, PLAY_BUTTON);
-	bManager.addButton(playButton);
-	bManager.deactivateButton("MainMenuPlayButton");*/
-
-	/*Button* playHoverButton;
-	playHoverButton = new Button(this, "HoverPlayButton", 64, 36, 16, 12, UI_BLUE);
-	bManager.addButton(playHoverButton);
-	bManager.deactivateButton("HoverPlayButton");*/
 
 	InitLights();
 
@@ -354,55 +269,6 @@ void SceneGuardBuilding::Update(double dt)
 
 	toggleTimer += dt;
 	//UI item adding testing
-	if (Application::IsKeyPressed('F'))
-	{
-		Game::inv.addItem(BURGER, 1);
-		Game::inv.addItem(EGGPLANT, 2);
-		//inv.addWeap(PISTOL); //Error if you try to add weapons
-		//Game::inv.addCar(TRACTOR);
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('L'))
-	{
-		toggleTimer = 0;
-		/*if (Game::uiManager.getCurrentMenu() == UI_GENERAL)
-		{
-			uiManager.setCurrentUI(UI_ITEM_INVENTORY);
-		}
-		else if (uiManager.getCurrentMenu() == UI_ITEM_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIItemsInventoryBlank");
-			bManager.deactivateButton("UIWeaponsInventory");
-			bManager.deactivateButton("UIGarageInventory");
-		}
-		else if (uiManager.getCurrentMenu() == UI_WEAPON_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIWeaponsInventoryBlank");
-			bManager.deactivateButton("UIItemsInventory");
-			bManager.deactivateButton("UIGarageInventory");
-		}
-		else if (uiManager.getCurrentMenu() == UI_GARAGE_INVENTORY)
-		{
-			uiManager.setCurrentUI(UI_GENERAL);
-			bManager.deactivateButton("UIInventoryBackground");
-			bManager.deactivateButton("UIItemsInventory");
-			bManager.deactivateButton("UIWeaponsInventory");
-			bManager.deactivateButton("UIGarageInventoryBlank");
-		}*/
-
-		/*inv.toggleItem();
-		if (inv.getCurrentCarType() == SEDAN)
-			inv.switchCar(SUV);
-		else
-			inv.switchCar(SEDAN);*/
-	}
-	if (toggleTimer > 1 && Application::IsKeyPressed('R'))
-	{
-		Game::inv.addItem(CORN, 3);
-	}
 
 	//weapon inventory
 //	if (Application::IsKeyPressed('E')) //pick up weapon
@@ -432,19 +298,6 @@ void SceneGuardBuilding::Update(double dt)
 	else if (GetAsyncKeyState('5') & 0x8001) {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	else if (GetAsyncKeyState('6') & 0x8001) {
-		Game::switchScene(S_2021);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	else if (GetAsyncKeyState('7') & 0x8001) {
-		//game.switchScene(S_2021);
-		Game::switchScene(S_GARAGE);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else if (GetAsyncKeyState('8') & 0x8001) {
-		Game::switchScene(S_GUNSHOP);
-	}
-
 	if (Application::IsKeyPressed('9')) {
 		hitboxEnable = !hitboxEnable;
 	}
@@ -680,7 +533,10 @@ void SceneGuardBuilding::CollisionHandler(double dt) {
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 30) 
 			{
 				if (Game::iManager.getTimesInteracted("guards") == 0)
+				{
 					Game::iManager.loadInteraction("guards");
+					Game::ammo = 100;
+				}
 
 				DEBUG_MSG("Too close!");
 
@@ -749,7 +605,10 @@ void SceneGuardBuilding::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
 					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (Application::IsKeyPressed('E'))
+					{
 						Game::iManager.loadInteraction("guards4");
+						Game::ammo = 0;
+					}
 				}
 
 				if (entry->victim->getName().find("interaction") != std::string::npos) {

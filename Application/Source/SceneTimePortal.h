@@ -69,7 +69,7 @@ private:
 
 	bool hitboxEnable;
 	float fps;
-
+	double endTimer;
 	float toggleTimer = 0; //Used for toggling between items
 
 	void RenderSkybox();

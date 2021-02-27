@@ -206,6 +206,10 @@ void UIManager::Init() {
 			bManagers[i]->deactivateButton("TransitionBackground");
 			bManagers[i]->deactivateButton("TransitionText");
 			break;
+		case UI_END:
+			createNoTextButton(bManagers[i], "EndMessage", 64, 36, 56.5, 20, THE_END);
+			bManagers[i]->activateButton("EndMessage");
+			break;
 		}
 	}
 

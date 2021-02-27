@@ -24,6 +24,7 @@ SceneTimePortal::SceneTimePortal() :
 	fps = 0;
 	lightEnable = true;
 	hitboxEnable = false;
+	endTimer = 0.f;
 }
 
 SceneTimePortal::~SceneTimePortal()
@@ -292,12 +293,33 @@ void SceneTimePortal::InitLights()
 
 void SceneTimePortal::Update(double dt)
 {
-	if (portalSound->isFinished() && !fireSound->isFinished()) {
-		fireSound->setIsPaused(false);
-		if (Game::iManager.getTimesInteracted("2021TimePortal1") == 0) {
-			Game::iManager.loadInteraction("2021TimePortal1");
+
+	for (auto& entry : Game::mManager.getCompletableMissions()) {
+		if (entry == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+			if (portalSound->isFinished() && !fireSound->isFinished()) {
+				fireSound->setIsPaused(false);
+				if (Game::iManager.getTimesInteracted("2021TimePortal1") == 0) {
+					Game::iManager.loadInteraction("2021TimePortal1");
+				}
+			}
 		}
 	}
+
+	for (auto& entry : Game::mManager.getCompletedMissions()) {
+		if (entry == MISSIONTYPE::MISSION_RETURN_TO_2051) {
+			if (portalSound->isFinished()) {
+				endTimer += dt;
+				if (endTimer > 1) {
+					Game::uiManager.setCurrentUI(UI_END);
+					if (endTimer > 6) {
+						Game::activeScene = S_UI;
+						Game::uiManager.setCurrentUI(UI_MAIN_MENU);
+					}
+				}
+			}
+		}
+	}
+
 
 	bool ePressed = Application::IsKeyPressed('E');
 	bool pPressed = Application::IsKeyPressed('P');
@@ -380,12 +402,7 @@ void SceneTimePortal::Update(double dt)
 		if (Application::IsKeyPressed('V')) {
 			Game::mManager.addProgress(MISSIONTYPE::MISSION_EXTINGUISH_FIRE, 30.0);
 		}
-		std::vector<Mission*> justCompletedMissions = Game::mManager.getJustCompletedMissions();
-		for (auto& entry : justCompletedMissions) {
-			if (entry->getType() == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
-				//DEBUG_MSG("Completed Mission Fire Extinguish Mission");
-			}
-		}
+		
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
@@ -436,6 +453,12 @@ void SceneTimePortal::CollisionHandler(double dt) {
 					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (Application::IsKeyPressed('E')) {
 						Game::iManager.loadInteraction("timeportal");
+					}
+				}
+				if (Game::mManager.missionIsCompletable(MISSION_RETURN_TO_2051, completables)) {
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (Application::IsKeyPressed('E')) {
+						Game::iManager.loadInteraction("end");
 					}
 				}
 			}
@@ -773,11 +796,13 @@ void SceneTimePortal::Render()
 	if (blackScreen)
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_PORTAL_SCREEN), 64, 36, 128, 72);
 
-	if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
-		Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
-		text->setTextString("Travelling back to 2021...");
-		text->Render(this);
-		//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
+	if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL) < 100.f) {
+		if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
+			Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
+			text->setTextString("Travelling back to 2021...");
+			text->Render(this);
+			//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
+		}
 	}
 
 
