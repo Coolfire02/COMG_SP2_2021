@@ -147,16 +147,22 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 				{
 					int reloadAmmo = this->magazineSize - this->currentAmmo; //get amt to reload
 					int TotalAmmo = Game::ammo;
+					if (Game::activeScene == S_GUARD) {
+						reloadAmmo = 10;
+						TotalAmmo = 10;
+					}
 					if (reloadAmmo < TotalAmmo) //check if amount to reload is lesser than total ammo
 					{
 						this->currentAmmo += reloadAmmo; //if yes, minus reloadAmmo
-						Game::ammo -= reloadAmmo;
+						if (Game::activeScene != S_GUARD) //if not in guard scene (want it to be inf)
+							Game::ammo -= reloadAmmo;
 						Reload = false;
 					}
 					else
 					{
 						this->currentAmmo += TotalAmmo; //else reload total ammo, which means use all remaining total ammo
-						Game::ammo -= TotalAmmo;
+						if (Game::activeScene != S_GUARD) //if not in guard scene (want it to be inf)
+							Game::ammo -= TotalAmmo;
 						Reload = false;
 					}
 				}
@@ -164,7 +170,8 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 				{
 					int reloadAmmo = this->magazineSize - this->currentAmmo; //get amt to reload
 					this->currentAmmo += reloadAmmo; //add the reload amt to current gun ammo
-					Game::ammo -= reloadAmmo; //minus total gun ammo to amt reloaded
+					if (Game::activeScene != S_GUARD) //if not in guard scene (want it to be inf)
+						Game::ammo -= reloadAmmo;
 					Reload = false;
 				}
 			}
