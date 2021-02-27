@@ -474,7 +474,7 @@ void SceneFinale::CollisionHandler(double dt) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
 					if (Game::mManager.missionIsCompletable(MISSION_INTERROGATE_BIMSTER, completables)) {
-						Game::iManager.loadInteraction("bimster1");
+						Game::iManager.loadInteraction("bimster");
 					}
 				}
 			}
