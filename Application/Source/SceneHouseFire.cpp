@@ -635,18 +635,6 @@ void SceneHouseFire::Render()
 
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[2].position.x, light[2].position.y, light[2].position.z);
-	RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-	modelStack.PopMatrix();
-
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
 		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
 		Vector3 lightDir_cameraSpace = viewStack.Top() * lightDir;
@@ -727,21 +715,6 @@ void SceneHouseFire::Render()
 
 	RenderUI();
 	bManager.Render(this);
-
-	//FPS UI
-	std::ostringstream ss;
-
-	ss.str("");
-	ss.clear();
-	ss << "X: " << player->getEntityData()->Translate.x 
-		<< " Y: " << player->getEntityData()->Translate.y
-		<< " Z: " << player->getEntityData()->Translate.z;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 30);
-
-	ss.str("");
-	ss.clear();
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), ss.str(), Color(0, 1, 0), 4, 0, 5);
 }
 
 void SceneHouseFire::RenderSceneMeshes() {
