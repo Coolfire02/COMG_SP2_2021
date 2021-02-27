@@ -196,6 +196,9 @@ void Inventory::Update(double dt)
 			case SILENCER:
 				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
 				break;
+			case FIRE_EXTINGUISHER:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_FIRE_EXTINGUISHER);
+				break;
 			}
 
 			if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
@@ -208,6 +211,9 @@ void Inventory::Update(double dt)
 					break;
 				case SILENCER:
 					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+					break;
+				case FIRE_EXTINGUISHER:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_FIRE_EXTINGUISHER);
 					break;
 				}
 				if (weaponInv->getWeaponList()[1] == weaponInv->getActiveWeapon())
@@ -234,6 +240,9 @@ void Inventory::Update(double dt)
 			case SILENCER:
 				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
 				break;
+			case FIRE_EXTINGUISHER:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_FIRE_EXTINGUISHER);
+				break;
 			}
 
 			if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
@@ -246,6 +255,9 @@ void Inventory::Update(double dt)
 					break;
 				case SILENCER:
 					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+					break;
+				case FIRE_EXTINGUISHER:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_FIRE_EXTINGUISHER);
 					break;
 				}
 			}
@@ -350,7 +362,8 @@ void Inventory::Update(double dt)
 
 		for (int i = 0; i < WEAPON_COUNT; i++)
 		{
-			if (i <= (weaponInv->getWeaponList().size() - 1))
+			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->disable();
+			if (i < weaponInv->getWeaponList().size())
 			{
 				switch (weaponInv->getWeaponList()[i]->getWeaponType())
 				{
@@ -359,6 +372,12 @@ void Inventory::Update(double dt)
 					break;
 				case SILENCER:
 					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_SILENCER);
+					break;
+				case FIRE_EXTINGUISHER:
+					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->setQuadImage(UI_FIRE_EXTINGUISHER);
+					break;
+				default:
+					Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->disable();
 					break;
 				}
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlot" + std::to_string(i + 1))->enable();
@@ -369,6 +388,8 @@ void Inventory::Update(double dt)
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->disable();
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->disable();
 			}
+			
+
 		}
 
 		for (int i = 0; i < weaponInv->getWeaponList().size(); i++)
@@ -388,6 +409,10 @@ void Inventory::Update(double dt)
 			case SILENCER:
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_SILENCER);
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText("Silencer\nAmmo:\n" + std::to_string(weaponInv->getActiveWeapon()->getWeaponAmmo()));
+				break;
+			case FIRE_EXTINGUISHER:
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->setQuadImage(UI_FIRE_EXTINGUISHER);
+				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryName")->setText("Fire Extinguisher");
 				break;
 			}
 			Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponsInventoryCurrent")->enable();
