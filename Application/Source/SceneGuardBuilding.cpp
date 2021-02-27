@@ -209,12 +209,12 @@ void SceneGuardBuilding::Init() {
 
 	//Buttons
 
-	Button* button;
-	button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
-	button->spawnTextObject("Text", Color(0, 1, 0), CALIBRI, 1);
-	button->getTextObject()->setTextString("Test");
-	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
-	bManager.addButton(button);
+	//Button* button;
+	//button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
+	//button->spawnTextObject("Text", Color(0, 1, 0), CALIBRI, 1);
+	//button->getTextObject()->setTextString("Test");
+	//button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
+	//bManager.addButton(button);
 
 	/*Button* inventoryBackground;
 	inventoryBackground = new Button(this, "UIInventoryBackground", 64, 36, 100, 48, UI_WINDOW);
@@ -926,10 +926,6 @@ void SceneGuardBuilding::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
 		break;
 	case TOPDOWN_THIRDPERSON:
 		if (light[1].type == Light::LIGHT_DIRECTIONAL) {

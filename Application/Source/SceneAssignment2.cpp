@@ -137,12 +137,12 @@ void SceneAssignment2::Init() {
 
 	//Buttons
 
-	Button* button;
-	button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
-	button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
-	button->getTextObject()->setTextString("Test");
-	button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
-	bManager.addButton(button);
+	//Button* button;
+	//button = new Button("UIHealth", 40, 5, 40, 5, UI_BLUE);
+	//button->spawnTextObject("Text", Color(0,1,0), CALIBRI, 1);
+	//button->getTextObject()->setTextString("Test");
+	//button->getTextObject()->setTextOffsetFromTopLeft(1, 1);
+	//bManager.addButton(button);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
