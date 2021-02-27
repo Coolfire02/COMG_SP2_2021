@@ -1,0 +1,192 @@
+\hypertarget{class_scene}{}\doxysection{Scene Class Reference}
+\label{class_scene}\index{Scene@{Scene}}
+Inheritance diagram for Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_scene}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_scene_a8c38807cdb8c6aa3e0d504a60038a3fc}\label{class_scene_a8c38807cdb8c6aa3e0d504a60038a3fc}} 
+void {\bfseries elapser} (double dt)
+\item 
+\mbox{\Hypertarget{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}\label{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}} 
+virtual void {\bfseries Init} ()=0
+\item 
+\mbox{\Hypertarget{class_scene_af5c6bcf2185087fb32c27fb8f6a18d91}\label{class_scene_af5c6bcf2185087fb32c27fb8f6a18d91}} 
+virtual void {\bfseries Update} (double dt)=0
+\item 
+\mbox{\Hypertarget{class_scene_a056c54e02999c94f11ef740032f1c271}\label{class_scene_a056c54e02999c94f11ef740032f1c271}} 
+virtual void {\bfseries Init\+Lights} ()=0
+\item 
+\mbox{\Hypertarget{class_scene_aa0f0b4508154888f83c96b560700aaae}\label{class_scene_aa0f0b4508154888f83c96b560700aaae}} 
+virtual void {\bfseries Collision\+Handler} (double dt)=0
+\item 
+\mbox{\Hypertarget{class_scene_ae43b4dc889bba22ea98f92894fe7a713}\label{class_scene_ae43b4dc889bba22ea98f92894fe7a713}} 
+virtual void {\bfseries Mission\+Complete\+Listener} (double dt)=0
+\item 
+\mbox{\Hypertarget{class_scene_a961cf462f9ec7d4f8e04c34c68b91247}\label{class_scene_a961cf462f9ec7d4f8e04c34c68b91247}} 
+virtual void {\bfseries Render\+UI} ()=0
+\item 
+\mbox{\Hypertarget{class_scene_ae24d21e12b34839994ad265662ea24d7}\label{class_scene_ae24d21e12b34839994ad265662ea24d7}} 
+virtual void {\bfseries Render} ()=0
+\item 
+\mbox{\Hypertarget{class_scene_aae8e24654ef98c79961c2b804b12852c}\label{class_scene_aae8e24654ef98c79961c2b804b12852c}} 
+virtual void {\bfseries Exit} ()=0
+\item 
+\mbox{\Hypertarget{class_scene_adc7a8dc0c906df4d9506ef45d84c81e8}\label{class_scene_adc7a8dc0c906df4d9506ef45d84c81e8}} 
+bool {\bfseries is\+Light\+Enabled} ()
+\item 
+\mbox{\Hypertarget{class_scene_a7df2f237f800e401993c816abd41694c}\label{class_scene_a7df2f237f800e401993c816abd41694c}} 
+void {\bfseries set\+Light\+Enabled} (bool)
+\item 
+\mbox{\Hypertarget{class_scene_ac1a250fb69fc9b769c83ed288edc37ed}\label{class_scene_ac1a250fb69fc9b769c83ed288edc37ed}} 
+void {\bfseries toggle\+Lights} ()
+\item 
+\mbox{\Hypertarget{class_scene_a457fa8e6f2792b5b56da8c1998998820}\label{class_scene_a457fa8e6f2792b5b56da8c1998998820}} 
+std\+::string {\bfseries get\+Name} ()
+\item 
+\mbox{\Hypertarget{class_scene_af1fecbde3b6f75d34e7ecc93a8b97e0b}\label{class_scene_af1fecbde3b6f75d34e7ecc93a8b97e0b}} 
+double {\bfseries get\+Elapsed\+Time} ()
+\item 
+\mbox{\Hypertarget{class_scene_ac66c53ae5319e8cf339e38e45fecb934}\label{class_scene_ac66c53ae5319e8cf339e38e45fecb934}} 
+void {\bfseries Receive\+Message} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene, std\+::string message)
+\item 
+\mbox{\Hypertarget{class_scene_a7d71a39f8d6fc459b516e133458af47e}\label{class_scene_a7d71a39f8d6fc459b516e133458af47e}} 
+void {\bfseries Render\+Mesh} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, bool enable\+Light)
+\item 
+\mbox{\Hypertarget{class_scene_a8920a193848e2c7d119248e656253766}\label{class_scene_a8920a193848e2c7d119248e656253766}} 
+void {\bfseries Render\+Mesh} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, bool enable\+Light, GLint param)
+\item 
+\mbox{\Hypertarget{class_scene_a4f581adb52061ffa01d446876410e9a9}\label{class_scene_a4f581adb52061ffa01d446876410e9a9}} 
+void {\bfseries Render\+Text} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, std\+::string text, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_scene_a0076d4e6d3a973c804c0f7048c39a833}\label{class_scene_a0076d4e6d3a973c804c0f7048c39a833}} 
+void {\bfseries Render\+Text\+On\+Screen} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, std\+::string text, \mbox{\hyperlink{struct_color}{Color}} color, float size, float x, float y)
+\item 
+\mbox{\Hypertarget{class_scene_aa6b923bc9b189b4b577602d5ef395bdf}\label{class_scene_aa6b923bc9b189b4b577602d5ef395bdf}} 
+void {\bfseries Render\+Text\+On\+Screen} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, std\+::string text, \mbox{\hyperlink{struct_color}{Color}} color, float size, float x, float y, int(\&char\+Width)\mbox{[}256\mbox{]}, int arr\+Size)
+\item 
+\mbox{\Hypertarget{class_scene_ada8dac41f0f0599593f44710b1678cca}\label{class_scene_ada8dac41f0f0599593f44710b1678cca}} 
+void {\bfseries Render\+Mesh\+On\+Screen} (\mbox{\hyperlink{class_mesh}{Mesh}} $\ast$mesh, float x, float y, int sizex, int sizey)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_scene_a7574c3d3f6b1405c46cc705f67c671c4}\label{class_scene_a7574c3d3f6b1405c46cc705f67c671c4}} 
+MS {\bfseries model\+Stack}
+\item 
+\mbox{\Hypertarget{class_scene_a9b2c4453e50499799829da647167f95a}\label{class_scene_a9b2c4453e50499799829da647167f95a}} 
+MS {\bfseries view\+Stack}
+\item 
+\mbox{\Hypertarget{class_scene_a61b34b252476e78b2c125e79e2c4dc83}\label{class_scene_a61b34b252476e78b2c125e79e2c4dc83}} 
+MS {\bfseries projection\+Stack}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_scene_abe0e631e6af4560ea522f515dd003230}\label{class_scene_abe0e631e6af4560ea522f515dd003230}} 
+enum {\bfseries UNIFORM\+\_\+\+TYPE} \{ \newline
+{\bfseries U\+\_\+\+MVP} = 0
+, {\bfseries U\+\_\+\+MODELVIEW}
+, {\bfseries U\+\_\+\+MODELVIEW\+\_\+\+INVERSE\+\_\+\+TRANSPOSE}
+, {\bfseries U\+\_\+\+MATERIAL\+\_\+\+AMBIENT}
+, \newline
+{\bfseries U\+\_\+\+MATERIAL\+\_\+\+DIFFUSE}
+, {\bfseries U\+\_\+\+MATERIAL\+\_\+\+SPECULAR}
+, {\bfseries U\+\_\+\+MATERIAL\+\_\+\+SHININESS}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+POSITION}
+, \newline
+{\bfseries U\+\_\+\+LIGHT0\+\_\+\+COLOR}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+POWER}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+KC}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+KL}
+, \newline
+{\bfseries U\+\_\+\+LIGHT0\+\_\+\+KQ}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+TYPE}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+SPOTDIRECTION}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+COSCUTOFF}
+, \newline
+{\bfseries U\+\_\+\+LIGHT0\+\_\+\+COSINNER}
+, {\bfseries U\+\_\+\+LIGHT0\+\_\+\+EXPONENT}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+POSITION}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+COLOR}
+, \newline
+{\bfseries U\+\_\+\+LIGHT1\+\_\+\+POWER}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+KC}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+KL}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+KQ}
+, \newline
+{\bfseries U\+\_\+\+LIGHT1\+\_\+\+TYPE}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+SPOTDIRECTION}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+COSCUTOFF}
+, {\bfseries U\+\_\+\+LIGHT1\+\_\+\+COSINNER}
+, \newline
+{\bfseries U\+\_\+\+LIGHT1\+\_\+\+EXPONENT}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+POSITION}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+COLOR}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+POWER}
+, \newline
+{\bfseries U\+\_\+\+LIGHT2\+\_\+\+KC}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+KL}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+KQ}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+TYPE}
+, \newline
+{\bfseries U\+\_\+\+LIGHT2\+\_\+\+SPOTDIRECTION}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+COSCUTOFF}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+COSINNER}
+, {\bfseries U\+\_\+\+LIGHT2\+\_\+\+EXPONENT}
+, \newline
+{\bfseries U\+\_\+\+LIGHT3\+\_\+\+POSITION}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+COLOR}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+POWER}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+KC}
+, \newline
+{\bfseries U\+\_\+\+LIGHT3\+\_\+\+KL}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+KQ}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+TYPE}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+SPOTDIRECTION}
+, \newline
+{\bfseries U\+\_\+\+LIGHT3\+\_\+\+COSCUTOFF}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+COSINNER}
+, {\bfseries U\+\_\+\+LIGHT3\+\_\+\+EXPONENT}
+, {\bfseries U\+\_\+\+LIGHTENABLED}
+, \newline
+{\bfseries U\+\_\+\+NUMLIGHTS}
+, {\bfseries U\+\_\+\+COLOR\+\_\+\+TEXTURE\+\_\+\+ENABLED}
+, {\bfseries U\+\_\+\+COLOR\+\_\+\+TEXTURE}
+, {\bfseries U\+\_\+\+TEXT\+\_\+\+ENABLED}
+, \newline
+{\bfseries U\+\_\+\+TEXT\+\_\+\+COLOR}
+, {\bfseries U\+\_\+\+TOTAL}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_scene_aae8e7c51fad3f879058971b31d793b7a}\label{class_scene_aae8e7c51fad3f879058971b31d793b7a}} 
+unsigned {\bfseries m\+\_\+vertex\+Array\+ID}
+\item 
+\mbox{\Hypertarget{class_scene_ab7ebe25afc968c84c3e86d00798bc375}\label{class_scene_ab7ebe25afc968c84c3e86d00798bc375}} 
+unsigned {\bfseries m\+\_\+program\+ID}
+\item 
+\mbox{\Hypertarget{class_scene_aa2e0feba05aeb24db2b3af5163bc7a43}\label{class_scene_aa2e0feba05aeb24db2b3af5163bc7a43}} 
+std\+::string {\bfseries scene\+Name}
+\item 
+\mbox{\Hypertarget{class_scene_a17c8bba701c9addb5cd12af3fa0bbd4e}\label{class_scene_a17c8bba701c9addb5cd12af3fa0bbd4e}} 
+unsigned {\bfseries m\+\_\+parameters} \mbox{[}U\+\_\+\+TOTAL\mbox{]}
+\item 
+\mbox{\Hypertarget{class_scene_a26a81f088476640f9968b502c14600ba}\label{class_scene_a26a81f088476640f9968b502c14600ba}} 
+double {\bfseries elapsed}
+\item 
+\mbox{\Hypertarget{class_scene_a68c5d6c3114d9eabef5f78380e061daa}\label{class_scene_a68c5d6c3114d9eabef5f78380e061daa}} 
+bool {\bfseries light\+Enable}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Scene.\+h\item 
+Scene.\+cpp\end{DoxyCompactItemize}

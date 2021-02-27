@@ -15,6 +15,9 @@ NPC::NPC(Scene* scene, NPCTYPE type, std::string name, int health) : Entity(scen
 	case DRUGMAN:
 		this->associatedNPCMesh = MeshHandler::getMesh(GEO_DRUGMAN);
 		break;
+	case BIMSTER:
+		this->associatedNPCMesh = MeshHandler::getMesh(GEO_BIMSTER);
+		break;
 	default:
 		this->associatedNPCMesh = nullptr;
 		break;

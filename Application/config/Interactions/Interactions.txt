@@ -301,7 +301,7 @@ CHOICE # buy truck
 =========================================
 
 INTERACTION: buy van
-- MSG: Name: Van;Speed: 60 km/h;Price;Price: $1500;Would you like to buy this car?
+- MSG: Name: Van;Speed: 60 km/h;Price: $1500;Would you like to buy this car?
 
 CHOICE # buy van
 - MSG: No
@@ -375,9 +375,21 @@ CHOICE # bimster3
 
 INTERACTION: bimster4
 - MSG: Bimster: ...
+# NEXT: bimster5
 
-CHOICE # bimster4
-- MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
-# NEXT: bimster4
+INTERACTION: bimster5
+- MSG: Bimster: What do you want from me.
 
 =========================================
+
+INTERACTION: bimsterEnd
+- MSG: Anger clouds your mind as you reach for the pistol;in the back of your pocket.
+- precmd: /loadlastinteraction
+
+INTERACTION: bimsterKill
+- MSG: Kill him.
+# NEXT: bimsterKill2
+
+INTERACTION: bimsterSave
+- MSG: Save him
+# NEXT: bimsterSave2

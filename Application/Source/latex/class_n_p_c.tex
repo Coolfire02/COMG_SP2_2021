@@ -1,0 +1,58 @@
+\hypertarget{class_n_p_c}{}\doxysection{NPC Class Reference}
+\label{class_n_p_c}\index{NPC@{NPC}}
+
+
+\mbox{\hyperlink{class_n_p_c}{NPC}} class that will involve interactable and non-\/interactable NPCs.  
+
+
+
+
+{\ttfamily \#include $<$NPC.\+h$>$}
+
+Inheritance diagram for NPC\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_n_p_c}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_n_p_c_a441f9d8d2edf76f8cda81fea9804b97d}\label{class_n_p_c_a441f9d8d2edf76f8cda81fea9804b97d}} 
+NPCTYPE \mbox{\hyperlink{class_n_p_c_a441f9d8d2edf76f8cda81fea9804b97d}{get\+NPCType}} ()
+\begin{DoxyCompactList}\small\item\em returns the \mbox{\hyperlink{class_n_p_c}{NPC}} type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_ad5710e59f306449fab7f2ac1dedac7ec}\label{class_n_p_c_ad5710e59f306449fab7f2ac1dedac7ec}} 
+\mbox{\hyperlink{class_n_p_c_ad5710e59f306449fab7f2ac1dedac7ec}{NPC}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$, NPCTYPE, std\+::string, int)
+\begin{DoxyCompactList}\small\item\em Overloaded constructor that sets variables based on parameters. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_a77753f7f4176ed02da5efdfa5607b6e5}\label{class_n_p_c_a77753f7f4176ed02da5efdfa5607b6e5}} 
+\mbox{\hyperlink{struct_rigid_body}{Rigid\+Body}} \& \mbox{\hyperlink{class_n_p_c_a77753f7f4176ed02da5efdfa5607b6e5}{get\+Rigid\+Body}} ()
+\begin{DoxyCompactList}\small\item\em returns the \mbox{\hyperlink{struct_rigid_body}{Rigid\+Body}} of the \mbox{\hyperlink{class_n_p_c}{NPC}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_a42c0f89600610c5476893af406b00dca}\label{class_n_p_c_a42c0f89600610c5476893af406b00dca}} 
+void \mbox{\hyperlink{class_n_p_c_a42c0f89600610c5476893af406b00dca}{Update}} (double)
+\begin{DoxyCompactList}\small\item\em Updates the \mbox{\hyperlink{class_n_p_c}{NPC}} here. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_a626412213cb22dad6edd5f8c8f4f2c65}\label{class_n_p_c_a626412213cb22dad6edd5f8c8f4f2c65}} 
+void \mbox{\hyperlink{class_n_p_c_a626412213cb22dad6edd5f8c8f4f2c65}{Render}} ()
+\begin{DoxyCompactList}\small\item\em Pushes a matrix onto the \mbox{\hyperlink{class_n_p_c}{NPC}}\textquotesingle{}s scene\textquotesingle{}s model\+Stack, loads its Transformation matrix and renders the \mbox{\hyperlink{class_n_p_c}{NPC}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_add1ffcc2f11f4b956a1b8d5fa3be5104}\label{class_n_p_c_add1ffcc2f11f4b956a1b8d5fa3be5104}} 
+void \mbox{\hyperlink{class_n_p_c_add1ffcc2f11f4b956a1b8d5fa3be5104}{Walk}} (double)
+\begin{DoxyCompactList}\small\item\em Calculate random angle where the \mbox{\hyperlink{class_n_p_c}{NPC}} will face and walk towards using a timer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_ac4588139be32c307a0d31e302f377dea}\label{class_n_p_c_ac4588139be32c307a0d31e302f377dea}} 
+int \mbox{\hyperlink{class_n_p_c_ac4588139be32c307a0d31e302f377dea}{get\+ID}} ()
+\begin{DoxyCompactList}\small\item\em Returns \mbox{\hyperlink{class_n_p_c}{NPC}}\textquotesingle{}s ID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_n_p_c_a1672f4cce490b5d888f52911a17626ec}\label{class_n_p_c_a1672f4cce490b5d888f52911a17626ec}} 
+std\+::vector$<$ int $>$ \& \mbox{\hyperlink{class_n_p_c_a1672f4cce490b5d888f52911a17626ec}{get\+IDList}} ()
+\begin{DoxyCompactList}\small\item\em Returns \mbox{\hyperlink{class_n_p_c}{NPC}} IDList. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_n_p_c}{NPC}} class that will involve interactable and non-\/interactable NPCs. 
+
+\begin{DoxyVerb}    Class NPC:
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+NPC.\+h\item 
+NPC.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,133 @@
+\hypertarget{class_mesh_builder}{}\doxysection{Mesh\+Builder Class Reference}
+\label{class_mesh_builder}\index{MeshBuilder@{MeshBuilder}}
+
+
+Provides methods to generate mesh of different shapes.  
+
+
+
+
+{\ttfamily \#include $<$Mesh\+Builder.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_mesh_builder_aac7c87881dbc08f8d41f2068e0f40c76}\label{class_mesh_builder_aac7c87881dbc08f8d41f2068e0f40c76}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Text} (const std\+::string \&mesh\+Name, unsigned num\+Row, unsigned num\+Col)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_aba87550d7726a610c911fbb977fd3575}\label{class_mesh_builder_aba87550d7726a610c911fbb977fd3575}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+OBJ} (const std\+::string \&mesh\+Name, const std\+::string \&file\+\_\+path)
+\item 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ \mbox{\hyperlink{class_mesh_builder_a78d37e2b0cc068eec801f17c367100e7}{Generate\+Axes}} (const std\+::string \&mesh\+Name, float lengthX, float lengthY, float lengthZ)
+\begin{DoxyCompactList}\small\item\em Generate the vertices of a reference Axes; Use red for x-\/axis, green for y-\/axis, blue for z-\/axis Then generate the VBO/\+IBO and store them in \mbox{\hyperlink{class_mesh}{Mesh}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mesh_builder_a054f919dfa6908de0467fa0dd1a3c767}\label{class_mesh_builder_a054f919dfa6908de0467fa0dd1a3c767}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Cone} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, int rad, int height)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_aabb05c4988e36cd8c27d59b7129b083c}\label{class_mesh_builder_aabb05c4988e36cd8c27d59b7129b083c}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Half\+Cone} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, int rad, int height)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a19dc9824d2b5058f3d9c71521d32cf75}\label{class_mesh_builder_a19dc9824d2b5058f3d9c71521d32cf75}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Conical\+Frustum} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, float innerR, float outerR, int height)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_aa8338ed8570d91733c0fabd90629c91b}\label{class_mesh_builder_aa8338ed8570d91733c0fabd90629c91b}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Sphere} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_ab1fb524decb6a84b32552875d41e3e8d}\label{class_mesh_builder_ab1fb524decb6a84b32552875d41e3e8d}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Hemi\+Sphere} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a7c4539aa5e705662bc37c5628dab2d1e}\label{class_mesh_builder_a7c4539aa5e705662bc37c5628dab2d1e}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Hemi\+Sphere\+Frustum} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, float degree\+Cut\+Off)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a953ea7b826ca9bd1e6e4947d88b30950}\label{class_mesh_builder_a953ea7b826ca9bd1e6e4947d88b30950}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Quater\+Sphere} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ \mbox{\hyperlink{class_mesh_builder_a5e777328dc946f483beb5645d8f24c4a}{Generate\+Cube}} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\begin{DoxyCompactList}\small\item\em Generate the vertices of a cube; Use random color for each vertex Then generate the VBO/\+IBO and store them in \mbox{\hyperlink{class_mesh}{Mesh}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mesh_builder_aa3751076aa9f74324d49a999a3c3fa55}\label{class_mesh_builder_aa3751076aa9f74324d49a999a3c3fa55}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Quad} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_aa0eae913af136dbf88f9af1920ba6878}\label{class_mesh_builder_aa0eae913af136dbf88f9af1920ba6878}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Quad} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, float tex\+Coordx, float tex\+Coordy)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_afa5912832592aa2c04f1cdcad1f3adca}\label{class_mesh_builder_afa5912832592aa2c04f1cdcad1f3adca}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Tetahedron} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_ac852730de6c4d816974cff8be03b104d}\label{class_mesh_builder_ac852730de6c4d816974cff8be03b104d}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Torus} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, float innerR, float outterR)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a40411d559dd8bfd119298c836fa9acc6}\label{class_mesh_builder_a40411d559dd8bfd119298c836fa9acc6}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Half\+Torus} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, float innerR, float outterR)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a9290e134a2fe0b09cb7f58b439b5fe1b}\label{class_mesh_builder_a9290e134a2fe0b09cb7f58b439b5fe1b}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Cylinder} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_color}{Color}} color, int height)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a37ccb85aee8caa7e3066fa884e2f3c21}\label{class_mesh_builder_a37ccb85aee8caa7e3066fa884e2f3c21}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+OBJMTL} (const std\+::string \&mesh\+Name, const std\+::string \&file\+\_\+path, const std\+::string \&mtl\+\_\+path)
+\item 
+\mbox{\Hypertarget{class_mesh_builder_a834e69c771108aee6d4f819e3cefb6cb}\label{class_mesh_builder_a834e69c771108aee6d4f819e3cefb6cb}} 
+static \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ {\bfseries Generate\+Hit\+Box} (const std\+::string \&mesh\+Name, \mbox{\hyperlink{struct_box}{Box}} \&box)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides methods to generate mesh of different shapes. 
+
+\begin{DoxyVerb}    Class MeshBuilder:
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mesh_builder_a78d37e2b0cc068eec801f17c367100e7}\label{class_mesh_builder_a78d37e2b0cc068eec801f17c367100e7}} 
+\index{MeshBuilder@{MeshBuilder}!GenerateAxes@{GenerateAxes}}
+\index{GenerateAxes@{GenerateAxes}!MeshBuilder@{MeshBuilder}}
+\doxysubsubsection{\texorpdfstring{GenerateAxes()}{GenerateAxes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ Mesh\+Builder\+::\+Generate\+Axes (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{mesh\+Name,  }\item[{float}]{lengthX,  }\item[{float}]{lengthY,  }\item[{float}]{lengthZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generate the vertices of a reference Axes; Use red for x-\/axis, green for y-\/axis, blue for z-\/axis Then generate the VBO/\+IBO and store them in \mbox{\hyperlink{class_mesh}{Mesh}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mesh\+Name} & -\/ name of mesh \\
+\hline
+{\em lengthX} & -\/ x-\/axis should start at -\/lengthX / 2 and end at lengthX / 2 \\
+\hline
+{\em lengthY} & -\/ y-\/axis should start at -\/lengthY / 2 and end at lengthY / 2 \\
+\hline
+{\em lengthZ} & -\/ z-\/axis should start at -\/lengthZ / 2 and end at lengthZ / 2\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to mesh storing VBO/\+IBO of reference axes 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mesh_builder_a5e777328dc946f483beb5645d8f24c4a}\label{class_mesh_builder_a5e777328dc946f483beb5645d8f24c4a}} 
+\index{MeshBuilder@{MeshBuilder}!GenerateCube@{GenerateCube}}
+\index{GenerateCube@{GenerateCube}!MeshBuilder@{MeshBuilder}}
+\doxysubsubsection{\texorpdfstring{GenerateCube()}{GenerateCube()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_mesh}{Mesh}} $\ast$ Mesh\+Builder\+::\+Generate\+Cube (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{mesh\+Name,  }\item[{\mbox{\hyperlink{struct_color}{Color}}}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Generate the vertices of a cube; Use random color for each vertex Then generate the VBO/\+IBO and store them in \mbox{\hyperlink{class_mesh}{Mesh}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mesh\+Name} & -\/ name of mesh \\
+\hline
+{\em lengthX} & -\/ width of cube \\
+\hline
+{\em lengthY} & -\/ height of cube \\
+\hline
+{\em lengthZ} & -\/ depth of cube\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to mesh storing VBO/\+IBO of cube 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Mesh\+Builder.\+h\item 
+Mesh\+Builder.\+cpp\end{DoxyCompactItemize}
