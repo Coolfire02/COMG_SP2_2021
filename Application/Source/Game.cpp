@@ -25,7 +25,7 @@ bool Game::gameExit = false;
 Game::Game()
 {
 	ammo = 0;
-	cash = 10000;
+	cash = 0;
 }
 
 Game::~Game()
