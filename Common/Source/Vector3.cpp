@@ -351,6 +351,7 @@ Vector3 Vector3::GetMidpoint(const Vector3& lhs, const Vector3& rhs) const
 	return Vector3((lhs.x + rhs.x) / 2.0f, (lhs.y + rhs.y) / 2.0f, (lhs.z + rhs.z) / 2.0f);
 }
 
+// fast square root shit to reduce ram consumption
 double inline __declspec (naked) __fastcall sqrt14(double n)
 {
 	_asm fld qword ptr[esp + 4]

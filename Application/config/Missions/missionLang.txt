@@ -104,6 +104,7 @@ MISSION_SNEAK_INTO_THE_BUILDING
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
+	- MISSION_GET_INFO_FROM_GILBERT
 
 MISSION_ABDUCT_BIMSTER
 - GEO_TYPE_Enum: EMPTY

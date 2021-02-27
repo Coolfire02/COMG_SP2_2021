@@ -25,6 +25,7 @@ SceneTimePortal::SceneTimePortal() :
 	lightEnable = true;
 	hitboxEnable = false;
 	endTimer = 0.f;
+	canEnd = true; // used for sandbox mode after game
 }
 
 SceneTimePortal::~SceneTimePortal()
@@ -306,7 +307,7 @@ void SceneTimePortal::Update(double dt)
 	}
 
 	for (auto& entry : Game::mManager.getCompletedMissions()) {
-		if (entry == MISSIONTYPE::MISSION_RETURN_TO_2051) {
+		if (entry == MISSIONTYPE::MISSION_RETURN_TO_2051 && canEnd == true) {
 			if (portalSound->isFinished()) {
 				endTimer += dt;
 				if (endTimer > 1) {
@@ -314,6 +315,7 @@ void SceneTimePortal::Update(double dt)
 					if (endTimer > 6) {
 						Game::activeScene = S_UI;
 						Game::uiManager.setCurrentUI(UI_MAIN_MENU);
+						canEnd = false;
 					}
 				}
 			}
