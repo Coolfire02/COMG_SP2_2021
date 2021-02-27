@@ -347,6 +347,11 @@ INTERACTION: guards4
 
 =========================================
 
+INTERACTION: drugs
+- MSG: Gary: Thanks, here is Gilbert's phone number.;He'll help you get in. Just mention my name.
+
+=========================================
+
 INTERACTION: bimster
 - MSG: Bimster: What?! Where am I? Who are you?!;Why am I here?!?!
 

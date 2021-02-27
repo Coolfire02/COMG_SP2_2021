@@ -558,16 +558,6 @@ void Scene2021::CollisionHandler(double dt) {
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
 							}
 						}
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld && Game::sceneCooldown > 3)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
-							}
-						}
 					}
 					if (!player->isDriving())
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
