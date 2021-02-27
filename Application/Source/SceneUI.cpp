@@ -56,23 +56,18 @@ void SceneUI::MissionCompleteListener(double dt)
 		{
 		case MISSIONTYPE::MISSION_EXTINGUISH_FIRE:
 			DEBUG_MSG("Completed Mission Fire Extinguish Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_FOUNTAIN:
 			DEBUG_MSG("Completed Mission Visit Fountain Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_RESTAURANT:
 			DEBUG_MSG("Completed Mission Visit Restaurant Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_TALK_TO_NPC:
 			DEBUG_MSG("Completed Mission Talk To NPC Mission");
-			Game::cash += 1000;
 			break;
 		case MISSIONTYPE::MISSION_VISIT_GUNSHOP:
 			DEBUG_MSG("Completed Mission Visit Gun Shop Mission");
-			Game::cash += 3000;
 			break;
 		}
 	}
@@ -546,10 +541,7 @@ void SceneUI::Render()
 			Position lightPos_cameraSpace = viewStack.Top() * light[1].position;
 			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPos_cameraSpace.x);
 		}
-		modelStack.PushMatrix();
-		modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
+
 		break;
 	case TOPDOWN_THIRDPERSON:
 		if (light[1].type == Light::LIGHT_DIRECTIONAL) {

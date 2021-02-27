@@ -582,7 +582,7 @@ CHOICE # bimster2-2-2-1-2
 # NEXT: bimster2-2-2-1-2continue
 
 CHOICE # bimster2-2-2-1-2
-- MSG: You've caused way too much pain everyone,;the world doesn't deserve a person like you.
+- MSG: You've caused way too much pain to everyone,;the world doesn't deserve a person like you.
 - postcmd: /aggressive
 # NEXT: bimster2-2-2-1-2end
 
