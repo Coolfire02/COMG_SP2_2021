@@ -18,7 +18,6 @@
 #include "InteractionManager.h"
 
 //Include Scenes
-#include "SceneAssignment2.h"
 #include "Scene2021.h"
 #include "SceneGarage.h"
 #include "SceneGunShop.h"
@@ -210,9 +209,9 @@ void Application::Run()
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
 	g.addScene(new SceneCarShop);
-	g.addScene(new SceneUI);
 	g.addScene(new SceneOffice);
 	g.addScene(new SceneFinale);
+	g.addScene(new SceneUI);
 
 	//g.addScene(new SceneHouseFire);
 	g.Init();

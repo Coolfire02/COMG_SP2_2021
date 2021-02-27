@@ -430,7 +430,6 @@ void SceneGuardBuilding::Update(double dt)
 		glDisable(GL_CULL_FACE);
 	}
 	else if (GetAsyncKeyState('5') & 0x8001) {
-		Game::switchScene(S_2051);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	else if (GetAsyncKeyState('6') & 0x8001) {

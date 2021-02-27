@@ -18,6 +18,7 @@ enum SCENES
 	S_GARAGE,
 	S_CARSHOP,
 	S_OFFICE,
+	S_FINALE,
 	S_UI,
 	S_COUNT
 };

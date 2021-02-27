@@ -479,7 +479,7 @@ void SceneOffice::CollisionHandler(double dt) {
 							{
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE, 100.0f); //completed drug collection mission
 								//switch to interrogate scene
-								//Game::switchScene(S_GARAGE);
+								Game::switchScene(S_FINALE);
 							}
 						}
 					}

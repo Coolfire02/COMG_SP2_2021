@@ -256,7 +256,6 @@ void Scene2021::Update(double dt)
 	{
 		Scene* var = Game::getSceneByName("GarageScene");
 		static_cast <SceneGarage*>(var)->updateCarSpawn();
-		Game::switchScene(S_2051);
 	}
 
 	if (Application::IsKeyPressed('9')) {
@@ -613,6 +612,7 @@ void Scene2021::CollisionHandler(double dt) {
 								eHeld = true;
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING, 100.0f); //completed drug collection mission
 								//switch to INSIDE OFFICE BUILDING SCENE
+								Game::switchScene(S_OFFICE, 5.0, "    ENTERING OFFICE");
 							}
 						}
 					}
