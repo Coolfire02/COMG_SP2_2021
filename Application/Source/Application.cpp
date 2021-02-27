@@ -202,15 +202,12 @@ void Application::Run()
 	Text::loadFonts();
 	MissionManager::loadMissionLang();
 
-	//g.addScene(new SceneOffice);
-
 	g.addScene(new SceneHouseFire);
-	g.addScene(new SceneAssignment2);
+	g.addScene(new SceneGuardBuilding);
 	g.addScene(new SceneTimePortal);
 	g.addScene(new Scene2021);
 	g.addScene(new SceneGunShop);
 	g.addScene(new SceneGarage);
-	g.addScene(new SceneGuardBuilding);
 	g.addScene(new SceneCarShop);
 	g.addScene(new SceneUI);
 	g.addScene(new SceneOffice);
