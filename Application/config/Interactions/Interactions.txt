@@ -253,7 +253,7 @@ INTERACTION: buySuccess
 =========================================
 
 INTERACTION: buy sedan sports
-- MSG: Name: Sedan Sports;Speed: 75 km/h;;Would you like to buy this car?
+- MSG: Name: Sedan Sports;Speed: 75 km/h;Price: $2000;;Would you like to buy this car?
 
 CHOICE # buy sedan sports
 - MSG: No
@@ -261,5 +261,68 @@ CHOICE # buy sedan sports
 CHOICE # buy sedan sports
 - MSG: Yes
 - postcmd: /buysedansports
-# NEXT: buySuccess
 
+=========================================
+
+INTERACTION: buy hatchback
+- MSG: Name: Hatchback Sports;Speed: 100 km/h;Price: $2500;;Would you like to buy this car?
+
+CHOICE # buy hatchback
+- MSG: No
+
+CHOICE # buy hatchback
+- MSG: Yes
+- postcmd: /buytractor
+
+=========================================
+
+INTERACTION: buy tractor
+- MSG: Name: Shovel Tractor;Speed: 25 km/h;Price: $100;;Would you like to buy this car?
+
+CHOICE # buy tractor
+- MSG: No
+
+CHOICE # buy tractor
+- MSG: Yes
+- postcmd: /buytractor
+
+=========================================
+
+INTERACTION: buy truck
+- MSG: Name: Truck;Speed: 75 km/h;Price: $2000;;Would you like to buy this car?
+
+CHOICE # buy truck
+- MSG: No
+
+CHOICE # buy truck
+- MSG: Yes
+- postcmd: /buytruck
+
+=========================================
+
+INTERACTION: buy van
+- MSG: Name: Van;Speed: 60 km/h;Price;Price: $1500;;Would you like to buy this car?
+
+CHOICE # buy van
+- MSG: No
+
+CHOICE # buy van
+- MSG: Yes
+- postcmd: /buyvan
+
+=========================================
+
+INTERACTION: buy racer
+- MSG: Name: Racer;Speed: 75 km/h;Price: $4000;;Would you like to buy this car?
+
+CHOICE # buy racer
+- MSG: No
+
+CHOICE # buy racer
+- MSG: Yes
+- postcmd: /buyracer
+
+=========================================
+
+INTERACTION: insufficientmoney
+- MSG: I'm sorry but you don't have enough money.;Come back next time!

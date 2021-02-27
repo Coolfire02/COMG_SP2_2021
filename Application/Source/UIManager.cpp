@@ -156,7 +156,6 @@ void UIManager::Init() {
 
 
 			createButton(bManagers[i], "InteractionButton", 64, 13.7, 128, 28, UI_TEXTBOX, 3, 12, Color(1, 1, 1), "", 4.0f);
-			createButton(bManagers[i], "UIHealth", 40, 5, 40, 5, UI_BLUE, 1, 1, Color(0, 1, 0), "Test", 1.0f);
 			break;
 		case UI_MISSION:
 			createButton(bManagers[i], "MissionComplete", 78, 60, 72, 18, GEO_MISSION_COMPLETE, 16, 7, Color(0.1f, 0.7f, 0.12f), "Test Mission Complete", 3.0f);

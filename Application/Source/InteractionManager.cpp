@@ -48,12 +48,25 @@ bool InteractionManager::runCommand(Command cmd) {
 		}
 		else if (splitVar.at(0) == "/buySilencedPistol") {
 			// deduct money, add silenced pistol to inventory
-			Game::inv.addWeap(SILENCER);
+			if (Game::cash >= 1500) {
+				Game::inv.addWeap(SILENCER);
+				Game::cash -= 1500;
+			}
+			else
+				Game::iManager.loadInteraction("insufficientmoney");
+
 			return true;
 		}
 		else if (splitVar.at(0) == "/buyAmmo") {
 			// deduct money, add 15 ammo
-			Game::ammo += 15; // later change ammo to weapon inventory ammo
+			if (Game::cash >= 500) {
+				Game::ammo += 15; // later change ammo to weapon inventory ammo
+				Game::cash -= 500;
+			}
+		
+			else
+				Game::iManager.loadInteraction("insufficientmoney");
+
 			return true;
 		}
 		if (splitVar.at(0) == "/completedCall") {
@@ -83,7 +96,7 @@ bool InteractionManager::runCommand(Command cmd) {
 				AudioHandler::getSoundSource(DOOR),
 				AudioHandler::to_vec3df(Vector3(0, 0, 0)),
 				LOOPED::NOLOOP);
-			Game::switchScene(S_2021);
+			Game::switchScene(S_2021, 1, "");
 		}
 
 		else if (splitVar.at(0) == "/endhousefire") {
@@ -104,8 +117,70 @@ bool InteractionManager::runCommand(Command cmd) {
 			Game::inv.deleteWeapon(FIRE_EXTINGUISHER);
 		}
 		else if (splitVar.at(0) == "/buysedansports") {
-			Game::inv.addCar(SEDAN_SPORTS);
-			DEBUG_MSG("SEDAN SPORTS BOUGHT");
+			if (Game::cash >= 2000) {
+				Game::inv.addCar(SEDAN_SPORTS);
+				Game::cash -= 2000;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("SEDAN SPORTS BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
+		}
+		else if (splitVar.at(0) == "/buyhatchback") {
+			if (Game::cash >= 2500) {
+				Game::inv.addCar(HATCH_BACK_SPORTS);
+				Game::cash -= 2500;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("HATCHBACK SPORTS BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
+		}
+		else if (splitVar.at(0) == "/buytractor") {
+			if (Game::cash >= 100) {
+				Game::inv.addCar(TRACTOR_SHOVEL);
+				Game::cash -= 100;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("TRACTOR BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
+		}
+		else if (splitVar.at(0) == "/buytruck") {
+			if (Game::cash >= 2000) {
+				Game::inv.addCar(TRUCK);
+				Game::cash -= 2000;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("TRUCK BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
+		}
+		else if (splitVar.at(0) == "/buyvan") {
+			if (Game::cash >= 1500) {
+				Game::inv.addCar(VAN);
+				Game::cash -= 1500;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("VAN BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
+		}
+		else if (splitVar.at(0) == "/buyracer") {
+			if (Game::cash >= 4000) {
+				Game::inv.addCar(RACER);
+				Game::cash -= 4000;
+				Game::iManager.loadInteraction("buySuccess");
+				DEBUG_MSG("RACER BOUGHT");
+			}
+			else {
+				Game::iManager.loadInteraction("insufficientmoney");
+			}
 		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {
