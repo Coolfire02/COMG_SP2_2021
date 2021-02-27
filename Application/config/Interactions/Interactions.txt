@@ -498,17 +498,121 @@ INTERACTION: bimster2-1-1-1dialogue4
 
 =========================================
 
-INTERACTION bimster2-2
-- MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
-- postcmd: /aggressive
-# NEXT: bimster2-2-1
-
-INTERACTION: bimster2-2-1
+INTERACTION: bimster2-2
 - MSG: Bimster: ...
 # NEXT: bimster2-2continue
 
 INTERACTION: bimster2-2continue
-- MSG: Bimster: What do you want from me.
+- MSG: What do you want from me.
+
+CHOICE # bimster2-2continue
+- MSG: I CAN'T BE BOTHERED;TO EXPLAIN ANYMORE...
+- postcmd: /aggressive
+# NEXT: bimster2-2-1
+
+CHOICE # bimster2-2continue
+- MSG: *sighs* I don't even know where to start.
+- postcmd: /passive
+# NEXT: bimster2-2-2
+
+INTERACTION: bimster2-2-1
+- MSG: Bimster: Calm down, let's talk things out.
+# NEXT: bimster2-2-1continue
+
+CHOICE # bimster2-2-1
+- MSG: I'M SORRY, I'VE SUFFERED ENOUGH.
+- postcmd: /aggressive
+# NEXT: bimster2-2-2-1-1end
+
+=========================================
+
+INTERACTION: bimster2-2-2
+- MSG: Bimster: What's going on?
+# NEXT: bimster2-2-2continue
+
+CHOICE # bimster2-2-2
+- MSG: I've lost everything. . .
+- postcmd: /passive
+# NEXT: bimster2-2-2continue
+
+INTERACTION: bimster2-2-2continue
+- MSG: Bimster: Hear me out, I have my reasons. . .
+
+CHOICE # bimster2-2-2continue
+- MSG: WHAT KIND OF REASONS;COULD IT BE?!
+- postcmd: /aggressive
+# NEXT: bimster2-2-2-1
+
+CHOICE # bimster2-2-2continue
+- MSG: Explain yourself then.
+- postcmd: /passive
+# NEXT: bimster2-2-2-1
+
+CHOICE # bimster2-2-2continue
+- MSG: DON'T BOTHER,;I DON'T EVEN WANNA HEAR IT
+- postcmd: /aggressive
+# NEXT: bimster2-2-2-1-1end
+
+INTERACTION: bimster2-2-2-1
+- MSG: Bimster: You could never understand.
+# NEXT: bimster2-2-2-1continue
+
+INTERACTION: bimster2-2-2-1continue
+- MSG: It was for the sake of the future generations.
+
+CHOICE # bimster2-2-2-1continue
+- MSG: THAT'S FUNNY...;IF SO, WHY WOULD I BE HERE?
+# NEXT: bimster2-2-2-1-1
+
+CHOICE # bimster2-2-2-1continue
+- MSG: That's interesting. . .
+- postcmd: /passive
+# NEXT: bimster2-2-2-1-2
+
+CHOICE # bimster2-2-2-1continue
+- MSG: I've had enough of your bullshit.
+# NEXT: bimster2-2-2-1-1end
+
+=========================================
+
+INTERACTION: bimster2-2-2-1-1
+- MSG: Bimster: I tried my best,;stop blaming it all on me!
+
+CHOICE # bimster2-2-2-1-1
+- MSG: But apparently your best isn't enough,;and look what you've done to all of us.
+# NEXT: bimster2-2-2-1-1end
+
+=========================================
+
+INTERACTION: bimster2-2-2-1-1end
+- MSG: Bimster: I swear I never had any ill-intentions!
+- precmd: /loadlastinteraction
+
+CHOICE # bimster2-2-2-1-1
+- MSG: STOP LYING!;YOU DID THIS FOR YOUR OWN SAKE!
+# NEXT: bimster2-2-2-1-1end2
+
+=========================================
+
+INTERACTION: bimster2-2-2-1-1end2
+- MSG: Trust me, it was for your own good.
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-2-2-1-2
+- MSG: Bimster: I never thought it would ever come down to this...
+
+CHOICE # bimster2-2-2-1-2
+- MSG: What were you even thinking?!
+# NEXT: bimster2-2-2-1-2continue
+
+CHOICE # bimster2-2-2-1-2
+- MSG: You've caused way too much pain everyone,;the world doesn't deserve a person like you.
+- postcmd: /aggressive
+# NEXT: bimster2-2-2-1-2end
+
+INTERACTION: bimster2-2-2-1-2end
+- MSG: Bimster: I don't expect you to forgive me,;but please understand where I'm coming from.
+- precmd: /loadlastinteraction
 
 =========================================
 

@@ -95,6 +95,9 @@ private:
 
 	double interactionTimer = 0;
 
+	float camY = 400;
+	int directionY = 1;
+
 public:
 	Camera camera;
 
