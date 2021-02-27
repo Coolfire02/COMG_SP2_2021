@@ -143,7 +143,7 @@ void SceneFinale::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* mrBimsterTied = new NPC(this, BIMSTER, "mrBimsterTied", 50);
+	mrBimsterTied = new NPC(this, BIMSTER, "mrBimsterTied", 50);
 	mrBimsterTied->getEntityData()->SetTransform(0.0f, 0.0f, -10.0f);
 	mrBimsterTied->getEntityData()->SetRotate(0.0f, 0.0f, 0.0f);
 	mrBimsterTied->getEntityData()->SetScale(3.0f, 3.0f, 3.0f);
@@ -160,9 +160,9 @@ void SceneFinale::Init() {
 	tiedPillar->getEntityData()->SetScale(0.5f, 15.0f, 3.0f);
 	eManager.spawnWorldEntity(tiedPillar);
 
-	/*Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-2, 0, 2), Vector3(2, 1, -2)), "doorHitbox");
+	Entity* doorHitbox = new CustomEntity(this, new Box(Vector3(-2, 0, 2), Vector3(2, 1, -2)), "doorHitbox");
 	doorHitbox->getEntityData()->Translate = Vector3(0, 0, 10);
-	eManager.spawnWorldEntity(doorHitbox);*/
+	eManager.spawnWorldEntity(doorHitbox);
 
 	//Entity* eggmanInteractZone = new CustomEntity(this, new Box(new Position3D(-5, 0, 4), new Position3D(5, 1, -4)), "interaction_eggman");
 	//eggmanInteractZone->getEntityData()->transX = eggman->getEntityData()->transX;
@@ -506,14 +506,18 @@ void SceneFinale::CollisionHandler(double dt) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 				if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 					if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
-						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-						if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3)
-						{
-							ISound* door = AudioHandler::getEngine()->play3D(
-								AudioHandler::getSoundSource(DOOR),
-								AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-								LOOPED::NOLOOP);
-							Game::switchScene(S_2021);
+						for (auto& mission : Game::mManager.getCompletedMissions()) {
+							if (mission == MISSION_INTERROGATE_BIMSTER) {
+								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+								if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3) {
+									Game::iManager.loadInteraction("killBimster2");
+									ISound* door = AudioHandler::getEngine()->play3D(
+										AudioHandler::getSoundSource(DOOR),
+										AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+										LOOPED::NOLOOP);
+									Game::switchScene(S_TIMEPORTAL);
+								}
+							}
 						}
 					}
 				}

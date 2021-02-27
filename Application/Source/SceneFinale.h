@@ -88,6 +88,8 @@ private:
 	float NPCLookAngle;
 
 public:
+	Entity* mrBimsterTied;
+
 	SceneFinale();
 	~SceneFinale();
 

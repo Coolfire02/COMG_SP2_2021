@@ -7,6 +7,7 @@
 #include "Debug.h"
 #include "Game.h"
 #include "SceneTimePortal.h"
+#include "SceneFinale.h"
 #include "Application.h"
 
 const float InteractionManager::INTERACTION_CLICKCOOLDOWN = 2.5f;
@@ -217,7 +218,20 @@ bool InteractionManager::runCommand(Command cmd) {
 			}
 		}
 		else if (splitVar.at(0) == "/killBimster") {
-		
+			if (cmd.scene->getName() == "Finale") {
+				((SceneFinale*)cmd.scene)->mrBimsterTied->setDead(true);
+			}
+		}
+		else if (splitVar.at(0) == "/returnto2051") {
+			if (cmd.scene->getName() == "TimePortal") {
+				((SceneTimePortal*)cmd.scene)->blackScreen = true;
+				((SceneTimePortal*)cmd.scene)->portalSound = AudioHandler::getEngine()->play3D(
+					AudioHandler::getSoundSource(PORTAL),
+					AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+					LOOPED::NOLOOP,
+					false,
+					true);
+			}
 		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {

@@ -141,6 +141,8 @@ bool MeshHandler::loadMeshes() {
 	meshList[MENU_BUTTON]->textureID = LoadTGA("Image//menu.tga");
 	meshList[QUIT_BUTTON] = MeshBuilder::GenerateQuad("quitButton", Color(1, 1, 1));
 	meshList[QUIT_BUTTON]->textureID = LoadTGA("Image//quit.tga");
+	meshList[THE_END] = MeshBuilder::GenerateQuad("theEnd", Color(1, 1, 1));
+	meshList[THE_END]->textureID = LoadTGA("Image//THEEND.tga");
 
 	//General UI
 	meshList[UI_BLACK] = MeshBuilder::GenerateQuad("blackUI", Color(1, 1, 1));

@@ -129,4 +129,12 @@ MISSION_INTERROGATE_BIMSTER
 * PreRequisiteMissions:
 	- MISSION_ESCAPE_THE_OFFICE
 
+MISSION_RETURN_TO_2051
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Question your nemesis
+- CompletedMessage: Interrogate Bimster
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_INTERROGATE_BIMSTER
+
 #END
