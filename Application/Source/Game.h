@@ -40,6 +40,7 @@ public:
 	~Game();
 
 	static bool SAND_BOX_MODE;
+	static int BimsterSavePoints;
 
 	static double sceneCooldown;
 	static SCENES activeScene;

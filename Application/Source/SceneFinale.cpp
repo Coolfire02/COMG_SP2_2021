@@ -143,7 +143,7 @@ void SceneFinale::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* mrBimsterTied = new WorldObject(this, GEO_BIMSTER, "mrBimsterTied");
+	Entity* mrBimsterTied = new NPC(this, BIMSTER, "mrBimsterTied", 50);
 	mrBimsterTied->getEntityData()->SetTransform(0.0f, 0.0f, -10.0f);
 	mrBimsterTied->getEntityData()->SetRotate(0.0f, 0.0f, 0.0f);
 	mrBimsterTied->getEntityData()->SetScale(3.0f, 3.0f, 3.0f);
@@ -468,19 +468,14 @@ void SceneFinale::CollisionHandler(double dt) {
 			//else 
 			//	NPCLookAngle = 90 - Math::RadianToDegree(RPos.Dot(Vector3(0, 0, -1)));
 
-			DEBUG_MSG(NPCLookAngle);
-			entry->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
-
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
-					if (Game::mManager.missionIsCompletable(MISSION_TALK_TO_THE_OWNER, completables)) {
-						Game::iManager.loadInteraction("Gary1");
+					if (Game::mManager.missionIsCompletable(MISSION_INTERROGATE_BIMSTER, completables)) {
+						Game::iManager.loadInteraction("bimster");
 					}
-					else
-						Game::iManager.loadInteraction("Gunshop1");
 				}
 			}
 

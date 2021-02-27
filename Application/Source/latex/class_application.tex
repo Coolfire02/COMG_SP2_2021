@@ -1,0 +1,104 @@
+\hypertarget{class_application}{}\doxysection{Application Class Reference}
+\label{class_application}\index{Application@{Application}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_application_a276388f7090c0a2b1c8b16cf033b969d}\label{class_application_a276388f7090c0a2b1c8b16cf033b969d}} 
+void {\bfseries Init} ()
+\item 
+\mbox{\Hypertarget{class_application_aaf09cd6cb412086dc039e28cdb059f0d}\label{class_application_aaf09cd6cb412086dc039e28cdb059f0d}} 
+void {\bfseries Run} ()
+\item 
+\mbox{\Hypertarget{class_application_a9d410604b39b8374a884b1f2a1f2a5ba}\label{class_application_a9d410604b39b8374a884b1f2a1f2a5ba}} 
+void {\bfseries Exit} ()
+\item 
+\mbox{\Hypertarget{class_application_a22cab9086367a724a14865d6fa0bd1cb}\label{class_application_a22cab9086367a724a14865d6fa0bd1cb}} 
+bool {\bfseries Get\+Mouse\+Update} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_application_a72cc9bba26506a7c0f54c346dfbd5cfe}\label{class_application_a72cc9bba26506a7c0f54c346dfbd5cfe}} 
+static bool {\bfseries Is\+Key\+Pressed} (unsigned short key)
+\item 
+\mbox{\Hypertarget{class_application_a1ed88bee00d0f8e60991e90cb91de8a5}\label{class_application_a1ed88bee00d0f8e60991e90cb91de8a5}} 
+static bool {\bfseries change\+To\+Scene} (std\+::string, std\+::string)
+\item 
+\mbox{\Hypertarget{class_application_a82bfca5e191752ed9b9a59205a3be7b9}\label{class_application_a82bfca5e191752ed9b9a59205a3be7b9}} 
+static void {\bfseries set\+Cursor\+Enabled} (bool enabled)
+\item 
+\mbox{\Hypertarget{class_application_a6878ad7cc60742b9a24b1591303bd803}\label{class_application_a6878ad7cc60742b9a24b1591303bd803}} 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene\+By\+Name} (std\+::string)
+\item 
+\mbox{\Hypertarget{class_application_a8a6513d74896b9ea710580cc4e31a0cf}\label{class_application_a8a6513d74896b9ea710580cc4e31a0cf}} 
+static bool {\bfseries Is\+Mouse\+Pressed} (unsigned short key)
+\item 
+\mbox{\Hypertarget{class_application_a9ff20843515422477480fbd1fff7de2a}\label{class_application_a9ff20843515422477480fbd1fff7de2a}} 
+static bool {\bfseries Is\+Key\+Released} (unsigned short key)
+\item 
+\mbox{\Hypertarget{class_application_a44b3994d6f2444d5a81affee57915bc9}\label{class_application_a44b3994d6f2444d5a81affee57915bc9}} 
+static void {\bfseries Get\+Cursor\+Pos} (double $\ast$xpos, double $\ast$ypos)
+\item 
+\mbox{\Hypertarget{class_application_af2da4f32930b31ff52aa48c7d243bc6b}\label{class_application_af2da4f32930b31ff52aa48c7d243bc6b}} 
+static int {\bfseries Get\+Window\+Width} ()
+\item 
+\mbox{\Hypertarget{class_application_a2ac5373b27ec948b9617397acf6306d7}\label{class_application_a2ac5373b27ec948b9617397acf6306d7}} 
+static int {\bfseries Get\+Window\+Height} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_application_a2410ef1fca7da9250edc3462e963a75e}\label{class_application_a2410ef1fca7da9250edc3462e963a75e}} 
+\mbox{\hyperlink{class_game}{Game}} {\bfseries g}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_application_af4ae80e87aaa76310654b2aa2b6399ce}\label{class_application_af4ae80e87aaa76310654b2aa2b6399ce}} 
+static bool {\bfseries cursor\+Enabled} = false
+\item 
+\mbox{\Hypertarget{class_application_aa9e7063701f3efd53249aaf5fadae514}\label{class_application_aa9e7063701f3efd53249aaf5fadae514}} 
+static unsigned {\bfseries m\+\_\+width}
+\item 
+\mbox{\Hypertarget{class_application_a865fa0529b37b6c30fc58ecbe3f7b485}\label{class_application_a865fa0529b37b6c30fc58ecbe3f7b485}} 
+static unsigned {\bfseries m\+\_\+height}
+\item 
+\mbox{\Hypertarget{class_application_a1a989120280899cc81fbf6015cbc4ed9}\label{class_application_a1a989120280899cc81fbf6015cbc4ed9}} 
+static double {\bfseries mouse\+\_\+last\+\_\+x} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_a1c536a3d788dc84cf085af82c224acfe}\label{class_application_a1c536a3d788dc84cf085af82c224acfe}} 
+static double {\bfseries mouse\+\_\+last\+\_\+y} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_ad04d81034f9fd3948b0e6aefccb5037f}\label{class_application_ad04d81034f9fd3948b0e6aefccb5037f}} 
+static double {\bfseries mouse\+\_\+current\+\_\+x} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_ab56206047d2776bfe296910d8afb053c}\label{class_application_ab56206047d2776bfe296910d8afb053c}} 
+static double {\bfseries mouse\+\_\+current\+\_\+y} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_a08f1d2edb3b4593cf57de2b13a379577}\label{class_application_a08f1d2edb3b4593cf57de2b13a379577}} 
+static double {\bfseries mouse\+\_\+diff\+\_\+x} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_aac6ce937edbf30ba69ff12db2f7fbf87}\label{class_application_aac6ce937edbf30ba69ff12db2f7fbf87}} 
+static double {\bfseries mouse\+\_\+diff\+\_\+y} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_a3e9d9af49632f027132a42f1963ca276}\label{class_application_a3e9d9af49632f027132a42f1963ca276}} 
+static double {\bfseries camera\+\_\+yaw} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_a5eb29281c808280825161bc5510edeba}\label{class_application_a5eb29281c808280825161bc5510edeba}} 
+static double {\bfseries camera\+\_\+pitch} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_application_a590efff5c88ea4a92dd1b7d97850c642}\label{class_application_a590efff5c88ea4a92dd1b7d97850c642}} 
+static const int {\bfseries m\+\_\+window\+\_\+deadzone} = 100
+\item 
+\mbox{\Hypertarget{class_application_a080c131c6094a6a0cbc8ba6426ce9875}\label{class_application_a080c131c6094a6a0cbc8ba6426ce9875}} 
+static const int {\bfseries m\+\_\+window\+\_\+width} = 800
+\item 
+\mbox{\Hypertarget{class_application_a4f36886ac5abe6d370cadbf2f54d2877}\label{class_application_a4f36886ac5abe6d370cadbf2f54d2877}} 
+static const int {\bfseries m\+\_\+window\+\_\+height} = 600
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Application.\+h\item 
+Application.\+cpp\end{DoxyCompactItemize}

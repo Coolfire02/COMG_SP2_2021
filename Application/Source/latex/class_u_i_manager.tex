@@ -1,0 +1,68 @@
+\hypertarget{class_u_i_manager}{}\doxysection{UIManager Class Reference}
+\label{class_u_i_manager}\index{UIManager@{UIManager}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a2a7c24fbe403d0f20c8360171446075e}\label{class_u_i_manager_a2a7c24fbe403d0f20c8360171446075e}} 
+void {\bfseries Init} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a8d8a55c5fe0c75e758ab64e0e4f6d823}\label{class_u_i_manager_a8d8a55c5fe0c75e758ab64e0e4f6d823}} 
+void {\bfseries Update} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene, double dt)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_ab6537b6cd746604b5d359ef455aec408}\label{class_u_i_manager_ab6537b6cd746604b5d359ef455aec408}} 
+void {\bfseries enable\+UI} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a0f810bcede95d5bd59d007fb4461ea8e}\label{class_u_i_manager_a0f810bcede95d5bd59d007fb4461ea8e}} 
+void {\bfseries disable\+UI} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a1e16205f68879236bdb0244952f6b904}\label{class_u_i_manager_a1e16205f68879236bdb0244952f6b904}} 
+void {\bfseries Render} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a56688044a4dce322c358bdb4270279c8}\label{class_u_i_manager_a56688044a4dce322c358bdb4270279c8}} 
+void {\bfseries change\+Text\+Button} (std\+::string new\+Text, std\+::string b\+Name)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a49ad6280edec61b77373a5910b24cff8}\label{class_u_i_manager_a49ad6280edec61b77373a5910b24cff8}} 
+void {\bfseries create\+Text\+Button} (\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$b\+Manager, std\+::string button\+Name, float originX, float originY, float quad\+SizeX, float quad\+SizeY, float offsetX, float offsetY, \mbox{\hyperlink{struct_color}{Color}} text\+Colour, std\+::string text\+String, float text\+Size)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_ac8272fa437480d0a33a9fe3a55cd3baf}\label{class_u_i_manager_ac8272fa437480d0a33a9fe3a55cd3baf}} 
+void {\bfseries create\+Text\+Button} (\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$b\+Manager, std\+::string button\+Name, float originX, float originY, float quad\+SizeX, float quad\+SizeY, float offsetX, float offsetY, \mbox{\hyperlink{struct_color}{Color}} text\+Colour, std\+::string text\+String, float text\+Size, FONTTYPE type)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a9314795647d9593ade457e1a1473ae0a}\label{class_u_i_manager_a9314795647d9593ade457e1a1473ae0a}} 
+void {\bfseries create\+No\+Text\+Button} (\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$b\+Manager, std\+::string button\+Name, float originX, float originY, float quad\+SizeX, float quad\+SizeY, GEOMETRY\+\_\+\+TYPE quad\+Texture)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a6cc70f1c0bd7483ffc4b010701fcad5e}\label{class_u_i_manager_a6cc70f1c0bd7483ffc4b010701fcad5e}} 
+void {\bfseries create\+Button} (\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$b\+Manager, std\+::string button\+Name, float originX, float originY, float quad\+SizeX, float quad\+SizeY, GEOMETRY\+\_\+\+TYPE quad\+Texture, float offsetX, float offsetY, \mbox{\hyperlink{struct_color}{Color}} text\+Colour, std\+::string text\+String, float text\+Size)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a05655949dc77f3d4fd09c9a5a53085e1}\label{class_u_i_manager_a05655949dc77f3d4fd09c9a5a53085e1}} 
+void {\bfseries set\+UIactive} (UI\+\_\+\+MENUS ui)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a5b406626be75faa83548c8cec43071bd}\label{class_u_i_manager_a5b406626be75faa83548c8cec43071bd}} 
+void {\bfseries set\+Current\+UI} (UI\+\_\+\+MENUS new\+UI)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a38a3c39a0f043752271704330ebf16ec}\label{class_u_i_manager_a38a3c39a0f043752271704330ebf16ec}} 
+void {\bfseries set\+Current\+BM} (\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$b\+Manager)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a7d1cbf043abefd1c3803e3cc3184d6c7}\label{class_u_i_manager_a7d1cbf043abefd1c3803e3cc3184d6c7}} 
+UI\+\_\+\+MENUS {\bfseries get\+Current\+Menu} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a70385f7138659becb348d473facd35dd}\label{class_u_i_manager_a70385f7138659becb348d473facd35dd}} 
+UI\+\_\+\+MENUS {\bfseries get\+Prev\+Menu} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a0f8cfe6f650c62c44cc43122d421c9b3}\label{class_u_i_manager_a0f8cfe6f650c62c44cc43122d421c9b3}} 
+bool {\bfseries get\+UIActive\+Bool} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_a1d7b9e4940a6805a684ac11923c2d8f2}\label{class_u_i_manager_a1d7b9e4940a6805a684ac11923c2d8f2}} 
+\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$ {\bfseries get\+Current\+BM} ()
+\item 
+\mbox{\Hypertarget{class_u_i_manager_add3986210e7007778d9b61d15e20f67c}\label{class_u_i_manager_add3986210e7007778d9b61d15e20f67c}} 
+\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$ {\bfseries get\+By\+Type\+BM} (UI\+\_\+\+MENUS UI)
+\item 
+\mbox{\Hypertarget{class_u_i_manager_abdc672b4d76403185cfbd48103ec71db}\label{class_u_i_manager_abdc672b4d76403185cfbd48103ec71db}} 
+\mbox{\hyperlink{class_button_manager}{Button\+Manager}} $\ast$ {\bfseries getb\+Manager\+Array} (UI\+\_\+\+MENUS new\+UI)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+UIManager.\+h\item 
+UIManager.\+cpp\end{DoxyCompactItemize}

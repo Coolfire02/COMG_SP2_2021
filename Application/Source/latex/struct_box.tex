@@ -1,0 +1,109 @@
+\hypertarget{struct_box}{}\doxysection{Box Struct Reference}
+\label{struct_box}\index{Box@{Box}}
+
+
+\mbox{\hyperlink{struct_box}{Box}} of the hitbox, initially planned to be able to have multiple hitboxes per entity.  
+
+
+
+
+{\ttfamily \#include $<$Hit\+Box.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_box_ae9ee13f80a6ddf85466a1cbc8010b8e2}\label{struct_box_ae9ee13f80a6ddf85466a1cbc8010b8e2}} 
+\mbox{\hyperlink{struct_box_ae9ee13f80a6ddf85466a1cbc8010b8e2}{Box}} (Vector3 bot\+Left\+Pos, Vector3 top\+Right\+Pos)
+\begin{DoxyCompactList}\small\item\em Intialises the hitbox using bottom left position and top right positions of the mesh to find the respective values of the hitbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_box_a3a393da03e8a443eae4d9a1d94fca97a}\label{struct_box_a3a393da03e8a443eae4d9a1d94fca97a}} 
+bool \mbox{\hyperlink{struct_box_a3a393da03e8a443eae4d9a1d94fca97a}{has\+Separating\+Plane}} (Vector3 RPos, Vector3 Plane, \mbox{\hyperlink{struct_box}{Box}} other\+Box)
+\begin{DoxyCompactList}\small\item\em Checks if there is a separating plane between 2 vectors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_collider}{Collider}} \mbox{\hyperlink{struct_box_a2aa1337ec9aa8619b421b6d9b7d3b3b2}{is\+Collided\+With}} (\mbox{\hyperlink{struct_box}{Box}} other\+Box)
+\begin{DoxyCompactList}\small\item\em Checks for collision between 2 Boxes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_box_aff8706e6753ae23ba42b422bedd75c5e}\label{struct_box_aff8706e6753ae23ba42b422bedd75c5e}} 
+Vector3 \mbox{\hyperlink{struct_box_aff8706e6753ae23ba42b422bedd75c5e}{get\+Collision\+Plane\+Normal}} (\mbox{\hyperlink{struct_box}{Box}} $\ast$other\+Box)
+\begin{DoxyCompactList}\small\item\em Returns the normal of the collided plane. \end{DoxyCompactList}\item 
+Vector3 \mbox{\hyperlink{struct_box_a4a58f26fa4e0eac133f41ca8471a585b}{get\+Collision\+Response}} (\mbox{\hyperlink{struct_box}{Box}} $\ast$other\+Box)
+\begin{DoxyCompactList}\small\item\em Gets the response when object has collided with other\+Box. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{struct_box_a6633e7d3fa5eef7dc164ca2280b38708}{get\+Overlap}} (Vector3 \&RPos, Vector3 Plane, \mbox{\hyperlink{struct_box}{Box}} $\ast$Other\+Box)
+\begin{DoxyCompactList}\small\item\em Gets the overlap value of the 2 planes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_box_a67cacc117c81735b1031ab0967838c98}\label{struct_box_a67cacc117c81735b1031ab0967838c98}} 
+Vector3 {\bfseries originalhalf\+Size}
+\item 
+\mbox{\Hypertarget{struct_box_ad8740372c844255d3faa46e443fc8324}\label{struct_box_ad8740372c844255d3faa46e443fc8324}} 
+Vector3 {\bfseries original\+Center\+Offset}
+\item 
+\mbox{\Hypertarget{struct_box_a2a3996681475fd1df4bc9656fed78fff}\label{struct_box_a2a3996681475fd1df4bc9656fed78fff}} 
+Vector3 {\bfseries current\+Pos}
+\item 
+\mbox{\Hypertarget{struct_box_a2198ff1e77e5dd2bef27b24f19f3615f}\label{struct_box_a2198ff1e77e5dd2bef27b24f19f3615f}} 
+Vector3 {\bfseries x\+Axis}
+\item 
+\mbox{\Hypertarget{struct_box_a19d5db92d55a29a2010e958538c4dc3b}\label{struct_box_a19d5db92d55a29a2010e958538c4dc3b}} 
+Vector3 {\bfseries y\+Axis}
+\item 
+\mbox{\Hypertarget{struct_box_aa9da10a09cc8c2a6523fee3f8756386b}\label{struct_box_aa9da10a09cc8c2a6523fee3f8756386b}} 
+Vector3 {\bfseries z\+Axis}
+\item 
+\mbox{\Hypertarget{struct_box_afbcddab82edabb8d135eb7778b380296}\label{struct_box_afbcddab82edabb8d135eb7778b380296}} 
+Vector3 {\bfseries half\+Size}
+\item 
+\mbox{\Hypertarget{struct_box_af8df9d054a68d7b61dc6faa42d4c9571}\label{struct_box_af8df9d054a68d7b61dc6faa42d4c9571}} 
+Vector3 {\bfseries center\+Offset}
+\item 
+\mbox{\Hypertarget{struct_box_a7090e9c90a5829bddf153a417bfe52b5}\label{struct_box_a7090e9c90a5829bddf153a417bfe52b5}} 
+Mtx44 {\bfseries Rotate}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{struct_box}{Box}} of the hitbox, initially planned to be able to have multiple hitboxes per entity. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_box_a4a58f26fa4e0eac133f41ca8471a585b}\label{struct_box_a4a58f26fa4e0eac133f41ca8471a585b}} 
+\index{Box@{Box}!getCollisionResponse@{getCollisionResponse}}
+\index{getCollisionResponse@{getCollisionResponse}!Box@{Box}}
+\doxysubsubsection{\texorpdfstring{getCollisionResponse()}{getCollisionResponse()}}
+{\footnotesize\ttfamily Vector3 Box\+::get\+Collision\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_box}{Box}} $\ast$}]{other\+Box }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the response when object has collided with other\+Box. 
+
+\begin{DoxyReturn}{Returns}
+Returns the translation vector which is used to push the object out of the other object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_box_a6633e7d3fa5eef7dc164ca2280b38708}\label{struct_box_a6633e7d3fa5eef7dc164ca2280b38708}} 
+\index{Box@{Box}!getOverlap@{getOverlap}}
+\index{getOverlap@{getOverlap}!Box@{Box}}
+\doxysubsubsection{\texorpdfstring{getOverlap()}{getOverlap()}}
+{\footnotesize\ttfamily float Box\+::get\+Overlap (\begin{DoxyParamCaption}\item[{Vector3 \&}]{RPos,  }\item[{Vector3}]{Plane,  }\item[{\mbox{\hyperlink{struct_box}{Box}} $\ast$}]{Other\+Box }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the overlap value of the 2 planes. 
+
+\begin{DoxyReturn}{Returns}
+Returns the overlap value of the Distance in between the two boxes dot product of the plane of collision. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_box_a2aa1337ec9aa8619b421b6d9b7d3b3b2}\label{struct_box_a2aa1337ec9aa8619b421b6d9b7d3b3b2}} 
+\index{Box@{Box}!isCollidedWith@{isCollidedWith}}
+\index{isCollidedWith@{isCollidedWith}!Box@{Box}}
+\doxysubsubsection{\texorpdfstring{isCollidedWith()}{isCollidedWith()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_collider}{Collider}} Box\+::is\+Collided\+With (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_box}{Box}}}]{other\+Box }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks for collision between 2 Boxes. 
+
+\begin{DoxyReturn}{Returns}
+Returns true if box1 has collided with box2. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_hit_box_8h}{Hit\+Box.\+h}}\end{DoxyCompactItemize}

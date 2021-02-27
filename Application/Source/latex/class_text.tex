@@ -1,0 +1,68 @@
+\hypertarget{class_text}{}\doxysection{Text Class Reference}
+\label{class_text}\index{Text@{Text}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}\label{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}} 
+{\bfseries Text} (\mbox{\hyperlink{struct_color}{Color}} color, float originX, float originY, float quad\+Size, FONTTYPE type, float size)
+\item 
+\mbox{\Hypertarget{class_text_a2d4d60035ef427001403eb147a460ffb}\label{class_text_a2d4d60035ef427001403eb147a460ffb}} 
+{\bfseries Text} (\mbox{\hyperlink{struct_color}{Color}} color, \mbox{\hyperlink{struct_u_i_item}{UIItem}} UIInfo, FONTTYPE type, float size)
+\item 
+\mbox{\Hypertarget{class_text_a49f638637347490b8ae216852660c871}\label{class_text_a49f638637347490b8ae216852660c871}} 
+void {\bfseries set\+Text\+String} (std\+::string text)
+\item 
+\mbox{\Hypertarget{class_text_a74ef5f5bec7468a3138a8aead0e49921}\label{class_text_a74ef5f5bec7468a3138a8aead0e49921}} 
+void {\bfseries set\+Text\+String\+Stream} (std\+::ostringstream text)
+\item 
+\mbox{\Hypertarget{class_text_a435c4be4047ee06fbc5babd00460675c}\label{class_text_a435c4be4047ee06fbc5babd00460675c}} 
+void {\bfseries set\+Text\+Offset\+From\+Top\+Left} (float x, float y)
+\item 
+\mbox{\Hypertarget{class_text_a9be754295963c936a31e94be71d4479f}\label{class_text_a9be754295963c936a31e94be71d4479f}} 
+void {\bfseries set\+Visisble} (bool visibility)
+\item 
+\mbox{\Hypertarget{class_text_a41bde5662e0e3a023166e5b134488bc2}\label{class_text_a41bde5662e0e3a023166e5b134488bc2}} 
+std\+::string {\bfseries get\+Text} ()
+\item 
+\mbox{\Hypertarget{class_text_ac88aeffde9629b302a22df09c2e4a668}\label{class_text_ac88aeffde9629b302a22df09c2e4a668}} 
+void {\bfseries update\+UIInfo} (\mbox{\hyperlink{struct_u_i_item}{UIItem}} info)
+\item 
+\mbox{\Hypertarget{class_text_a60ed7c4137d0389255e009a4b2bc7223}\label{class_text_a60ed7c4137d0389255e009a4b2bc7223}} 
+void {\bfseries set\+Color} (\mbox{\hyperlink{struct_color}{Color}} color)
+\item 
+\mbox{\Hypertarget{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}\label{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}} 
+\mbox{\hyperlink{struct_color}{Color}} {\bfseries get\+Color} ()
+\item 
+\mbox{\Hypertarget{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}\label{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}} 
+bool {\bfseries is\+Visible} ()
+\item 
+\mbox{\Hypertarget{class_text_afb8fd38b041da45ac0f3d93bbe368091}\label{class_text_afb8fd38b041da45ac0f3d93bbe368091}} 
+void {\bfseries set\+Size} (float size)
+\item 
+\mbox{\Hypertarget{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}\label{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}} 
+void {\bfseries change\+Font} (FONTTYPE type)
+\item 
+\mbox{\Hypertarget{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}\label{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}} 
+void {\bfseries Render} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_text_af748a315fd3534226283f61bd10d44b8}\label{class_text_af748a315fd3534226283f61bd10d44b8}} 
+static bool {\bfseries load\+Fonts} ()
+\item 
+\mbox{\Hypertarget{class_text_ad7f514f83ba16203c88dd07d892a0b0d}\label{class_text_ad7f514f83ba16203c88dd07d892a0b0d}} 
+static bool {\bfseries are\+Fonts\+Loaded} ()
+\item 
+\mbox{\Hypertarget{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}\label{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}} 
+static \mbox{\hyperlink{struct_font}{Font}} $\ast$ {\bfseries get\+Font} (FONTTYPE)
+\item 
+\mbox{\Hypertarget{class_text_a90b21d5f128e977454182d85c359fd37}\label{class_text_a90b21d5f128e977454182d85c359fd37}} 
+static void {\bfseries split\+Text} (std\+::string txt, char delim, std\+::vector$<$ std\+::string $>$ \&out)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Text.\+h\item 
+Text.\+cpp\end{DoxyCompactItemize}

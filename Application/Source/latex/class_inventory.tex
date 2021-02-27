@@ -1,0 +1,74 @@
+\hypertarget{class_inventory}{}\doxysection{Inventory Class Reference}
+\label{class_inventory}\index{Inventory@{Inventory}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_inventory_af7a06eb89423d587909fc69b6919c327}\label{class_inventory_af7a06eb89423d587909fc69b6919c327}} 
+void {\bfseries add\+Weap} (WEAPON\+\_\+\+TYPE weapontype)
+\item 
+\mbox{\Hypertarget{class_inventory_a00ec50fe0805e68191d264dac86352ca}\label{class_inventory_a00ec50fe0805e68191d264dac86352ca}} 
+void {\bfseries add\+Car} (CAR\+\_\+\+TYPE cartype)
+\item 
+\mbox{\Hypertarget{class_inventory_ad54eb8e6bb17cd23d7fcba085e747940}\label{class_inventory_ad54eb8e6bb17cd23d7fcba085e747940}} 
+void {\bfseries add\+Item} (ITEM\+\_\+\+TYPE itemtype, int amt)
+\item 
+\mbox{\Hypertarget{class_inventory_ae1f69e1517f77acaa48f9b2ea88c0ad9}\label{class_inventory_ae1f69e1517f77acaa48f9b2ea88c0ad9}} 
+void {\bfseries change\+Item\+Amt} (ITEM\+\_\+\+TYPE itemtype, int amt)
+\item 
+\mbox{\Hypertarget{class_inventory_af49e866f847c8922d437ce23c63ac0d9}\label{class_inventory_af49e866f847c8922d437ce23c63ac0d9}} 
+void {\bfseries delete\+Item} (ITEM\+\_\+\+TYPE itemtype)
+\item 
+\mbox{\Hypertarget{class_inventory_a472d556239ed96a16138da0df0eeca6a}\label{class_inventory_a472d556239ed96a16138da0df0eeca6a}} 
+void {\bfseries delete\+Weapon} (WEAPON\+\_\+\+TYPE w\+Type)
+\item 
+\mbox{\Hypertarget{class_inventory_ad851e1a90d52ffc1a9aa35e98e8ddd22}\label{class_inventory_ad851e1a90d52ffc1a9aa35e98e8ddd22}} 
+void {\bfseries switch\+Car} (int cartype)
+\item 
+\mbox{\Hypertarget{class_inventory_a9a428ae6f4e45c44910f433f64e99559}\label{class_inventory_a9a428ae6f4e45c44910f433f64e99559}} 
+void {\bfseries switch\+Weapon} (int index)
+\item 
+\mbox{\Hypertarget{class_inventory_a1275d46bb2117aa9101a6ad7bacb64ca}\label{class_inventory_a1275d46bb2117aa9101a6ad7bacb64ca}} 
+void {\bfseries toggle\+Item} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a406565f15bac6336f4bf58a81e1010ba}\label{class_inventory_a406565f15bac6336f4bf58a81e1010ba}} 
+\mbox{\hyperlink{class_garage_inventory}{Garage\+Inventory}} $\ast$ {\bfseries get\+Current\+Car} ()
+\item 
+\mbox{\Hypertarget{class_inventory_aad73f58f94ee2993e9c303d12c1ef8e5}\label{class_inventory_aad73f58f94ee2993e9c303d12c1ef8e5}} 
+std\+::vector$<$ \mbox{\hyperlink{class_garage_inventory}{Garage\+Inventory}} $\ast$ $>$ {\bfseries get\+Garage\+Vector} ()
+\item 
+\mbox{\Hypertarget{class_inventory_ad08cc9ff3081cd4dca0c735612e0606b}\label{class_inventory_ad08cc9ff3081cd4dca0c735612e0606b}} 
+std\+::vector$<$ \mbox{\hyperlink{class_weapon}{Weapon}} $\ast$ $>$ {\bfseries get\+Weapon\+Vector} ()
+\item 
+\mbox{\Hypertarget{class_inventory_ae95eeff5b4e2dde8388ef28a760c914b}\label{class_inventory_ae95eeff5b4e2dde8388ef28a760c914b}} 
+\mbox{\hyperlink{class_item_inventory}{Item\+Inventory}} $\ast$ {\bfseries get\+Item\+Inventory} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a6e5c3cfae20ebf413b347d1166791200}\label{class_inventory_a6e5c3cfae20ebf413b347d1166791200}} 
+\mbox{\hyperlink{class_weapon_inventory}{Weapon\+Inventory}} $\ast$ {\bfseries get\+Weapon\+Inventory} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a3190313d1b7faed00ce67164b77df06b}\label{class_inventory_a3190313d1b7faed00ce67164b77df06b}} 
+std\+::vector$<$ \mbox{\hyperlink{class_item}{Item}} $\ast$ $>$ {\bfseries get\+Item\+Vector} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a906ab98ff03952032bee4315fa50ba74}\label{class_inventory_a906ab98ff03952032bee4315fa50ba74}} 
+CAR\+\_\+\+TYPE {\bfseries get\+Current\+Car\+Type} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a6a88b88e48c75df67d700c117fb4a8ae}\label{class_inventory_a6a88b88e48c75df67d700c117fb4a8ae}} 
+ITEM\+\_\+\+TYPE {\bfseries get\+Current\+Item\+Type} ()
+\item 
+\mbox{\Hypertarget{class_inventory_ae2c9305a18ad3946a31775f9e41be662}\label{class_inventory_ae2c9305a18ad3946a31775f9e41be662}} 
+int {\bfseries get\+Current\+Item\+Amt} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a4001f5961e4c9e6c987a28bc78ccdeed}\label{class_inventory_a4001f5961e4c9e6c987a28bc78ccdeed}} 
+\mbox{\hyperlink{class_weapon}{Weapon}} $\ast$ {\bfseries get\+Active\+Weapon} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a16dc6eb0a0f2dcabb45e59e08123ed62}\label{class_inventory_a16dc6eb0a0f2dcabb45e59e08123ed62}} 
+WEAPON\+\_\+\+TYPE {\bfseries get\+Current\+Weapon\+Type} ()
+\item 
+\mbox{\Hypertarget{class_inventory_a1dfd4a5b216a6017c72e197b6c4b899b}\label{class_inventory_a1dfd4a5b216a6017c72e197b6c4b899b}} 
+void {\bfseries Update} (double)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Inventory.\+h\item 
+Inventory.\+cpp\end{DoxyCompactItemize}
