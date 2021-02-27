@@ -220,7 +220,7 @@ INTERACTION: HouseFire Do Nothing 5
 =========================================
 
 INTERACTION: HouseFire Do Nothing 6
-- MSG: I'm going to mend...;history.
+- MSG: I'm Going . . .;To Mend . . .;history . . .
 - postcmd: /endhousefire
 
 =========================================
@@ -347,3 +347,37 @@ INTERACTION: guards4
 
 =========================================
 
+INTERACTION: bimster1
+- MSG: Bimster: What?! Where am I? Who are you?!;Why am I here?!?!
+
+CHOICE # bimster1
+- MSG: I am Pain . . . Destroyer of worlds . . .
+# NEXT: bimster2
+
+CHOICE # bimster1
+- MSG: You took . . . everything from me . . .
+# NEXT: bimster2
+
+INTERACTION: bimster2
+- MSG: Bimster: What do you mean?!
+# NEXT: bimster3
+
+INTERACTION: bimster3
+- MSG: Bimster: Let me out this instant!
+
+CHOICE # bimster3
+- MSG: My pain is far greater than yours . . .
+# NEXT: bimster4
+
+CHOICE # bimster3
+- MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
+# NEXT: bimster4
+
+INTERACTION: bimster4
+- MSG: Bimster: ...
+
+CHOICE # bimster4
+- MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
+# NEXT: bimster4
+
+=========================================
