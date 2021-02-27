@@ -593,7 +593,7 @@ void Scene2021::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("carShopHitBox") != std::string::npos) {
 					if (!player->isDriving())
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
+					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
 						Game::switchScene(S_CARSHOP, 5.0, "   ENTERING CAR SHOP");

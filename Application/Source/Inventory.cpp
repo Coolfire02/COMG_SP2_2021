@@ -168,7 +168,7 @@ void Inventory::Update(double dt)
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIItemAmount")->disable();
 
 	//Weapons
-	if (weaponInv == nullptr || weaponInv->getActiveWeapon() == nullptr)
+	if (weaponInv->getWeaponList().size() == 0)
 	{
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
 		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
@@ -180,49 +180,75 @@ void Inventory::Update(double dt)
 	}
 	else if (weaponInv->getWeaponList().size() > 0)
 	{
-		//display first gun slot
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
-
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->enable();
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->disable();
-		switch (weaponInv->getWeaponList()[0]->getWeaponType())
+		if (weaponInv->getActiveWeapon() != nullptr)
 		{
-		case PISTOL:
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_PISTOL);
-			break;
-		case SILENCER:
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
-			break;
-		}
+			//display first gun slot
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
 
-		if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
-		{
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
-			switch (weaponInv->getWeaponList()[1]->getWeaponType())
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->enable();
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->disable();
+			switch (weaponInv->getWeaponList()[0]->getWeaponType())
 			{
 			case PISTOL:
-				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_PISTOL);
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_PISTOL);
 				break;
 			case SILENCER:
-				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
 				break;
 			}
-			if (weaponInv->getWeaponList()[1] == weaponInv->getActiveWeapon())
+
+			if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
 			{
-				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->disable();
-				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->enable();
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
+				switch (weaponInv->getWeaponList()[1]->getWeaponType())
+				{
+				case PISTOL:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_PISTOL);
+					break;
+				case SILENCER:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+					break;
+				}
+				if (weaponInv->getWeaponList()[1] == weaponInv->getActiveWeapon())
+				{
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->disable();
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->enable();
+				}
 			}
 		}
-	}
-	else //do not display any gun slots as no guns owned
-	{
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->disable();
-		Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
-		for (int i = 0; i < WEAPON_COUNT; i++)
+		else
 		{
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponBorder" + std::to_string(i + 1))->disable();
-			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent" + std::to_string(i + 1))->disable();
+			//display first gun slot
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->enable();
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->disable();
+
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent1")->disable();
+			Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("UIWeaponCurrent2")->disable();
+
+			switch (weaponInv->getWeaponList()[0]->getWeaponType())
+			{
+			case PISTOL:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_PISTOL);
+				break;
+			case SILENCER:
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon1")->setQuadImage(UI_SILENCER);
+				break;
+			}
+
+			if (weaponInv->getWeaponList().size() == 2) //check if size is 2, then display second gun slot
+			{
+				Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->enable();
+				switch (weaponInv->getWeaponList()[1]->getWeaponType())
+				{
+				case PISTOL:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_PISTOL);
+					break;
+				case SILENCER:
+					Game::uiManager.getbManagerArray(UI_GENERAL)->getButtonByName("Weapon2")->setQuadImage(UI_SILENCER);
+					break;
+				}
+			}
 		}
 	}
 
