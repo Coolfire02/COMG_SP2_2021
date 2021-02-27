@@ -211,6 +211,11 @@ bool MeshHandler::loadMeshes() {
 	meshList[TARGET_A] = MeshBuilder::GenerateOBJMTL("targetA", "OBJ//Garage//targetA.obj", "MTL//Garage//targetA.mtl");
 	meshList[TARGET_B] = MeshBuilder::GenerateOBJMTL("targetB", "OBJ//Garage//targetB.obj", "MTL//Garage//targetB.mtl");
 
+	//Office
+	meshList[GEO_DESK] = MeshBuilder::GenerateOBJMTL("desk", "OBJ//Office//desk.obj", "MTL//Office//desk.mtl");
+	meshList[GEO_DESK_CHAIR] = MeshBuilder::GenerateOBJMTL("chairDesk", "OBJ//Office//chairDesk.obj", "MTL//Office//chairDesk.mtl");
+	meshList[GEO_BIMSTER] = MeshBuilder::GenerateOBJMTL("astronautB", "OBJ//Office//astronautB.obj", "MTL//Office//astronautB.mtl");
+
 	/*meshList[GEO_COINS_METER] = MeshBuilder::GenerateQuad("coin", Color(1, 1, 1));
 	meshList[GEO_COINS_METER]->textureID = LoadTGA("Image//coin.tga");
 
