@@ -1,0 +1,95 @@
+\hypertarget{class_game}{}\doxysection{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_a555a9e4719fd49971765a2ab8b090b5c}\label{class_game_a555a9e4719fd49971765a2ab8b090b5c}} 
+static void {\bfseries Init} ()
+\item 
+\mbox{\Hypertarget{class_game_ae11ef55000e71a8391ca7cec1f91db48}\label{class_game_ae11ef55000e71a8391ca7cec1f91db48}} 
+static void {\bfseries Update} (double dt)
+\item 
+\mbox{\Hypertarget{class_game_afb9d37b132a679d28df8586ddf938b78}\label{class_game_afb9d37b132a679d28df8586ddf938b78}} 
+static void {\bfseries Interaction\+Update} (double dt)
+\item 
+\mbox{\Hypertarget{class_game_a886f1aaa2ef5904ff8112f59dbb7585f}\label{class_game_a886f1aaa2ef5904ff8112f59dbb7585f}} 
+static void {\bfseries Render\+UI} ()
+\item 
+\mbox{\Hypertarget{class_game_a0897730fc9fed789f6c0f11d21a0c14a}\label{class_game_a0897730fc9fed789f6c0f11d21a0c14a}} 
+static void {\bfseries Render} ()
+\item 
+\mbox{\Hypertarget{class_game_ad06e374518f2c8fa38279be6712a6ea4}\label{class_game_ad06e374518f2c8fa38279be6712a6ea4}} 
+static void {\bfseries Exit} ()
+\item 
+\mbox{\Hypertarget{class_game_aedf794d7048b0f51be6eb6a1b30b4a87}\label{class_game_aedf794d7048b0f51be6eb6a1b30b4a87}} 
+static void {\bfseries set\+Ammo} (int)
+\item 
+\mbox{\Hypertarget{class_game_a187ad35dd2e4658aa29fc34f8ddf8e1e}\label{class_game_a187ad35dd2e4658aa29fc34f8ddf8e1e}} 
+static int {\bfseries get\+Ammo} ()
+\item 
+\mbox{\Hypertarget{class_game_af5ce8850f66a2fb67c08650c47216d2e}\label{class_game_af5ce8850f66a2fb67c08650c47216d2e}} 
+static void {\bfseries add\+Scene} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\item 
+\mbox{\Hypertarget{class_game_afa873bf692a1ebd5d988047af23c5164}\label{class_game_afa873bf692a1ebd5d988047af23c5164}} 
+static void {\bfseries switch\+Scene} (static SCENES)
+\item 
+\mbox{\Hypertarget{class_game_aa82182e0789b28215a0ebd5cd1e07eca}\label{class_game_aa82182e0789b28215a0ebd5cd1e07eca}} 
+static void {\bfseries switch\+Scene} (SCENES, float transition, std\+::string title\+Text)
+\item 
+\mbox{\Hypertarget{class_game_ac8c12cc5bdb4ec79bbae4cc275253d17}\label{class_game_ac8c12cc5bdb4ec79bbae4cc275253d17}} 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Active\+Scene} ()
+\item 
+\mbox{\Hypertarget{class_game_a7b1cbf3dab5c0fc0f58e99aa71418c67}\label{class_game_a7b1cbf3dab5c0fc0f58e99aa71418c67}} 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene\+By\+Name} (std\+::string)
+\item 
+\mbox{\Hypertarget{class_game_a5ac3718b902c851c161ab7dd192aa948}\label{class_game_a5ac3718b902c851c161ab7dd192aa948}} 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene} ()
+\item 
+\mbox{\Hypertarget{class_game_a2c18dcb3013796ca69f9eff3a42b91f8}\label{class_game_a2c18dcb3013796ca69f9eff3a42b91f8}} 
+static SCENES {\bfseries get\+Prev\+Scene\+ENUM} ()
+\item 
+\mbox{\Hypertarget{class_game_a42bfd0ac893c7cb176edc9b177d4727d}\label{class_game_a42bfd0ac893c7cb176edc9b177d4727d}} 
+static void {\bfseries set\+Prev\+Scene\+ENUM} (SCENES)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_a86ba867d7d753dd2de16b4d7f2d88d16}\label{class_game_a86ba867d7d753dd2de16b4d7f2d88d16}} 
+static double {\bfseries scene\+Cooldown} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_game_af0367d574be71f67d84782d04252ca71}\label{class_game_af0367d574be71f67d84782d04252ca71}} 
+static SCENES {\bfseries active\+Scene}
+\item 
+\mbox{\Hypertarget{class_game_a7267e1f3924470ec8aaa0b0f58cc7ffe}\label{class_game_a7267e1f3924470ec8aaa0b0f58cc7ffe}} 
+static std\+::vector$<$ \mbox{\hyperlink{class_scene}{Scene}} $\ast$ $>$ {\bfseries Scene\+List}
+\item 
+\mbox{\Hypertarget{class_game_aabf15c6016bd5b887b8fb4875d8caa5b}\label{class_game_aabf15c6016bd5b887b8fb4875d8caa5b}} 
+static int {\bfseries ammo} = 0
+\item 
+\mbox{\Hypertarget{class_game_a77e15bea5af45b4bc2118aad57a979f5}\label{class_game_a77e15bea5af45b4bc2118aad57a979f5}} 
+static int {\bfseries cash} = 0
+\item 
+\mbox{\Hypertarget{class_game_a6f8393adeef594f56836d8ccd38b4cad}\label{class_game_a6f8393adeef594f56836d8ccd38b4cad}} 
+static double {\bfseries g\+Elapsed\+Time} = 0.\+0
+\item 
+\mbox{\Hypertarget{class_game_a2ed430641c61d62703bcb3f258d54d78}\label{class_game_a2ed430641c61d62703bcb3f258d54d78}} 
+static bool {\bfseries game\+Exit} = false
+\item 
+\mbox{\Hypertarget{class_game_ab963588eb3d49f74d880b5be0f7eff3d}\label{class_game_ab963588eb3d49f74d880b5be0f7eff3d}} 
+static \mbox{\hyperlink{class_mission_manager}{Mission\+Manager}} {\bfseries m\+Manager}
+\item 
+\mbox{\Hypertarget{class_game_a9bc14865c7f8200b492df4170a409b40}\label{class_game_a9bc14865c7f8200b492df4170a409b40}} 
+static \mbox{\hyperlink{class_interaction_manager}{Interaction\+Manager}} {\bfseries i\+Manager}
+\item 
+\mbox{\Hypertarget{class_game_a0dfece28f9e3b798dd6954418bd7477b}\label{class_game_a0dfece28f9e3b798dd6954418bd7477b}} 
+static \mbox{\hyperlink{class_u_i_manager}{UIManager}} {\bfseries ui\+Manager}
+\item 
+\mbox{\Hypertarget{class_game_aba48a48cc188d11ec1cd92efdba76e39}\label{class_game_aba48a48cc188d11ec1cd92efdba76e39}} 
+static \mbox{\hyperlink{class_inventory}{Inventory}} {\bfseries inv}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Game.\+h\item 
+Game.\+cpp\end{DoxyCompactItemize}

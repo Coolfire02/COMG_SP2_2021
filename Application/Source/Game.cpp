@@ -13,6 +13,7 @@ double Game::sceneCooldown = 0.0;
 int Game::ammo = 0;
 int Game::cash = 0;
 
+int Game::BimsterSavePoints = 0;
 bool Game::switchingScene = false;
 SCENES Game::toSwitchScene = S_COUNT;
 double Game::timeToSwitch = 0.0;

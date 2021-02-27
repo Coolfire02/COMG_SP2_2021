@@ -194,6 +194,31 @@ bool InteractionManager::runCommand(Command cmd) {
 
 			Game::switchScene(S_TIMEPORTAL, 5.0, "enter the timeportal");
 		}
+		else if (splitVar.at(0) == "/passive") {
+		Game::BimsterSavePoints++;
+		}
+		else if (splitVar.at(0) == "/aggressive") {
+		Game::BimsterSavePoints--;
+		}
+		else if (splitVar.at(0) == "/loadlastinteraction") {
+			if (Game::BimsterSavePoints >= -2) {
+				Interaction* interaction = new Interaction;
+				interaction->interactionText = "Save him.";
+				interaction->nextInteractionKey = "bimsterSave2";
+				interactionQueue.Top()->interactionChoices.push_back(interaction);
+			}
+			if (Game::BimsterSavePoints <= 2) {
+				Interaction* interaction = new Interaction;
+				Command* cmd = new Command("/killBimster", Game::SceneList[Game::activeScene]);
+				interaction->interactionText = "Kill him.";
+				interaction->postInteractionCMD.push_back(cmd);
+				interaction->nextInteractionKey = "bimsterKill2";
+				interactionQueue.Top()->interactionChoices.push_back(interaction);
+			}
+		}
+		else if (splitVar.at(0) == "/killBimster") {
+		
+		}
 		else if (splitVar.size() >= 2) {
 			if (splitVar.at(0) == "/givecoin") {
 				//this->addCoins(stoi(splitVar.at(1)));

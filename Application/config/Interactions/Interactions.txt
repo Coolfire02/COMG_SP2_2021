@@ -220,7 +220,7 @@ INTERACTION: HouseFire Do Nothing 5
 =========================================
 
 INTERACTION: HouseFire Do Nothing 6
-- MSG: I'm going to mend...;history.
+- MSG: I'm Going . . .;To Mend . . .;history . . .
 - postcmd: /endhousefire
 
 =========================================
@@ -301,7 +301,7 @@ CHOICE # buy truck
 =========================================
 
 INTERACTION: buy van
-- MSG: Name: Van;Speed: 60 km/h;Price;Price: $1500;Would you like to buy this car?
+- MSG: Name: Van;Speed: 60 km/h;Price: $1500;Would you like to buy this car?
 
 CHOICE # buy van
 - MSG: No
@@ -347,3 +347,179 @@ INTERACTION: guards4
 
 =========================================
 
+INTERACTION: bimster
+- MSG: Bimster: What?! Where am I? Who are you?!;Why am I here?!?!
+
+CHOICE # bimster
+- MSG: I am Pain . . . Destroyer of worlds . . .
+# NEXT: bimster1
+
+CHOICE # bimster
+- MSG: You took . . . everything from me . . .
+# NEXT: bimster1
+
+=========================================
+
+INTERACTION: bimster1
+- MSG: Bimster: What do you mean?!
+# NEXT: bimster2
+
+=========================================
+
+INTERACTION: bimster2
+- MSG: Bimster: Let me out this instant!
+
+CHOICE # bimster2
+- MSG: Passive
+- postcmd: /passive
+# NEXT: bimster2-1
+
+CHOICE # bimster2
+- MSG: Aggressive
+- postcmd: /aggressive
+# NEXT: bimster2-2
+
+CHOICE # bimster2
+- MSG: Neutral
+# NEXT: bimster2-3
+
+=========================================
+
+INTERACTION: bimster2-1
+- MSG: Pain: My pain is far greater than yours . . .
+# NEXT: bimster2-1dialogue1
+
+INTERACTION: bimster2-1dialogue1
+- MSG: Bimster: What happened to you...?
+# NEXT: bimster2-1dialogue2
+
+INTERACTION: bimster2-1dialogue2
+- MSG: Pain: The things you have done . . .;          The choices you made . . .
+# NEXT: bimster2-1dialogue3
+
+INTERACTION: bimster2-1dialogue3
+- MSG: Pain: They . . .
+# NEXT: bimster2-1dialogue4
+
+INTERACTION: bimster2-1dialogue4
+- MSG: Pain: Engulfed . . .;          my humble domain . . .;          in flames . . .
+# NEXT: bimster2-1dialogue5
+
+==================================================================================
+
+INTERACTION: bimster2-1dialogue5
+- MSG: Bimster: Tell me more...
+
+CHOICE # bimster2-1dialogue5
+- MSG: Passive
+- postcmd: /passive
+# NEXT: bimster2-1-1
+
+CHOICE # bimster2-1dialogue5
+- MSG: Aggressive
+- postcmd: /aggressive
+# NEXT: bimster2-1-2
+
+CHOICE # bimster2-1dialogue5
+- MSG: Neutral
+# NEXT: bimster2-1-3
+
+=========================================
+
+INTERACTION: bimster2-1-1
+- MSG: Pain: I come from 2051.;          The normal temperature there is at an average of 40 degrees Celsius.;          Winter does not exist anymore.;          Mother nature is dying and its all your fault.
+# NEXT: bimster2-1-1dialogue1
+
+INTERACTION: bimster2-1-2
+- MSG: Pain: YOU THINK YOU CAN PLAY DUMB?;         GLOBAL WARMING IS BEING CAUSED BY YOU!
+# NEXT: bimster2-1-1dialogue1
+
+INTERACTION: bimster2-1-3
+- MSG: Pain: Don't play dumb.;          You've been causing global warming with your pettiful actions.
+# NEXT: bimster2-1-1dialogue1
+
+INTERACTION: bimster2-1-1dialogue1
+- MSG: Bimster: What does that have to do with me?
+# NEXT: bimster2-1-1dialogue2
+
+INTERACTION: bimster2-1-1dialogue2
+- MSG: Pain: Your company has been hoarding resources and fuel from all over the world;          and burning them at an excessive rate.
+# NEXT: bimster2-1-1dialogue3
+
+=========================================
+
+INTERACTION: bimster2-1-1dialogue3
+- MSG: Bimster: You're wrong . . .
+
+CHOICE # bimster2-1-1dialogue3
+- MSG: Passive
+- postcmd: /passive
+# NEXT: bimster2-1-1-1
+
+CHOICE # bimster2-1-1dialogue3
+- MSG: Aggressive
+- postcmd: /aggressive
+# NEXT: bimster2-1-1-2
+
+CHOICE # bimster2-1-1dialogue3
+- MSG: Neutral
+- postcmd: /neutral
+# NEXT: bimster2-1-1-3
+
+=========================================
+
+INTERACTION: bimster2-1-1-1
+- MSG: Pain: What do you mean?
+# NEXT: bimster2-1-1-1dialogue1
+
+INTERACTION: bimster2-1-1-2
+- MSG: Pain: HOW AM I WRONG? ARE YOU RETARDED?
+# NEXT: bimster2-1-1-1dialogue1
+
+INTERACTION: bimster2-1-1-3
+- MSG: Pain: How am I wrong.
+# NEXT: bimster2-1-1-1dialogue1
+
+INTERACTION: bimster2-1-1-1dialogue1
+- MSG: Bimster: Global warming is inevitable.;                My goal in life was to delay it, not accelerate it . . .
+# NEXT: bimster2-1-1-1dialogue2
+
+INTERACTION: bimster2-1-1-1dialogue2
+- MSG: Bimster: Companies around the world are now hogging their resources and burning;                and burning them like its nothing. Thats what we're trying to hold back.
+# NEXT: bimster2-1-1-1dialogue3
+
+INTERACTION: bimster2-1-1-1dialogue3
+- MSG: Pain: How am I supposed to believe you.
+# NEXT: bimster2-1-1-1dialogue4
+
+INTERACTION: bimster2-1-1-1dialogue4
+- MSG: Bimster: Believe what you must, brave one . . .;                The path you shall take is the one you have laid for yourself . . .
+- precmd: /loadlastinteraction
+
+=========================================
+
+INTERACTION bimster2-2
+- MSG: SHUT UP WHEN I'M TALKING TO YOU!!!!
+- postcmd: /aggressive
+# NEXT: bimster2-2-1
+
+INTERACTION: bimster2-2-1
+- MSG: Bimster: ...
+# NEXT: bimster2-2continue
+
+INTERACTION: bimster2-2continue
+- MSG: Bimster: What do you want from me.
+
+=========================================
+
+INTERACTION: bimsterEnd
+- MSG: Anger clouds your mind as you reach for the pistol;in the back of your pocket.
+- precmd: /loadlastinteraction
+
+INTERACTION: bimsterKill
+- MSG: Kill him.
+# NEXT: bimsterKill2
+
+INTERACTION: bimsterSave
+- MSG: Save him
+# NEXT: bimsterSave2

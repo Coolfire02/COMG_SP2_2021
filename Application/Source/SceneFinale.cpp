@@ -143,7 +143,7 @@ void SceneFinale::Init() {
 	//eggman->getEntityData()->rotYMag = -27.f;
 	//eManager.spawnWorldEntity(eggman);
 
-	Entity* mrBimsterTied = new WorldObject(this, GEO_BIMSTER, "mrBimsterTied");
+	Entity* mrBimsterTied = new NPC(this, BIMSTER, "mrBimsterTied", 50);
 	mrBimsterTied->getEntityData()->SetTransform(0.0f, 0.0f, -10.0f);
 	mrBimsterTied->getEntityData()->SetRotate(0.0f, 0.0f, 0.0f);
 	mrBimsterTied->getEntityData()->SetScale(3.0f, 3.0f, 3.0f);
@@ -404,63 +404,7 @@ void SceneFinale::InitLights() {
 void SceneFinale::TopDownMapUpdate(double dt)
 {
 	//top down camera map
-	if (GetAsyncKeyState('M') & 0x0001) //toggle between topdown map view
-	{
-		if (!camMap)
-		{
-			switch (camera.camType)
-			{
-			case FIRSTPERSON:
-				camera.camType = TOPDOWN_FIRSTPERSON;
-				break;
-			case THIRDPERSON:
-				camera.camType = TOPDOWN_THIRDPERSON;
-				break;
-			}
-			camMap = true;
-		}
-		else
-		{
-			switch (camera.camType)
-			{
-			case TOPDOWN_FIRSTPERSON:
-				camera.camType = FIRSTPERSON;
-				break;
-			case TOPDOWN_THIRDPERSON:
-				camera.camType = THIRDPERSON;
-				break;
-			}
-			camMap = false;
-		}
-	}
-
-	camera2.position.Set(player->getEntityData()->Translate.x,
-		300,
-		player->getEntityData()->Translate.z);
-
-	camera2.target.Set(player->getEntityData()->Translate.x, 0, player->getEntityData()->Translate.z);
-
-	Vector3 view = (camera.target - camera.position).Normalized();
-	switch (camera.camType)
-	{
-	case TOPDOWN_FIRSTPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(-view.x, 0, -view.z);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	case TOPDOWN_THIRDPERSON:
-		light[1].power = 1;
-		light[1].position.set(player->getEntityData()->Translate.x, 1, player->getEntityData()->Translate.z);
-		light[1].spotDirection.Set(player->getCar()->getEntityData()->Rotation.x * dt, 0, player->getCar()->getEntityData()->Rotation.z * dt);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	default:
-		light[1].power = 0;
-		light[1].spotDirection.Set(0, 0, 0);
-		glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-		break;
-	}
+	
 }
 
 void SceneFinale::CollisionHandler(double dt) {
@@ -524,19 +468,14 @@ void SceneFinale::CollisionHandler(double dt) {
 			//else 
 			//	NPCLookAngle = 90 - Math::RadianToDegree(RPos.Dot(Vector3(0, 0, -1)));
 
-			DEBUG_MSG(NPCLookAngle);
-			entry->getEntityData()->Rotation = Vector3(0, NPCLookAngle, 0);
-
 			if (Math::FAbs((entry->getEntityData()->Translate - player->getEntityData()->Translate).Magnitude()) < 6 && !Game::iManager.isInteracting()) {
 				Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 				if (ePressed) {
 					// if mission is to talk to this guy, load drugman, else load gunshop1
 					std::vector<MISSIONTYPE> completables = Game::mManager.getCompletableMissions();
-					if (Game::mManager.missionIsCompletable(MISSION_TALK_TO_THE_OWNER, completables)) {
-						Game::iManager.loadInteraction("Gary1");
+					if (Game::mManager.missionIsCompletable(MISSION_INTERROGATE_BIMSTER, completables)) {
+						Game::iManager.loadInteraction("bimster");
 					}
-					else
-						Game::iManager.loadInteraction("Gunshop1");
 				}
 			}
 

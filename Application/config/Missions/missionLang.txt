@@ -122,4 +122,11 @@ MISSION_ESCAPE_THE_OFFICE
 * PreRequisiteMissions:
 	- MISSION_ABDUCT_BIMSTER
 
+MISSION_INTERROGATE_BIMSTER
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Question your nemesis
+- CompletedMessage: Interrogate Bimster
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+
 #END
