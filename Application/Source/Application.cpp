@@ -29,6 +29,7 @@
 #include "SceneUI.h"
 #include "SceneCarShop.h"
 #include "SceneOffice.h"
+#include "SceneFinale.h"
 
 GLFWwindow* m_window;
 unsigned Application::m_width;
@@ -211,6 +212,8 @@ void Application::Run()
 	g.addScene(new SceneCarShop);
 	g.addScene(new SceneUI);
 	g.addScene(new SceneOffice);
+	g.addScene(new SceneFinale);
+
 	//g.addScene(new SceneHouseFire);
 	g.Init();
 
