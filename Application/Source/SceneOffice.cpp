@@ -12,6 +12,7 @@
 #include "Car.h"
 #include "InteractionManager.h"
 #include "Scene2021.h"
+#include "AudioHandler.h"
 #include "Debug.h"
 
 SceneOffice::SceneOffice() : 
@@ -466,20 +467,23 @@ void SceneOffice::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("officeDoorHitBox") != std::string::npos)
 				{
 					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
+					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
+						ISound* door = AudioHandler::getEngine()->play3D(
+							AudioHandler::getSoundSource(DOOR),
+							AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+							LOOPED::NOLOOP);
 						eHeld = true;
 						//Leave when collected bimster
 						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 						{
 							if (Game::mManager.getCompletableMissions().at(i) != MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE) //do && check if next mission has started to disable this 
 							{
-								Game::switchScene(S_2021);
+								Game::switchScene(S_2021, 5.0, "      EXITING OFFICE");
 							}
 							else
 							{
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE, 100.0f); //completed drug collection mission
-								//switch to interrogate scene
 								Game::switchScene(S_FINALE);
 							}
 						}

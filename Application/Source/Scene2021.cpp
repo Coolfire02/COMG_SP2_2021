@@ -205,7 +205,7 @@ void Scene2021::Init()
 	SpawnBuildings();
 	SpawnStreetLamps();
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		SpawnNPCs(Vector3(-500, 0, -500), Vector3(500, 0, 500), TESTNPC);
 	}
@@ -603,12 +603,16 @@ void Scene2021::CollisionHandler(double dt) {
 				{
 					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
 					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING && interactionTimer > 2) //do && check if next mission has started to disable this 
+						if (Game::mManager.getCompletableMissions().at(i) == MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING || Game::mManager.getCompletableMissions().at(i) == MISSIONTYPE::MISSION_ABDUCT_BIMSTER && interactionTimer > 2) //do && check if next mission has started to disable this 
 						{
 							if (!player->isDriving())
 								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld)
+							if (ePressed && !eHeld && Game::sceneCooldown > 3)
 							{
+								ISound* door = AudioHandler::getEngine()->play3D(
+									AudioHandler::getSoundSource(DOOR),
+									AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+									LOOPED::NOLOOP);
 								eHeld = true;
 								Game::mManager.setProgress(MISSIONTYPE::MISSION_SNEAK_INTO_THE_BUILDING, 100.0f); //completed drug collection mission
 								//switch to INSIDE OFFICE BUILDING SCENE
@@ -679,6 +683,7 @@ void Scene2021::CollisionHandler(double dt) {
 
 		if (entry->attacker->getType() == ENTITYTYPE::LIVE_NPC) {
 			if (entry->victim->getType() == ENTITYTYPE::WORLDOBJ) {
+				if (((NPC*)entry->attacker)->getSemiCollision() && entry->victim->getType() == ENTITYTYPE::CUSTOM) continue;
 				Vector3 resultantVec;
 				Vector3 d = ((NPC*)entry->attacker)->getRigidBody().velocity;
 				Vector3 n = entry->normal;

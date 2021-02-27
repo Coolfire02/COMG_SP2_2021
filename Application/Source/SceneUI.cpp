@@ -493,16 +493,6 @@ void SceneUI::Render()
 
 	modelStack.LoadIdentity();
 
-	RenderMesh(MeshHandler::getMesh(GEO_AXES), false);
-
-	if (Game::uiManager.getCurrentMenu() != UI_MAIN_MENU && Game::uiManager.getCurrentMenu() != UI_CREDITS)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-		RenderMesh(MeshHandler::getMesh(GEO_LIGHTBALL), false);
-		modelStack.PopMatrix();
-	}
-
 	RenderRoads();
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL) {
