@@ -114,162 +114,20 @@ void SceneOffice::Init()
 
 	MeshHandler::loadMeshes();
 
-	//Mesh* coinMesh;
-	//Entity* newCoin;
-
-	//for (int i = 0; i < 10; i++) {
-	//	coinMesh = MeshHandler::getMesh(GEOMETRY_TYPE::GEO_COIN);
-	//	newCoin = new Coin(this, new Box(coinMesh->botLeftPos, coinMesh->topRightPos), "Coin");
-	//	newCoin->getEntityData()->rotXMag = 90.f;
-	//	newCoin->getEntityData()->transX = 0.0f;
-	//	newCoin->getEntityData()->transY = 1.6f;
-	//	newCoin->getEntityData()->transZ = -55.f - i * 5;
-	//	newCoin->getEntityData()->scaleX = 0.3f;
-	//	newCoin->getEntityData()->scaleY = 0.3f;
-	//	newCoin->getEntityData()->scaleZ = 0.3f;
-	//	eManager.spawnWorldEntity(newCoin);
-	//}
-
-	//Entity* eggman = new NPC(this, NPCTYPE::EGGMAN, "Eggman");
-	//eggman->getEntityData()->scaleX = 0.04;
-	//eggman->getEntityData()->scaleY = 0.04;
-	//eggman->getEntityData()->scaleZ = 0.04;
-	//eggman->getEntityData()->transX = 11;
-	//eggman->getEntityData()->transY = 0;
-	//eggman->getEntityData()->transZ = -22;
-	//eggman->getEntityData()->rotYMag = -27.f;
-	//eManager.spawnWorldEntity(eggman);
-	/*if (!Game::inv.getGarageVector().empty())
-	{
-		for (int i = 0; i < Game::inv.getGarageVector().size(); i++)
-		{
-			Entity* newCar = new Car(Game::inv.getGarageVector()[i]->getCarType(), this, "car" + std::to_string(i + 1));
-			newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
-			newCar->getEntityData()->SetRotate(0, 0, 0);
-			newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
-			
-			eManager.spawnMovingEntity(newCar);
-		}
-	}*/
-	//Need to update eManager in scene to spawn new cars when you get them
-	/*if (!Game::inv.getGarageVector().empty())
-		return;
-	for (int i = 0; i < this->eManager.getEntities().size(); i++)
-	{
-		Entity* entity = eManager.getEntities().at(i);
-		if (entity->getType() == ENTITYTYPE::CAR)
-		{
-			int newCarType = 0;
-			for (int j = 0; j < Game::inv.getGarageVector().size(); i++)
-			{
-				if (dynamic_cast<Car*>(entity)->getCartype() == Game::inv.getGarageVector().at(j)->getCarType())
-				{
-					return;
-				}
-				newCarType++;
-			}
-			Entity* newCar = new Car(Game::inv.getGarageVector()[i]->getCarType(), this, "car" + std::to_string(i + 1));
-			newCar->getEntityData()->SetTransform(5 + (i * 5), 0.25, 20);
-			newCar->getEntityData()->SetRotate(0, 0, 0);
-			newCar->getEntityData()->SetScale(2.5, 2.5, 2.5);
-
-			eManager.spawnMovingEntity(newCar);
-		}
-	}*/
-	//
-	/*Entity* car = new Car(SEDAN, this, "car");
-	car->getEntityData()->SetTransform(0, 0.25, 20);
-	car->getEntityData()->SetRotate(0, 0, 0);
-	car->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car);
-
-	Entity* car2 = new Car(SEDAN_SPORTS, this, "car");
-	car2->getEntityData()->SetTransform(5, 0.25, 20);
-	car2->getEntityData()->SetRotate(0, 0, 0);
-	car2->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car2);
-
-	Entity* car3 = new Car(RACER, this, "car");
-	car3->getEntityData()->SetTransform(-5, 0.25, 20);
-	car3->getEntityData()->SetRotate(0, 0, 0);
-	car3->getEntityData()->SetScale(2.5, 2.5, 2.5);
-	eManager.spawnMovingEntity(car3);*/
-
 	SpawnWalls();
 
-	//initCollidables(Vector3(24.0f, 0.0f, -49.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	initCollidables(Vector3(24.0f, 0.0f, (1.8f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-	//}
-	//for (int i = 0; i < 9; i++)
-	//{
-	//	if (i < 8)
-	//		initCollidables(Vector3(24.0f, 2.5f, (0.0f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-	//	initCollidables(Vector3(22.2f, 0.0f, (0.9f - (i * 1.8f))), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-	//}
-	//
-	//for (int i = 0; i < 2; i++)
-	//{
-	//	initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
-	//}
-	//
-	//initCollidables(Vector3(22.5f, 0.0f, 47.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS_RAIL);
-
-	//initCollidables(Vector3(19.0f, 0.0f, -44.0f), Vector3(0.0f, -45.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), SNOWMAN_FANCY);
-
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	//1st floor
-	//	if (i > 0)
-	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//	initCollidables(Vector3(-22.0f, 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//	if (i == 1)
-	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 0.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//}
-
-	//for (int i = 0; i < 2; i++)
-	//{
-	//	//2nd floor
-	//	if (i > 0)
-	//		initCollidables(Vector3(-22.0f + (i * 5.0f), 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//	initCollidables(Vector3(-22.0f, 5.0f, -47.0f + (i * 5.0f)), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//}
-
-	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-
-	//Barrel increment of 1.8f between each one
-	//initCollidables(Vector3(24.0f, 0.0f, 1.8f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-	//initCollidables(Vector3(24.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-	//initCollidables(Vector3(24.0f, 2.5f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARREL);
-
-	//Barrels increment of 5.0f between each one
-	//5.5f when rotated
-	//initCollidables(Vector3(-22.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
-	//initCollidables(Vector3(-22.0f, 0.0f, 5.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
-	//initCollidables(Vector3(-22.5f, 0.0f, (47.0f - (i * 5.5f))), Vector3(0.0f, 90.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), BARRELS);
-
-	//Crate increment of 5.0f between each one
-	//initCollidables(Vector3(-22.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//initCollidables(Vector3(-17.0f, 0.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-	//initCollidables(Vector3(-22.0f, 5.0f, -47.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CRATE);
-
-	//Vector3 uniformWallScale = Vector3(100.0f, 100.0f, 100.0f);
-	//Vector3 longWallScale = Vector3(200.0f, 200.0f, 200.0f);
-	//initCollidables(Vector3(0.0f, 50.0f, 0.0f), Vector3(90.0f, 0.0f, 0.0f), longWallScale, GARAGE_WALL); //top
-	//initCollidables(Vector3(50.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, 0.0f), longWallScale, GARAGE_WALL); //x-axis
-	//initCollidables(Vector3(-50.0f, 0.0f, 0.0f), Vector3(0.0f, 90.0f, 0.0f), longWallScale, GARAGE_WALL);
-	//initCollidables(Vector3(0.0f, 0.0f, 100.0f), Vector3(0.0f, 180.0f, 0.0f), uniformWallScale, GARAGE_WALL); // z-axis
-	//initCollidables(Vector3(0.0f, 0.0f, -100.0f), Vector3(0.0f, 0.0f, 0.0f), uniformWallScale, GARAGE_WALL);
-	//initCollidables(Vector3(0.0f, 22.0f, 99.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(80.0f, 44.0f, 100.0f), GARAGE_DOOR); //garage door
-
 	//Camera init(starting pos, where it looks at, up
-	player = new Player(this, Vector3(0, 0, -47), "player");
+	player = new Player(this, Vector3(0, 0, -40), "player");
 	camera.playerPtr = player;
 	eManager.spawnMovingEntity(player);
+
+	CustomEntity* bimsterMissionHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "bimsterMissionHitBox");
+	bimsterMissionHitBox->getEntityData()->Translate.Set(11, 0, 45);
+	eManager.spawnWorldEntity(bimsterMissionHitBox);
+
+	CustomEntity* officeDoorHitBox = new CustomEntity(this, new Box(Vector3(-5, 0, -5), Vector3(5, 2, 5)), "officeDoorHitBox");
+	officeDoorHitBox->getEntityData()->Translate.Set(0, 0, -50);
+	eManager.spawnWorldEntity(officeDoorHitBox);
 
 	camera.Init(Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z),
 				Vector3(player->getEntityData()->Translate.x, player->getEntityData()->Translate.y + 2, player->getEntityData()->Translate.z - 1),
@@ -587,31 +445,45 @@ void SceneOffice::CollisionHandler(double dt) {
 
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
+				if (entry->victim->getName().find("bimsterMissionHitBox") != std::string::npos)
 				{
 					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld)
 					{
 						eHeld = true;
-						Scene* var = Game::getSceneByName("MainScene");
-						Game::switchScene(S_2021);
+						//collect bimster
+						Game::mManager.setProgress(MISSIONTYPE::MISSION_ABDUCT_BIMSTER, 100.0f); //completed drug collection mission
+						for (int i = 0; i < this->eManager.getEntities().size(); i++)
+						{
+							Entity* entity = this->eManager.getEntities().at(i);
+							if (entity->getName() == "mrBimster")
+							{
+								entity->setDead(true);
+							}
+						}
 					}
 				}
-			}
-		}
-		if (entry->attacker->getType() == ENTITYTYPE::CAR)
-		{
-			if (entry->victim->getType() == ENTITYTYPE::CUSTOM)
-			{
-				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
+				if (entry->victim->getName().find("officeDoorHitBox") != std::string::npos)
 				{
-					Scene* var = Game::getSceneByName("MainScene");
-					static_cast <Scene2021*>(var)->spawnGarageCar(player->getCar()->getCartype());
-
-
-					entry->attacker->getEntityData()->Translate.Set(0.f, -10.f,0.0f);
-					
-					Game::switchScene(S_2021);
+					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					if (ePressed && !eHeld)
+					{
+						eHeld = true;
+						//Leave when collected bimster
+						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+						{
+							if (Game::mManager.getCompletableMissions().at(i) != MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE) //do && check if next mission has started to disable this 
+							{
+								Game::switchScene(S_2021);
+							}
+							else
+							{
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_ESCAPE_THE_OFFICE, 100.0f); //completed drug collection mission
+								//switch to interrogate scene
+								//Game::switchScene(S_GARAGE);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -645,7 +517,6 @@ void SceneOffice::CollisionHandler(double dt) {
 void SceneOffice::TopDownMapUpdate(double dt)
 {
 	//top down camera map
-	
 }
 
 void SceneOffice::Render()
@@ -889,6 +760,18 @@ void SceneOffice::SpawnWalls()
 
 	initCollidables(Vector3(-10.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
 	initCollidables(Vector3(-20.0f, 4.9f, -10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), CONCRETE_WALL); //face towards +ve z-axis
+
+	//Bimster stuff
+	initCollidables(Vector3(10.0f, 0.0f, 48.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(5.0f, 5.0f, 5.0f), GEO_DESK); //face towards +ve z-axis
+	initCollidables(Vector3(11.0f, 0.0f, 45.0f), Vector3(0.0f, 90.0f, 0.0f), Vector3(5.0f, 5.0f, 5.0f), GEO_DESK_CHAIR); //face towards +ve z-axis
+
+	//initCollidables(Vector3(12.0f, 1.0f, 46.0f), Vector3(0.0f, -90.0f, 0.0f), Vector3(3.0f, 3.0f, 3.0f), GEO_BIMSTER); //face towards +ve z-axis
+
+	Entity* mrBimster = new WorldObject(this, GEO_BIMSTER, "mrBimster");
+	mrBimster->getEntityData()->SetTransform(12.0f, 1.0f, 46.0f);
+	mrBimster->getEntityData()->SetRotate(0.0f, -90.0f, 0.0f);
+	mrBimster->getEntityData()->SetScale(3.0f, 3.0f, 3.0f);
+	eManager.spawnWorldEntity(mrBimster);
 
 	//initCollidables(Vector3(25.0f, 0.0, 25.0f), Vector3(0.0f, 180.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f), CONCRETE_WALL);
 	//initCollidables(Vector3(0.0f, 11.0f, 49.0f), Vector3(180.0f, 0.0f, 0.0f), Vector3(40.0f, 22.0f, 50.0f), GARAGE_DOOR); //garage door

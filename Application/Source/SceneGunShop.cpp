@@ -569,13 +569,12 @@ void SceneGunShop::CollisionHandler(double dt) {
 				if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
 					if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-						if (Application::IsKeyPressed('E')) {
+						if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3) {
 							ISound* door = AudioHandler::getEngine()->play3D(
 								AudioHandler::getSoundSource(DOOR),
 								AudioHandler::to_vec3df(Vector3(0, 0, 0)),
 								LOOPED::NOLOOP);
 							Game::switchScene(S_2021);
-							player->getEntityData()->Translate.Set(0, 0, 5);
 						}
 					}
 				}

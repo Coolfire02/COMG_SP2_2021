@@ -62,9 +62,6 @@ MISSION_VISIT_GUNSHOP
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-	- MISSION_TALK_TO_NPC
-	- MISSION_VISIT_RESTAURANT
-	- MISSION_VISIT_FOUNTAIN
 
 MISSION_TALK_TO_THE_OWNER
 - GEO_TYPE_Enum: EMPTY
@@ -106,4 +103,19 @@ MISSION_SNEAK_INTO_THE_BUILDING
 * PreRequisiteMissions:
 	- MISSION_GET_INFO_FROM_GILBERT
 
+MISSION_ABDUCT_BIMSTER
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Abduct Bimster
+- CompletedMessage: Leave the area
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	
+
+MISSION_ESCAPE_THE_OFFICE
+- GEO_TYPE_Enum: EMPTY
+- ObjectiveMessage: Leave the office
+- CompletedMessage: Interrogate Bimster
+* BlackListedPreRequisiteMissions: []
+* PreRequisiteMissions:
+	- MISSION_ABDUCT_BIMSTER
 #END

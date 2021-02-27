@@ -624,7 +624,7 @@ void SceneCarShop::CollisionHandler(double dt) {
 				if (entry->victim->getName().find("garageDoorHitBox") != std::string::npos)
 				{
 					Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-					if (ePressed && !eHeld)
+					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
 						Scene* var = Game::getSceneByName("MainScene");

@@ -9,6 +9,7 @@ std::vector<Scene*> Game::SceneList;
 MissionManager Game::mManager;
 InteractionManager Game::iManager;
 double Game::gElapsedTime = 0.0;
+double Game::sceneCooldown = 0.0;
 int Game::ammo = 0;
 int Game::cash = 0;
 
@@ -41,6 +42,7 @@ int frameTicker;
 int fireFrame;
 void Game::Update(double dt)
 {
+	sceneCooldown += dt;
 	gElapsedTime += dt;
 
 	if (switchingScene) {
@@ -203,6 +205,7 @@ void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
 	SceneList[scene]->InitLights();
+	Game::sceneCooldown = 0;
 }
 
 void Game::switchScene(static SCENES scene, float transitionTime, std::string text)
