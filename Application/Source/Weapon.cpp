@@ -47,7 +47,7 @@ Weapon::Weapon(WEAPON_TYPE wType)
 }
 
 void Weapon::initExtinguisher() {
-	initWeapon(FIRE_EXTINGUISHER, 0, 0);
+	initWeapon(FIRE_EXTINGUISHER, 10, 1);
 	associatedMeshType = GEO_FIREEXTINGUISHER;
 }
 

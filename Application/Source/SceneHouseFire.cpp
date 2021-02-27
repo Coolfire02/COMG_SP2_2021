@@ -381,6 +381,8 @@ void SceneHouseFire::Update(double dt)
 		Vector3 view = (camera.target - camera.position).Normalized();
 		Game::inv.getActiveWeapon()->Update(this, &this->eManager, player->getEntityData()->Translate, view, dt);
 	}
+	if (this->arrviedAtFinalSpot)
+		Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 }
 
 void SceneHouseFire::MissionCompleteListener(double dt) {
@@ -436,7 +438,8 @@ void SceneHouseFire::CollisionHandler(double dt) {
 						else if (((Car*)entry)->getPlayer() != nullptr && player->isDriving() && this->arrviedAtFinalSpot) {
 							Game::iManager.loadInteraction("HouseFire Out Of Car");
 							Game::mManager.addProgress(MISSIONTYPE::MISSION_FIND_HOUSE, 100.0);
-							
+							this->arrviedAtFinalSpot = false;
+
 							player->setDriving(nullptr, false);
 							camera.position = camera.playerPtr->getEntityData()->Translate - camera.TPSPositionVector;
 							((Car*)entry)->setPlayer(nullptr);
