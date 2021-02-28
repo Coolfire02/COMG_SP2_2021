@@ -32,6 +32,12 @@ Entity System encapsulating all attributes of something "Living"
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class Entity:
+\brief Entity System encapsulating all attributes of something "Living"
+*/
+/******************************************************************************/
 class Entity 
 {
 private:

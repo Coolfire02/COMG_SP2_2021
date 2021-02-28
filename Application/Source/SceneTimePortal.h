@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
