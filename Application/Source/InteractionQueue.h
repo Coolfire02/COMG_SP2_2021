@@ -32,6 +32,12 @@ struct Interaction {
 
 };
 
+/******************************************************************************/
+/*!
+		Class InteractionQueue:
+\brief Handles the Queued Interactions created in the Game.
+*/
+/******************************************************************************/
 class InteractionQueue {
 	std::vector<Interaction*> queue;
 public:

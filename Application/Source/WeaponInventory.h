@@ -12,6 +12,12 @@ Handles all Weapons in associated with Entity.
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class WeaponInventory:
+\brief Handles all Weapons in associated with Entity.
+*/
+/******************************************************************************/
 class WeaponInventory
 {
 private:

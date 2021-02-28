@@ -42,6 +42,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneTimePortal:
+\brief Time Portal Scene to enter and come back from the Future.
+*/
+/******************************************************************************/
 class SceneTimePortal : public Scene
 {
 	enum INTERACTION_TYPE {

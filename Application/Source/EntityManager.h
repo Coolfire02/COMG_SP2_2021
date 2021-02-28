@@ -22,6 +22,12 @@ Scene associated object that handles all Entity in a specific Instance of a Scen
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class EntityManager:
+\brief Scene associated object that handles all Entity in a specific Instance of a Scene. Providing Collision Management
+*/
+/******************************************************************************/
 class EntityManager
 {
 	const Scene* scene; //World all entities are in;

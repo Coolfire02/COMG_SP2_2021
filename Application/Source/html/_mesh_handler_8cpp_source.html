@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: MeshHandler.cpp Source File</title>
+<title>My Project: MeshHandler.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -65,9 +65,9 @@ $(function() {
 <div class="title">MeshHandler.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;MeshHandler.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_mesh_handler_8h.html">MeshHandler.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GL\glew.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;LoadTGA.h&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_load_t_g_a_8h.html">LoadTGA.h</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keywordtype">bool</span> MeshHandler::isLoaded = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<a class="code" href="class_mesh.html">Mesh</a>* MeshHandler::meshList[NUM_GEOMETRY];</div>
@@ -468,6 +468,8 @@ $(function() {
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    isLoaded = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;}</div>
+<div class="ttc" id="a_load_t_g_a_8h_html"><div class="ttname"><a href="_load_t_g_a_8h.html">LoadTGA.h</a></div><div class="ttdoc">Handles loading of TGAs from File.</div></div>
+<div class="ttc" id="a_mesh_handler_8h_html"><div class="ttname"><a href="_mesh_handler_8h.html">MeshHandler.h</a></div><div class="ttdoc">Provides a Universal Mesh List for all Scenes to use.</div></div>
 <div class="ttc" id="aclass_mesh_builder_html_a37ccb85aee8caa7e3066fa884e2f3c21"><div class="ttname"><a href="class_mesh_builder.html#a37ccb85aee8caa7e3066fa884e2f3c21">MeshBuilder::GenerateOBJMTL</a></div><div class="ttdeci">static Mesh * GenerateOBJMTL(const std::string &amp;meshName, const std::string &amp;file_path, const std::string &amp;mtl_path)</div><div class="ttdoc">Generates a Mesh based off a provided OBJ with an MTL file.</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l00052">MeshBuilder.cpp:52</a></div></div>
 <div class="ttc" id="aclass_mesh_builder_html_a5e777328dc946f483beb5645d8f24c4a"><div class="ttname"><a href="class_mesh_builder.html#a5e777328dc946f483beb5645d8f24c4a">MeshBuilder::GenerateCube</a></div><div class="ttdeci">static Mesh * GenerateCube(const std::string &amp;meshName, Color color)</div><div class="ttdoc">Generate the vertices of a cube; Use random color for each vertex Then generate the VBO/IBO and store...</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l01135">MeshBuilder.cpp:1135</a></div></div>
 <div class="ttc" id="aclass_mesh_builder_html_a78d37e2b0cc068eec801f17c367100e7"><div class="ttname"><a href="class_mesh_builder.html#a78d37e2b0cc068eec801f17c367100e7">MeshBuilder::GenerateAxes</a></div><div class="ttdeci">static Mesh * GenerateAxes(const std::string &amp;meshName, float lengthX, float lengthY, float lengthZ)</div><div class="ttdoc">Generate the vertices of a reference Axes; Use red for x-axis, green for y-axis, blue for z-axis Then...</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l00171">MeshBuilder.cpp:171</a></div></div>
@@ -477,7 +479,7 @@ $(function() {
 <div class="ttc" id="aclass_mesh_builder_html_aac7c87881dbc08f8d41f2068e0f40c76"><div class="ttname"><a href="class_mesh_builder.html#aac7c87881dbc08f8d41f2068e0f40c76">MeshBuilder::GenerateText</a></div><div class="ttdeci">static Mesh * GenerateText(const std::string &amp;meshName, unsigned numRow, unsigned numCol)</div><div class="ttdoc">Loads in all 256 characters into a Text Mesh, Used to render text in application.</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l00096">MeshBuilder.cpp:96</a></div></div>
 <div class="ttc" id="aclass_mesh_builder_html_aba87550d7726a610c911fbb977fd3575"><div class="ttname"><a href="class_mesh_builder.html#aba87550d7726a610c911fbb977fd3575">MeshBuilder::GenerateOBJ</a></div><div class="ttdeci">static Mesh * GenerateOBJ(const std::string &amp;meshName, const std::string &amp;file_path)</div><div class="ttdoc">Generates a Mesh based off a provided OBJ without MTL file.</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l00018">MeshBuilder.cpp:18</a></div></div>
 <div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">To store VBO (vertex &amp; color buffer) and IBO (index buffer)</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00015">Mesh.h:16</a></div></div>
-<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00016">Vertex.h:17</a></div></div>
+<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00024">Vertex.h:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

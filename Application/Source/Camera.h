@@ -16,6 +16,25 @@ enum CAMERATYPE {
 	TOPDOWN_MAINMENU
 };
 
+/******************************************************************************/
+/*!
+\file	Camera.h
+\author Joash Foo
+\author Jordan Low
+\brief
+Camera System for our game.
+
+Includes the Third Person Camera, Top Down Camera and First Person Camera functionalities.
+Includes Mouse Movement and takes into account Player's position in a scene.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class Camera:
+\brief Camera System for our game.
+*/
+/******************************************************************************/
 class Camera
 {
 public:

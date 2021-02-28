@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: Inventory.h Source File</title>
+<title>My Project: Inventory.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -65,64 +65,70 @@ $(function() {
 <div class="title">Inventory.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GarageInventory.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;ItemInventory.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;WeaponInventory.h&quot;</span></div>
+<a href="_inventory_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_garage_inventory_8h.html">GarageInventory.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_item_inventory_8h.html">ItemInventory.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_weapon_inventory_8h.html">WeaponInventory.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//Inventory class created by Ridwan on 16/2/2021</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//Optimized inventory class by Ridwan on 17/2/2021</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_inventory.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_inventory.html">Inventory</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    std::vector&lt;GarageInventory*&gt; garageInv; <span class="comment">//Store cars player owns</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_garage_inventory.html">GarageInventory</a>* currentCar; <span class="comment">//Points to current car</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_item_inventory.html">ItemInventory</a>* itemInventory; <span class="comment">//To get item Inventory</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_weapon_inventory.html">WeaponInventory</a>* weaponInv;<span class="comment">//To get Weapon Inventory</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">float</span> toggleTimer;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_inventory.html">Inventory</a>();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    ~<a class="code" href="class_inventory.html">Inventory</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">//Adding Cars/Items/Weapons</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> addWeap(WEAPON_TYPE weapontype);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> addCar(CAR_TYPE cartype);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> addItem(ITEM_TYPE itemtype, <span class="keywordtype">int</span> amt);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">//Changing Item Amount</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> changeItemAmt(ITEM_TYPE itemtype, <span class="keywordtype">int</span> amt);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> deleteItem(ITEM_TYPE itemtype);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> deleteWeapon(WEAPON_TYPE wType);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">//Switching Cars/Items/Weapons</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> switchCar(<span class="keywordtype">int</span> cartype);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> switchWeapon(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> toggleItem();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">//Getters</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_garage_inventory.html">GarageInventory</a>* getCurrentCar();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::vector&lt;GarageInventory*&gt; getGarageVector();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::vector&lt;Weapon*&gt; getWeaponVector();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_item_inventory.html">ItemInventory</a>* getItemInventory();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_weapon_inventory.html">WeaponInventory</a>* getWeaponInventory();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    std::vector&lt;Item*&gt; getItemVector();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    CAR_TYPE getCurrentCarType();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ITEM_TYPE getCurrentItemType();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> getCurrentItemAmt();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_weapon.html">Weapon</a>* getActiveWeapon();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    WEAPON_TYPE getCurrentWeaponType();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_inventory.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_inventory.html">Inventory</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::vector&lt;GarageInventory*&gt; garageInv; <span class="comment">//Store cars player owns</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_garage_inventory.html">GarageInventory</a>* currentCar; <span class="comment">//Points to current car</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_item_inventory.html">ItemInventory</a>* itemInventory; <span class="comment">//To get item Inventory</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_weapon_inventory.html">WeaponInventory</a>* weaponInv;<span class="comment">//To get Weapon Inventory</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">float</span> toggleTimer;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_inventory.html">Inventory</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    ~<a class="code" href="class_inventory.html">Inventory</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//Adding Cars/Items/Weapons</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> addWeap(WEAPON_TYPE weapontype);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> addCar(CAR_TYPE cartype);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> addItem(ITEM_TYPE itemtype, <span class="keywordtype">int</span> amt);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">//Changing Item Amount</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> changeItemAmt(ITEM_TYPE itemtype, <span class="keywordtype">int</span> amt);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> deleteItem(ITEM_TYPE itemtype);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> deleteWeapon(WEAPON_TYPE wType);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">//Switching Cars/Items/Weapons</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> switchCar(<span class="keywordtype">int</span> cartype);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> switchWeapon(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> toggleItem();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">//Getters</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_garage_inventory.html">GarageInventory</a>* getCurrentCar();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::vector&lt;GarageInventory*&gt; getGarageVector();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::vector&lt;Weapon*&gt; getWeaponVector();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_item_inventory.html">ItemInventory</a>* getItemInventory();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="class_weapon_inventory.html">WeaponInventory</a>* getWeaponInventory();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::vector&lt;Item*&gt; getItemVector();</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="ttc" id="aclass_garage_inventory_html"><div class="ttname"><a href="class_garage_inventory.html">GarageInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_garage_inventory_8h_source.html#l00005">GarageInventory.h:6</a></div></div>
-<div class="ttc" id="aclass_inventory_html"><div class="ttname"><a href="class_inventory.html">Inventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_inventory_8h_source.html#l00009">Inventory.h:10</a></div></div>
-<div class="ttc" id="aclass_item_inventory_html"><div class="ttname"><a href="class_item_inventory.html">ItemInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_item_inventory_8h_source.html#l00006">ItemInventory.h:7</a></div></div>
-<div class="ttc" id="aclass_weapon_html"><div class="ttname"><a href="class_weapon.html">Weapon</a></div><div class="ttdef"><b>Definition:</b> <a href="_weapon_8h_source.html#l00017">Weapon.h:18</a></div></div>
-<div class="ttc" id="aclass_weapon_inventory_html"><div class="ttname"><a href="class_weapon_inventory.html">WeaponInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_weapon_inventory_8h_source.html#l00006">WeaponInventory.h:7</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    CAR_TYPE getCurrentCarType();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    ITEM_TYPE getCurrentItemType();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">int</span> getCurrentItemAmt();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="class_weapon.html">Weapon</a>* getActiveWeapon();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    WEAPON_TYPE getCurrentWeaponType();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="ttc" id="a_garage_inventory_8h_html"><div class="ttname"><a href="_garage_inventory_8h.html">GarageInventory.h</a></div><div class="ttdoc">Manages all Vehicles in a Player's Garage Inventory.</div></div>
+<div class="ttc" id="a_item_inventory_8h_html"><div class="ttname"><a href="_item_inventory_8h.html">ItemInventory.h</a></div><div class="ttdoc">Handles items in an Inventory.</div></div>
+<div class="ttc" id="a_weapon_inventory_8h_html"><div class="ttname"><a href="_weapon_inventory_8h.html">WeaponInventory.h</a></div><div class="ttdoc">Handles all Weapons in associated with Entity.</div></div>
+<div class="ttc" id="aclass_garage_inventory_html"><div class="ttname"><a href="class_garage_inventory.html">GarageInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_garage_inventory_8h_source.html#l00014">GarageInventory.h:15</a></div></div>
+<div class="ttc" id="aclass_inventory_html"><div class="ttname"><a href="class_inventory.html">Inventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_inventory_8h_source.html#l00018">Inventory.h:19</a></div></div>
+<div class="ttc" id="aclass_item_inventory_html"><div class="ttname"><a href="class_item_inventory.html">ItemInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_item_inventory_8h_source.html#l00015">ItemInventory.h:16</a></div></div>
+<div class="ttc" id="aclass_weapon_html"><div class="ttname"><a href="class_weapon.html">Weapon</a></div><div class="ttdef"><b>Definition:</b> <a href="_weapon_8h_source.html#l00026">Weapon.h:27</a></div></div>
+<div class="ttc" id="aclass_weapon_inventory_html"><div class="ttname"><a href="class_weapon_inventory.html">WeaponInventory</a></div><div class="ttdef"><b>Definition:</b> <a href="_weapon_inventory_8h_source.html#l00015">WeaponInventory.h:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

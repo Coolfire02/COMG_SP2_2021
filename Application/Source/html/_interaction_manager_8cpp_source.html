@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: InteractionManager.cpp Source File</title>
+<title>My Project: InteractionManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -66,16 +66,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_interaction_manager_8h.html">InteractionManager.h</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Game.h&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_8h.html">Game.h</a>&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;Debug.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Game.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;SceneTimePortal.h&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;SceneFinale.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;Application.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debug_8h.html">Debug.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_8h.html">Game.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_time_portal_8h.html">SceneTimePortal.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_finale_8h.html">SceneFinale.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_application_8h.html">Application.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">const</span> <span class="keywordtype">float</span> InteractionManager::INTERACTION_CLICKCOOLDOWN = 2.5f;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
@@ -528,8 +528,13 @@ $(function() {
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;        this-&gt;interactionElapsed += dt;</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    }</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;}</div>
+<div class="ttc" id="a_application_8h_html"><div class="ttname"><a href="_application_8h.html">Application.h</a></div><div class="ttdoc">Handles the entire application.</div></div>
+<div class="ttc" id="a_debug_8h_html"><div class="ttname"><a href="_debug_8h.html">Debug.h</a></div><div class="ttdoc">Handles all Debug Mode COUT Tests.</div></div>
+<div class="ttc" id="a_game_8h_html"><div class="ttname"><a href="_game_8h.html">Game.h</a></div><div class="ttdoc">Handles the entire Game. (Scenes, Settings, Managers, etc.)</div></div>
 <div class="ttc" id="a_interaction_manager_8h_html"><div class="ttname"><a href="_interaction_manager_8h.html">InteractionManager.h</a></div><div class="ttdoc">Handles all the interactions in this file.</div></div>
-<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00026">Entity.h:27</a></div></div>
+<div class="ttc" id="a_scene_finale_8h_html"><div class="ttname"><a href="_scene_finale_8h.html">SceneFinale.h</a></div><div class="ttdoc">The Last and Final Scene of the Game.</div></div>
+<div class="ttc" id="a_scene_time_portal_8h_html"><div class="ttname"><a href="_scene_time_portal_8h.html">SceneTimePortal.h</a></div><div class="ttdoc">Time Portal Scene to enter and come back from the Future.</div></div>
+<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00035">Entity.h:36</a></div></div>
 <div class="ttc" id="aclass_interaction_manager_html_a24f268f4682c98a0c09eddff1b43dafe"><div class="ttname"><a href="class_interaction_manager.html#a24f268f4682c98a0c09eddff1b43dafe">InteractionManager::getTimesInteracted</a></div><div class="ttdeci">int getTimesInteracted(std::string interactionID)</div><div class="ttdoc">Gets the total amount of times this interaction has been loaded.</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00253">InteractionManager.cpp:253</a></div></div>
 <div class="ttc" id="aclass_interaction_manager_html_a3a4fa8b618845d3c263fae56f7ad19f0"><div class="ttname"><a href="class_interaction_manager.html#a3a4fa8b618845d3c263fae56f7ad19f0">InteractionManager::isInteracting</a></div><div class="ttdeci">bool isInteracting()</div><div class="ttdoc">Returns true if the queue is not empty.</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00477">InteractionManager.cpp:477</a></div></div>
 <div class="ttc" id="aclass_interaction_manager_html_a4197b3e52d82e72f31eeea74a6945ccd"><div class="ttname"><a href="class_interaction_manager.html#a4197b3e52d82e72f31eeea74a6945ccd">InteractionManager::nextInteraction</a></div><div class="ttdeci">void nextInteraction(std::string key)</div><div class="ttdoc">Runs the pre and post commands of the current Interaction and pop it from the queue,...</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00449">InteractionManager.cpp:449</a></div></div>
@@ -541,12 +546,12 @@ $(function() {
 <div class="ttc" id="aclass_interaction_manager_html_ab8db96a6e2495700c17c2c59596550cf"><div class="ttname"><a href="class_interaction_manager.html#ab8db96a6e2495700c17c2c59596550cf">InteractionManager::split</a></div><div class="ttdeci">void split(std::string txt, char delim, std::vector&lt; std::string &gt; &amp;out)</div><div class="ttdoc">Splits a string based on delimiters in between.</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00295">InteractionManager.cpp:295</a></div></div>
 <div class="ttc" id="aclass_interaction_manager_html_aca910d8bedc8f3250617cce07f70b080"><div class="ttname"><a href="class_interaction_manager.html#aca910d8bedc8f3250617cce07f70b080">InteractionManager::Update</a></div><div class="ttdeci">void Update(double)</div><div class="ttdoc">Updates the elapsed time.</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00503">InteractionManager.cpp:503</a></div></div>
 <div class="ttc" id="aclass_interaction_manager_html_acea9a2941598a6729de94c1a55465ef9"><div class="ttname"><a href="class_interaction_manager.html#acea9a2941598a6729de94c1a55465ef9">InteractionManager::runCommand</a></div><div class="ttdeci">bool runCommand(Command cmd)</div><div class="ttdoc">Runs a command in the format of '/cmd' to carry out codes that require their own functions.</div><div class="ttdef"><b>Definition:</b> <a href="_interaction_manager_8cpp_source.html#l00040">InteractionManager.cpp:40</a></div></div>
-<div class="ttc" id="aclass_interaction_queue_html"><div class="ttname"><a href="class_interaction_queue.html">InteractionQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00026">InteractionQueue.h:26</a></div></div>
-<div class="ttc" id="aclass_scene_finale_html"><div class="ttname"><a href="class_scene_finale.html">SceneFinale</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_finale_8h_source.html#l00034">SceneFinale.h:35</a></div></div>
-<div class="ttc" id="aclass_scene_time_portal_html"><div class="ttname"><a href="class_scene_time_portal.html">SceneTimePortal</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_time_portal_8h_source.html#l00036">SceneTimePortal.h:37</a></div></div>
-<div class="ttc" id="aclass_world_object_html"><div class="ttname"><a href="class_world_object.html">WorldObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_world_object_8h_source.html#l00004">WorldObject.h:5</a></div></div>
-<div class="ttc" id="astruct_command_html"><div class="ttname"><a href="struct_command.html">Command</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00006">InteractionQueue.h:6</a></div></div>
-<div class="ttc" id="astruct_interaction_html"><div class="ttname"><a href="struct_interaction.html">Interaction</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00014">InteractionQueue.h:14</a></div></div>
+<div class="ttc" id="aclass_interaction_queue_html"><div class="ttname"><a href="class_interaction_queue.html">InteractionQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00035">InteractionQueue.h:35</a></div></div>
+<div class="ttc" id="aclass_scene_finale_html"><div class="ttname"><a href="class_scene_finale.html">SceneFinale</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_finale_8h_source.html#l00043">SceneFinale.h:44</a></div></div>
+<div class="ttc" id="aclass_scene_time_portal_html"><div class="ttname"><a href="class_scene_time_portal.html">SceneTimePortal</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_time_portal_8h_source.html#l00045">SceneTimePortal.h:46</a></div></div>
+<div class="ttc" id="aclass_world_object_html"><div class="ttname"><a href="class_world_object.html">WorldObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_world_object_8h_source.html#l00013">WorldObject.h:14</a></div></div>
+<div class="ttc" id="astruct_command_html"><div class="ttname"><a href="struct_command.html">Command</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00015">InteractionQueue.h:15</a></div></div>
+<div class="ttc" id="astruct_interaction_html"><div class="ttname"><a href="struct_interaction.html">Interaction</a></div><div class="ttdef"><b>Definition:</b> <a href="_interaction_queue_8h_source.html#l00023">InteractionQueue.h:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

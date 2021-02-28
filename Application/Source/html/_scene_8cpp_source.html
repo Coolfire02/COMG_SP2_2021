@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: Scene.cpp Source File</title>
+<title>My Project: Scene.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -65,15 +65,15 @@ $(function() {
 <div class="title">Scene.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;Scene.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_8h.html">Scene.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GL\glew.h&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Mtx44.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;LoadTGA.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_load_t_g_a_8h.html">LoadTGA.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Windows.h&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;shader.hpp&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Utility.h&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Application.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_utility_8h.html">Utility.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_application_8h.html">Application.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> Scene::elapser(<span class="keywordtype">double</span> dt) {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    elapsed += dt;</div>
@@ -317,9 +317,13 @@ $(function() {
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keywordtype">double</span> Scene::getElapsedTime() {</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">return</span> elapsed;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;}</div>
+<div class="ttc" id="a_application_8h_html"><div class="ttname"><a href="_application_8h.html">Application.h</a></div><div class="ttdoc">Handles the entire application.</div></div>
+<div class="ttc" id="a_load_t_g_a_8h_html"><div class="ttname"><a href="_load_t_g_a_8h.html">LoadTGA.h</a></div><div class="ttdoc">Handles loading of TGAs from File.</div></div>
+<div class="ttc" id="a_scene_8h_html"><div class="ttname"><a href="_scene_8h.html">Scene.h</a></div><div class="ttdoc">Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...</div></div>
+<div class="ttc" id="a_utility_8h_html"><div class="ttname"><a href="_utility_8h.html">Utility.h</a></div><div class="ttdoc">Used to Multiply Mtx44s with Position.</div></div>
 <div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">To store VBO (vertex &amp; color buffer) and IBO (index buffer)</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00015">Mesh.h:16</a></div></div>
 <div class="ttc" id="aclass_mesh_html_a75e66bcd90c09492676a4cfe5b23c3af"><div class="ttname"><a href="class_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af">Mesh::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdoc">OpenGL render code.</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8cpp_source.html#l00063">Mesh.cpp:63</a></div></div>
-<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00016">Vertex.h:17</a></div></div>
+<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00024">Vertex.h:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

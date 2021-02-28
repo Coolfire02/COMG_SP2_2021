@@ -11,6 +11,12 @@ Manages all Vehicles in a Player's Garage Inventory.
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class GarageInventory:
+\brief Manages all Vehicles in a Player's Garage Inventory.
+*/
+/******************************************************************************/
 class GarageInventory //Garage Slot
 {
 private:

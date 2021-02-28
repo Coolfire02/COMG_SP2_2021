@@ -42,6 +42,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneGuardBuilding:
+\brief Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
 class SceneGuardBuilding : public Scene
 {
 	enum INTERACTION_TYPE {

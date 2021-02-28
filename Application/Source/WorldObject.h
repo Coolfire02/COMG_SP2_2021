@@ -10,6 +10,12 @@ WorldObject Entity usually used for Buildings, Trees etc.
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class WorldObject:
+\brief WorldObject Entity usually used for Buildings, Trees etc.
+*/
+/******************************************************************************/
 class WorldObject : public Entity
 {
 	const GEOMETRY_TYPE associatedType;

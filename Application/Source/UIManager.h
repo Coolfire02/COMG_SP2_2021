@@ -34,6 +34,12 @@ enum UI_MENUS
 	UI_MENU_COUNT,
 };
 
+/******************************************************************************/
+/*!
+		Class UIManager:
+\brief Handles all UIs with Buttons in the Game.
+*/
+/******************************************************************************/
 class UIManager
 {
 private:

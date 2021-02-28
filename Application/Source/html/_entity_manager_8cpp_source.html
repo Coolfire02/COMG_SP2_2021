@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: EntityManager.cpp Source File</title>
+<title>My Project: EntityManager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -65,8 +65,8 @@ $(function() {
 <div class="title">EntityManager.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;EntityManager.h&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Bullet.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_entity_manager_8h.html">EntityManager.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_bullet_8h.html">Bullet.h</a>&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;EntityManager::EntityManager(<a class="code" href="class_scene.html">Scene</a>* scene) : scene(scene) {</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
@@ -221,10 +221,12 @@ $(function() {
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    worldEntities.erase(std::remove(worldEntities.begin(), worldEntities.end(), <span class="keyword">nullptr</span>), worldEntities.end());</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    movingEntities.erase(std::remove(movingEntities.begin(), movingEntities.end(), <span class="keyword">nullptr</span>), movingEntities.end());</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
-<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00026">Entity.h:27</a></div></div>
-<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00010">Scene.h:11</a></div></div>
+<div class="ttc" id="a_bullet_8h_html"><div class="ttname"><a href="_bullet_8h.html">Bullet.h</a></div><div class="ttdoc">Handles the Bullet Entity in our Game.</div></div>
+<div class="ttc" id="a_entity_manager_8h_html"><div class="ttname"><a href="_entity_manager_8h.html">EntityManager.h</a></div><div class="ttdoc">Scene associated object that handles all Entity in a specific Instance of a Scene.</div></div>
+<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00035">Entity.h:36</a></div></div>
+<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00020">Scene.h:21</a></div></div>
 <div class="ttc" id="astruct_collided_with_html"><div class="ttname"><a href="struct_collided_with.html">CollidedWith</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_manager_8h_source.html#l00006">EntityManager.h:6</a></div></div>
-<div class="ttc" id="astruct_collider_html"><div class="ttname"><a href="struct_collider.html">Collider</a></div><div class="ttdef"><b>Definition:</b> <a href="_hit_box_8h_source.html#l00024">HitBox.h:24</a></div></div>
+<div class="ttc" id="astruct_collider_html"><div class="ttname"><a href="struct_collider.html">Collider</a></div><div class="ttdoc">A struct of values used by Entity Manager for Collision Handling.</div><div class="ttdef"><b>Definition:</b> <a href="_hit_box_8h_source.html#l00023">HitBox.h:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

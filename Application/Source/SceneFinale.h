@@ -40,6 +40,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneFinale:
+\brief The Last and Final Scene of the Game.
+*/
+/******************************************************************************/
 class SceneFinale : public Scene
 {
 	enum INTERACTION_TYPE {

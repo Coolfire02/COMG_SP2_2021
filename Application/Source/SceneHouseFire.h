@@ -39,6 +39,12 @@ Change Scene Name Accordingly
 Init the Player Entity
 */
 
+/******************************************************************************/
+/*!
+		Class SceneHouseFire:
+\brief Starting scene of House on Fire for the Game.
+*/
+/******************************************************************************/
 class SceneHouseFire : public Scene
 {
 

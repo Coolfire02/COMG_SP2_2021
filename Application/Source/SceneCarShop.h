@@ -41,6 +41,13 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneCarShop:
+\brief Car Shop Scene to purchase Cars in the Game.
+*/
+/******************************************************************************/
+
 class SceneCarShop : public Scene
 {
 	enum INTERACTION_TYPE {

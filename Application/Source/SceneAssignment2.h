@@ -41,6 +41,13 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneAssignment2:
+\brief Test Scene used for Debugging/Testing.
+*/
+/******************************************************************************/
+
 class SceneAssignment2 : public Scene
 {
 	enum INTERACTION_TYPE {

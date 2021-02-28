@@ -61,6 +61,12 @@ struct MissionInfo {
 	std::vector<MISSIONTYPE> requiredPreReqMissions;
 };
 
+/******************************************************************************/
+/*!
+		Class Mission:
+\brief Mission Objects handled in Mission Handler for Game's Missions.
+*/
+/******************************************************************************/
 class Mission {
 	MISSIONTYPE type;
 	float progress;

@@ -41,6 +41,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneOffice:
+\brief 2nd Last Scene to capture target from his Office.
+*/
+/******************************************************************************/
 class SceneOffice : public Scene
 {
 	enum INTERACTION_TYPE {

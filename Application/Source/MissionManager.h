@@ -17,6 +17,12 @@ MissionManager also loads all Missions from a text file to make it less statical
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class MissionManager:
+\brief Handles all Missions in the Game.
+*/
+/******************************************************************************/
 class MissionManager {
 
 

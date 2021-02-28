@@ -15,6 +15,12 @@ Manager for all Inventories associated with Player.
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class Inventory:
+\brief Manager for all Inventories associated with Player.
+*/
+/******************************************************************************/
 class Inventory
 {
 private:

@@ -29,7 +29,12 @@ struct Font {
 	float verticalOffset;
 };
 
-
+/******************************************************************************/
+/*!
+		Class Text:
+\brief Text Objects used by Buttons.
+*/
+/******************************************************************************/
 class Text
 {
 	//Static Members

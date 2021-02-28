@@ -24,6 +24,13 @@ Handles all World Attributes of an Entity.
 //This data is then used to communicate with the HitBox class to update it accordingly
 
 // rewrite of entity data by Joash 16/2/21
+
+/******************************************************************************/
+/*!
+		Class EntityDataHandler:
+\brief Handles all World Attributes of an Entity.
+*/
+/******************************************************************************/
 struct EntityData {
 	Vector3 Translate;
 	Vector3 Rotation;

@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 #include "ButtonManager.h"
 #include "EntityManager.h"
 #include "InteractionManager.h"
@@ -40,6 +39,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneGunShop:
+\brief Gun Shop Scene in our Game to purchase Guns.
+*/
+/******************************************************************************/
 class SceneGunShop : public Scene
 {
 	enum INTERACTION_TYPE {

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: SceneUI.cpp Source File</title>
+<title>My Project: SceneUI.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -65,22 +65,22 @@ $(function() {
 <div class="title">SceneUI.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;SceneUI.h&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_u_i_8h.html">SceneUI.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GL\glew.h&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Mtx44.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;LoadTGA.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_load_t_g_a_8h.html">LoadTGA.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;Windows.h&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Player.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_player_8h.html">Player.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;shader.hpp&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;Utility.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_utility_8h.html">Utility.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_car_8h.html">Car.h</a>&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_interaction_manager_8h.html">InteractionManager.h</a>&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;Debug.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;AudioHandler.h&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;SceneGarage.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_debug_8h.html">Debug.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_audio_handler_8h.html">AudioHandler.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_garage_8h.html">SceneGarage.h</a>&quot;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;SceneUI::SceneUI() :</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    eManager(this)</div>
@@ -1292,21 +1292,28 @@ $(function() {
 <div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;    glDeleteVertexArrays(1, &amp;m_vertexArrayID);</div>
 <div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;    glDeleteProgram(m_programID);</div>
 <div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;}</div>
+<div class="ttc" id="a_audio_handler_8h_html"><div class="ttname"><a href="_audio_handler_8h.html">AudioHandler.h</a></div><div class="ttdoc">Handles all the Audio in our Game. Preloads ISoundSources to prevent lag when use.</div></div>
 <div class="ttc" id="a_car_8h_html"><div class="ttname"><a href="_car_8h.html">Car.h</a></div><div class="ttdoc">Header file containing a CAR_TYPE enum and the Car class itself.</div></div>
+<div class="ttc" id="a_debug_8h_html"><div class="ttname"><a href="_debug_8h.html">Debug.h</a></div><div class="ttdoc">Handles all Debug Mode COUT Tests.</div></div>
 <div class="ttc" id="a_interaction_manager_8h_html"><div class="ttname"><a href="_interaction_manager_8h.html">InteractionManager.h</a></div><div class="ttdoc">Handles all the interactions in this file.</div></div>
+<div class="ttc" id="a_load_t_g_a_8h_html"><div class="ttname"><a href="_load_t_g_a_8h.html">LoadTGA.h</a></div><div class="ttdoc">Handles loading of TGAs from File.</div></div>
+<div class="ttc" id="a_player_8h_html"><div class="ttname"><a href="_player_8h.html">Player.h</a></div><div class="ttdoc">Handles all Players functionalities.</div></div>
+<div class="ttc" id="a_scene_garage_8h_html"><div class="ttname"><a href="_scene_garage_8h.html">SceneGarage.h</a></div><div class="ttdoc">Garage scene for players to store their cars and bring it out to Main City Scene.</div></div>
+<div class="ttc" id="a_scene_u_i_8h_html"><div class="ttname"><a href="_scene_u_i_8h.html">SceneUI.h</a></div><div class="ttdoc">Used for the Starting Screen UI.</div></div>
+<div class="ttc" id="a_utility_8h_html"><div class="ttname"><a href="_utility_8h.html">Utility.h</a></div><div class="ttdoc">Used to Multiply Mtx44s with Position.</div></div>
 <div class="ttc" id="aclass_camera_html_a609775f7ec4cd936ad7add808cd7354c"><div class="ttname"><a href="class_camera.html#a609775f7ec4cd936ad7add808cd7354c">Camera::Init</a></div><div class="ttdeci">void Init(const Vector3 &amp;pos, const Vector3 &amp;target, const Vector3 &amp;up)</div><div class="ttdoc">Initialize FirstPersonCamera.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8cpp_source.html#l00035">Camera.cpp:35</a></div></div>
 <div class="ttc" id="aclass_car_html"><div class="ttname"><a href="class_car.html">Car</a></div><div class="ttdoc">Car class for car movement.</div><div class="ttdef"><b>Definition:</b> <a href="_car_8h_source.html#l00033">Car.h:34</a></div></div>
 <div class="ttc" id="aclass_car_html_a6a0fdaacc5a7c6fcdcc032a668a17aaf"><div class="ttname"><a href="class_car.html#a6a0fdaacc5a7c6fcdcc032a668a17aaf">Car::Drive</a></div><div class="ttdeci">void Drive(double dt)</div><div class="ttdoc">Updates the car's position. velocity = acceleration / time.</div><div class="ttdef"><b>Definition:</b> <a href="_car_8cpp_source.html#l00212">Car.cpp:212</a></div></div>
-<div class="ttc" id="aclass_custom_entity_html"><div class="ttname"><a href="class_custom_entity.html">CustomEntity</a></div><div class="ttdef"><b>Definition:</b> <a href="_custom_entity_8h_source.html#l00004">CustomEntity.h:5</a></div></div>
-<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00026">Entity.h:27</a></div></div>
+<div class="ttc" id="aclass_custom_entity_html"><div class="ttname"><a href="class_custom_entity.html">CustomEntity</a></div><div class="ttdef"><b>Definition:</b> <a href="_custom_entity_8h_source.html#l00014">CustomEntity.h:15</a></div></div>
+<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00035">Entity.h:36</a></div></div>
 <div class="ttc" id="aclass_mesh_builder_html_a834e69c771108aee6d4f819e3cefb6cb"><div class="ttname"><a href="class_mesh_builder.html#a834e69c771108aee6d4f819e3cefb6cb">MeshBuilder::GenerateHitBox</a></div><div class="ttdeci">static Mesh * GenerateHitBox(const std::string &amp;meshName, Box &amp;box)</div><div class="ttdoc">HitBox Mesh Generation Based on the current HitBox box of an Entity.</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_builder_8cpp_source.html#l01227">MeshBuilder.cpp:1227</a></div></div>
 <div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">To store VBO (vertex &amp; color buffer) and IBO (index buffer)</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00015">Mesh.h:16</a></div></div>
-<div class="ttc" id="aclass_n_p_c_html"><div class="ttname"><a href="class_n_p_c.html">NPC</a></div><div class="ttdoc">NPC class that will involve interactable and non-interactable NPCs.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8h_source.html#l00068">NPC.h:69</a></div></div>
-<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00008">Player.h:9</a></div></div>
-<div class="ttc" id="aclass_world_object_html"><div class="ttname"><a href="class_world_object.html">WorldObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_world_object_8h_source.html#l00004">WorldObject.h:5</a></div></div>
-<div class="ttc" id="astruct_box_html"><div class="ttname"><a href="struct_box.html">Box</a></div><div class="ttdoc">Box of the hitbox, initially planned to be able to have multiple hitboxes per entity.</div><div class="ttdef"><b>Definition:</b> <a href="_hit_box_8h_source.html#l00040">HitBox.h:40</a></div></div>
-<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00016">Vertex.h:17</a></div></div>
-<div class="ttc" id="astruct_position_html"><div class="ttname"><a href="struct_position.html">Position</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00005">Vertex.h:6</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html"><div class="ttname"><a href="class_n_p_c.html">NPC</a></div><div class="ttdoc">NPC class that will involve interactable and non-interactable NPCs.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8h_source.html#l00077">NPC.h:78</a></div></div>
+<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00017">Player.h:18</a></div></div>
+<div class="ttc" id="aclass_world_object_html"><div class="ttname"><a href="class_world_object.html">WorldObject</a></div><div class="ttdef"><b>Definition:</b> <a href="_world_object_8h_source.html#l00013">WorldObject.h:14</a></div></div>
+<div class="ttc" id="astruct_box_html"><div class="ttname"><a href="struct_box.html">Box</a></div><div class="ttdoc">Box of the hitbox, initially planned to be able to have multiple hitboxes per entity.</div><div class="ttdef"><b>Definition:</b> <a href="_hit_box_8h_source.html#l00039">HitBox.h:39</a></div></div>
+<div class="ttc" id="astruct_color_html"><div class="ttname"><a href="struct_color.html">Color</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00024">Vertex.h:25</a></div></div>
+<div class="ttc" id="astruct_position_html"><div class="ttname"><a href="struct_position.html">Position</a></div><div class="ttdef"><b>Definition:</b> <a href="_vertex_8h_source.html#l00013">Vertex.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

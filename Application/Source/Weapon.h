@@ -23,6 +23,12 @@ enum WEAPON_TYPE
 	WEAPON_COUNT
 };
 
+/******************************************************************************/
+/*!
+		Class Weapon:
+\brief Handles all Weapon Functionalities like Shooting, reloading.
+*/
+/******************************************************************************/
 class Weapon
 {
 private:

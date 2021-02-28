@@ -42,6 +42,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneUI:
+\brief Used for the Starting Screen UI
+*/
+/******************************************************************************/
 class SceneUI : public Scene
 {
 	enum INTERACTION_TYPE {

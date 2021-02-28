@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Studio Project 2: Application.cpp Source File</title>
+<title>My Project: Application.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Studio Project 2
+   <div id="projectname">My Project
    </div>
   </td>
  </tr>
@@ -66,7 +66,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Application.h&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_application_8h.html">Application.h</a>&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//Include GLEW</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;GL/glew.h&gt;</span></div>
@@ -78,24 +78,24 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;MeshHandler.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;Game.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_mesh_handler_8h.html">MeshHandler.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_8h.html">Game.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;MissionManager.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_mission_manager_8h.html">MissionManager.h</a>&quot;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_interaction_manager_8h.html">InteractionManager.h</a>&quot;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//Include Scenes</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;Scene2021.h&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;SceneGarage.h&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;SceneGunShop.h&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;SceneHouseFire.h&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;SceneTimePortal.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;SceneGuardBuilding.h&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;SceneCarShop.h&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;SceneUI.h&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;SceneCarShop.h&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;SceneOffice.h&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;SceneFinale.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene2021_8h.html">Scene2021.h</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_garage_8h.html">SceneGarage.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_gun_shop_8h.html">SceneGunShop.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_house_fire_8h.html">SceneHouseFire.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_time_portal_8h.html">SceneTimePortal.h</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_guard_building_8h.html">SceneGuardBuilding.h</a>&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_car_shop_8h.html">SceneCarShop.h</a>&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_u_i_8h.html">SceneUI.h</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_car_shop_8h.html">SceneCarShop.h</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_office_8h.html">SceneOffice.h</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_finale_8h.html">SceneFinale.h</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;GLFWwindow* m_window;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">unsigned</span> Application::m_width;</div>
@@ -317,17 +317,31 @@ $(function() {
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="comment">//Finalize and clean up GLFW</span></div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    glfwTerminate();</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;}</div>
+<div class="ttc" id="a_application_8h_html"><div class="ttname"><a href="_application_8h.html">Application.h</a></div><div class="ttdoc">Handles the entire application.</div></div>
+<div class="ttc" id="a_game_8h_html"><div class="ttname"><a href="_game_8h.html">Game.h</a></div><div class="ttdoc">Handles the entire Game. (Scenes, Settings, Managers, etc.)</div></div>
 <div class="ttc" id="a_interaction_manager_8h_html"><div class="ttname"><a href="_interaction_manager_8h.html">InteractionManager.h</a></div><div class="ttdoc">Handles all the interactions in this file.</div></div>
-<div class="ttc" id="aclass_scene2021_html"><div class="ttname"><a href="class_scene2021.html">Scene2021</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene2021_8h_source.html#l00036">Scene2021.h:37</a></div></div>
-<div class="ttc" id="aclass_scene_car_shop_html"><div class="ttname"><a href="class_scene_car_shop.html">SceneCarShop</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_car_shop_8h_source.html#l00035">SceneCarShop.h:36</a></div></div>
-<div class="ttc" id="aclass_scene_finale_html"><div class="ttname"><a href="class_scene_finale.html">SceneFinale</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_finale_8h_source.html#l00034">SceneFinale.h:35</a></div></div>
-<div class="ttc" id="aclass_scene_garage_html"><div class="ttname"><a href="class_scene_garage.html">SceneGarage</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_garage_8h_source.html#l00035">SceneGarage.h:36</a></div></div>
-<div class="ttc" id="aclass_scene_guard_building_html"><div class="ttname"><a href="class_scene_guard_building.html">SceneGuardBuilding</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_guard_building_8h_source.html#l00036">SceneGuardBuilding.h:37</a></div></div>
-<div class="ttc" id="aclass_scene_gun_shop_html"><div class="ttname"><a href="class_scene_gun_shop.html">SceneGunShop</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_gun_shop_8h_source.html#l00034">SceneGunShop.h:35</a></div></div>
-<div class="ttc" id="aclass_scene_house_fire_html"><div class="ttname"><a href="class_scene_house_fire.html">SceneHouseFire</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_house_fire_8h_source.html#l00033">SceneHouseFire.h:34</a></div></div>
-<div class="ttc" id="aclass_scene_office_html"><div class="ttname"><a href="class_scene_office.html">SceneOffice</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_office_8h_source.html#l00035">SceneOffice.h:36</a></div></div>
-<div class="ttc" id="aclass_scene_time_portal_html"><div class="ttname"><a href="class_scene_time_portal.html">SceneTimePortal</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_time_portal_8h_source.html#l00036">SceneTimePortal.h:37</a></div></div>
-<div class="ttc" id="aclass_scene_u_i_html"><div class="ttname"><a href="class_scene_u_i.html">SceneUI</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_u_i_8h_source.html#l00036">SceneUI.h:37</a></div></div>
+<div class="ttc" id="a_mesh_handler_8h_html"><div class="ttname"><a href="_mesh_handler_8h.html">MeshHandler.h</a></div><div class="ttdoc">Provides a Universal Mesh List for all Scenes to use.</div></div>
+<div class="ttc" id="a_mission_manager_8h_html"><div class="ttname"><a href="_mission_manager_8h.html">MissionManager.h</a></div><div class="ttdoc">Handles all Missions in the Game.</div></div>
+<div class="ttc" id="a_scene2021_8h_html"><div class="ttname"><a href="_scene2021_8h.html">Scene2021.h</a></div><div class="ttdoc">Main City Scene of the Game.</div></div>
+<div class="ttc" id="a_scene_car_shop_8h_html"><div class="ttname"><a href="_scene_car_shop_8h.html">SceneCarShop.h</a></div><div class="ttdoc">Car Shop Scene to purchase Cars in the Game.</div></div>
+<div class="ttc" id="a_scene_finale_8h_html"><div class="ttname"><a href="_scene_finale_8h.html">SceneFinale.h</a></div><div class="ttdoc">The Last and Final Scene of the Game.</div></div>
+<div class="ttc" id="a_scene_garage_8h_html"><div class="ttname"><a href="_scene_garage_8h.html">SceneGarage.h</a></div><div class="ttdoc">Garage scene for players to store their cars and bring it out to Main City Scene.</div></div>
+<div class="ttc" id="a_scene_guard_building_8h_html"><div class="ttname"><a href="_scene_guard_building_8h.html">SceneGuardBuilding.h</a></div><div class="ttdoc">Infiltrate the Government Facility Scene.</div></div>
+<div class="ttc" id="a_scene_gun_shop_8h_html"><div class="ttname"><a href="_scene_gun_shop_8h.html">SceneGunShop.h</a></div><div class="ttdoc">Gun Shop Scene in our Game to purchase Guns.</div></div>
+<div class="ttc" id="a_scene_house_fire_8h_html"><div class="ttname"><a href="_scene_house_fire_8h.html">SceneHouseFire.h</a></div><div class="ttdoc">Starting scene of House on Fire for the Game.</div></div>
+<div class="ttc" id="a_scene_office_8h_html"><div class="ttname"><a href="_scene_office_8h.html">SceneOffice.h</a></div><div class="ttdoc">2nd Last Scene to capture target from his Office.</div></div>
+<div class="ttc" id="a_scene_time_portal_8h_html"><div class="ttname"><a href="_scene_time_portal_8h.html">SceneTimePortal.h</a></div><div class="ttdoc">Time Portal Scene to enter and come back from the Future.</div></div>
+<div class="ttc" id="a_scene_u_i_8h_html"><div class="ttname"><a href="_scene_u_i_8h.html">SceneUI.h</a></div><div class="ttdoc">Used for the Starting Screen UI.</div></div>
+<div class="ttc" id="aclass_scene2021_html"><div class="ttname"><a href="class_scene2021.html">Scene2021</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene2021_8h_source.html#l00045">Scene2021.h:46</a></div></div>
+<div class="ttc" id="aclass_scene_car_shop_html"><div class="ttname"><a href="class_scene_car_shop.html">SceneCarShop</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_car_shop_8h_source.html#l00044">SceneCarShop.h:45</a></div></div>
+<div class="ttc" id="aclass_scene_finale_html"><div class="ttname"><a href="class_scene_finale.html">SceneFinale</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_finale_8h_source.html#l00043">SceneFinale.h:44</a></div></div>
+<div class="ttc" id="aclass_scene_garage_html"><div class="ttname"><a href="class_scene_garage.html">SceneGarage</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_garage_8h_source.html#l00044">SceneGarage.h:45</a></div></div>
+<div class="ttc" id="aclass_scene_guard_building_html"><div class="ttname"><a href="class_scene_guard_building.html">SceneGuardBuilding</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_guard_building_8h_source.html#l00045">SceneGuardBuilding.h:46</a></div></div>
+<div class="ttc" id="aclass_scene_gun_shop_html"><div class="ttname"><a href="class_scene_gun_shop.html">SceneGunShop</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_gun_shop_8h_source.html#l00043">SceneGunShop.h:44</a></div></div>
+<div class="ttc" id="aclass_scene_house_fire_html"><div class="ttname"><a href="class_scene_house_fire.html">SceneHouseFire</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_house_fire_8h_source.html#l00042">SceneHouseFire.h:43</a></div></div>
+<div class="ttc" id="aclass_scene_office_html"><div class="ttname"><a href="class_scene_office.html">SceneOffice</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_office_8h_source.html#l00044">SceneOffice.h:45</a></div></div>
+<div class="ttc" id="aclass_scene_time_portal_html"><div class="ttname"><a href="class_scene_time_portal.html">SceneTimePortal</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_time_portal_8h_source.html#l00045">SceneTimePortal.h:46</a></div></div>
+<div class="ttc" id="aclass_scene_u_i_html"><div class="ttname"><a href="class_scene_u_i.html">SceneUI</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_u_i_8h_source.html#l00045">SceneUI.h:46</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

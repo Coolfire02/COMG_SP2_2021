@@ -42,6 +42,13 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class Scene2021:
+\brief Main City Scene of the Game.
+*/
+/******************************************************************************/
+
 class Scene2021 : public Scene
 {
 	enum INTERACTION_TYPE {

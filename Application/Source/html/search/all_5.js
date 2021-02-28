@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['font_24',['Font',['../struct_font.html',1,'']]]
+  ['font_32',['Font',['../struct_font.html',1,'']]]
 ];
