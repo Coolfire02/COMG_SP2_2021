@@ -34,6 +34,13 @@ std::unordered_map<std::string, MISSIONTYPE> const MissionManager::mTypeTable = 
 MissionInfo MissionManager::missionLang[MISSION_COUNT];
 bool MissionManager::loadedLang = false;
 
+/**
+ * \brief get the mission name beautified. For e.g., MISSION_FINALE_REWARDING would return.
+ * Mission Finale Rewarding. Title Case and removes _
+ * 
+ * \param type - MissionType Enum
+ * \return - the beautified name in std::string form
+ */
 std::string MissionManager::getMissionNameFormatted(MISSIONTYPE type) {
 	for (auto& kV : mTypeTable) {
 		if (kV.second == type) {
@@ -64,6 +71,13 @@ std::string MissionManager::getMissionNameFormatted(MISSIONTYPE type) {
 	return "";
 }
 
+/**
+ * \brief Splitter function to split a string by a delim.
+ * 
+ * \param txt - The text to split
+ * \param delim - the character to split by
+ * \param out - the output list of strings after the split
+ */
 void MissionManager::split(std::string txt, char delim, std::vector<std::string>& out) {
 	std::istringstream iss(txt);
 	std::string item;
@@ -72,11 +86,22 @@ void MissionManager::split(std::string txt, char delim, std::vector<std::string>
 	}
 }
 
+/**
+ * \brief String trimmer. Removes the spaces
+ * 
+ * \param str - string to trim
+ * \return the string without spaces
+ */
 std::string MissionManager::stringTrim(std::string str) {
 	str.erase(remove(str.begin(), str.end(), ' '), str.end());
 	return str;
 }
 
+/**
+ * \brief Loads all mission information from the text file.
+ * called in Applciation::Run()
+ * 
+ */
 void MissionManager::loadMissionLang() {
 	if (!loadedLang) {
 		const char* file_path = "config\\Missions\\missionLang.txt";
@@ -185,6 +210,12 @@ void MissionManager::loadMissionLang() {
 
 //Statics end
 
+/**
+ * \brief Get a Mission ENUM TYPE by its String through the mTypeTable of Enums and associated Strings.
+ * 
+ * \param name - Name of enum in its full caps and proper statement
+ * \return - The mission type enum associated with this string
+ */
 MISSIONTYPE MissionManager::getMissionByEnumName(std::string name) {
 	for (auto& kV : mTypeTable) {
 		if (kV.first == name) {
@@ -194,6 +225,10 @@ MISSIONTYPE MissionManager::getMissionByEnumName(std::string name) {
 	return MISSIONTYPE::INVALID;
 }
 
+/**
+ * \brief Default constructor for a Mission Manager instance.
+ * 
+ */
 MissionManager::MissionManager() {
 	loadMissionLang();
 	for (int i = 0; i < MISSIONTYPE::MISSION_COUNT; i++) {
@@ -201,12 +236,23 @@ MissionManager::MissionManager() {
 	}
 }
 
+/**
+ * \brief Default destructor for the Mission Manager, clearing up Mission Pointers.
+ * 
+ */
 MissionManager::~MissionManager() {
 	for (int i = 0; i < MISSIONTYPE::MISSION_COUNT; i++) {
 		delete missions[static_cast<MISSIONTYPE>(i)];
 	}
 }
 
+/**
+ * \brief Add progress to a MissionType. Progress only adds if its currently completable.
+ * 
+ * \param type - Mission type to add progress to
+ * \param progress - Amount of progress
+ * \return - if the progress could be added
+ */
 bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
 	std::vector<MISSIONTYPE> completable = getCompletableMissions();
 	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
@@ -220,6 +266,13 @@ bool MissionManager::addProgress(MISSIONTYPE type, float progress) {
 	return false;
 }
 
+/**
+ * \brief sets the progress of the mission but only if its compeltable.
+ * 
+ * \param type - Mission Type to set the progress for
+ * \param progress - new progress to be set to
+ * \return whether the progress was successfully updated
+ */
 bool MissionManager::setProgress(MISSIONTYPE type, float progress) {
 	std::vector<MISSIONTYPE> completable = getCompletableMissions();
 	if (!missions[type]->isCompleted() && missionIsCompletable(type, completable)) {
@@ -233,6 +286,13 @@ bool MissionManager::setProgress(MISSIONTYPE type, float progress) {
 	return false;
 }
 
+/**
+ * \brief Add progress to a MissionType. Progress owill add regardless if its completable.
+ *
+ * \param type - Mission type to add progress to
+ * \param progress - Amount of progress
+ * 
+ */
 void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 	if (!missions[type]->isCompleted()) {
 		missions[type]->addProgress(progress);
@@ -243,6 +303,12 @@ void MissionManager::addUnsafeProgress(MISSIONTYPE type, float progress) {
 	}
 }
 
+/**
+ * \brief Update function for mission manager. Processes displaying mission completes on screen.
+ * and getting the list of missions completed this current tick etc.
+ * 
+ * \param dt - delata time
+ */
 void MissionManager::Update(double dt) {
 	for (auto& mission : missionsCompletedThisTick) {
 		achievementDisplayQueue.push_back(mission->getType());
@@ -297,6 +363,12 @@ void MissionManager::Update(double dt) {
 	return;
 }
 
+/**
+ * \brief get the mission progress.
+ * 
+ * \param type - Mission Type 
+ * \return the progress of the mission type requested
+ */
 float MissionManager::getMissionProgress(MISSIONTYPE type)
 {
 	std::vector<MISSIONTYPE> completables = getCompletableMissions();
@@ -307,10 +379,22 @@ float MissionManager::getMissionProgress(MISSIONTYPE type)
 	}
 }
 
+/**
+ * \brief gets the list of just completed missions.
+ * 
+ * \return returns the missions completed this tick
+ */
 std::vector<Mission*> MissionManager::getJustCompletedMissions() {
 	return missionsCompletedThisTick;
 }
 
+/**
+ * \brief Checks if a mission is completable.
+ * 
+ * \param type - The Misison Type to check
+ * \param completable - The list of completable missions currently
+ * \return true if it is completable
+ */
 bool MissionManager::missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONTYPE>& completable) {
 	for (auto& entry : completable) {
 		if (entry == type) {
@@ -320,6 +404,11 @@ bool MissionManager::missionIsCompletable(MISSIONTYPE type, std::vector<MISSIONT
 	return false;
 }
 
+/**
+ * \brief gets the list of compelted misisons so far.
+ * 
+ * \return a vector of MISSION_TYPE of completed missions
+ */
 std::vector<MISSIONTYPE> MissionManager::getCompletedMissions() {
 	std::vector<MISSIONTYPE> completed;
 	for (int i = 0; i < MISSIONTYPE::MISSION_COUNT; i++) {
@@ -330,6 +419,11 @@ std::vector<MISSIONTYPE> MissionManager::getCompletedMissions() {
 	return completed;
 }
 
+/**
+ * \brief get the list of compeletable missions currently.
+ * 
+ * \return a vector of MISSIONTYPE missions that are completable currently.
+ */
 std::vector<MISSIONTYPE> MissionManager::getCompletableMissions() {
 	std::vector<MISSIONTYPE> completable;
 	for (int i = 0; i < MISSIONTYPE::MISSION_COUNT; i++) {
