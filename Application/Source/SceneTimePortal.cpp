@@ -540,9 +540,9 @@ void SceneTimePortal::CollisionHandler(double dt) {
 		//Player Collision with any World Object
 		if (entry->attacker->getType() == ENTITYTYPE::PLAYER && !player->isDriving()) {
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				std::vector<MISSIONTYPE> CompletedMissions = Game::mManager.getCompletedMissions();
-				for (auto& mission : CompletedMissions) {
-					if (mission == MISSIONTYPE::MISSION_EXTINGUISH_FIRE) {
+				std::vector<MISSIONTYPE> CompletableMissions = Game::mManager.getCompletableMissions();
+				for (auto& mission : CompletableMissions) {
+					if (mission == MISSIONTYPE::MISSION_VISIT_FOUNTAIN) {
 						if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
 							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (Application::IsKeyPressed('E')) {
@@ -799,12 +799,16 @@ void SceneTimePortal::Render()
 	if (blackScreen)
 		RenderMeshOnScreen(MeshHandler::getMesh(GEO_PORTAL_SCREEN), 64, 36, 128, 72);
 
-	if (Game::mManager.getMissionProgress(MISSIONTYPE::MISSION_ENTER_TIMEPORTAL) < 100.f) {
-		if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
-			Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
-			text->setTextString("Travelling back to 2021...");
-			text->Render(this);
-			//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
+
+	std::vector<MISSIONTYPE> CompletableMissions = Game::mManager.getCompletableMissions();
+	for (auto& mission : CompletableMissions) {
+		if (mission == MISSION_EXTINGUISH_FIRE) {
+			if (!portalSound->getIsPaused() && !portalSound->isFinished()) {
+				Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
+				text->setTextString("Travelling back to 2021...");
+				text->Render(this);
+				//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
+			}
 		}
 	}
 
