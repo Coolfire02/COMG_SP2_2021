@@ -538,12 +538,15 @@ void Scene2021::CollisionHandler(double dt) {
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 					{
-						for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
+						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
 						{
-							if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && Game::mManager.getCompletableMissions().at(j) == MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT && interactionTimer > 2) //do && check if next mission has started to disable this 
+							for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
 							{
-								Game::iManager.loadInteraction("phoneCall1");
-								interactionTimer = 0;
+								if (Game::mManager.getCompletableMissions().at(j) == MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT && interactionTimer > 2) //do && check if next mission has started to disable this 
+								{
+									Game::iManager.loadInteraction("phoneCall1");
+									interactionTimer = 0;
+								}
 							}
 						}
 					}
