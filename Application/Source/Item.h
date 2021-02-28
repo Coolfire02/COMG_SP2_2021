@@ -1,11 +1,4 @@
 #pragma once
-/******************************************************************************/
-/*!
-\file	Item.h
-\author Ridwan
-\brief Header file containing the Item Class.
-*/
-/******************************************************************************/
 
 //Item class created by Ridwan on 16/2/2021
 //Inventory class optimized by Ridwan on 17/2/2021
