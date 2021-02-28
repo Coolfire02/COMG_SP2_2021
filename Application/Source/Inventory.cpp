@@ -486,6 +486,7 @@ void Inventory::Update(double dt)
 
 		for (int i = 0; i < weaponInv->getWeaponList().size(); i++)
 		{
+			if (weaponInv->getActiveWeapon() == nullptr) continue;
 			//Disable all non-current item UIs
 			if (weaponInv->getActiveWeapon()->getWeaponType() == weaponInv->getWeaponList()[i]->getWeaponType())
 				Game::uiManager.getbManagerArray(UI_WEAPON_INVENTORY)->getButtonByName("UIWeaponInventorySlotCurrent" + std::to_string(i + 1))->enable();
