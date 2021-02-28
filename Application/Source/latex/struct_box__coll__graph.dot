@@ -1,0 +1,7 @@
+digraph "Box"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Box\n|+ Vector3 originalhalfSize\l+ Vector3 originalCenterOffset\l+ Vector3 currentPos\l+ Vector3 xAxis\l+ Vector3 yAxis\l+ Vector3 zAxis\l+ Vector3 halfSize\l+ Vector3 centerOffset\l+ Mtx44 Rotate\l|+  Box(Vector3 botLeftPos,\l Vector3 topRightPos)\l+ bool hasSeparatingPlane\l(Vector3 RPos, Vector3\l Plane, Box otherBox)\l+ Collider isCollidedWith\l(Box otherBox)\l+ Vector3 getCollisionPlane\lNormal(Box *otherBox)\l+ Vector3 getCollisionResponse\l(Box *otherBox)\l+ float getOverlap(Vector3\l &RPos, Vector3 Plane,\l Box *OtherBox)\l+  ~Box()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Box of the hitbox, initially planned to be able to have multiple hitboxes per entity."];
+}

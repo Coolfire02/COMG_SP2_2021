@@ -1,0 +1,7 @@
+digraph "MissionManager"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{MissionManager\n||+  MissionManager()\l+  ~MissionManager()\l+ std::vector\< MISSIONTYPE\l \> getCompletedMissions()\l+ std::vector\< MISSIONTYPE\l \> getCompletableMissions()\l+ bool missionIsCompletable\l(MISSIONTYPE type, std\l::vector\< MISSIONTYPE \>\l &completable)\l+ bool addProgress(MISSIONTYPE\l type, float progress)\l+ bool setProgress(MISSIONTYPE\l type, float progress)\l+ void addUnsafeProgress\l(MISSIONTYPE type, float\l progress)\l+ float getMissionProgress\l(MISSIONTYPE type)\l+ void Update(double dt)\l+ std::vector\< Mission\l * \> getJustCompletedMissions()\l+ static void loadMissionLang()\l+ static MISSIONTYPE\l getMissionByEnumName\l(std::string name)\l+ static std::string\l getMissionNameFormatted\l(MISSIONTYPE type)\l+ static void split(std\l::string txt, char delim,\l std::vector\< std::string\l \> &out)\l+ static std::string\l stringTrim(std::string str)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles all Missions in the Game."];
+}

@@ -9,12 +9,14 @@ Handles all Players functionalities.
 
 {\ttfamily \#include $<$Player.\+h$>$}
 
-Inheritance diagram for Player\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_player}
-\end{center}
-\end{figure}
+
+
+Inheritance diagram for Player\+:
+% FIG 0
+
+
+Collaboration diagram for Player\+:
+% FIG 1
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,20 +24,20 @@ Inheritance diagram for Player\+:\begin{figure}[H]
 {\bfseries Player} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene, Vector3 position, std\+::string)
 \item 
 \mbox{\Hypertarget{class_player_a0fe1788ca6b6f378cdacd6275f6e51ef}\label{class_player_a0fe1788ca6b6f378cdacd6275f6e51ef}} 
-bool {\bfseries is\+Driving} ()
-\item 
+bool \mbox{\hyperlink{class_player_a0fe1788ca6b6f378cdacd6275f6e51ef}{is\+Driving}} ()
+\begin{DoxyCompactList}\small\item\em returns true if the player is currently driving. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_player_a2f24e5d0e60be62032ebd3b6ec9683f1}\label{class_player_a2f24e5d0e60be62032ebd3b6ec9683f1}} 
-void {\bfseries set\+Driving} (\mbox{\hyperlink{class_car}{Car}} $\ast$, bool)
-\item 
+void \mbox{\hyperlink{class_player_a2f24e5d0e60be62032ebd3b6ec9683f1}{set\+Driving}} (\mbox{\hyperlink{class_car}{Car}} $\ast$, bool)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s \mbox{\hyperlink{class_car}{Car}} ptr and driving boolean. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_player_a613a1fc7310c5f49a5c6e7f539cd9526}\label{class_player_a613a1fc7310c5f49a5c6e7f539cd9526}} 
-\mbox{\hyperlink{class_car}{Car}} $\ast$ {\bfseries get\+Car} ()
-\item 
+\mbox{\hyperlink{class_car}{Car}} $\ast$ \mbox{\hyperlink{class_player_a613a1fc7310c5f49a5c6e7f539cd9526}{get\+Car}} ()
+\begin{DoxyCompactList}\small\item\em returns the player\textquotesingle{}s currently driving car. returns nullptr if player is not driving. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_player_ae1544e269d6f6800d9a0208b6779d615}\label{class_player_ae1544e269d6f6800d9a0208b6779d615}} 
-void {\bfseries Update} (double)
-\item 
+void \mbox{\hyperlink{class_player_ae1544e269d6f6800d9a0208b6779d615}{Update}} (double)
+\begin{DoxyCompactList}\small\item\em Updates the player, currently empty. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_player_ad141ea844ac82f2447d986d964d1e8a7}\label{class_player_ad141ea844ac82f2447d986d964d1e8a7}} 
-void {\bfseries Render} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_player_ad141ea844ac82f2447d986d964d1e8a7}{Render}} ()
+\begin{DoxyCompactList}\small\item\em Renders the player onto the scene\textquotesingle{}s modelstack. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -45,10 +47,6 @@ Handles all Players functionalities.
 \begin{DoxyVerb}    Class Player:
 \end{DoxyVerb}
  
-
-Definition at line 23 of file Player.\+h.
-
-
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

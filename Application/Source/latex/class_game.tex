@@ -9,27 +9,31 @@ Handles the entire \mbox{\hyperlink{class_game}{Game}}. (Scenes, Settings, Manag
 
 {\ttfamily \#include $<$Game.\+h$>$}
 
+
+
+Collaboration diagram for Game\+:
+% FIG 0
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_game_a555a9e4719fd49971765a2ab8b090b5c}\label{class_game_a555a9e4719fd49971765a2ab8b090b5c}} 
-static void {\bfseries Init} ()
-\item 
+static void \mbox{\hyperlink{class_game_a555a9e4719fd49971765a2ab8b090b5c}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initialises the UI and Interactions here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_ae11ef55000e71a8391ca7cec1f91db48}\label{class_game_ae11ef55000e71a8391ca7cec1f91db48}} 
-static void {\bfseries Update} (double dt)
-\item 
+static void \mbox{\hyperlink{class_game_ae11ef55000e71a8391ca7cec1f91db48}{Update}} (double dt)
+\begin{DoxyCompactList}\small\item\em Updates all of the game stuff here, e.\+g. current \mbox{\hyperlink{class_scene}{Scene}}, UI, Interactions, \mbox{\hyperlink{class_inventory}{Inventory}}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_afb9d37b132a679d28df8586ddf938b78}\label{class_game_afb9d37b132a679d28df8586ddf938b78}} 
-static void {\bfseries Interaction\+Update} (double dt)
-\item 
+static void \mbox{\hyperlink{class_game_afb9d37b132a679d28df8586ddf938b78}{Interaction\+Update}} (double dt)
+\begin{DoxyCompactList}\small\item\em Updates the \mbox{\hyperlink{struct_interaction}{Interaction}} UI here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_a886f1aaa2ef5904ff8112f59dbb7585f}\label{class_game_a886f1aaa2ef5904ff8112f59dbb7585f}} 
-static void {\bfseries Render\+UI} ()
-\item 
+static void \mbox{\hyperlink{class_game_a886f1aaa2ef5904ff8112f59dbb7585f}{Render\+UI}} ()
+\begin{DoxyCompactList}\small\item\em Renders the UI according to the active scene. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_a0897730fc9fed789f6c0f11d21a0c14a}\label{class_game_a0897730fc9fed789f6c0f11d21a0c14a}} 
-static void {\bfseries Render} ()
-\item 
+static void \mbox{\hyperlink{class_game_a0897730fc9fed789f6c0f11d21a0c14a}{Render}} ()
+\begin{DoxyCompactList}\small\item\em Renders the active scene to the GLFW Window. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_ad06e374518f2c8fa38279be6712a6ea4}\label{class_game_ad06e374518f2c8fa38279be6712a6ea4}} 
-static void {\bfseries Exit} ()
-\item 
+static void \mbox{\hyperlink{class_game_ad06e374518f2c8fa38279be6712a6ea4}{Exit}} ()
+\begin{DoxyCompactList}\small\item\em Cleans up the scenes here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_aedf794d7048b0f51be6eb6a1b30b4a87}\label{class_game_aedf794d7048b0f51be6eb6a1b30b4a87}} 
 static void {\bfseries set\+Ammo} (int)
 \item 
@@ -37,31 +41,34 @@ static void {\bfseries set\+Ammo} (int)
 static int {\bfseries get\+Ammo} ()
 \item 
 \mbox{\Hypertarget{class_game_af5ce8850f66a2fb67c08650c47216d2e}\label{class_game_af5ce8850f66a2fb67c08650c47216d2e}} 
-static void {\bfseries add\+Scene} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
-\item 
+static void \mbox{\hyperlink{class_game_af5ce8850f66a2fb67c08650c47216d2e}{add\+Scene}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Adds a scene to the Scene\+List vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_afa873bf692a1ebd5d988047af23c5164}\label{class_game_afa873bf692a1ebd5d988047af23c5164}} 
-static void {\bfseries switch\+Scene} (static SCENES)
-\item 
+static void \mbox{\hyperlink{class_game_afa873bf692a1ebd5d988047af23c5164}{switch\+Scene}} (static \mbox{\hyperlink{_game_8h_a2cbdd2ff5c60baa8fd6b5753b6d53f78}{SCENES}})
+\begin{DoxyCompactList}\small\item\em Switches the scene using the active\+Scene enum and intialises light parameters. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_aa82182e0789b28215a0ebd5cd1e07eca}\label{class_game_aa82182e0789b28215a0ebd5cd1e07eca}} 
-static void {\bfseries switch\+Scene} (SCENES, float transition, std\+::string title\+Text)
+static void {\bfseries switch\+Scene} (\mbox{\hyperlink{_game_8h_a2cbdd2ff5c60baa8fd6b5753b6d53f78}{SCENES}}, float transition, std\+::string title\+Text)
 \item 
 \mbox{\Hypertarget{class_game_ac8c12cc5bdb4ec79bbae4cc275253d17}\label{class_game_ac8c12cc5bdb4ec79bbae4cc275253d17}} 
-static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Active\+Scene} ()
-\item 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ \mbox{\hyperlink{class_game_ac8c12cc5bdb4ec79bbae4cc275253d17}{get\+Active\+Scene}} ()
+\begin{DoxyCompactList}\small\item\em returns the active scene. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_a7b1cbf3dab5c0fc0f58e99aa71418c67}\label{class_game_a7b1cbf3dab5c0fc0f58e99aa71418c67}} 
-static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene\+By\+Name} (std\+::string)
-\item 
+static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ \mbox{\hyperlink{class_game_a7b1cbf3dab5c0fc0f58e99aa71418c67}{get\+Scene\+By\+Name}} (std\+::string)
+\begin{DoxyCompactList}\small\item\em Returns the scene given the string name. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_a5ac3718b902c851c161ab7dd192aa948}\label{class_game_a5ac3718b902c851c161ab7dd192aa948}} 
 static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene} ()
 \item 
 \mbox{\Hypertarget{class_game_a2c18dcb3013796ca69f9eff3a42b91f8}\label{class_game_a2c18dcb3013796ca69f9eff3a42b91f8}} 
-static SCENES {\bfseries get\+Prev\+Scene\+ENUM} ()
-\item 
+static \mbox{\hyperlink{_game_8h_a2cbdd2ff5c60baa8fd6b5753b6d53f78}{SCENES}} \mbox{\hyperlink{class_game_a2c18dcb3013796ca69f9eff3a42b91f8}{get\+Prev\+Scene\+ENUM}} ()
+\begin{DoxyCompactList}\small\item\em Returns the previous scene\textquotesingle{}s enum type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_game_a42bfd0ac893c7cb176edc9b177d4727d}\label{class_game_a42bfd0ac893c7cb176edc9b177d4727d}} 
-static void {\bfseries set\+Prev\+Scene\+ENUM} (SCENES)
-\end{DoxyCompactItemize}
+static void \mbox{\hyperlink{class_game_a42bfd0ac893c7cb176edc9b177d4727d}{set\+Prev\+Scene\+ENUM}} (\mbox{\hyperlink{_game_8h_a2cbdd2ff5c60baa8fd6b5753b6d53f78}{SCENES}})
+\begin{DoxyCompactList}\small\item\em Sets the previous scene enum. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_a26ec6843bbfd52c88da4f7cb902142ba}\label{class_game_a26ec6843bbfd52c88da4f7cb902142ba}} 
+static bool {\bfseries killed\+Bimster} = false
 \item 
 \mbox{\Hypertarget{class_game_a285ffcfec3c9162ee9fc9170fe8efca9}\label{class_game_a285ffcfec3c9162ee9fc9170fe8efca9}} 
 static int {\bfseries Bimster\+Save\+Points} = 0
@@ -76,7 +83,7 @@ static float {\bfseries FPS} = 60.f
 static double {\bfseries scene\+Cooldown} = 0.\+0
 \item 
 \mbox{\Hypertarget{class_game_af0367d574be71f67d84782d04252ca71}\label{class_game_af0367d574be71f67d84782d04252ca71}} 
-static SCENES {\bfseries active\+Scene}
+static \mbox{\hyperlink{_game_8h_a2cbdd2ff5c60baa8fd6b5753b6d53f78}{SCENES}} {\bfseries active\+Scene}
 \item 
 \mbox{\Hypertarget{class_game_a7267e1f3924470ec8aaa0b0f58cc7ffe}\label{class_game_a7267e1f3924470ec8aaa0b0f58cc7ffe}} 
 static std\+::vector$<$ \mbox{\hyperlink{class_scene}{Scene}} $\ast$ $>$ {\bfseries Scene\+List}
@@ -113,10 +120,6 @@ Handles the entire \mbox{\hyperlink{class_game}{Game}}. (Scenes, Settings, Manag
 \begin{DoxyVerb}    Class Game:
 \end{DoxyVerb}
  
-
-Definition at line 49 of file Game.\+h.
-
-
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

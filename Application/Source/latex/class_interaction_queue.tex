@@ -9,27 +9,31 @@ Handles the Queued Interactions created in the \mbox{\hyperlink{class_game}{Game
 
 {\ttfamily \#include $<$Interaction\+Queue.\+h$>$}
 
+
+
+Collaboration diagram for Interaction\+Queue\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_interaction_queue_a8d2b69800cbe9285217bf8d2584d89b1}\label{class_interaction_queue_a8d2b69800cbe9285217bf8d2584d89b1}} 
-std\+::vector$<$ \mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$ $>$ \& {\bfseries get\+Queue} ()
-\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$ $>$ \& \mbox{\hyperlink{class_interaction_queue_a8d2b69800cbe9285217bf8d2584d89b1}{get\+Queue}} ()
+\begin{DoxyCompactList}\small\item\em Return queue vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_interaction_queue_ad1df6ca94d010341a6baff0f56082f37}\label{class_interaction_queue_ad1df6ca94d010341a6baff0f56082f37}} 
-\mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$ {\bfseries Top} ()
-\item 
+\mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$ \mbox{\hyperlink{class_interaction_queue_ad1df6ca94d010341a6baff0f56082f37}{Top}} ()
+\begin{DoxyCompactList}\small\item\em Gets the first in the queue vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_interaction_queue_a41b989dc2bf3290e0627f2128267a701}\label{class_interaction_queue_a41b989dc2bf3290e0627f2128267a701}} 
-int {\bfseries size} ()
-\item 
+int \mbox{\hyperlink{class_interaction_queue_a41b989dc2bf3290e0627f2128267a701}{size}} ()
+\begin{DoxyCompactList}\small\item\em Gets queue vector size. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_interaction_queue_a4680402424fa4f28f356564cca048585}\label{class_interaction_queue_a4680402424fa4f28f356564cca048585}} 
-void {\bfseries push\+Interaction} (\mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$interaction)
-\item 
+void \mbox{\hyperlink{class_interaction_queue_a4680402424fa4f28f356564cca048585}{push\+Interaction}} (\mbox{\hyperlink{struct_interaction}{Interaction}} $\ast$interaction)
+\begin{DoxyCompactList}\small\item\em Push an \mbox{\hyperlink{struct_interaction}{Interaction}} to queue vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_interaction_queue_a92a96f85e8790d9fa2c94175f7e6c925}\label{class_interaction_queue_a92a96f85e8790d9fa2c94175f7e6c925}} 
-void {\bfseries push\+Interaction} (std\+::vector$<$ \mbox{\hyperlink{struct_command}{Command}} $\ast$ $>$ pre\+Interaction\+CMD, std\+::string interaction\+Text, std\+::vector$<$ \mbox{\hyperlink{struct_command}{Command}} $\ast$ $>$ post\+Interaction\+CMD)
-\item 
+void \mbox{\hyperlink{class_interaction_queue_a92a96f85e8790d9fa2c94175f7e6c925}{push\+Interaction}} (std\+::vector$<$ \mbox{\hyperlink{struct_command}{Command}} $\ast$ $>$ pre\+Interaction\+CMD, std\+::string interaction\+Text, std\+::vector$<$ \mbox{\hyperlink{struct_command}{Command}} $\ast$ $>$ post\+Interaction\+CMD)
+\begin{DoxyCompactList}\small\item\em Push an \mbox{\hyperlink{struct_interaction}{Interaction}} to queue vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_interaction_queue_a6eb12698c05c66ee6ea6bdcb11ad745d}\label{class_interaction_queue_a6eb12698c05c66ee6ea6bdcb11ad745d}} 
-void {\bfseries pop\+Interaction} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_interaction_queue_a6eb12698c05c66ee6ea6bdcb11ad745d}{pop\+Interaction}} ()
+\begin{DoxyCompactList}\small\item\em Pops the first \mbox{\hyperlink{struct_interaction}{Interaction}} that is in the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -38,10 +42,6 @@ Handles the Queued Interactions created in the \mbox{\hyperlink{class_game}{Game
 \begin{DoxyVerb}    Class InteractionQueue:
 \end{DoxyVerb}
  
-
-Definition at line 41 of file Interaction\+Queue.\+h.
-
-
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

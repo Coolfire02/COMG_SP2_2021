@@ -1,0 +1,7 @@
+digraph "MeshBuilder"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{MeshBuilder\n||+ static Mesh * GenerateText\l(const std::string &meshName,\l unsigned numRow, unsigned numCol)\l+ static Mesh * GenerateOBJ\l(const std::string &meshName,\l const std::string &file_path)\l+ static Mesh * GenerateAxes\l(const std::string &meshName,\l float lengthX, float lengthY,\l float lengthZ)\l+ static Mesh * GenerateCone\l(const std::string &meshName,\l Color color, int rad, int height)\l+ static Mesh * GenerateHalf\lCone(const std::string\l &meshName, Color color,\l int rad, int height)\l+ static Mesh * GenerateConical\lFrustum(const std::string\l &meshName, Color color, float\l innerR, float outerR, int height)\l+ static Mesh * GenerateSphere\l(const std::string &meshName,\l Color color)\l+ static Mesh * GenerateHemi\lSphere(const std::string\l &meshName, Color color)\l+ static Mesh * GenerateHemi\lSphereFrustum(const std\l::string &meshName, Color\l color, float degreeCutOff)\l+ static Mesh * GenerateQuater\lSphere(const std::string\l &meshName, Color color)\land 9 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Provides methods to generate mesh of different shapes."];
+}

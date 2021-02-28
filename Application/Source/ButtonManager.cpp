@@ -1,10 +1,18 @@
 #include "ButtonManager.h"
 #include "Application.h"
 
+/**
+ * \brief Default constructor for Button Manager.
+ * 
+ */
 ButtonManager::ButtonManager() {
 
 }
 
+/**
+ * \brief Destructor for Button Manager, clearing up all buttons stored..
+ * 
+ */
 ButtonManager::~ButtonManager() {
 	for (auto& entry : this->buttons) {
 		delete entry;
@@ -13,6 +21,12 @@ ButtonManager::~ButtonManager() {
 	this->buttons.clear();
 }
 
+/**
+ * \brief Updates all buttons, whether they are now clicked or not clicked.
+ * 
+ * \param scene - Scene that is currently using this Button Manager
+ * \param dt - delta time of frame
+ */
 void ButtonManager::Update(Scene* scene, double dt) {
 	double xPos, yPos;
 	Application::GetCursorPos(&xPos, &yPos);
@@ -84,6 +98,11 @@ void ButtonManager::Update(Scene* scene, double dt) {
 	}
 }
 
+/**
+ * \brief Renders button on the screen based on current scene.
+ * 
+ * \param scene - Current scene that is active
+ */
 void ButtonManager::Render(Scene* scene)
 {
 	for (auto& button : buttons) {
@@ -91,10 +110,21 @@ void ButtonManager::Render(Scene* scene)
 	}
 }
 
+/**
+ * \brief Get the list of interacted withs buttons. This is used for code execution after collision is detected.
+ * 
+ * \return a vector of buttons collided with mouse cursor in this current frame.
+ */
 std::vector<ButtonCollide*> ButtonManager::getButtonsInteracted() {
 	return this->buttonsInteractedThisTick;
 }
 
+/**
+ * \brief Calls delete on a button from this Button Manager.
+ * 
+ * \param button - Button to delete
+ * \return whether the button was successfully deleted
+ */
 bool ButtonManager::deleteButton(Button* button) {
 	bool deleted = false;
 	for (auto& entry : buttons) {
@@ -117,6 +147,12 @@ bool ButtonManager::deleteButton(Button* button) {
 	return deleted;
 }
 
+/**
+ * \brief Actives a button base of the button's String ID.
+ * 
+ * \param bN - Button's string ID
+ * \return whether the button has found and activated.
+ */
 bool ButtonManager::activateButton(std::string bN) {
 	for (auto& entry : buttons) {
 		if (entry->getName() == bN) {
@@ -127,6 +163,12 @@ bool ButtonManager::activateButton(std::string bN) {
 	return false;
 }
 
+/**
+ * \brief Deactivates a button base of the button's String ID.
+ * 
+ * \param bN - Button's string ID
+ * \return whether the button has been found and deactivated.
+ */
 bool ButtonManager::deactivateButton(std::string bN) {
 	for (auto& entry : buttons) {
 		if (entry->getName() == bN) {
@@ -137,6 +179,12 @@ bool ButtonManager::deactivateButton(std::string bN) {
 	return false;
 }
 
+/**
+ * \brief Gets a Button object by its name.
+ * 
+ * \param buttonName - The String ID of the button
+ * \return nullptr if it does not exist, and the Button pointer object if it does
+ */
 Button* ButtonManager::getButtonByName(std::string buttonName) {
 	for (auto& entry : buttons) {
 		if (entry->getName() == buttonName) {
@@ -147,10 +195,20 @@ Button* ButtonManager::getButtonByName(std::string buttonName) {
 	
 }
 
+/**
+ * \brief add a button into the Button Manager to be handled.
+ * 
+ * \param button - Button Object to be added
+ */
 void ButtonManager::addButton(Button* button) {
 	buttons.push_back(button);
 }
 
+/**
+ * \brief Gets all buttons currently in the button manager.
+ * 
+ * \return the vector of buttons currently in the button manager.
+ */
 std::vector<Button*> ButtonManager::getButtons() {
 	return buttons;
 }

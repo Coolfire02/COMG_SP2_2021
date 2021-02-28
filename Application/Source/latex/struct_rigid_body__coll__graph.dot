@@ -1,0 +1,7 @@
+digraph "RigidBody"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{RigidBody\n|+ Vector3 velocity\l+ Vector3 gravity\l+ float airResistanceFactor\l+ bool grounded\l+ bool hit\l|+  RigidBody()\l+ void Update(EntityData\l *data, double dt)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Struct to handle the physics of the NPC. Implemented only in NPC as we did not plan to have any physi..."];
+}

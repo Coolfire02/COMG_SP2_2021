@@ -1,0 +1,7 @@
+digraph "UIManager"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{UIManager\n||+  UIManager()\l+  ~UIManager()\l+ void Init()\l+ void Update(Scene *scene,\l double dt)\l+ void enableUI()\l+ void disableUI()\l+ void Render(Scene *scene)\l+ void changeTextButton\l(std::string newText,\l std::string bName)\l+ void createTextButton\l(ButtonManager *bManager,\l std::string buttonName,\l float originX, float originY,\l float quadSizeX, float quadSizeY,\l float offsetX, float offsetY, Color\l textColour, std::string textString,\l float textSize)\l+ void createTextButton\l(ButtonManager *bManager,\l std::string buttonName,\l float originX, float originY,\l float quadSizeX, float quadSizeY,\l float offsetX, float offsetY, Color\l textColour, std::string textString,\l float textSize, FONTTYPE type)\land 11 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles all UIs with Buttons in the Game."];
+}

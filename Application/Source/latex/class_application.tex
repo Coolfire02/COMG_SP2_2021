@@ -9,51 +9,55 @@ Handles the entire applciation.
 
 {\ttfamily \#include $<$Application.\+h$>$}
 
+
+
+Collaboration diagram for Application\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_application_a276388f7090c0a2b1c8b16cf033b969d}\label{class_application_a276388f7090c0a2b1c8b16cf033b969d}} 
-void {\bfseries Init} ()
-\item 
+void \mbox{\hyperlink{class_application_a276388f7090c0a2b1c8b16cf033b969d}{Init}} ()
+\begin{DoxyCompactList}\small\item\em Initialises the Open\+GL window here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_aaf09cd6cb412086dc039e28cdb059f0d}\label{class_application_aaf09cd6cb412086dc039e28cdb059f0d}} 
-void {\bfseries Run} ()
-\item 
+void \mbox{\hyperlink{class_application_aaf09cd6cb412086dc039e28cdb059f0d}{Run}} ()
+\begin{DoxyCompactList}\small\item\em Loads all scenes and runs the game loop here. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a9d410604b39b8374a884b1f2a1f2a5ba}\label{class_application_a9d410604b39b8374a884b1f2a1f2a5ba}} 
-void {\bfseries Exit} ()
-\item 
+void \mbox{\hyperlink{class_application_a9d410604b39b8374a884b1f2a1f2a5ba}{Exit}} ()
+\begin{DoxyCompactList}\small\item\em Clean up function called when game is exited. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a22cab9086367a724a14865d6fa0bd1cb}\label{class_application_a22cab9086367a724a14865d6fa0bd1cb}} 
-bool {\bfseries Get\+Mouse\+Update} ()
-\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{class_application_a22cab9086367a724a14865d6fa0bd1cb}{Get\+Mouse\+Update}} ()
+\begin{DoxyCompactList}\small\item\em Gets the mouse update from origin of window to new mouse location. Used for First person and Third person camera. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_application_a72cc9bba26506a7c0f54c346dfbd5cfe}\label{class_application_a72cc9bba26506a7c0f54c346dfbd5cfe}} 
-static bool {\bfseries Is\+Key\+Pressed} (unsigned short key)
-\item 
+static bool \mbox{\hyperlink{class_application_a72cc9bba26506a7c0f54c346dfbd5cfe}{Is\+Key\+Pressed}} (unsigned short key)
+\begin{DoxyCompactList}\small\item\em Get Key Pressed state, is returned true every frame so should not be confused with a Key Held state. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a1ed88bee00d0f8e60991e90cb91de8a5}\label{class_application_a1ed88bee00d0f8e60991e90cb91de8a5}} 
 static bool {\bfseries change\+To\+Scene} (std\+::string, std\+::string)
 \item 
 \mbox{\Hypertarget{class_application_a82bfca5e191752ed9b9a59205a3be7b9}\label{class_application_a82bfca5e191752ed9b9a59205a3be7b9}} 
-static void {\bfseries set\+Cursor\+Enabled} (bool enabled)
-\item 
+static void \mbox{\hyperlink{class_application_a82bfca5e191752ed9b9a59205a3be7b9}{set\+Cursor\+Enabled}} (bool enabled)
+\begin{DoxyCompactList}\small\item\em Sets the cursor input mode of the Open\+GL window to NORMAL or DISABLED. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a6878ad7cc60742b9a24b1591303bd803}\label{class_application_a6878ad7cc60742b9a24b1591303bd803}} 
 static \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Scene\+By\+Name} (std\+::string)
 \item 
 \mbox{\Hypertarget{class_application_a8a6513d74896b9ea710580cc4e31a0cf}\label{class_application_a8a6513d74896b9ea710580cc4e31a0cf}} 
-static bool {\bfseries Is\+Mouse\+Pressed} (unsigned short key)
-\item 
+static bool \mbox{\hyperlink{class_application_a8a6513d74896b9ea710580cc4e31a0cf}{Is\+Mouse\+Pressed}} (unsigned short key)
+\begin{DoxyCompactList}\small\item\em Gets Mouse Pressed state. 0 -\/ Left 1 -\/ Right Mouse 2 -\/ Middle Mouse. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a9ff20843515422477480fbd1fff7de2a}\label{class_application_a9ff20843515422477480fbd1fff7de2a}} 
-static bool {\bfseries Is\+Key\+Released} (unsigned short key)
-\item 
+static bool \mbox{\hyperlink{class_application_a9ff20843515422477480fbd1fff7de2a}{Is\+Key\+Released}} (unsigned short key)
+\begin{DoxyCompactList}\small\item\em Get key released state, is called true even if key was not pressed before, use sparingly. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a44b3994d6f2444d5a81affee57915bc9}\label{class_application_a44b3994d6f2444d5a81affee57915bc9}} 
-static void {\bfseries Get\+Cursor\+Pos} (double $\ast$xpos, double $\ast$ypos)
-\item 
+static void \mbox{\hyperlink{class_application_a44b3994d6f2444d5a81affee57915bc9}{Get\+Cursor\+Pos}} (double $\ast$xpos, double $\ast$ypos)
+\begin{DoxyCompactList}\small\item\em Gets Cursor \mbox{\hyperlink{struct_position}{Position}} on screen. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_af2da4f32930b31ff52aa48c7d243bc6b}\label{class_application_af2da4f32930b31ff52aa48c7d243bc6b}} 
-static int {\bfseries Get\+Window\+Width} ()
-\item 
+static int \mbox{\hyperlink{class_application_af2da4f32930b31ff52aa48c7d243bc6b}{Get\+Window\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Get Window Width. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_application_a2ac5373b27ec948b9617397acf6306d7}\label{class_application_a2ac5373b27ec948b9617397acf6306d7}} 
-static int {\bfseries Get\+Window\+Height} ()
-\end{DoxyCompactItemize}
+static int \mbox{\hyperlink{class_application_a2ac5373b27ec948b9617397acf6306d7}{Get\+Window\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Get Window Height. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -113,10 +117,6 @@ Handles the entire applciation.
 \begin{DoxyVerb}    Class Application:
 \end{DoxyVerb}
  
-
-Definition at line 23 of file Application.\+h.
-
-
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

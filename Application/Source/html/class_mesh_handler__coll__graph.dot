@@ -1,0 +1,7 @@
+digraph "MeshHandler"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{MeshHandler\n|+ static GLuint fireTGAs\l|+ static bool loadMeshes()\l+ static bool unloadMeshes()\l+ static GEOMETRY_TYPE\l getGeoTypeByName(std\l::string geoType)\l+ static Mesh * getMesh\l(GEOMETRY_TYPE)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Provides a Universal Mesh List for all Scenes to use."];
+}

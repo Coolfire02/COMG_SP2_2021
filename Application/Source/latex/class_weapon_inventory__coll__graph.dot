@@ -1,0 +1,7 @@
+digraph "WeaponInventory"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{WeaponInventory\n||+  WeaponInventory()\l+  WeaponInventory(WEAPON\l_TYPE wType)\l+  ~WeaponInventory()\l+ void setActiveWeapon\l(int wType)\l+ Weapon * getActiveWeapon()\l+ std::vector\< Weapon\l * \> getWeaponList()\l+ void addWeapon(WEAPON\l_TYPE wType)\l+ void delWeapon(WEAPON\l_TYPE wType)\l+ void switchActiveWeapon\l(int i)\l+ int getWeaponDamage()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles all Weapons in associated with Entity."];
+}

@@ -9,39 +9,46 @@ Handles items in an \mbox{\hyperlink{class_inventory}{Inventory}}.
 
 {\ttfamily \#include $<$Item\+Inventory.\+h$>$}
 
+
+
+Collaboration diagram for Item\+Inventory\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_item_inventory_a115584ac0b114d15ce7b3d8a3d1e69ea}\label{class_item_inventory_a115584ac0b114d15ce7b3d8a3d1e69ea}} 
+\mbox{\hyperlink{class_item_inventory_a115584ac0b114d15ce7b3d8a3d1e69ea}{Item\+Inventory}} ()
+\begin{DoxyCompactList}\small\item\em Initialise \mbox{\hyperlink{class_item_inventory}{Item\+Inventory}} to nullptr. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_aad5daf7754a76d036361e35cce79640a}\label{class_item_inventory_aad5daf7754a76d036361e35cce79640a}} 
-{\bfseries Item\+Inventory} (ITEM\+\_\+\+TYPE itemtype, int amt)
-\item 
+\mbox{\hyperlink{class_item_inventory_aad5daf7754a76d036361e35cce79640a}{Item\+Inventory}} (ITEM\+\_\+\+TYPE itemtype, int amt)
+\begin{DoxyCompactList}\small\item\em Initialise \mbox{\hyperlink{class_item_inventory}{Item\+Inventory}} while also adding an item. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_a35d99fa2360df9d5e3f5ae0dbd9e7fdd}\label{class_item_inventory_a35d99fa2360df9d5e3f5ae0dbd9e7fdd}} 
-void {\bfseries add\+Item} (ITEM\+\_\+\+TYPE itemtype, int amt)
-\item 
+void \mbox{\hyperlink{class_item_inventory_a35d99fa2360df9d5e3f5ae0dbd9e7fdd}{add\+Item}} (ITEM\+\_\+\+TYPE itemtype, int amt)
+\begin{DoxyCompactList}\small\item\em Add Items based on \mbox{\hyperlink{class_item}{Item}} Type as well as amount and can deduct amount through vectors. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_a7132adc0c5e369233f5b9f7278778c17}\label{class_item_inventory_a7132adc0c5e369233f5b9f7278778c17}} 
-void {\bfseries toggle\+Item} ()
-\item 
+void \mbox{\hyperlink{class_item_inventory_a7132adc0c5e369233f5b9f7278778c17}{toggle\+Item}} ()
+\begin{DoxyCompactList}\small\item\em Switch to the next item on the vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_aa9447fbd2086fcb46280da6bcf3719c0}\label{class_item_inventory_aa9447fbd2086fcb46280da6bcf3719c0}} 
-void {\bfseries negative\+Amt\+Check\+And\+Setter} (\mbox{\hyperlink{class_item}{Item}} $\ast$item, int number)
-\item 
+void \mbox{\hyperlink{class_item_inventory_aa9447fbd2086fcb46280da6bcf3719c0}{negative\+Amt\+Check\+And\+Setter}} (\mbox{\hyperlink{class_item}{Item}} $\ast$item, int number)
+\begin{DoxyCompactList}\small\item\em Check if item becomes subtracts below 0. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_aa06889450ebbe2e8e1999b0587669605}\label{class_item_inventory_aa06889450ebbe2e8e1999b0587669605}} 
-void {\bfseries set\+Amt\+Of\+Items} (ITEM\+\_\+\+TYPE itemtype, int amt)
-\item 
+void \mbox{\hyperlink{class_item_inventory_aa06889450ebbe2e8e1999b0587669605}{set\+Amt\+Of\+Items}} (ITEM\+\_\+\+TYPE itemtype, int amt)
+\begin{DoxyCompactList}\small\item\em Add amount of items based on specific \mbox{\hyperlink{class_item}{Item}} Type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_ae91e93dfbeb1d62f4e087923e543bb5e}\label{class_item_inventory_ae91e93dfbeb1d62f4e087923e543bb5e}} 
-void {\bfseries set\+Current\+Item} (int item\+Type)
-\item 
+void \mbox{\hyperlink{class_item_inventory_ae91e93dfbeb1d62f4e087923e543bb5e}{set\+Current\+Item}} (int item\+Type)
+\begin{DoxyCompactList}\small\item\em Set current \mbox{\hyperlink{class_item}{Item}} based on \mbox{\hyperlink{class_item}{Item}} Type Enum. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_af18967475fdbfcd8127fc410e2481a92}\label{class_item_inventory_af18967475fdbfcd8127fc410e2481a92}} 
-int {\bfseries get\+Current\+Item\+Amt} ()
-\item 
+int \mbox{\hyperlink{class_item_inventory_af18967475fdbfcd8127fc410e2481a92}{get\+Current\+Item\+Amt}} ()
+\begin{DoxyCompactList}\small\item\em Get current \mbox{\hyperlink{class_item}{Item}} Amount. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_aeb74873c0c999b157d3a7fc35c240ddf}\label{class_item_inventory_aeb74873c0c999b157d3a7fc35c240ddf}} 
-ITEM\+\_\+\+TYPE {\bfseries get\+Current\+Item\+Type} ()
-\item 
+ITEM\+\_\+\+TYPE \mbox{\hyperlink{class_item_inventory_aeb74873c0c999b157d3a7fc35c240ddf}{get\+Current\+Item\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Get current \mbox{\hyperlink{class_item}{Item}} Type. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_a91da3cd4f95e70c8e0bde77b25e1eeea}\label{class_item_inventory_a91da3cd4f95e70c8e0bde77b25e1eeea}} 
-\mbox{\hyperlink{class_item}{Item}} $\ast$ {\bfseries get\+Current\+Item} ()
-\item 
+\mbox{\hyperlink{class_item}{Item}} $\ast$ \mbox{\hyperlink{class_item_inventory_a91da3cd4f95e70c8e0bde77b25e1eeea}{get\+Current\+Item}} ()
+\begin{DoxyCompactList}\small\item\em Get current \mbox{\hyperlink{class_item}{Item}} Pointer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_item_inventory_a8c7a414418137f6fa71d4693e34d0fc3}\label{class_item_inventory_a8c7a414418137f6fa71d4693e34d0fc3}} 
-std\+::vector$<$ \mbox{\hyperlink{class_item}{Item}} $\ast$ $>$ {\bfseries get\+Item\+Vect} ()
-\end{DoxyCompactItemize}
+std\+::vector$<$ \mbox{\hyperlink{class_item}{Item}} $\ast$ $>$ \mbox{\hyperlink{class_item_inventory_a8c7a414418137f6fa71d4693e34d0fc3}{get\+Item\+Vect}} ()
+\begin{DoxyCompactList}\small\item\em Get current \mbox{\hyperlink{class_item}{Item}} List Vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -50,10 +57,6 @@ Handles items in an \mbox{\hyperlink{class_inventory}{Inventory}}.
 \begin{DoxyVerb}    Class ItemInventory:
 \end{DoxyVerb}
  
-
-Definition at line 22 of file Item\+Inventory.\+h.
-
-
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

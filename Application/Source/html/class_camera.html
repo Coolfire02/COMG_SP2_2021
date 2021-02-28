@@ -74,6 +74,11 @@ $(function() {
  <a href="class_camera.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_camera_8h_source.html">Camera.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Camera:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_camera__coll__graph.png" border="0" usemap="#a_camera_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -96,16 +101,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:acc1741feb6d9da849ea4b6c12e0711e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be called every frame. FirstPersonCamera will get user inputs and update its position and orientation.  <a href="class_camera.html#acc1741feb6d9da849ea4b6c12e0711e6">More...</a><br /></td></tr>
 <tr class="separator:acc1741feb6d9da849ea4b6c12e0711e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae212006298c2b76cb96c1359e13d6526"><td class="memItemLeft" align="right" valign="top"><a id="ae212006298c2b76cb96c1359e13d6526"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLookingAt</b> (Vector3 pos)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ae212006298c2b76cb96c1359e13d6526">isLookingAt</a> (Vector3 pos)</td></tr>
+<tr class="memdesc:ae212006298c2b76cb96c1359e13d6526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the pos param is within a certain angle in the camera's view vector. <br /></td></tr>
 <tr class="separator:ae212006298c2b76cb96c1359e13d6526"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bab9bc5cb0e297bbe9b15c260426569"><td class="memItemLeft" align="right" valign="top"><a id="a6bab9bc5cb0e297bbe9b15c260426569"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Move</b> (float x, float y, float z)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a6bab9bc5cb0e297bbe9b15c260426569">Move</a> (float x, float y, float z)</td></tr>
+<tr class="memdesc:a6bab9bc5cb0e297bbe9b15c260426569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the camera according to its old position. <br /></td></tr>
 <tr class="separator:a6bab9bc5cb0e297bbe9b15c260426569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a1b9a91292b4d1257f01d5add42dbf4cc"><td class="memItemLeft" align="right" valign="top"><a id="a1b9a91292b4d1257f01d5add42dbf4cc"></a>
-CAMERATYPE&#160;</td><td class="memItemRight" valign="bottom"><b>camType</b></td></tr>
+<a class="el" href="_camera_8h.html#a1aa2af0862d081180ed8ae62986fe1e0">CAMERATYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><b>camType</b></td></tr>
 <tr class="separator:a1b9a91292b4d1257f01d5add42dbf4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21d313611e2fbecee46c37cfaeab16b0"><td class="memItemLeft" align="right" valign="top"><a id="a21d313611e2fbecee46c37cfaeab16b0"></a>
 <a class="el" href="class_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>playerPtr</b></td></tr>
@@ -147,9 +154,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>total_yaw</b></td></
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_camera.html" title="Camera System for our game.">Camera</a> System for our game. </p>
 <pre class="fragment">    Class Camera:
-</pre> 
-<p class="definition">Definition at line <a class="el" href="_camera_8h_source.html#l00038">38</a> of file <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a609775f7ec4cd936ad7add808cd7354c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a609775f7ec4cd936ad7add808cd7354c">&#9670;&nbsp;</a></span>Init()</h2>
 
@@ -192,8 +197,6 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>total_yaw</b></td></
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_camera_8cpp_source.html#l00035">35</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
-
 </div>
 </div>
 <a id="acc1741feb6d9da849ea4b6c12e0711e6"></a>
@@ -219,14 +222,17 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>total_yaw</b></td></
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="_camera_8cpp_source.html#l00071">71</a> of file <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_camera_acc1741feb6d9da849ea4b6c12e0711e6_cgraph.png" border="0" usemap="#aclass_camera_acc1741feb6d9da849ea4b6c12e0711e6_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_camera_8h_source.html">Camera.h</a></li>
-<li><a class="el" href="_camera_8cpp_source.html">Camera.cpp</a></li>
+<li>Camera.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

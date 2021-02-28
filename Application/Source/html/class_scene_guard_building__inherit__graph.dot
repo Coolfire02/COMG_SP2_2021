@@ -1,0 +1,9 @@
+digraph "SceneGuardBuilding"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{SceneGuardBuilding\n|+ bool eHeld\l+ Camera camera\l+ Camera camera2\l+ EntityManager eManager\l+ Player * player\l+ Car * playersCar\l+ Entity * testNPC\l+ Entity * roadblockright\l+ Entity * roadblockleft\l|+  SceneGuardBuilding()\l+  ~SceneGuardBuilding()\l+ virtual void Init()\l+ virtual void Update\l(double dt)\l+ virtual void InitLights()\l+ virtual void CollisionHandler\l(double dt)\l+ virtual void MissionComplete\lListener(double dt)\l+ virtual void Render()\l+ virtual void Exit()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Infiltrate the Government Facility Scene."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Scene\n|+ MS modelStack\l+ MS viewStack\l+ MS projectionStack\l# unsigned m_vertexArrayID\l# unsigned m_programID\l# std::string sceneName\l# unsigned m_parameters\l# double elapsed\l# bool lightEnable\l|+  Scene()\l+  ~Scene()\l+ void elapser(double dt)\l+ virtual void Init()=0\l+ virtual void Update\l(double dt)=0\l+ virtual void InitLights()=0\l+ virtual void CollisionHandler\l(double dt)=0\l+ virtual void MissionComplete\lListener(double dt)=0\l+ virtual void RenderUI()=0\l+ virtual void Render()=0\land 13 more...\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_scene.html",tooltip="Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ..."];
+}

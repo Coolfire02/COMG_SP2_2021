@@ -5,6 +5,11 @@ ISoundSource* AudioHandler::soundSource[SOUND_COUNT];
 std::string AudioHandler::fileLocation[SOUND_COUNT];
 ISoundEngine* AudioHandler::engine;
 
+/******************************************************************************/
+/*!
+\brief Loads the Music into Audio Handler
+*/
+/******************************************************************************/
 void AudioHandler::load() {
 	if (!loaded) {
 
@@ -47,26 +52,76 @@ void AudioHandler::load() {
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get the irrklang engine
+
+\return irrklang engine
+*/
+/******************************************************************************/
 ISoundEngine* AudioHandler::getEngine() {
 	return engine;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Converts Vector3 object to vec3df (Irrklang's Vector3)
+
+\param vec - the Vector3 to convert
+
+\return vector in vec3df form
+*/
+/******************************************************************************/
 vec3df AudioHandler::to_vec3df(Vector3 vec) {
 	return vec3df(vec.x, vec.y, vec.z);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Checks if the audio handler is loade
+
+\return bool of whether Audio Handler is loaded
+*/
+/******************************************************************************/
 bool AudioHandler::isLoaded() {
 	return loaded;
 }
 
+/******************************************************************************/
+/*!
+\brief Get the file location of each SOUNDTYPE ENUM.
+Requires AudioHandler to be loade.
+
+\param type - Sound Type
+
+\return file path.
+*/
+/******************************************************************************/
 const char* AudioHandler::getFileLocation(SOUNDTYPE type) {
 	return fileLocation[type].c_str();
 }
 
+/******************************************************************************/
+/*!
+\brief gets the cached ISoundSource of a SOUNDTYPE
+
+\param type - the type of sound you want the cached ISoundSource for
+
+\return the cached ISoundSource of an Associated SOUNDTYPE
+*/
+/******************************************************************************/
 ISoundSource* AudioHandler::getSoundSource(SOUNDTYPE type) {
 	return soundSource[type];
 }
 
+/******************************************************************************/
+/*!
+\brief called in Application, cleans up the engine and all sound sources
+*/
+/******************************************************************************/
 void AudioHandler::cleanup() {
 	engine->removeAllSoundSources();
 	engine->drop();

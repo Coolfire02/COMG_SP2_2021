@@ -21,12 +21,12 @@ Buttons creatable for UI.
 /******************************************************************************/
 class Button
 {
-	bool enabled;
-	const std::string buttonName;
-	UIItem UIInfo;
-	GEOMETRY_TYPE quadTexture;
-	//Text Component
-	Text* text;
+	bool enabled; // whether a button is enabled
+	const std::string buttonName; // the button's name
+	UIItem UIInfo; // UIInfo of a button storing origin position and size.
+	GEOMETRY_TYPE quadTexture; // Image of the button (if any)
+	//Text Component 
+	Text* text; // optional text compoenent of a button.
 
 public:
 	Button(std::string buttonName, float originX, float originY, float quadXSize, float quadYSize, GEOMETRY_TYPE quadTexture);

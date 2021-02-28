@@ -9,30 +9,29 @@ Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}}.
 
 {\ttfamily \#include $<$Audio\+Handler.\+h$>$}
 
+
+
+Collaboration diagram for Audio\+Handler\+:
+% FIG 0
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_audio_handler_abb49bed1c726c060c0be9ebcbdb6ddc7}\label{class_audio_handler_abb49bed1c726c060c0be9ebcbdb6ddc7}} 
-static ISound\+Engine $\ast$ {\bfseries get\+Engine} ()
-\item 
-\mbox{\Hypertarget{class_audio_handler_a3618bad589ac439e9fedce6aa0edf232}\label{class_audio_handler_a3618bad589ac439e9fedce6aa0edf232}} 
-static const char $\ast$ {\bfseries get\+File\+Location} (SOUNDTYPE)
-\item 
-\mbox{\Hypertarget{class_audio_handler_a2ed9d95235209990a13267c33bfc80e4}\label{class_audio_handler_a2ed9d95235209990a13267c33bfc80e4}} 
-static ISound\+Source $\ast$ {\bfseries get\+Sound\+Source} (SOUNDTYPE)
-\item 
-\mbox{\Hypertarget{class_audio_handler_a7807f8a9f6e24b07335a9221b11c933a}\label{class_audio_handler_a7807f8a9f6e24b07335a9221b11c933a}} 
-static vec3df {\bfseries to\+\_\+vec3df} (Vector3 vec)
-\item 
+static ISound\+Engine $\ast$ \mbox{\hyperlink{class_audio_handler_abb49bed1c726c060c0be9ebcbdb6ddc7}{get\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Get the irrklang engine. \end{DoxyCompactList}\item 
+static const char $\ast$ \mbox{\hyperlink{class_audio_handler_a3618bad589ac439e9fedce6aa0edf232}{get\+File\+Location}} (SOUNDTYPE)
+\begin{DoxyCompactList}\small\item\em Get the file location of each SOUNDTYPE ENUM. Requires \mbox{\hyperlink{class_audio_handler}{Audio\+Handler}} to be loade. \end{DoxyCompactList}\item 
+static ISound\+Source $\ast$ \mbox{\hyperlink{class_audio_handler_a2ed9d95235209990a13267c33bfc80e4}{get\+Sound\+Source}} (SOUNDTYPE)
+\begin{DoxyCompactList}\small\item\em gets the cached ISound\+Source of a SOUNDTYPE \end{DoxyCompactList}\item 
+static vec3df \mbox{\hyperlink{class_audio_handler_a7807f8a9f6e24b07335a9221b11c933a}{to\+\_\+vec3df}} (Vector3 vec)
+\begin{DoxyCompactList}\small\item\em Converts Vector3 object to vec3df (Irrklang\textquotesingle{}s Vector3) \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_audio_handler_a121703630e715816e8f1b7ccb5591944}\label{class_audio_handler_a121703630e715816e8f1b7ccb5591944}} 
-static void {\bfseries load} ()
-\item 
-\mbox{\Hypertarget{class_audio_handler_a565c20951778e1fab8e7951b9029ed68}\label{class_audio_handler_a565c20951778e1fab8e7951b9029ed68}} 
-static bool {\bfseries is\+Loaded} ()
-\item 
+static void \mbox{\hyperlink{class_audio_handler_a121703630e715816e8f1b7ccb5591944}{load}} ()
+\begin{DoxyCompactList}\small\item\em Loads the Music into Audio Handler. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_audio_handler_a565c20951778e1fab8e7951b9029ed68}{is\+Loaded}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the audio handler is loade. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_audio_handler_afac8e51f667cc76236deba8b2f05f820}\label{class_audio_handler_afac8e51f667cc76236deba8b2f05f820}} 
-static void {\bfseries cleanup} ()
-\end{DoxyCompactItemize}
+static void \mbox{\hyperlink{class_audio_handler_afac8e51f667cc76236deba8b2f05f820}{cleanup}} ()
+\begin{DoxyCompactList}\small\item\em called in \mbox{\hyperlink{class_application}{Application}}, cleans up the engine and all sound sources \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -42,8 +41,87 @@ Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}}.
 \end{DoxyVerb}
  
 
-Definition at line 56 of file Audio\+Handler.\+h.
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_audio_handler_abb49bed1c726c060c0be9ebcbdb6ddc7}\label{class_audio_handler_abb49bed1c726c060c0be9ebcbdb6ddc7}} 
+\index{AudioHandler@{AudioHandler}!getEngine@{getEngine}}
+\index{getEngine@{getEngine}!AudioHandler@{AudioHandler}}
+\doxysubsubsection{\texorpdfstring{getEngine()}{getEngine()}}
+{\footnotesize\ttfamily ISound\+Engine $\ast$ Audio\+Handler\+::get\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Get the irrklang engine. 
+
+\begin{DoxyReturn}{Returns}
+irrklang engine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_audio_handler_a3618bad589ac439e9fedce6aa0edf232}\label{class_audio_handler_a3618bad589ac439e9fedce6aa0edf232}} 
+\index{AudioHandler@{AudioHandler}!getFileLocation@{getFileLocation}}
+\index{getFileLocation@{getFileLocation}!AudioHandler@{AudioHandler}}
+\doxysubsubsection{\texorpdfstring{getFileLocation()}{getFileLocation()}}
+{\footnotesize\ttfamily const char $\ast$ Audio\+Handler\+::get\+File\+Location (\begin{DoxyParamCaption}\item[{SOUNDTYPE}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the file location of each SOUNDTYPE ENUM. Requires \mbox{\hyperlink{class_audio_handler}{Audio\+Handler}} to be loade. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ Sound Type\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+file path. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_audio_handler_a2ed9d95235209990a13267c33bfc80e4}\label{class_audio_handler_a2ed9d95235209990a13267c33bfc80e4}} 
+\index{AudioHandler@{AudioHandler}!getSoundSource@{getSoundSource}}
+\index{getSoundSource@{getSoundSource}!AudioHandler@{AudioHandler}}
+\doxysubsubsection{\texorpdfstring{getSoundSource()}{getSoundSource()}}
+{\footnotesize\ttfamily ISound\+Source $\ast$ Audio\+Handler\+::get\+Sound\+Source (\begin{DoxyParamCaption}\item[{SOUNDTYPE}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+gets the cached ISound\+Source of a SOUNDTYPE 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ the type of sound you want the cached ISound\+Source for\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the cached ISound\+Source of an Associated SOUNDTYPE 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_audio_handler_a565c20951778e1fab8e7951b9029ed68}\label{class_audio_handler_a565c20951778e1fab8e7951b9029ed68}} 
+\index{AudioHandler@{AudioHandler}!isLoaded@{isLoaded}}
+\index{isLoaded@{isLoaded}!AudioHandler@{AudioHandler}}
+\doxysubsubsection{\texorpdfstring{isLoaded()}{isLoaded()}}
+{\footnotesize\ttfamily bool Audio\+Handler\+::is\+Loaded (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks if the audio handler is loade. 
+
+\begin{DoxyReturn}{Returns}
+bool of whether Audio Handler is loaded 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_audio_handler_a7807f8a9f6e24b07335a9221b11c933a}\label{class_audio_handler_a7807f8a9f6e24b07335a9221b11c933a}} 
+\index{AudioHandler@{AudioHandler}!to\_vec3df@{to\_vec3df}}
+\index{to\_vec3df@{to\_vec3df}!AudioHandler@{AudioHandler}}
+\doxysubsubsection{\texorpdfstring{to\_vec3df()}{to\_vec3df()}}
+{\footnotesize\ttfamily vec3df Audio\+Handler\+::to\+\_\+vec3df (\begin{DoxyParamCaption}\item[{Vector3}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts Vector3 object to vec3df (Irrklang\textquotesingle{}s Vector3) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vec} & -\/ the Vector3 to convert\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector in vec3df form 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

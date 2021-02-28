@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['walk_377',['Walk',['../class_n_p_c.html#add1ffcc2f11f4b956a1b8d5fa3be5104',1,'NPC']]],
-  ['weapon_378',['Weapon',['../class_weapon.html#a42dbc46dd70319a24763992c4ebbd396',1,'Weapon::Weapon()'],['../class_weapon.html#aa5335e113cfbe6ed7292ada1d7e6ea5c',1,'Weapon::Weapon(WEAPON_TYPE wType)']]],
-  ['weaponinventory_379',['WeaponInventory',['../class_weapon_inventory.html#a2e05d9e8ec5e73da64dbe136b1466bfc',1,'WeaponInventory::WeaponInventory()'],['../class_weapon_inventory.html#a9458714a0909e2584f8aec8b042eb5bd',1,'WeaponInventory::WeaponInventory(WEAPON_TYPE wType)']]]
+  ['update_534',['Update',['../class_camera.html#acc1741feb6d9da849ea4b6c12e0711e6',1,'Camera::Update()'],['../class_game.html#ae11ef55000e71a8391ca7cec1f91db48',1,'Game::Update()'],['../class_interaction_manager.html#aca910d8bedc8f3250617cce07f70b080',1,'InteractionManager::Update()'],['../class_inventory.html#a1dfd4a5b216a6017c72e197b6c4b899b',1,'Inventory::Update()'],['../struct_rigid_body.html#acca3355c5ba65b23f684e15e75ea990a',1,'RigidBody::Update()'],['../class_n_p_c.html#a42c0f89600610c5476893af406b00dca',1,'NPC::Update()'],['../class_player.html#ae1544e269d6f6800d9a0208b6779d615',1,'Player::Update()'],['../class_weapon.html#af961f4821ddc62d5535aabf72ae84f13',1,'Weapon::Update()']]],
+  ['update_535',['update',['../class_hit_box.html#a702c6d536c2498161da03a41bb91cc5d',1,'HitBox']]],
+  ['updateaxis_536',['UpdateAxis',['../class_hit_box.html#a62cecfd2e13c158bdc78952c226feda0',1,'HitBox']]],
+  ['updatepos_537',['UpdatePos',['../class_hit_box.html#afcb5755b30c07c50a4c46b12ff4fee86',1,'HitBox']]]
 ];

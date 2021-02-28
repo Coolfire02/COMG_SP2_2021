@@ -1,0 +1,7 @@
+digraph "Button"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Button\n||+  Button(std::string\l buttonName, float originX,\l float originY, float quadXSize,\l float quadYSize, GEOMETRY_TYPE\l quadTexture)\l+ void spawnTextObject\l(std::string text, Color\l txtColor, FONTTYPE type,\l float textSize)\l+ void disable()\l+ void enable()\l+ bool isEnabled()\l+ std::string getName()\l+ bool hasText()\l+ bool isInRange(double,\l double)\l+ void setOrigin(float\l x, float Y)\l+ UIItem getUIInfo()\land 7 more...\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Buttons creatable for UI. Used by ButtonManager."];
+}

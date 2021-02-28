@@ -1,0 +1,7 @@
+digraph "InteractionQueue"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{InteractionQueue\n||+  InteractionQueue()\l+  ~InteractionQueue()\l+ std::vector\< Interaction\l * \> & getQueue()\l+ Interaction * Top()\l+ int size()\l+ void pushInteraction\l(Interaction *interaction)\l+ void pushInteraction\l(std::vector\< Command\l * \> preInteractionCMD,\l std::string interactionText,\l std::vector\< Command * \> postInteractionCMD)\l+ void popInteraction()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles the Queued Interactions created in the Game."];
+}

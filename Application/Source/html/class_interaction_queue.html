@@ -73,36 +73,45 @@ $(function() {
  <a href="class_interaction_queue.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_interaction_queue_8h_source.html">InteractionQueue.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for InteractionQueue:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_interaction_queue__coll__graph.png" border="0" usemap="#a_interaction_queue_coll__map" alt="Collaboration graph"/></div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d2b69800cbe9285217bf8d2584d89b1"><td class="memItemLeft" align="right" valign="top"><a id="a8d2b69800cbe9285217bf8d2584d89b1"></a>
-std::vector&lt; <a class="el" href="struct_interaction.html">Interaction</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getQueue</b> ()</td></tr>
+std::vector&lt; <a class="el" href="struct_interaction.html">Interaction</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#a8d2b69800cbe9285217bf8d2584d89b1">getQueue</a> ()</td></tr>
+<tr class="memdesc:a8d2b69800cbe9285217bf8d2584d89b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return queue vector. <br /></td></tr>
 <tr class="separator:a8d2b69800cbe9285217bf8d2584d89b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1df6ca94d010341a6baff0f56082f37"><td class="memItemLeft" align="right" valign="top"><a id="ad1df6ca94d010341a6baff0f56082f37"></a>
-<a class="el" href="struct_interaction.html">Interaction</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Top</b> ()</td></tr>
+<a class="el" href="struct_interaction.html">Interaction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#ad1df6ca94d010341a6baff0f56082f37">Top</a> ()</td></tr>
+<tr class="memdesc:ad1df6ca94d010341a6baff0f56082f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the first in the queue vector. <br /></td></tr>
 <tr class="separator:ad1df6ca94d010341a6baff0f56082f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41b989dc2bf3290e0627f2128267a701"><td class="memItemLeft" align="right" valign="top"><a id="a41b989dc2bf3290e0627f2128267a701"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> ()</td></tr>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#a41b989dc2bf3290e0627f2128267a701">size</a> ()</td></tr>
+<tr class="memdesc:a41b989dc2bf3290e0627f2128267a701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets queue vector size. <br /></td></tr>
 <tr class="separator:a41b989dc2bf3290e0627f2128267a701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4680402424fa4f28f356564cca048585"><td class="memItemLeft" align="right" valign="top"><a id="a4680402424fa4f28f356564cca048585"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushInteraction</b> (<a class="el" href="struct_interaction.html">Interaction</a> *interaction)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#a4680402424fa4f28f356564cca048585">pushInteraction</a> (<a class="el" href="struct_interaction.html">Interaction</a> *interaction)</td></tr>
+<tr class="memdesc:a4680402424fa4f28f356564cca048585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push an <a class="el" href="struct_interaction.html">Interaction</a> to queue vector. <br /></td></tr>
 <tr class="separator:a4680402424fa4f28f356564cca048585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92a96f85e8790d9fa2c94175f7e6c925"><td class="memItemLeft" align="right" valign="top"><a id="a92a96f85e8790d9fa2c94175f7e6c925"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushInteraction</b> (std::vector&lt; <a class="el" href="struct_command.html">Command</a> * &gt; preInteractionCMD, std::string interactionText, std::vector&lt; <a class="el" href="struct_command.html">Command</a> * &gt; postInteractionCMD)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#a92a96f85e8790d9fa2c94175f7e6c925">pushInteraction</a> (std::vector&lt; <a class="el" href="struct_command.html">Command</a> * &gt; preInteractionCMD, std::string interactionText, std::vector&lt; <a class="el" href="struct_command.html">Command</a> * &gt; postInteractionCMD)</td></tr>
+<tr class="memdesc:a92a96f85e8790d9fa2c94175f7e6c925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push an <a class="el" href="struct_interaction.html">Interaction</a> to queue vector. <br /></td></tr>
 <tr class="separator:a92a96f85e8790d9fa2c94175f7e6c925"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eb12698c05c66ee6ea6bdcb11ad745d"><td class="memItemLeft" align="right" valign="top"><a id="a6eb12698c05c66ee6ea6bdcb11ad745d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>popInteraction</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interaction_queue.html#a6eb12698c05c66ee6ea6bdcb11ad745d">popInteraction</a> ()</td></tr>
+<tr class="memdesc:a6eb12698c05c66ee6ea6bdcb11ad745d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops the first <a class="el" href="struct_interaction.html">Interaction</a> that is in the vector. <br /></td></tr>
 <tr class="separator:a6eb12698c05c66ee6ea6bdcb11ad745d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles the Queued Interactions created in the <a class="el" href="class_game.html" title="Handles the entire Game. (Scenes, Settings, Managers, etc.)">Game</a>. </p>
 <pre class="fragment">    Class InteractionQueue:
-</pre> 
-<p class="definition">Definition at line <a class="el" href="_interaction_queue_8h_source.html#l00041">41</a> of file <a class="el" href="_interaction_queue_8h_source.html">InteractionQueue.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</pre> </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_interaction_queue_8h_source.html">InteractionQueue.h</a></li>
-<li><a class="el" href="_interaction_queue_8cpp_source.html">InteractionQueue.cpp</a></li>
+<li>InteractionQueue.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

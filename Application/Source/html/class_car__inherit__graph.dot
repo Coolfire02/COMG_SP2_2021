@@ -1,0 +1,9 @@
+digraph "Car"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Car\n||+  Car(CAR_TYPE, Scene\l *, std::string)\l+  Car(float, CAR_TYPE)\l+  Car()\l+  ~Car()\l+ void Init(CAR_TYPE\l type, Scene *scene,\l std::string name)\l+ void setSpeed(float\l speed)\l+ void setAccel(float a)\l+ void setVelocity(Vector3)\l+ void setPlayer(Player *)\l+ float getAccel()\land 8 more...\l+ static float getMaxCarSpeed\l(CAR_TYPE carType)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Car class for car movement."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{Entity\n|# Scene * scene\l# std::string name\l# bool dead\l# ENTITYTYPE type\l# EntityData * data\l# EntityData * oldData\l# bool visible\l# Mtx44 currentMtx\l# bool useNewData\l# HitBox * hitBox\l|+  Entity()\l+  Entity(Scene *associated\lScene, ENTITYTYPE type,\l std::string name)\l+  Entity(Scene *associated\lScene, ENTITYTYPE type,\l std::string name, int health)\l+  Entity(Scene *associated\lScene, ENTITYTYPE type,\l std::string name, Vector3 pos)\l+  ~Entity()\l+ std::string getName()\l+ bool isDead()\l+ void setDead(bool)\l+ EntityData * getEntityData()\l+ EntityData * getOldEntity\lData()\land 16 more...\l# Mtx44 getTRSMtx44()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_entity.html",tooltip="Entity System encapsulating all attributes of something \"Living\"."];
+}

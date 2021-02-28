@@ -1,0 +1,7 @@
+digraph "EntityManager"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{EntityManager\n||+  EntityManager(Scene\l *scene)\l+  ~EntityManager()\l+ void spawnMovingEntity\l(Entity *)\l+ void spawnWorldEntity\l(Entity *)\l+ std::vector\< CollidedWith\l * \> & preCollisionUpdate()\l+ void collisionUpdate\l(double dt)\l+ void postCollisionUpdate()\l+ std::vector\< Entity\l * \> getEntities()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Scene associated object that handles all Entity in a specific Instance of a Scene...."];
+}

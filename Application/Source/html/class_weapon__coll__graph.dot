@@ -1,0 +1,7 @@
+digraph "Weapon"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Weapon\n|+ bool Reload\l|+  Weapon()\l+  Weapon(WEAPON_TYPE\l wType)\l+  ~Weapon()\l+ void initExtinguisher()\l+ void initPistol()\l+ void initSilencer()\l+ void Update(Scene *,\l EntityManager *, Vector3,\l Vector3, double)\l+ void initWeapon(WEAPON\l_TYPE wType, int ammos,\l int damages)\l+ GEOMETRY_TYPE getMeshType()\l+ WEAPON_TYPE getWeaponType()\l+ int getWeaponAmmo()\l+ void setUIcooldown\l(double)\l+ double getUIcooldown()\l+ int getDamage()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles all Weapon Functionalities like Shooting, reloading."];
+}

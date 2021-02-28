@@ -9,6 +9,10 @@
 
 {\ttfamily \#include $<$Camera.\+h$>$}
 
+
+
+Collaboration diagram for Camera\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,16 +30,16 @@ void \mbox{\hyperlink{class_camera_aa46f58b32270a571ab56dde4caca46db}{Reset}} ()
 void \mbox{\hyperlink{class_camera_acc1741feb6d9da849ea4b6c12e0711e6}{Update}} (double dt)
 \begin{DoxyCompactList}\small\item\em To be called every frame. First\+Person\+Camera will get user inputs and update its position and orientation. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_camera_ae212006298c2b76cb96c1359e13d6526}\label{class_camera_ae212006298c2b76cb96c1359e13d6526}} 
-bool {\bfseries is\+Looking\+At} (Vector3 pos)
-\item 
+bool \mbox{\hyperlink{class_camera_ae212006298c2b76cb96c1359e13d6526}{is\+Looking\+At}} (Vector3 pos)
+\begin{DoxyCompactList}\small\item\em Returns true if the pos param is within a certain angle in the camera\textquotesingle{}s view vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_camera_a6bab9bc5cb0e297bbe9b15c260426569}\label{class_camera_a6bab9bc5cb0e297bbe9b15c260426569}} 
-void {\bfseries Move} (float x, float y, float z)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_camera_a6bab9bc5cb0e297bbe9b15c260426569}{Move}} (float x, float y, float z)
+\begin{DoxyCompactList}\small\item\em Moves the camera according to its old position. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_camera_a1b9a91292b4d1257f01d5add42dbf4cc}\label{class_camera_a1b9a91292b4d1257f01d5add42dbf4cc}} 
-CAMERATYPE {\bfseries cam\+Type}
+\mbox{\hyperlink{_camera_8h_a1aa2af0862d081180ed8ae62986fe1e0}{CAMERATYPE}} {\bfseries cam\+Type}
 \item 
 \mbox{\Hypertarget{class_camera_a21d313611e2fbecee46c37cfaeab16b0}\label{class_camera_a21d313611e2fbecee46c37cfaeab16b0}} 
 \mbox{\hyperlink{class_entity}{Entity}} $\ast$ {\bfseries player\+Ptr}
@@ -82,10 +86,6 @@ float {\bfseries total\+\_\+yaw}
 \end{DoxyVerb}
  
 
-Definition at line 38 of file Camera.\+h.
-
-
-
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_camera_a609775f7ec4cd936ad7add808cd7354c}\label{class_camera_a609775f7ec4cd936ad7add808cd7354c}} 
 \index{Camera@{Camera}!Init@{Init}}
@@ -106,10 +106,6 @@ Initialize First\+Person\+Camera.
 {\em up} & -\/ up vector of First\+Person\+Camera \\
 \hline
 \end{DoxyParams}
-
-
-Definition at line 35 of file Camera.\+cpp.
-
 \mbox{\Hypertarget{class_camera_acc1741feb6d9da849ea4b6c12e0711e6}\label{class_camera_acc1741feb6d9da849ea4b6c12e0711e6}} 
 \index{Camera@{Camera}!Update@{Update}}
 \index{Update@{Update}!Camera@{Camera}}
@@ -125,10 +121,8 @@ To be called every frame. First\+Person\+Camera will get user inputs and update 
 {\em dt} & -\/ frame time \\
 \hline
 \end{DoxyParams}
-
-
-Definition at line 71 of file Camera.\+cpp.
-
+Here is the call graph for this function\+:
+% FIG 1
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
