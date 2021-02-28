@@ -534,6 +534,8 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
+					if (!player->isDriving())
+						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
 					{
 						for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
@@ -545,25 +547,16 @@ void Scene2021::CollisionHandler(double dt) {
 							}
 						}
 					}
-					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
-						{
-							if (!player->isDriving())
-								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld && Game::sceneCooldown > 3)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
-							}
-						}
-					}
-					if (!player->isDriving())
-						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
+						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+						{
+							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
+							{
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
+							}
+						}
 						Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
 					}
 				}
