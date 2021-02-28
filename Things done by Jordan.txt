@@ -17,3 +17,9 @@ implmented health to entities (NPC)
 implemented car boost and meter gauge
 implemented cash and ammo
 
+part of final dialogue
+
+main and pause menu
+
+bug fixes
+
