@@ -807,7 +807,6 @@ void SceneTimePortal::Render()
 				Text* text = new Text(Color(1, 1, 1), 45, 32, 1, FONTTYPE::CALIBRI, 5);
 				text->setTextString("Travelling back to 2021...");
 				text->Render(this);
-				//RenderTextOnScreen(MeshHandler::getMesh(GEO_TEXT), "Travelling back to 2021...", Color(1, 1, 1), 5, 50, 32);
 			}
 		}
 	}
