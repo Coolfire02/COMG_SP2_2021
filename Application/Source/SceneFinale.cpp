@@ -504,19 +504,17 @@ void SceneFinale::CollisionHandler(double dt) {
 			}*/
 
 			if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-				if (entry->victim->getType() == ENTITYTYPE::CUSTOM) {
-					if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
-						for (auto& mission : Game::mManager.getCompletedMissions()) {
-							if (mission == MISSION_INTERROGATE_BIMSTER) {
-								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-								if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3) {
-									Game::iManager.loadInteraction("killBimster2");
-									ISound* door = AudioHandler::getEngine()->play3D(
-										AudioHandler::getSoundSource(DOOR),
-										AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-										LOOPED::NOLOOP);
-									Game::switchScene(S_TIMEPORTAL);
-								}
+				if (entry->victim->getName().find("doorHitbox") != std::string::npos) {
+					for (auto& mission : Game::mManager.getCompletableMissions()) {
+						if (mission == MISSION_RETURN_TO_2051) {
+							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+							if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3) {
+								Game::iManager.loadInteraction("bimsterKill2");
+								ISound* door = AudioHandler::getEngine()->play3D(
+									AudioHandler::getSoundSource(DOOR),
+									AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+									LOOPED::NOLOOP);
+								Game::switchScene(S_TIMEPORTAL);
 							}
 						}
 					}

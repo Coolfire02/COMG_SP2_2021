@@ -534,46 +534,32 @@ void Scene2021::CollisionHandler(double dt) {
 					Game::mManager.addProgress(MISSIONTYPE::MISSION_VISIT_RESTAURANT, 100.0);
 				}
 				if (entry->victim->getName().find("gunShopHitBox") != std::string::npos) {
-					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
-					{
-						for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
-						{
-							if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && Game::mManager.getCompletableMissions().at(j) == MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT && interactionTimer > 2) //do && check if next mission has started to disable this 
-							{
-								Game::iManager.loadInteraction("phoneCall1");
-								interactionTimer = 0;
-							}
-						}
-					}
-					for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
-					{
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
-						{
-							if (!player->isDriving())
-								Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld && Game::sceneCooldown > 3)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
-							}
-						}
-						if (Game::mManager.getCompletableMissions().at(i) == MISSION_RETURN_THE_GOODS)
-						{
-							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
-							if (ePressed && !eHeld && Game::sceneCooldown > 3)
-							{
-								eHeld = true;
-								Game::switchScene(S_GUNSHOP);
-								Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f); //completed drug collection mission
-							}
-						}
-					}
 					if (!player->isDriving())
 						Game::uiManager.setUIactive(UI_E_TO_INTERACT);
+					for (int i = 0; i < Game::mManager.getCompletedMissions().size(); i++)
+					{
+						if (Game::mManager.getCompletedMissions().at(i) == MISSIONTYPE::MISSION_RETURN_THE_GOODS && interactionTimer > 2) //do && check if next mission has started to disable this 
+						{
+							for (int j = 0; j < Game::mManager.getCompletableMissions().size(); j++)
+							{
+								if (Game::mManager.getCompletableMissions().at(j) == MISSIONTYPE::MISSION_GET_INFO_FROM_GILBERT && interactionTimer > 2) //do && check if next mission has started to disable this 
+								{
+									Game::iManager.loadInteraction("phoneCall1");
+									interactionTimer = 0;
+								}
+							}
+						}
+					}
 					if (ePressed && !eHeld && Game::sceneCooldown > 3)
 					{
 						eHeld = true;
+						for (int i = 0; i < Game::mManager.getCompletableMissions().size(); i++)
+						{
+							if (Game::mManager.getCompletableMissions().at(i) == MISSION_VISIT_GUNSHOP || Game::mManager.getCompletableMissions().at(i) == MISSION_TALK_TO_THE_OWNER)
+							{
+								Game::mManager.setProgress(MISSIONTYPE::MISSION_VISIT_GUNSHOP, 100.0f); //completed visiting gunshop
+							}
+						}
 						Game::switchScene(S_GUNSHOP, 5.0, "   ENTERING GUN SHOP");
 					}
 				}

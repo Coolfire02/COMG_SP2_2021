@@ -347,6 +347,11 @@ INTERACTION: guards4
 
 =========================================
 
+INTERACTION: drugs
+- MSG: Gary: Thanks, here is Gilbert's phone number.;He'll help you get in. Just mention my name.
+
+=========================================
+
 INTERACTION: bimster
 - MSG: Bimster: What?! Where am I? Who are you?!;Why am I here?!?!
 
@@ -380,7 +385,7 @@ CHOICE # bimster2
 # NEXT: bimster2-2
 
 CHOICE # bimster2
-- MSG: Neutral
+- MSG: Answer my questions first!
 # NEXT: bimster2-3
 
 =========================================
@@ -569,6 +574,165 @@ CHOICE # bimster2-2-2-1-1
 # NEXT: bimster2-2-2-1-1end2
 
 =========================================
+
+INTERACTION: bimster2-3
+- MSG: ...
+
+CHOICE # bimster2-3
+- MSG: You are going to pay for your crimes.
+- postcmd: /aggressive
+# NEXT: bimster2-3-1
+
+CHOICE # bimster2-3
+- MSG: I just want to live a normal life.
+- postcmd: /passive
+# NEXT: bimster2-3-2
+
+CHOICE # bimster2-3
+- MSG: I just want to know why,;so I want to set you free...
+# NEXT: bimster2-3-3
+
+================================================
+
+INTERACTION: bimster2-3-1
+- MSG: In blood...
+# NEXT: bimster2-3-1continue
+
+INTERACTION: bimster2-3-1continue
+- MSG: Bimster: So you're just going to off me?
+
+CHOICE # bimster2-3-1continue
+- MSG: I intend to kill you and;avenge the things you destroyed.
+- postcmd: /aggressive
+# NEXT: bimster2-3-1-1
+
+CHOICE # bimster2-3-1continue
+- MSG: I don't want to kill you...
+- postcmd: /passive
+# NEXT: bimster2-3-1-2
+
+CHOICE # bimster2-3-1continue
+- MSG: I'm not going to kill you...
+# NEXT: bimster2-3-1-3
+
+===================================================
+
+INTERACTION: bimster2-3-1-1
+- MSG: Even the empire you created in the future will be in ruins.
+# NEXT: bimster2-3-1-1end
+
+INTERACTION: bimster2-3-1-1end
+- MSG: Bimster: Then kill me if it satisfies you...
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-1-2
+- MSG: I just want answers to what you've been doing.
+# NEXT: bimster2-3-1-2continue
+
+INTERACTION: bimster2-3-1-2continue
+- MSG: Bimster: I've been planning to keep Global Warming at bay.
+# NEXT: bimster2-3-1-2continue2
+
+INTERACTION: bimster2-3-1-2continue2
+- MSG: Bimster: But based on the reason you abducted me...
+# NEXT: bimster2-3-1-2end
+
+INTERACTION: bimster2-3-1-2end
+- MSG: Bimster: I have failed...
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-1-3
+- MSG: I just want to know why.
+# NEXT: bimster2-3-1-3end
+
+INTERACTION: bimster2-3-1-3end
+- MSG: Bimster: I just wanted to stop the Earth from dying.
+- precmd: /loadlastinteraction
+
+==============================================================
+
+INTERACTION: bimster2-3-2
+- MSG: Bimster: So what does this have to do with me.
+# NEXT: bimster2-3-2continue
+
+INTERACTION: bimster2-3-2continue
+- MSG: You have caused great pain upon me.
+# NEXT: bimster2-3-2continue2
+
+INTERACTION: bimster2-3-2continue2
+- MSG: Bimster: So what do you want me to do about it.
+
+CHOICE # bimster2-3-2continue2
+- MSG: I'm going to settle the score..
+- postcmd: /aggressive
+# NEXT: bimster2-3-2-1end
+
+CHOICE # bimster2-3-2continue2
+- MSG: I want you to help me;against Global Warming.
+- postcmd: /passive
+# NEXT: bimster2-3-2-2
+
+CHOICE # bimster2-3-2continue2
+- MSG: I want you to stop doing evil.
+# NEXT: bimster2-3-2-3
+
+INTERACTION: bimster2-3-2-1end
+- MSG: By taking your blood!
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-2-2
+- MSG: Bimster: I am but you decided to abduct me.
+# NEXT: bimster2-3-2-2end
+
+INTERACTION: bimster2-3-2-2end
+- MSG: I'm sorry about that and I hope you will be able to forgive me.
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-2-3
+- MSG: Bimster: I'm not trying to be evil...
+# NEXT: bimster2-3-2-3end
+
+INTERACTION: bimster2-3-2-3end
+- MSG: Bimster: But if you think so then I must have failed...
+- precmd: /loadlastinteraction
+
+=========================================================
+
+INTERACTION: bimster2-3-3
+- MSG: Bimster: Are you trying to be nice to me or are you just going to let me go.
+
+CHOICE # bimster2-3-3
+- MSG: I'm not letting you go,;I'm going to end a dismal future.
+- postcmd: /aggressive
+# NEXT: bimster2-3-3-1end
+
+CHOICE # bimster2-3-3
+- MSG: I am, so repent for the;crimes you have caused.
+- postcmd: /passive
+# NEXT: bimster2-3-3-2
+
+CHOICE # bimster2-3-3
+- MSG: Even with the crimes you have caused,;it was all going to end the same anyways.
+# NEXT: bimster2-3-3-3end
+=================
+
+INTERACTION: bimster2-3-3-1end
+- MSG: This is your end!
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-3-2
+- MSG: Bimster: I will.
+# NEXT: bimster2-3-3-2end
+
+INTERACTION: bimster2-3-3-2end
+- MSG: Bimster: Even though you abducted me to let me know about it.
+- precmd: /loadlastinteraction
+
+INTERACTION: bimster2-3-3-3end
+- MSG: Global Warming will eventually destroys the future.
+- precmd: /loadlastinteraction
+
+======================================================
 
 INTERACTION: bimster2-2-2-1-1end2
 - MSG: Trust me, it was for your own good.

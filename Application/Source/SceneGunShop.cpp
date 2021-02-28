@@ -474,6 +474,10 @@ void SceneGunShop::CollisionHandler(double dt) {
 					if (Game::mManager.missionIsCompletable(MISSION_TALK_TO_THE_OWNER, completables)) {
 						Game::iManager.loadInteraction("Gary1");
 					}
+					else if (Game::mManager.missionIsCompletable(MISSION_RETURN_THE_GOODS, completables)) {
+						Game::mManager.setProgress(MISSIONTYPE::MISSION_RETURN_THE_GOODS, 100.0f);
+						Game::iManager.loadInteraction("drugs");
+					}
 					else
 						Game::iManager.loadInteraction("Gunshop1");
 				}
