@@ -120,32 +120,34 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    std::vector&lt;MISSIONTYPE&gt; requiredPreReqMissions;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_mission.html">   64</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_mission.html">Mission</a> {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">float</span> progress;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> complete;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="struct_mission_info.html">MissionInfo</a> missionInfo;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="class_mission.html">Mission</a>(<a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>, <a class="code" href="struct_mission_info.html">MissionInfo</a>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    ~<a class="code" href="class_mission.html">Mission</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="class_mission.html">   70</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_mission.html">Mission</a> {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">float</span> progress;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> complete;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="struct_mission_info.html">MissionInfo</a> missionInfo;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> addProgress(<span class="keywordtype">float</span> progress);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> setProgress(<span class="keywordtype">float</span> progress);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> isCompleted();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">float</span> getProgress();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    GEOMETRY_TYPE getPreviewImage();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> getType();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="struct_mission_info.html">MissionInfo</a> getMissionInfo();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="class_mission.html">Mission</a>(<a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>, <a class="code" href="struct_mission_info.html">MissionInfo</a>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    ~<a class="code" href="class_mission.html">Mission</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> addProgress(<span class="keywordtype">float</span> progress);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> setProgress(<span class="keywordtype">float</span> progress);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">bool</span> isCompleted();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">float</span> getProgress();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    GEOMETRY_TYPE getPreviewImage();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> getType();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="struct_mission_info.html">MissionInfo</a> getMissionInfo();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
 <div class="ttc" id="a_mesh_handler_8h_html"><div class="ttname"><a href="_mesh_handler_8h.html">MeshHandler.h</a></div><div class="ttdoc">Provides a Universal Mesh List for all Scenes to use.</div></div>
 <div class="ttc" id="a_mission_8h_html_a6f7365448bc7c03b16e7909978b5d095"><div class="ttname"><a href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a></div><div class="ttdeci">MISSIONTYPE</div><div class="ttdef"><b>Definition:</b> <a href="_mission_8h_source.html#l00015">Mission.h:15</a></div></div>
 <div class="ttc" id="a_mission_8h_html_a6f7365448bc7c03b16e7909978b5d095afa1b37f8009658329254bf81042565d9"><div class="ttname"><a href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095afa1b37f8009658329254bf81042565d9">MISSION_COUNT</a></div><div class="ttdeci">@ MISSION_COUNT</div><div class="ttdef"><b>Definition:</b> <a href="_mission_8h_source.html#l00051">Mission.h:51</a></div></div>
-<div class="ttc" id="aclass_mission_html"><div class="ttname"><a href="class_mission.html">Mission</a></div><div class="ttdef"><b>Definition:</b> <a href="_mission_8h_source.html#l00064">Mission.h:64</a></div></div>
+<div class="ttc" id="aclass_mission_html"><div class="ttname"><a href="class_mission.html">Mission</a></div><div class="ttdoc">Mission Objects handled in Mission Handler for Game's Missions.</div><div class="ttdef"><b>Definition:</b> <a href="_mission_8h_source.html#l00070">Mission.h:70</a></div></div>
 <div class="ttc" id="astruct_mission_info_html"><div class="ttname"><a href="struct_mission_info.html">MissionInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="_mission_8h_source.html#l00056">Mission.h:56</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

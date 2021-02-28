@@ -10,7 +10,7 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
+
 #include "ButtonManager.h"
 #include "EntityManager.h"
 #include "InteractionManager.h"

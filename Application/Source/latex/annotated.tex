@@ -1,64 +1,64 @@
 \doxysection{Class List}
 Here are the classes, structs, unions and interfaces with brief descriptions\+:\begin{DoxyCompactList}
-\item\contentsline{section}{\mbox{\hyperlink{class_application}{Application}} }{\pageref{class_application}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_audio_handler}{Audio\+Handler}} }{\pageref{class_audio_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_application}{Application}} \\*Handles the entire applciation }{\pageref{class_application}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_audio_handler}{Audio\+Handler}} \\*Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_audio_handler}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_box}{Box}} \\*\mbox{\hyperlink{struct_box}{Box}} of the hitbox, initially planned to be able to have multiple hitboxes per entity }{\pageref{struct_box}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_bullet}{Bullet}} }{\pageref{class_bullet}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_button}{Button}} }{\pageref{class_button}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_bullet}{Bullet}} \\*Handles the \mbox{\hyperlink{class_bullet}{Bullet}} \mbox{\hyperlink{class_entity}{Entity}} in our \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_bullet}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_button}{Button}} \\*Buttons creatable for UI. Used by \mbox{\hyperlink{class_button_manager}{Button\+Manager}} }{\pageref{class_button}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_button_collide}{Button\+Collide}} }{\pageref{struct_button_collide}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_button_manager}{Button\+Manager}} }{\pageref{class_button_manager}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_camera}{Camera}} }{\pageref{class_camera}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_button_manager}{Button\+Manager}} \\*Manages all Buttons in a single instance }{\pageref{class_button_manager}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_camera}{Camera}} \\*\mbox{\hyperlink{class_camera}{Camera}} System for our game }{\pageref{class_camera}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_car}{Car}} \\*\mbox{\hyperlink{class_car}{Car}} class for car movement }{\pageref{class_car}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_collided_with}{Collided\+With}} }{\pageref{struct_collided_with}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_collider}{Collider}} \\*A struct of values used by \mbox{\hyperlink{class_entity}{Entity}} Manager for Collision Handling }{\pageref{struct_collider}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_color}{Color}} }{\pageref{struct_color}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_color}{Color}} \\*\mbox{\hyperlink{struct_color}{Color}} of \mbox{\hyperlink{struct_vertex}{Vertex}} }{\pageref{struct_color}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_command}{Command}} }{\pageref{struct_command}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_component}{Component}} }{\pageref{struct_component}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_custom_entity}{Custom\+Entity}} }{\pageref{class_custom_entity}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_component}{Component}} \\*R,G,B Values of \mbox{\hyperlink{struct_material}{Material}} }{\pageref{struct_component}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_custom_entity}{Custom\+Entity}} \\*Sub-\/\+Type of an \mbox{\hyperlink{class_entity}{Entity}}. Usually used to create \mbox{\hyperlink{struct_interaction}{Interaction}} Zones in the world by spawning a Custom \mbox{\hyperlink{class_entity}{Entity}} with only a \mbox{\hyperlink{class_hit_box}{Hit\+Box}} }{\pageref{class_custom_entity}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_entity}{Entity}} }{\pageref{class_entity}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} }{\pageref{struct_entity_data}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_entity_manager}{Entity\+Manager}} }{\pageref{class_entity_manager}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} \\*Handles all World Attributes of an \mbox{\hyperlink{class_entity}{Entity}} }{\pageref{struct_entity_data}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_entity_manager}{Entity\+Manager}} \\*\mbox{\hyperlink{class_scene}{Scene}} associated object that handles all \mbox{\hyperlink{class_entity}{Entity}} in a specific Instance of a \mbox{\hyperlink{class_scene}{Scene}}. Providing Collision Management }{\pageref{class_entity_manager}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_font}{Font}} }{\pageref{struct_font}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_game}{Game}} }{\pageref{class_game}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_garage_inventory}{Garage\+Inventory}} }{\pageref{class_garage_inventory}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_game}{Game}} \\*Handles the entire \mbox{\hyperlink{class_game}{Game}}. (Scenes, Settings, Managers, etc.) }{\pageref{class_game}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_garage_inventory}{Garage\+Inventory}} \\*Manages all Vehicles in a \mbox{\hyperlink{class_player}{Player}}\textquotesingle{}s Garage \mbox{\hyperlink{class_inventory}{Inventory}} }{\pageref{class_garage_inventory}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_hit_box}{Hit\+Box}} \\*\mbox{\hyperlink{class_hit_box}{Hit\+Box}} class that handles ALL hitbox updates }{\pageref{class_hit_box}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_interaction}{Interaction}} }{\pageref{struct_interaction}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_interaction_manager}{Interaction\+Manager}} \\*Manager to handle the interactions in a map and active interactions using a queue }{\pageref{class_interaction_manager}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_interaction_queue}{Interaction\+Queue}} }{\pageref{class_interaction_queue}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_inventory}{Inventory}} }{\pageref{class_inventory}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_item}{Item}} }{\pageref{class_item}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_item_inventory}{Item\+Inventory}} }{\pageref{class_item_inventory}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_light}{Light}} }{\pageref{struct_light}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_material}{Material}} }{\pageref{struct_material}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_interaction_queue}{Interaction\+Queue}} \\*Handles the Queued Interactions created in the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_interaction_queue}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_inventory}{Inventory}} \\*Manager for all Inventories associated with \mbox{\hyperlink{class_player}{Player}} }{\pageref{class_inventory}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_item}{Item}} \\*\mbox{\hyperlink{class_item}{Item}} System for the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_item}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_item_inventory}{Item\+Inventory}} \\*Handles items in an \mbox{\hyperlink{class_inventory}{Inventory}} }{\pageref{class_item_inventory}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_light}{Light}} \\*Handles \mbox{\hyperlink{struct_light}{Light}} attributes used by our shader }{\pageref{struct_light}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_material}{Material}} \\*\mbox{\hyperlink{class_game}{Game}} Object\textquotesingle{}s material attributes }{\pageref{struct_material}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_mesh}{Mesh}} \\*To store VBO (vertex \& color buffer) and IBO (index buffer) }{\pageref{class_mesh}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_mesh_builder}{Mesh\+Builder}} \\*Provides methods to generate mesh of different shapes }{\pageref{class_mesh_builder}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_mesh_handler}{Mesh\+Handler}} }{\pageref{class_mesh_handler}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_mission}{Mission}} }{\pageref{class_mission}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_mesh_handler}{Mesh\+Handler}} \\*Provides a Universal \mbox{\hyperlink{class_mesh}{Mesh}} List for all Scenes to use }{\pageref{class_mesh_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_mission}{Mission}} \\*\mbox{\hyperlink{class_mission}{Mission}} Objects handled in \mbox{\hyperlink{class_mission}{Mission}} Handler for \mbox{\hyperlink{class_game}{Game}}\textquotesingle{}s Missions }{\pageref{class_mission}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_mission_info}{Mission\+Info}} }{\pageref{struct_mission_info}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_mission_manager}{Mission\+Manager}} }{\pageref{class_mission_manager}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_mission_manager}{Mission\+Manager}} \\*Handles all Missions in the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_mission_manager}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_n_p_c}{NPC}} \\*\mbox{\hyperlink{class_n_p_c}{NPC}} class that will involve interactable and non-\/interactable NPCs }{\pageref{class_n_p_c}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_packed_vertex}{Packed\+Vertex}} }{\pageref{struct_packed_vertex}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_player}{Player}} }{\pageref{class_player}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_position}{Position}} }{\pageref{struct_position}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_player}{Player}} \\*Handles all Players functionalities }{\pageref{class_player}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_position}{Position}} \\*\mbox{\hyperlink{struct_position}{Position}} of \mbox{\hyperlink{struct_vertex}{Vertex}} }{\pageref{struct_position}}{}
 \item\contentsline{section}{\mbox{\hyperlink{struct_rigid_body}{Rigid\+Body}} \\*Struct to handle the physics of the \mbox{\hyperlink{class_n_p_c}{NPC}}. Implemented only in \mbox{\hyperlink{class_n_p_c}{NPC}} as we did not plan to have any physics for other entities }{\pageref{struct_rigid_body}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene}{Scene}} }{\pageref{class_scene}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene2021}{Scene2021}} }{\pageref{class_scene2021}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_assignment2}{Scene\+Assignment2}} }{\pageref{class_scene_assignment2}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_car_shop}{Scene\+Car\+Shop}} }{\pageref{class_scene_car_shop}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_finale}{Scene\+Finale}} }{\pageref{class_scene_finale}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_garage}{Scene\+Garage}} }{\pageref{class_scene_garage}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_guard_building}{Scene\+Guard\+Building}} }{\pageref{class_scene_guard_building}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_gun_shop}{Scene\+Gun\+Shop}} }{\pageref{class_scene_gun_shop}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_house_fire}{Scene\+House\+Fire}} }{\pageref{class_scene_house_fire}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_office}{Scene\+Office}} }{\pageref{class_scene_office}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_time_portal}{Scene\+Time\+Portal}} }{\pageref{class_scene_time_portal}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_scene_u_i}{Scene\+UI}} }{\pageref{class_scene_u_i}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_tex_coord}{Tex\+Coord}} }{\pageref{struct_tex_coord}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_text}{Text}} }{\pageref{class_text}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_u_i_item}{UIItem}} }{\pageref{struct_u_i_item}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_u_i_manager}{UIManager}} }{\pageref{class_u_i_manager}}{}
-\item\contentsline{section}{\mbox{\hyperlink{struct_vertex}{Vertex}} }{\pageref{struct_vertex}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_weapon}{Weapon}} }{\pageref{class_weapon}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_weapon_inventory}{Weapon\+Inventory}} }{\pageref{class_weapon_inventory}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_world_object}{World\+Object}} }{\pageref{class_world_object}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene}{Scene}} \\*Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to make scenes }{\pageref{class_scene}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene2021}{Scene2021}} \\*Main City \mbox{\hyperlink{class_scene}{Scene}} of the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_scene2021}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_assignment2}{Scene\+Assignment2}} \\*Test \mbox{\hyperlink{class_scene}{Scene}} used for Debugging/\+Testing }{\pageref{class_scene_assignment2}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_car_shop}{Scene\+Car\+Shop}} \\*\mbox{\hyperlink{class_car}{Car}} Shop \mbox{\hyperlink{class_scene}{Scene}} to purchase Cars in the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_scene_car_shop}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_finale}{Scene\+Finale}} \\*The Last and Final \mbox{\hyperlink{class_scene}{Scene}} of the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_scene_finale}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_garage}{Scene\+Garage}} \\*Garage scene for players to store their cars and bring it out to Main City \mbox{\hyperlink{class_scene}{Scene}} }{\pageref{class_scene_garage}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_guard_building}{Scene\+Guard\+Building}} \\*Infiltrate the Government Facility \mbox{\hyperlink{class_scene}{Scene}} }{\pageref{class_scene_guard_building}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_gun_shop}{Scene\+Gun\+Shop}} \\*Gun Shop \mbox{\hyperlink{class_scene}{Scene}} in our \mbox{\hyperlink{class_game}{Game}} to purchase Guns }{\pageref{class_scene_gun_shop}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_house_fire}{Scene\+House\+Fire}} \\*Starting scene of House on Fire for the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_scene_house_fire}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_office}{Scene\+Office}} \\*2nd Last \mbox{\hyperlink{class_scene}{Scene}} to capture target from his Office }{\pageref{class_scene_office}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_time_portal}{Scene\+Time\+Portal}} \\*Time Portal \mbox{\hyperlink{class_scene}{Scene}} to enter and come back from the Future }{\pageref{class_scene_time_portal}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_scene_u_i}{Scene\+UI}} \\*Used for the Starting Screen UI }{\pageref{class_scene_u_i}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_tex_coord}{Tex\+Coord}} \\*Tex\+Coor of \mbox{\hyperlink{struct_vertex}{Vertex}} }{\pageref{struct_tex_coord}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_text}{Text}} \\*\mbox{\hyperlink{class_text}{Text}} Objects used by Buttons }{\pageref{class_text}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_u_i_item}{UIItem}} \\*Used by Buttons and \mbox{\hyperlink{class_text}{Text}} Objects to store their attributes }{\pageref{struct_u_i_item}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_u_i_manager}{UIManager}} \\*Handles all UIs with Buttons in the \mbox{\hyperlink{class_game}{Game}} }{\pageref{class_u_i_manager}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_vertex}{Vertex}} \\*Hanldes attributes of a \mbox{\hyperlink{struct_vertex}{Vertex}} Object }{\pageref{struct_vertex}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_weapon}{Weapon}} \\*Handles all \mbox{\hyperlink{class_weapon}{Weapon}} Functionalities like Shooting, reloading }{\pageref{class_weapon}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_weapon_inventory}{Weapon\+Inventory}} \\*Handles all Weapons in associated with \mbox{\hyperlink{class_entity}{Entity}} }{\pageref{class_weapon_inventory}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_world_object}{World\+Object}} \\*\mbox{\hyperlink{class_world_object}{World\+Object}} \mbox{\hyperlink{class_entity}{Entity}} usually used for Buildings, Trees etc }{\pageref{class_world_object}}{}
 \end{DoxyCompactList}

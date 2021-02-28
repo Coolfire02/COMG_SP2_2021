@@ -71,7 +71,7 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_8h.html">Scene.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;Camera.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_camera_8h.html">Camera.h</a>&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_8h.html">Game.h</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_inventory_8h.html">Inventory.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;MeshBuilder.h&quot;</span></div>
@@ -81,7 +81,7 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_entity_manager_8h.html">EntityManager.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_mesh_handler_8h.html">MeshHandler.h</a>&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;ButtonManager.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_button_manager_8h.html">ButtonManager.h</a>&quot;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_audio_handler_8h.html">AudioHandler.h</a>&quot;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_interaction_manager_8h.html">InteractionManager.h</a>&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
@@ -100,69 +100,73 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">Init the Player Entity</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_scene_house_fire.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scene_house_fire.html">SceneHouseFire</a> : <span class="keyword">public</span> <a class="code" href="class_scene.html">Scene</a></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">enum</span> CAMERATYPE {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        CAM_FP,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        CAM_TP,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        CAM_FIRE,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_scene_house_fire.html">   48</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_scene_house_fire.html">SceneHouseFire</a> : <span class="keyword">public</span> <a class="code" href="class_scene.html">Scene</a></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">enum</span> INTERACTION_TYPE {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        TEST,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        INTERACTION_COUNT,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    };</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> RenderUI(); <span class="comment">//Handles the next interaction (May end interaction if there is no more to go through0</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="struct_light.html">Light</a> light[3];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="class_button_manager.html">ButtonManager</a> bManager;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">enum</span> CAMERATYPE {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        CAM_FP,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        CAM_TP,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        CAM_FIRE,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">enum</span> INTERACTION_TYPE {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        TEST,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        INTERACTION_COUNT,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">bool</span> hitboxEnable;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">float</span> fps;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> RenderUI(); <span class="comment">//Handles the next interaction (May end interaction if there is no more to go through0</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">float</span> toggleTimer = 0; <span class="comment">//Used for toggling between items</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> RenderSkybox();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> RenderSceneMeshes();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera3;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="struct_light.html">Light</a> light[3];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="class_button_manager.html">ButtonManager</a> bManager;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> hitboxEnable;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">float</span> fps;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">//topdown cam map</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    CAMERATYPE currentCamera;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> CameraBobber = 0;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">double</span> bobTime = 0;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">float</span> toggleTimer = 0; <span class="comment">//Used for toggling between items</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> RenderSkybox();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> RenderSceneMeshes();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera3;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="class_scene_house_fire.html">SceneHouseFire</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    ~<a class="code" href="class_scene_house_fire.html">SceneHouseFire</a>();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">bool</span> eHeld = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> arrviedAtFinalSpot = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">bool</span> houseDestroyed = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera2;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">//topdown cam map</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    CAMERATYPE currentCamera;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">float</span> CameraBobber = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">double</span> bobTime = 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="class_scene_house_fire.html">SceneHouseFire</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    ~<a class="code" href="class_scene_house_fire.html">SceneHouseFire</a>();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="class_entity_manager.html">EntityManager</a> eManager;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">//Game Variables</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="class_player.html">Player</a>* player;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="class_car.html">Car</a>* car;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">bool</span> eHeld = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">bool</span> arrviedAtFinalSpot = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">bool</span> houseDestroyed = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="class_camera.html">Camera</a> camera2;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Init();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span> dt);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InitLights();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> CollisionHandler(<span class="keywordtype">double</span> dt);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> MissionCompleteListener(<span class="keywordtype">double</span> dt);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Exit();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="class_entity_manager.html">EntityManager</a> eManager;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">//Game Variables</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="class_player.html">Player</a>* player;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="class_car.html">Car</a>* car;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Init();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Update(<span class="keywordtype">double</span> dt);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> InitLights();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> CollisionHandler(<span class="keywordtype">double</span> dt);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> MissionCompleteListener(<span class="keywordtype">double</span> dt);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Render();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Exit();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;};</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="a_audio_handler_8h_html"><div class="ttname"><a href="_audio_handler_8h.html">AudioHandler.h</a></div><div class="ttdoc">Handles all the Audio in our Game. Preloads ISoundSources to prevent lag when use.</div></div>
-<div class="ttc" id="a_custom_entity_8h_html"><div class="ttname"><a href="_custom_entity_8h.html">CustomEntity.h</a></div><div class="ttdoc">Sub-Type of an Entity. Usually used to create Interaction Zones in the worl by spawning a Custom Enti...</div></div>
+<div class="ttc" id="a_button_manager_8h_html"><div class="ttname"><a href="_button_manager_8h.html">ButtonManager.h</a></div><div class="ttdoc">Manages all Buttons in a single instance.</div></div>
+<div class="ttc" id="a_camera_8h_html"><div class="ttname"><a href="_camera_8h.html">Camera.h</a></div><div class="ttdoc">Camera System for our game.</div></div>
+<div class="ttc" id="a_custom_entity_8h_html"><div class="ttname"><a href="_custom_entity_8h.html">CustomEntity.h</a></div><div class="ttdoc">Sub-Type of an Entity. Usually used to create Interaction Zones in the world by spawning a Custom Ent...</div></div>
 <div class="ttc" id="a_entity_manager_8h_html"><div class="ttname"><a href="_entity_manager_8h.html">EntityManager.h</a></div><div class="ttdoc">Scene associated object that handles all Entity in a specific Instance of a Scene.</div></div>
 <div class="ttc" id="a_game_8h_html"><div class="ttname"><a href="_game_8h.html">Game.h</a></div><div class="ttdoc">Handles the entire Game. (Scenes, Settings, Managers, etc.)</div></div>
 <div class="ttc" id="a_interaction_manager_8h_html"><div class="ttname"><a href="_interaction_manager_8h.html">InteractionManager.h</a></div><div class="ttdoc">Handles all the interactions in this file.</div></div>
@@ -172,14 +176,14 @@ $(function() {
 <div class="ttc" id="a_n_p_c_8h_html"><div class="ttname"><a href="_n_p_c_8h.html">NPC.h</a></div><div class="ttdoc">Handles all NPC functionalities.</div></div>
 <div class="ttc" id="a_scene_8h_html"><div class="ttname"><a href="_scene_8h.html">Scene.h</a></div><div class="ttdoc">Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...</div></div>
 <div class="ttc" id="a_world_object_8h_html"><div class="ttname"><a href="_world_object_8h.html">WorldObject.h</a></div><div class="ttdoc">WorldObject Entity usually used for Buildings, Trees etc.</div></div>
-<div class="ttc" id="aclass_button_manager_html"><div class="ttname"><a href="class_button_manager.html">ButtonManager</a></div><div class="ttdef"><b>Definition:</b> <a href="_button_manager_8h_source.html#l00021">ButtonManager.h:22</a></div></div>
-<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> <a href="_camera_8h_source.html#l00019">Camera.h:20</a></div></div>
+<div class="ttc" id="aclass_button_manager_html"><div class="ttname"><a href="class_button_manager.html">ButtonManager</a></div><div class="ttdoc">Manages all Buttons in a single instance.</div><div class="ttdef"><b>Definition:</b> <a href="_button_manager_8h_source.html#l00038">ButtonManager.h:39</a></div></div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdoc">Camera System for our game.</div><div class="ttdef"><b>Definition:</b> <a href="_camera_8h_source.html#l00038">Camera.h:39</a></div></div>
 <div class="ttc" id="aclass_car_html"><div class="ttname"><a href="class_car.html">Car</a></div><div class="ttdoc">Car class for car movement.</div><div class="ttdef"><b>Definition:</b> <a href="_car_8h_source.html#l00033">Car.h:34</a></div></div>
-<div class="ttc" id="aclass_entity_manager_html"><div class="ttname"><a href="class_entity_manager.html">EntityManager</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_manager_8h_source.html#l00025">EntityManager.h:26</a></div></div>
-<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00017">Player.h:18</a></div></div>
-<div class="ttc" id="aclass_scene_house_fire_html"><div class="ttname"><a href="class_scene_house_fire.html">SceneHouseFire</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_house_fire_8h_source.html#l00042">SceneHouseFire.h:43</a></div></div>
-<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00020">Scene.h:21</a></div></div>
-<div class="ttc" id="astruct_light_html"><div class="ttname"><a href="struct_light.html">Light</a></div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00014">Light.h:15</a></div></div>
+<div class="ttc" id="aclass_entity_manager_html"><div class="ttname"><a href="class_entity_manager.html">EntityManager</a></div><div class="ttdoc">Scene associated object that handles all Entity in a specific Instance of a Scene....</div><div class="ttdef"><b>Definition:</b> <a href="_entity_manager_8h_source.html#l00031">EntityManager.h:32</a></div></div>
+<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdoc">Handles all Players functionalities.</div><div class="ttdef"><b>Definition:</b> <a href="_player_8h_source.html#l00023">Player.h:24</a></div></div>
+<div class="ttc" id="aclass_scene_house_fire_html"><div class="ttname"><a href="class_scene_house_fire.html">SceneHouseFire</a></div><div class="ttdoc">Starting scene of House on Fire for the Game.</div><div class="ttdef"><b>Definition:</b> <a href="_scene_house_fire_8h_source.html#l00048">SceneHouseFire.h:49</a></div></div>
+<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdoc">Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...</div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00028">Scene.h:29</a></div></div>
+<div class="ttc" id="astruct_light_html"><div class="ttname"><a href="struct_light.html">Light</a></div><div class="ttdoc">Handles Light attributes used by our shader.</div><div class="ttdef"><b>Definition:</b> <a href="_light_8h_source.html#l00020">Light.h:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
