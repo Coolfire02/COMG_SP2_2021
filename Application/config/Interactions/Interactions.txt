@@ -81,7 +81,7 @@ INTERACTION: GunshopFail
 =========================================
 
 INTERACTION: npc1
-- MSG: Hello, nice to meet you.;test.
+- MSG: Hello, nice to meet you.
 
 INTERACTION: npc2
 - MSG: Hey, How are you doing?
