@@ -24,6 +24,12 @@ void Scene::toggleLights() {
 	lightEnable = !lightEnable;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Renders the Mesh onto the Model View Perspective.
+*/
+/******************************************************************************/
 void Scene::RenderMesh(Mesh* mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
@@ -66,6 +72,13 @@ void Scene::RenderMesh(Mesh* mesh, bool enableLight)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Overloaded RenderMesh function for texture rendering.
+\param param - GL_REPEAT for repeating textures, GL_CLAMP_TO_EDGE for texture stretching.
+*/
+/******************************************************************************/
 void Scene::RenderMesh(Mesh* mesh, bool enableLight, GLint param)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;

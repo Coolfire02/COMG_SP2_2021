@@ -23,10 +23,10 @@ Handles all Players functionalities.
 class Player : public Entity
 {
 private:
-	Car* currentDrivingCar;
+	Car* currentDrivingCar; // current car
 	bool driving;
-	int Money;
-	// std::vector<Items*> Inventory; remove the // later when Items have been implemented
+	// int Money; // lmao useless now
+	// std::vector<Items*> Inventory; remove the // later when Items have been implemented // Haha we put inventory in game LOL
 
 public:
 	Player(Scene* scene, Vector3 position, std::string);
