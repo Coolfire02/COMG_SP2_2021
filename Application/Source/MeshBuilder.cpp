@@ -4,6 +4,17 @@
 #include "LoadOBJ.h"
 
 //Load OBJ
+/******************************************************************************/
+/*!
+\brief
+Generates a Mesh based off a provided OBJ without MTL file.
+
+\param meshName - name of mesh
+\param file_path - .obj file path
+
+\return Pointer to mesh storing VBO/IBO of an OBJ read.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateOBJ(const std::string& meshName, const std::string& file_path) {
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;
@@ -26,6 +37,18 @@ Mesh* MeshBuilder::GenerateOBJ(const std::string& meshName, const std::string& f
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Mesh based off a provided OBJ with an MTL file.
+
+\param meshName - name of mesh
+\param file_path - .obj file path
+\param mtl_path - .mtl file path
+
+\return Pointer to mesh storing VBO/IBO of an OBJ MTL read.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateOBJMTL(const std::string& meshName,
 	const std::string& file_path, const std::string& mtl_path)
 {
@@ -58,7 +81,18 @@ Mesh* MeshBuilder::GenerateOBJMTL(const std::string& meshName,
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Loads in all 256 characters into a Text Mesh, Used to render text in application.
 
+\param meshName - name of mesh
+\param numRow - Number of rows in the list of characters
+\param numCol - Number of columns in the list of characters
+
+\return Pointer to mesh storing VBO/IBO of Text
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateText(const std::string& meshName, unsigned numRow, unsigned numCol)
 {
 	float length = 1.0f;
@@ -73,24 +107,9 @@ Mesh* MeshBuilder::GenerateText(const std::string& meshName, unsigned numRow, un
 	unsigned offset = 0;
 	Color color(0, 1, 0);
 	v.normal.Set(0, 0, 1);
-	//v.pos.set(0.5f * length, 0.5f * length, 0.f);	v.color = color; v.texCoord.Set(1, 1);	vertex_buffer_data.push_back(v); //v0
-	//v.pos.set(-0.5f * length, 0.5f * length, 0.f);	v.color = color; v.texCoord.Set(0, 1);	vertex_buffer_data.push_back(v); //v1
-	//v.pos.set(-0.5f * length, -0.5f * length, 0.f);	v.color = color; v.texCoord.Set(0, 0);	vertex_buffer_data.push_back(v); //v2
-	//v.pos.set(0.5f * length, -0.5f * length, 0.f);	v.color = color; v.texCoord.Set(1, 0); vertex_buffer_data.push_back(v); //v3
-
-	////tri1
-	//index_buffer_data.push_back(0);
-	//index_buffer_data.push_back(1);
-	//index_buffer_data.push_back(2);
-	////tri2
-	//index_buffer_data.push_back(0);
-	//index_buffer_data.push_back(2);
-	//index_buffer_data.push_back(3);
 
 	for (unsigned row = 0; row < numRow; ++row) {
 		for (unsigned col = 0; col < numCol; ++col) {
-			/*Task: Add 4 vertices into vertex_buffer_data
-			Task: Add 6 indices into index_buffer_data*/
 			
 			v.pos.set(-0.5f, 0.5f, 0.f); //TOPL
 			v.texCoord.Set(0 + width * col, 1 - height * row);
@@ -184,25 +203,50 @@ Mesh* MeshBuilder::GenerateAxes(const std::string &meshName, float lengthX, floa
 /******************************************************************************/
 /*!
 \brief
-Generate the vertices of a quad; Use random color for each vertex
-Then generate the VBO/IBO and store them in Mesh object
+Returns x pos Value for a Cone Shape Mesh.
 
-\param meshName - name of mesh
-\param lengthX - width of quad
-\param lengthY - height of quad
+\param height - Current Height
+\param totalHeight - Total Height
+\param radius - Total Radius
+\param theta - Current Theta
 
-\return Pointer to mesh storing VBO/IBO of quad
+\return X pos Value for a Cone Shape Mesh.
 */
 /******************************************************************************/
-
 float coneX(float height, float totalHeight, int radius, int theta) {
 	return height / totalHeight * radius * cos(Math::DegreeToRadian((float)theta));
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns z pos Value for a Cone Shape Mesh.
+
+\param height - Current Height
+\param totalHeight - Total Height
+\param radius - Total Radius
+\param theta - Current Theta
+
+\return Z pos Value for a Cone Shape Mesh.
+*/
+/******************************************************************************/
 float coneZ(float height, float totalHeight, int radius, int theta) {
 	return height / totalHeight * radius * sin(Math::DegreeToRadian((float)theta));
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Half Cone Mesh
+
+\param meshName - name of mesh
+\param Color - Color of Cone
+\param rad - radius of Cone
+\param height - height of Cone
+
+\return Pointer to mesh storing VBO/IBO of a Half Cone.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHalfCone(const std::string& meshName, Color color, int rad, int height)
 {
 
@@ -257,6 +301,20 @@ Mesh* MeshBuilder::GenerateHalfCone(const std::string& meshName, Color color, in
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Conical Frustum Shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param innerR - inner radius of conical frustum
+\param outerR - outter radius of conical frustum
+\param height - height of conical frustum
+
+\return Pointer to mesh storing VBO/IBO of a conicla frustum shape.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateConicalFrustum(const std::string& meshName, Color color, float innerR, float outerR, int height)
 {
 
@@ -314,6 +372,19 @@ Mesh* MeshBuilder::GenerateConicalFrustum(const std::string& meshName, Color col
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Cone shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param rad - radius of mesh
+\param height - height of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Cone Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateCone(const std::string& meshName, Color color, int rad, int height)
 {
 
@@ -362,6 +433,18 @@ Mesh* MeshBuilder::GenerateCone(const std::string& meshName, Color color, int ra
 }
 
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Cylinder shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param height - height of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Cylinder Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateCylinder(const std::string& meshName, Color color, int height)
 {
 	std::vector<Vertex> vertex;
@@ -433,6 +516,20 @@ Mesh* MeshBuilder::GenerateCylinder(const std::string& meshName, Color color, in
 	return mesh;
 }
 
+
+/******************************************************************************/
+/*!
+\brief
+Generates a Torus shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param innerR - inner radius of mesh
+\param outerR - outer radius of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Torus Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateTorus(const std::string& meshName, Color color, float innerR, float outerR) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -480,6 +577,20 @@ Mesh* MeshBuilder::GenerateTorus(const std::string& meshName, Color color, float
 	return mesh;
 }
 
+
+/******************************************************************************/
+/*!
+\brief
+Generates a Half Torus shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param innerR - inner radius of mesh
+\param outerR - outter radius of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Half Torus Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHalfTorus(const std::string& meshName, Color color, float innerR, float outerR) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -527,18 +638,62 @@ Mesh* MeshBuilder::GenerateHalfTorus(const std::string& meshName, Color color, f
 	return mesh;
 }
 
+
+/******************************************************************************/
+/*!
+\brief
+X Pos value calculation for spheres, used in sphere generation functions.
+
+\param phi - current phi
+\param theta - current theta
+
+\return X Pos value of a sphere based of its phi and theta.
+*/
+/******************************************************************************/
 float sphereX(float phi, float theta) {
 	return cos(phi * Math::PI / 180) * cos(theta * Math::PI / 180);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Y Pos value calculation for spheres, used in sphere generation functions.
+
+\param phi - current phi
+
+\return Y Pos value of a sphere based of its phi.
+*/
+/******************************************************************************/
 float sphereY(float phi) {
 	return sin(phi * Math::PI / 180);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Z Pos value calculation for spheres, used in sphere generation functions.
+
+\param phi - current phi
+\param theta - current theta
+
+\return Z Pos value of a sphere based of its phi and theta.
+*/
+/******************************************************************************/
 float sphereZ(float phi, float theta) {
 	return cos(phi * Math::PI / 180) * sin(theta * Math::PI / 180);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Sphere shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Sphere Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateSphere(const std::string& meshName, Color color) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -570,33 +725,6 @@ Mesh* MeshBuilder::GenerateSphere(const std::string& meshName, Color color) {
 		}
 	}
 
-	/*int index = 0;
-	for (int phi = 0; phi < 180; phi += 1) {
-		for (int theta = 0; theta <= 360; theta += 2) {
-			
-			v.normal.Set(sphereX(phi, theta), sphereY(phi) * (phi >= 90 ? -1 : 1), sphereZ(phi, theta));
-			v.normal.Normalized();
-			float x = 1 * sphereX(phi, theta);
-			float y = 1 * sphereY(phi);
-			if (phi >= 90)
-				y *= -1;
-			float z = 1 * sphereZ(phi, theta);
-			v.pos.set(x, y, z);
-			vertex.push_back(v);
-			index_buffer_data.push_back(index++);
-
-			x = 1 * sphereX(phi+10, theta);
-			y = 1 * sphereY(phi+10);
-			if (phi >= 90)
-				y *= -1;
-			z = 1 * sphereZ(phi+10, theta);
-
-			v.pos.set(x, y, z);
-			vertex.push_back(v);
-			index_buffer_data.push_back(index++);
-		}
-	}*/
-
 	Mesh* mesh = new Mesh(meshName);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(Vertex), &vertex[0], GL_STATIC_DRAW);
@@ -609,6 +737,17 @@ Mesh* MeshBuilder::GenerateSphere(const std::string& meshName, Color color) {
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Hemi Sphere shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Hemi Sphere Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHemiSphere(const std::string& meshName, Color color) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -662,6 +801,17 @@ Mesh* MeshBuilder::GenerateHemiSphere(const std::string& meshName, Color color) 
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Quater Sphere shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Quater Sphere Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateQuaterSphere(const std::string& meshName, Color color) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -728,6 +878,18 @@ Mesh* MeshBuilder::GenerateQuaterSphere(const std::string& meshName, Color color
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a HemiSphere Frustum shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+\param degreeCutOff - degree to cut off the HemiSphere to create Frustum.
+
+\return Pointer to mesh storing VBO/IBO of a HemiSphere Frustum Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHemiSphereFrustum(const std::string& meshName, Color color, float degreeCutOff) {
 	std::vector<Vertex> vertex;
 	std::vector<GLuint> index_buffer_data;
@@ -799,6 +961,17 @@ Mesh* MeshBuilder::GenerateHemiSphereFrustum(const std::string& meshName, Color 
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generates a Tetahedron shaped Mesh.
+
+\param meshName - name of mesh
+\param color - Color of mesh
+
+\return Pointer to mesh storing VBO/IBO of a Tetahedron Shaped.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateTetahedron(const std::string& meshName, Color color) {
 	int index = 0;
 	std::vector<Vertex> vertex;
@@ -848,6 +1021,21 @@ Mesh* MeshBuilder::GenerateTetahedron(const std::string& meshName, Color color) 
 
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a quad; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
+Accepts text cords for specific text cord loading.
+
+\param meshName - name of mesh
+\param color - color of mesh
+\param textCoordx - texture xCords of referenced texture
+\param textCoordy - texture yCords of referenced texture
+
+\return Pointer to mesh storing VBO/IBO of quad
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color, float texCoordx, float texCoordy)
 {
 	float length = 1.0f;
@@ -883,6 +1071,18 @@ Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color, float 
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a quad; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
+
+\param meshName - name of mesh
+\param color - color of mesh
+
+\return Pointer to mesh storing VBO/IBO of quad
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateQuad(const std::string& meshName, Color color)
 {
 	float length = 1.0f;
@@ -1013,6 +1213,17 @@ Mesh* MeshBuilder::GenerateCube(const std::string &meshName, Color color)
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+HitBox Mesh Generation Based on the current HitBox box of an Entity.
+
+\param meshName - name of mesh
+\param box - A "box" which may be 1 part / the whole of HitBox of an Entity.
+
+\return Pointer to mesh storing VBO/IBO of 3D Cube in relation to Box's values.
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 {
 	// Cube
@@ -1105,6 +1316,19 @@ Mesh* MeshBuilder::GenerateHitBox(const std::string& meshName, Box& box)
 	return mesh;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Calculates the Min, Max and Center pos of any mesh. 
+
+This is used to generate
+the default Box of an Entity's HitBox base of the Mesh pointer parsed in.
+This will update Mesh pointer objects botLeftPos, topRightPos and Center Vector3 values
+
+\param mesh - Mesh Pointer object
+\param vertex_buffer_data - Mesh's vertex buffer data
+*/
+/******************************************************************************/
 void MeshBuilder::calcMinMaxPosnMeshCenter(Mesh* mesh, std::vector<Vertex> vertex_buffer_data) {
 	
 	float lowX, lowY, highZ, //Bot Left
