@@ -313,6 +313,7 @@ void SceneTimePortal::Update(double dt)
 				if (endTimer > 1) {
 					Game::uiManager.setCurrentUI(UI_END);
 					if (endTimer > 6) {
+						Game::setPrevSceneENUM(S_2021);
 						Game::activeScene = S_UI;
 						Game::uiManager.setCurrentUI(UI_MAIN_MENU);
 						canEnd = false;

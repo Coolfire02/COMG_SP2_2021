@@ -30,6 +30,8 @@
 #include "SceneOffice.h"
 #include "SceneFinale.h"
 
+// Initialisation of static variables.
+
 GLFWwindow* m_window;
 unsigned Application::m_width;
 unsigned Application::m_height;
@@ -42,25 +44,47 @@ double Application::mouse_last_x = 0.0, Application::mouse_last_y = 0.0,
 		Application::mouse_diff_x = 0.0, Application::mouse_diff_y = 0.0;
 double Application::camera_yaw = 0.0, Application::camera_pitch = 0.0;
 
-//Define an error callback
+/******************************************************************************/
+/*!
+\brief
+Defines an error callback.
+*/
+/******************************************************************************/
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
 	_fgetchar();
 }
 
-//Define the key input callback
+/******************************************************************************/
+/*!
+\brief
+Defines the key input callback.
+*/
+/******************************************************************************/
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get Key Pressed state, is returned true every frame so should not be confused with a Key Held state.
+*/
+/******************************************************************************/
 bool Application::IsKeyPressed(unsigned short key)
 {
     return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get key released state, is called true even if key was not pressed before, use sparingly.
+*/
+/******************************************************************************/
 bool Application::IsKeyReleased(unsigned short key)
 {
 	return ((GetAsyncKeyState(key) & 0x8001) == 0);
@@ -74,6 +98,12 @@ Application::~Application()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Gets resize callback.
+*/
+/******************************************************************************/
 void resize_callback(GLFWwindow* window, int w, int h)
 {
 	Application::m_width = w;
@@ -81,6 +111,12 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	glViewport(0, 0, w, h);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Gets the mouse update from origin of window to new mouse location. Used for First person and Third person camera.
+*/
+/******************************************************************************/
 bool Application::GetMouseUpdate()
 {
 	if (glfwGetInputMode(m_window, GLFW_CURSOR) != GLFW_CURSOR_DISABLED)
@@ -115,23 +151,59 @@ bool Application::GetMouseUpdate()
 	return false;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Gets Mouse Pressed state. 
+0 - Left 
+1 - Right Mouse
+2 - Middle Mouse
+*/
+/******************************************************************************/
 bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
 {
 	return glfwGetMouseButton(m_window, key) != 0;
 }
+
+/******************************************************************************/
+/*!
+\brief
+Gets Cursor Position on screen
+*/
+/******************************************************************************/
 void Application::GetCursorPos(double* xpos, double* ypos)
 {
 	glfwGetCursorPos(m_window, xpos, ypos);
 }
+
+/******************************************************************************/
+/*!
+\brief
+Get Window Width
+*/
+/******************************************************************************/
 int Application::GetWindowWidth()
 {
 	return m_width;
 }
+
+/******************************************************************************/
+/*!
+\brief
+Get Window Height
+*/
+/******************************************************************************/
 int Application::GetWindowHeight()
 {
 	return m_height;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Initialises the OpenGL window here.
+*/
+/******************************************************************************/
 void Application::Init()
 {
 	//MeshHandler::loadMeshes();
@@ -184,6 +256,12 @@ void Application::Init()
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the cursor input mode of the OpenGL window to NORMAL or DISABLED.
+*/
+/******************************************************************************/
 void Application::setCursorEnabled(bool enabled) {
 	cursorEnabled = enabled;
 	if(cursorEnabled)
@@ -192,6 +270,12 @@ void Application::setCursorEnabled(bool enabled) {
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Loads all scenes and runs the game loop here.
+*/
+/******************************************************************************/
 void Application::Run()
 {
 	/*for (int i = 0; i < (sizeof(scenes) / sizeof(scenes[0])); i++) {
@@ -239,6 +323,12 @@ void Application::Run()
 	}*/
 }
 
+/******************************************************************************/
+/*!
+\brief
+Clean up function called when game is exited.
+*/
+/******************************************************************************/
 void Application::Exit()
 {
 	g.Exit();

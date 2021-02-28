@@ -1,11 +1,23 @@
 #pragma once
 #include "Car.h"
-//GarageInventory class created by Ridwan on 16/2/2021
+/******************************************************************************/
+/*!
+\file	GarageInventory.h
+\author Ridwan
+\brief Header file containing the GarageInventory class.
+*/
+/******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class GarageInventory:
+\brief Garage Inventory that manages the the cars.
+*/
+/******************************************************************************/
 class GarageInventory //Garage Slot
 {
 private:
-	CAR_TYPE carType;
+	CAR_TYPE carType; // current car type.
 public:
 	//Initialising
 	GarageInventory();

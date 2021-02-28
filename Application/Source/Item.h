@@ -1,4 +1,12 @@
 #pragma once
+/******************************************************************************/
+/*!
+\file	Item.h
+\author Ridwan
+\brief Header file containing the Item Class.
+*/
+/******************************************************************************/
+
 //Item class created by Ridwan on 16/2/2021
 //Inventory class optimized by Ridwan on 17/2/2021
 
@@ -11,6 +19,12 @@ enum ITEM_TYPE
 	ITEM_AMOUNT,
 };
 
+/******************************************************************************/
+/*!
+		Class Item:
+\brief Item class that handles the items.
+*/
+/******************************************************************************/
 class Item
 {
 private:

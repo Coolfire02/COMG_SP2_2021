@@ -1,6 +1,11 @@
 #include "Inventory.h"
 #include "Application.h"
 
+/******************************************************************************/
+/*!
+\brief Initialise the inventory here.
+*/
+/******************************************************************************/
 Inventory::Inventory()
 {
 	currentCar = nullptr;
@@ -20,11 +25,21 @@ Inventory::~Inventory()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief Adds a weapon to the weapon inventory.
+*/
+/******************************************************************************/
 void Inventory::addWeap(WEAPON_TYPE weaponType)
 {
 	weaponInv->addWeapon(weaponType);
 }
 
+/******************************************************************************/
+/*!
+\brief Adds a car to the garage inventory.
+*/
+/******************************************************************************/
 void Inventory::addCar(CAR_TYPE cartype)
 {
 	if (garageInv.empty()) //If player does not have any item yet
@@ -44,6 +59,11 @@ void Inventory::addCar(CAR_TYPE cartype)
 	garageInv.push_back(addingCar);
 }
 
+/******************************************************************************/
+/*!
+\brief Adds an item to the item inventory.
+*/
+/******************************************************************************/
 void Inventory::addItem(ITEM_TYPE itemtype, int amt)
 {
 	if (itemInventory == nullptr) //If player does not have any item yet
@@ -56,6 +76,11 @@ void Inventory::addItem(ITEM_TYPE itemtype, int amt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief Changes the item amount.
+*/
+/******************************************************************************/
 void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 {
 	if (itemInventory != nullptr)
@@ -63,12 +88,22 @@ void Inventory::changeItemAmt(ITEM_TYPE itemtype, int amt)
 	return;
 }
 
+/******************************************************************************/
+/*!
+\brief Deletes a weapon from the weapon inventory.
+*/
+/******************************************************************************/
 void Inventory::deleteWeapon(WEAPON_TYPE wType)
 {
 	if(this->weaponInv->getActiveWeapon() != nullptr)
 		this->weaponInv->delWeapon(wType);
 }
 
+/******************************************************************************/
+/*!
+\brief switches the current car.
+*/
+/******************************************************************************/
 void Inventory::switchCar(int cartype)
 {
 	for (int i = 0; i < garageInv.size(); i++)
@@ -81,12 +116,22 @@ void Inventory::switchCar(int cartype)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief Switches the active weapon.
+*/
+/******************************************************************************/
 void Inventory::switchWeapon(int index)
 {
 	if(weaponInv != nullptr)
 		weaponInv->switchActiveWeapon(index);
 }
 
+/******************************************************************************/
+/*!
+\brief Toggles the current item to be displayed on the UI.
+*/
+/******************************************************************************/
 void Inventory::toggleItem()
 {
 	if (itemInventory != nullptr)
@@ -94,6 +139,11 @@ void Inventory::toggleItem()
 	return;
 }
 
+/******************************************************************************/
+/*!
+\brief Returns the current car.
+*/
+/******************************************************************************/
 GarageInventory* Inventory::getCurrentCar()
 {
 	if (currentCar != nullptr)
@@ -102,35 +152,70 @@ GarageInventory* Inventory::getCurrentCar()
 		return nullptr;
 }
 
+/******************************************************************************/
+/*!
+\brief returns the Garage Inventory vector.
+*/
+/******************************************************************************/
 std::vector<GarageInventory*> Inventory::getGarageVector()
 {
 	return this->garageInv;
 }
 
+/******************************************************************************/
+/*!
+\brief returns the Item Inventory.
+*/
+/******************************************************************************/
 ItemInventory* Inventory::getItemInventory()
 {
 	return this->itemInventory;
 }
 
+/******************************************************************************/
+/*!
+\brief returns the Weapon Inventory.
+*/
+/******************************************************************************/
 WeaponInventory* Inventory::getWeaponInventory() {
 	return this->weaponInv;
 }
 
+/******************************************************************************/
+/*!
+\brief returns the WeaponList vector.
+*/
+/******************************************************************************/
 std::vector<Weapon*> Inventory::getWeaponVector()
 {
 	return weaponInv->getWeaponList();
 }
 
+/******************************************************************************/
+/*!
+\brief returns the ItemInv vector
+*/
+/******************************************************************************/
 std::vector<Item*> Inventory::getItemVector()
 {
 	return itemInventory->getItemVect();
 }
 
+/******************************************************************************/
+/*!
+\brief returns the current car's type.
+*/
+/******************************************************************************/
 CAR_TYPE Inventory::getCurrentCarType()
 {
 	return currentCar->getCarType();
 }
 
+/******************************************************************************/
+/*!
+\brief returns the current item's type.
+*/
+/******************************************************************************/
 ITEM_TYPE Inventory::getCurrentItemType()
 {
 	if (itemInventory != nullptr)
@@ -138,6 +223,11 @@ ITEM_TYPE Inventory::getCurrentItemType()
 			return itemInventory->getCurrentItemType();
 }
 
+/******************************************************************************/
+/*!
+\brief Updates the Inventory's UI here.
+*/
+/******************************************************************************/
 void Inventory::Update(double dt)
 {
 	//For General UI
@@ -571,12 +661,22 @@ void Inventory::Update(double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief returns the current item's amount.
+*/
+/******************************************************************************/
 int Inventory::getCurrentItemAmt()
 {
 	if (itemInventory != nullptr)
 		return itemInventory->getCurrentItemAmt();
 }
 
+/******************************************************************************/
+/*!
+\brief returns the active weapon.
+*/
+/******************************************************************************/
 Weapon* Inventory::getActiveWeapon()
 {
 	if (weaponInv->getActiveWeapon() == nullptr || weaponInv == nullptr || weaponInv->getWeaponList().empty())
@@ -585,6 +685,11 @@ Weapon* Inventory::getActiveWeapon()
 		return weaponInv->getActiveWeapon();
 }
 
+/******************************************************************************/
+/*!
+\brief returns the current weapon's type.
+*/
+/******************************************************************************/
 WEAPON_TYPE Inventory::getCurrentWeaponType()
 {
 	if (weaponInv != nullptr)

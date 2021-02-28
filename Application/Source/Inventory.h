@@ -6,6 +6,20 @@
 //Inventory class created by Ridwan on 16/2/2021
 //Optimized inventory class by Ridwan on 17/2/2021
 
+/******************************************************************************/
+/*!
+\file	Inventory.h
+\author Ridwan
+\brief Header file containing the Inventory class.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class Inventory:
+\brief Inventory class that manages all necessary inventories such as Weapon Inventory, Item Inventory and Garage Inventory.
+*/
+/******************************************************************************/
 class Inventory
 {
 private:

@@ -8,6 +8,20 @@
 #include "UIManager.h"
 #include "InteractionManager.h"
 
+/******************************************************************************/
+/*!
+\file	Game.h
+\author Joash Foo
+\brief Header file containing the Game class.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+\brief
+enum to check for active scenes.
+*/
+/******************************************************************************/
 enum SCENES
 {
 	S_HOUSEFIRE = 0,
@@ -23,44 +37,55 @@ enum SCENES
 	S_COUNT
 };
 
-//Interface
-
+/******************************************************************************/
+/*!
+\brief
+enum to check for Settings Interface
+*/
+/******************************************************************************/
 enum SETTINGS {
 	SETTING_SAND_BOX_MODE,
 	SETTING_FPS,
 	SETTINGS_COUNT
 };
 
+/******************************************************************************/
+/*!
+		Class Game:
+\brief The Game Class that handles scene management, stores global managers such as Inventories, Interactions, UIs, etc.
+*/
+/******************************************************************************/
 class Game
 {
 
 private:
-	static bool switchingScene;
-	static SCENES toSwitchScene;
-	static double timeToSwitch;
-	static double startSwitchTime;
-	static SCENES prevScene;
+	static bool switchingScene; // boolean to check if the scene is currently being switched.
+	static SCENES toSwitchScene; // Scene to be switched to.
+	static double timeToSwitch; // time taken to switch.
+	static double startSwitchTime; // start of the elapsed switch time.
+	static SCENES prevScene; // prev scene stored when going back to the main menu to deter loss of progress.
 
 public:
 	Game();
 	~Game();
 
-	static int BimsterSavePoints;
+	static bool killedBimster;
+	static int BimsterSavePoints; // Points used to calculate whether the last boss should be killed or spared.
 	static bool settings[SETTINGS_COUNT];
-	static float FPS;
+	static float FPS; // FPS
 
-	static double sceneCooldown;
-	static SCENES activeScene;
-	static std::vector<Scene*> SceneList;
-	static int ammo;
-	static int cash;
+	static double sceneCooldown; // cooldown so players cant keep switching scenes
+	static SCENES activeScene; // current scene
+	static std::vector<Scene*> SceneList; // list of scenes
+	static int ammo; // total ammo of the player
+	static int cash; // money
 	static double gElapsedTime;
 	static bool gameExit;
 
-	static MissionManager mManager;
-	static InteractionManager iManager;
-	static UIManager uiManager;
-	static Inventory inv;
+	static MissionManager mManager; // Mission Manager
+	static InteractionManager iManager; // Interaction Manager
+	static UIManager uiManager; // UI Manager
+	static Inventory inv; // Inventory
 
 	static void Init();
 	static void Update(double dt);
