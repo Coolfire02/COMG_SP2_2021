@@ -96,9 +96,6 @@ public:
 	static void Render();
 	static void Exit();
 
-	static void setAmmo(int);
-	static int getAmmo();
-
 	static void addScene(Scene* scene);
 	static void switchScene(static SCENES);
 	static void switchScene(SCENES, float transition, std::string titleText);
