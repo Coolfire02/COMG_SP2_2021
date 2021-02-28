@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGuardBuilding.h
+\author Rapheal Phua
+\brief
+Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,
@@ -33,6 +42,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneGuardBuilding:
+\brief Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
 class SceneGuardBuilding : public Scene
 {
 	enum INTERACTION_TYPE {

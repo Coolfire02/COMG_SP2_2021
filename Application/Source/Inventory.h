@@ -10,14 +10,15 @@
 /*!
 \file	Inventory.h
 \author Ridwan
-\brief Header file containing the Inventory class.
+\brief
+Manager for all Inventories associated with Player.
 */
 /******************************************************************************/
 
 /******************************************************************************/
 /*!
 		Class Inventory:
-\brief Inventory class that manages all necessary inventories such as Weapon Inventory, Item Inventory and Garage Inventory.
+\brief Manager for all Inventories associated with Player.
 */
 /******************************************************************************/
 class Inventory

@@ -6,6 +6,14 @@
 #include "Vector3.h"
 #include "Material.h"
 
+/******************************************************************************/
+/*!
+\file	LoadOBJ.h
+\brief
+Handles loading of OBJs and MTLs
+*/
+/******************************************************************************/
+
 bool LoadOBJ(
 	const char *file_path, 
 	std::vector<Position> & out_vertices, 

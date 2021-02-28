@@ -14,11 +14,10 @@ Handles all the collision checks in this file
 */
 /******************************************************************************/
 
-//yh help me explain this one idk whats the explanation
+
 /******************************************************************************/
 /*!
-\brief
-
+\brief A struct of values used by Entity Manager for Collision Handling.
 */
 /******************************************************************************/
 struct Collider {

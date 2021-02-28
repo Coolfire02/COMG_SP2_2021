@@ -21,6 +21,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneFinale.h
+\author Ridwan
+\brief
+The Last and Final Scene of the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -31,6 +40,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneFinale:
+\brief The Last and Final Scene of the Game.
+*/
+/******************************************************************************/
 class SceneFinale : public Scene
 {
 	enum INTERACTION_TYPE {

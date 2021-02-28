@@ -10,6 +10,15 @@
 //Item class created by Ridwan on 16/2/2021
 //Inventory class optimized by Ridwan on 17/2/2021
 
+/******************************************************************************/
+/*!
+\file	Item.h
+\author Ridwan
+\brief
+Item System for the Game.
+*/
+/******************************************************************************/
+
 //Define Item Types
 enum ITEM_TYPE 
 {
@@ -22,7 +31,7 @@ enum ITEM_TYPE
 /******************************************************************************/
 /*!
 		Class Item:
-\brief Item class that handles the items.
+\brief Item System for the Game.
 */
 /******************************************************************************/
 class Item

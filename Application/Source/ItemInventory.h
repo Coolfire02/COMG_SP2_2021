@@ -3,6 +3,22 @@
 #include <vector>
 //ItemInventory class created by Ridwan on 16/2/2021
 
+/******************************************************************************/
+/*!
+\file	ItemInventory.h
+\author Ridwan
+\brief
+Handles items in an Inventory.
+*/
+/******************************************************************************/
+
+
+/******************************************************************************/
+/*!
+		Class ItemInventory:
+\brief Handles items in an Inventory.
+*/
+/******************************************************************************/
 class ItemInventory //Inventory slot
 {
 private:

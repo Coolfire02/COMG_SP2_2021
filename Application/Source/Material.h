@@ -3,6 +3,20 @@
 
 #include "Vertex.h"
 
+/******************************************************************************/
+/*!
+\file	Material.h
+\brief
+Game object's Material attributes.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class Component:
+\brief R,G,B Values of Material
+*/
+/******************************************************************************/
 struct Component
 {
 	float r, g, b;
@@ -26,6 +40,13 @@ struct Component
 /*
 / Materials should have componenets of the ones listed below
 */
+
+/******************************************************************************/
+/*!
+		Class Material:
+\brief Game Object's material attributes
+*/
+/******************************************************************************/
 struct Material
 {
 	Component kAmbient;

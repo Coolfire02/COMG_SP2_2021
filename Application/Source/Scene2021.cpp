@@ -890,7 +890,7 @@ void Scene2021::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(0, -0.1, 0);
 	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Scale(1000, 1000, 1000);
+	modelStack.Scale(1500, 1500, 1000);
 	RenderMesh(MeshHandler::getMesh(GEO_QUAD), true);
 	modelStack.PopMatrix();
 

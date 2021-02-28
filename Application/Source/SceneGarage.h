@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "ButtonManager.h"
@@ -22,6 +21,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGarage.h
+\author Ridwan
+\brief
+Garage scene for players to store their cars and bring it out to Main City Scene
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -32,6 +40,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneGarage:
+\brief Garage scene for players to store their cars and bring it out to Main City Scene
+*/
+/******************************************************************************/
 class SceneGarage : public Scene
 {
 	enum INTERACTION_TYPE {

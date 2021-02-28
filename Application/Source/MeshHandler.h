@@ -5,6 +5,15 @@
 #include "GL/glew.h"
 #include <unordered_map>
 
+/******************************************************************************/
+/*!
+\file	MeshHandler.h
+\author Tan Yong Hong
+\brief
+Provides a Universal Mesh List for all Scenes to use.
+*/
+/******************************************************************************/
+
 enum GEOMETRY_TYPE {
 	//General
 	EMPTY = 0,
@@ -203,6 +212,12 @@ enum GEOMETRY_TYPE {
 	NUM_GEOMETRY
 };
 
+/******************************************************************************/
+/*!
+		Class MeshHandler:
+\brief Provides a Universal Mesh List for all Scenes to use.
+*/
+/******************************************************************************/
 class MeshHandler
 {
 	static std::unordered_map<std::string, GEOMETRY_TYPE> const geoTypeTable;

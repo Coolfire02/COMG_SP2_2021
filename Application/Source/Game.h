@@ -8,11 +8,13 @@
 #include "UIManager.h"
 #include "InteractionManager.h"
 
+
 /******************************************************************************/
 /*!
 \file	Game.h
-\author Joash Foo
-\brief Header file containing the Game class.
+\author Jordan Low
+\brief
+Handles the entire Game. (Scenes, Settings, Managers, etc.)
 */
 /******************************************************************************/
 
@@ -52,7 +54,7 @@ enum SETTINGS {
 /******************************************************************************/
 /*!
 		Class Game:
-\brief The Game Class that handles scene management, stores global managers such as Inventories, Interactions, UIs, etc.
+\brief Handles the entire Game. (Scenes, Settings, Managers, etc.)
 */
 /******************************************************************************/
 class Game

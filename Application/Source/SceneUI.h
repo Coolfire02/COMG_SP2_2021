@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneUI.h
+\author Jordan Low
+\brief
+Used for the Starting Screen UI
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -33,6 +42,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneUI:
+\brief Used for the Starting Screen UI
+*/
+/******************************************************************************/
 class SceneUI : public Scene
 {
 	enum INTERACTION_TYPE {

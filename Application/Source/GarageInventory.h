@@ -4,14 +4,15 @@
 /*!
 \file	GarageInventory.h
 \author Ridwan
-\brief Header file containing the GarageInventory class.
+\brief
+Manages all Vehicles in a Player's Garage Inventory.
 */
 /******************************************************************************/
 
 /******************************************************************************/
 /*!
 		Class GarageInventory:
-\brief Garage Inventory that manages the the cars.
+\brief Manages all Vehicles in a Player's Garage Inventory.
 */
 /******************************************************************************/
 class GarageInventory //Garage Slot

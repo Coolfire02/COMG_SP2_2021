@@ -22,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneCarShop.h
+\author Joash Foo
+\brief
+Car Shop Scene to purchase Cars in the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -31,6 +40,13 @@ Init the Player Entity
 TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
+
+/******************************************************************************/
+/*!
+		Class SceneCarShop:
+\brief Car Shop Scene to purchase Cars in the Game.
+*/
+/******************************************************************************/
 
 class SceneCarShop : public Scene
 {

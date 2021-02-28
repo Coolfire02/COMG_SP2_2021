@@ -7,6 +7,21 @@ enum BULLET_TYPE {
 	PLAYERBULLET
 };
 
+/******************************************************************************/
+/*!
+\file	Bullet.h
+\author Joash Foo
+\brief
+Handles the Bullet Entity in our Game.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class Bullet:
+\brief Handles the Bullet Entity in our Game.
+*/
+/******************************************************************************/
 class Bullet : public Entity {
 	GEOMETRY_TYPE associatedType;
 	BULLET_TYPE type;
