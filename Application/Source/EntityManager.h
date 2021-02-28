@@ -13,6 +13,15 @@ struct CollidedWith {
 	
 };
 
+/******************************************************************************/
+/*!
+\file	EntityManager.h
+\author Tan Yong Hong
+\brief
+Scene associated object that handles all Entity in a specific Instance of a Scene.
+*/
+/******************************************************************************/
+
 class EntityManager
 {
 	const Scene* scene; //World all entities are in;

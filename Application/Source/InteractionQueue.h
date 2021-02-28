@@ -3,6 +3,15 @@
 #include <vector>
 // Interaction Queue class created by Ridwan on 16/2/21
 
+/******************************************************************************/
+/*!
+\file	InteractionQueue.h
+\author Ridwan
+\brief
+Handles the Queued Interactions created in the Game.
+*/
+/******************************************************************************/
+
 struct Command {
 	std::string command;
 	Scene* scene;

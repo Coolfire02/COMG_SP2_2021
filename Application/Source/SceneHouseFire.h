@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneHouseFire.h
+\author Tan Yong Hong
+\brief
+Starting scene of House on Fire for the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,

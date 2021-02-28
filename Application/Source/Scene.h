@@ -7,6 +7,16 @@
 
 class EntityManager;
 
+/******************************************************************************/
+/*!
+\file	Scene.h
+\author Tan Yong Hong
+\brief
+Abstract Class of Scenes, used to remove repeate codes from Individual Scenes
+and make it simpler to make scenes.
+*/
+/******************************************************************************/
+
 class Scene
 {
 

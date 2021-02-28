@@ -21,6 +21,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGunShop.h
+\author Joash Foo
+\brief
+Gun Shop Scene in our Game to purchase Guns.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 

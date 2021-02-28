@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: NPC.h Source File</title>
+<title>Studio Project 2: NPC.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Studio Project 2
    </div>
   </td>
  </tr>
@@ -112,53 +112,57 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    TAILS,</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    TESTNPC,</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    DRUGMAN,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    NPC_TYPECOUNT</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/******************************************************************************/</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">/******************************************************************************/</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_n_p_c.html">   67</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_n_p_c.html">NPC</a> : <span class="keyword">public</span> <a class="code" href="class_entity.html">Entity</a></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="class_mesh.html">Mesh</a>* associatedNPCMesh; <span class="comment">// NPC Mesh</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">const</span> NPCTYPE npcType; <span class="comment">// NPC type</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="struct_rigid_body.html">RigidBody</a> RB;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">float</span> NPCtimer = 0; <span class="comment">// timer for random movement.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> IDcounter;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">int</span> ID;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    std::vector&lt;int&gt; IDList;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">float</span> maxHealth;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    BIMSTER,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    NPC_TYPECOUNT</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">/******************************************************************************/</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_n_p_c.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_n_p_c.html">NPC</a> : <span class="keyword">public</span> <a class="code" href="class_entity.html">Entity</a></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_mesh.html">Mesh</a>* associatedNPCMesh; <span class="comment">// NPC Mesh</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">const</span> NPCTYPE npcType; <span class="comment">// NPC type</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="struct_rigid_body.html">RigidBody</a> RB;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">float</span> NPCtimer = 0; <span class="comment">// timer for random movement.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> IDcounter;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">int</span> ID;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::vector&lt;int&gt; IDList;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">float</span> maxHealth;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> semiCollision;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    NPCTYPE <a class="code" href="class_n_p_c.html#a441f9d8d2edf76f8cda81fea9804b97d">getNPCType</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="class_n_p_c.html#ad5710e59f306449fab7f2ac1dedac7ec">NPC</a>(<a class="code" href="class_scene.html">Scene</a>*, NPCTYPE, std::string, <span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    ~<a class="code" href="class_n_p_c.html">NPC</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="struct_rigid_body.html">RigidBody</a>&amp; <a class="code" href="class_n_p_c.html#a77753f7f4176ed02da5efdfa5607b6e5">getRigidBody</a>();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#a42c0f89600610c5476893af406b00dca">Update</a>(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#a626412213cb22dad6edd5f8c8f4f2c65">Render</a>();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#add1ffcc2f11f4b956a1b8d5fa3be5104">Walk</a>(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_n_p_c.html#ac4588139be32c307a0d31e302f377dea">getID</a>();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::vector&lt;int&gt;&amp; <a class="code" href="class_n_p_c.html#a1672f4cce490b5d888f52911a17626ec">getIDList</a>();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> Entity.h:27</div></div>
-<div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">To store VBO (vertex &amp; color buffer) and IBO (index buffer)</div><div class="ttdef"><b>Definition:</b> Mesh.h:16</div></div>
-<div class="ttc" id="aclass_n_p_c_html"><div class="ttname"><a href="class_n_p_c.html">NPC</a></div><div class="ttdoc">NPC class that will involve interactable and non-interactable NPCs.</div><div class="ttdef"><b>Definition:</b> NPC.h:68</div></div>
-<div class="ttc" id="aclass_n_p_c_html_a1672f4cce490b5d888f52911a17626ec"><div class="ttname"><a href="class_n_p_c.html#a1672f4cce490b5d888f52911a17626ec">NPC::getIDList</a></div><div class="ttdeci">std::vector&lt; int &gt; &amp; getIDList()</div><div class="ttdoc">Returns NPC IDList.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:132</div></div>
-<div class="ttc" id="aclass_n_p_c_html_a42c0f89600610c5476893af406b00dca"><div class="ttname"><a href="class_n_p_c.html#a42c0f89600610c5476893af406b00dca">NPC::Update</a></div><div class="ttdeci">void Update(double)</div><div class="ttdoc">Updates the NPC here.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:59</div></div>
-<div class="ttc" id="aclass_n_p_c_html_a441f9d8d2edf76f8cda81fea9804b97d"><div class="ttname"><a href="class_n_p_c.html#a441f9d8d2edf76f8cda81fea9804b97d">NPC::getNPCType</a></div><div class="ttdeci">NPCTYPE getNPCType()</div><div class="ttdoc">returns the NPC type.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:49</div></div>
-<div class="ttc" id="aclass_n_p_c_html_a626412213cb22dad6edd5f8c8f4f2c65"><div class="ttname"><a href="class_n_p_c.html#a626412213cb22dad6edd5f8c8f4f2c65">NPC::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdoc">Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matrix and renders the NP...</div><div class="ttdef"><b>Definition:</b> NPC.cpp:69</div></div>
-<div class="ttc" id="aclass_n_p_c_html_a77753f7f4176ed02da5efdfa5607b6e5"><div class="ttname"><a href="class_n_p_c.html#a77753f7f4176ed02da5efdfa5607b6e5">NPC::getRigidBody</a></div><div class="ttdeci">RigidBody &amp; getRigidBody()</div><div class="ttdoc">returns the RigidBody of the NPC.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:38</div></div>
-<div class="ttc" id="aclass_n_p_c_html_ac4588139be32c307a0d31e302f377dea"><div class="ttname"><a href="class_n_p_c.html#ac4588139be32c307a0d31e302f377dea">NPC::getID</a></div><div class="ttdeci">int getID()</div><div class="ttdoc">Returns NPC's ID.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:121</div></div>
-<div class="ttc" id="aclass_n_p_c_html_ad5710e59f306449fab7f2ac1dedac7ec"><div class="ttname"><a href="class_n_p_c.html#ad5710e59f306449fab7f2ac1dedac7ec">NPC::NPC</a></div><div class="ttdeci">NPC(Scene *, NPCTYPE, std::string, int)</div><div class="ttdoc">Overloaded constructor that sets variables based on parameters.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:10</div></div>
-<div class="ttc" id="aclass_n_p_c_html_add1ffcc2f11f4b956a1b8d5fa3be5104"><div class="ttname"><a href="class_n_p_c.html#add1ffcc2f11f4b956a1b8d5fa3be5104">NPC::Walk</a></div><div class="ttdeci">void Walk(double)</div><div class="ttdoc">Calculate random angle where the NPC will face and walk towards using a timer.</div><div class="ttdef"><b>Definition:</b> NPC.cpp:96</div></div>
-<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition:</b> Scene.h:11</div></div>
-<div class="ttc" id="astruct_entity_data_html"><div class="ttname"><a href="struct_entity_data.html">EntityData</a></div><div class="ttdef"><b>Definition:</b> EntityDataHandler.h:16</div></div>
-<div class="ttc" id="astruct_rigid_body_html"><div class="ttname"><a href="struct_rigid_body.html">RigidBody</a></div><div class="ttdoc">Struct to handle the physics of the NPC. Implemented only in NPC as we did not plan to have any physi...</div><div class="ttdef"><b>Definition:</b> NPC.h:12</div></div>
-<div class="ttc" id="astruct_rigid_body_html_acca3355c5ba65b23f684e15e75ea990a"><div class="ttname"><a href="struct_rigid_body.html#acca3355c5ba65b23f684e15e75ea990a">RigidBody::Update</a></div><div class="ttdeci">void Update(EntityData *data, double dt)</div><div class="ttdoc">Updates the RigidBody here.</div><div class="ttdef"><b>Definition:</b> NPC.h:33</div></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    NPCTYPE <a class="code" href="class_n_p_c.html#a441f9d8d2edf76f8cda81fea9804b97d">getNPCType</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="class_n_p_c.html#ad5710e59f306449fab7f2ac1dedac7ec">NPC</a>(<a class="code" href="class_scene.html">Scene</a>*, NPCTYPE, std::string, <span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    ~<a class="code" href="class_n_p_c.html">NPC</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_n_p_c.html#afed6ae98cfdaa0ae719c7c64d06fe528">getSemiCollision</a>();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="struct_rigid_body.html">RigidBody</a>&amp; <a class="code" href="class_n_p_c.html#a77753f7f4176ed02da5efdfa5607b6e5">getRigidBody</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#a42c0f89600610c5476893af406b00dca">Update</a>(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#a626412213cb22dad6edd5f8c8f4f2c65">Render</a>();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_n_p_c.html#add1ffcc2f11f4b956a1b8d5fa3be5104">Walk</a>(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_n_p_c.html#ac4588139be32c307a0d31e302f377dea">getID</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::vector&lt;int&gt;&amp; <a class="code" href="class_n_p_c.html#a1672f4cce490b5d888f52911a17626ec">getIDList</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="ttc" id="aclass_entity_html"><div class="ttname"><a href="class_entity.html">Entity</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_8h_source.html#l00026">Entity.h:27</a></div></div>
+<div class="ttc" id="aclass_mesh_html"><div class="ttname"><a href="class_mesh.html">Mesh</a></div><div class="ttdoc">To store VBO (vertex &amp; color buffer) and IBO (index buffer)</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8h_source.html#l00015">Mesh.h:16</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html"><div class="ttname"><a href="class_n_p_c.html">NPC</a></div><div class="ttdoc">NPC class that will involve interactable and non-interactable NPCs.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8h_source.html#l00068">NPC.h:69</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_a1672f4cce490b5d888f52911a17626ec"><div class="ttname"><a href="class_n_p_c.html#a1672f4cce490b5d888f52911a17626ec">NPC::getIDList</a></div><div class="ttdeci">std::vector&lt; int &gt; &amp; getIDList()</div><div class="ttdoc">Returns NPC IDList.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00146">NPC.cpp:146</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_a42c0f89600610c5476893af406b00dca"><div class="ttname"><a href="class_n_p_c.html#a42c0f89600610c5476893af406b00dca">NPC::Update</a></div><div class="ttdeci">void Update(double)</div><div class="ttdoc">Updates the NPC here.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00073">NPC.cpp:73</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_a441f9d8d2edf76f8cda81fea9804b97d"><div class="ttname"><a href="class_n_p_c.html#a441f9d8d2edf76f8cda81fea9804b97d">NPC::getNPCType</a></div><div class="ttdeci">NPCTYPE getNPCType()</div><div class="ttdoc">returns the NPC type.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00053">NPC.cpp:53</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_a626412213cb22dad6edd5f8c8f4f2c65"><div class="ttname"><a href="class_n_p_c.html#a626412213cb22dad6edd5f8c8f4f2c65">NPC::Render</a></div><div class="ttdeci">void Render()</div><div class="ttdoc">Pushes a matrix onto the NPC's scene's modelStack, loads its Transformation matrix and renders the NP...</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00083">NPC.cpp:83</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_a77753f7f4176ed02da5efdfa5607b6e5"><div class="ttname"><a href="class_n_p_c.html#a77753f7f4176ed02da5efdfa5607b6e5">NPC::getRigidBody</a></div><div class="ttdeci">RigidBody &amp; getRigidBody()</div><div class="ttdoc">returns the RigidBody of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00042">NPC.cpp:42</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_ac4588139be32c307a0d31e302f377dea"><div class="ttname"><a href="class_n_p_c.html#ac4588139be32c307a0d31e302f377dea">NPC::getID</a></div><div class="ttdeci">int getID()</div><div class="ttdoc">Returns NPC's ID.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00135">NPC.cpp:135</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_ad5710e59f306449fab7f2ac1dedac7ec"><div class="ttname"><a href="class_n_p_c.html#ad5710e59f306449fab7f2ac1dedac7ec">NPC::NPC</a></div><div class="ttdeci">NPC(Scene *, NPCTYPE, std::string, int)</div><div class="ttdoc">Overloaded constructor that sets variables based on parameters.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00010">NPC.cpp:10</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_add1ffcc2f11f4b956a1b8d5fa3be5104"><div class="ttname"><a href="class_n_p_c.html#add1ffcc2f11f4b956a1b8d5fa3be5104">NPC::Walk</a></div><div class="ttdeci">void Walk(double)</div><div class="ttdoc">Calculate random angle where the NPC will face and walk towards using a timer.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00110">NPC.cpp:110</a></div></div>
+<div class="ttc" id="aclass_n_p_c_html_afed6ae98cfdaa0ae719c7c64d06fe528"><div class="ttname"><a href="class_n_p_c.html#afed6ae98cfdaa0ae719c7c64d06fe528">NPC::getSemiCollision</a></div><div class="ttdeci">bool getSemiCollision()</div><div class="ttdoc">Returns whether this NPC should interact with most things.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8cpp_source.html#l00063">NPC.cpp:63</a></div></div>
+<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition:</b> <a href="_scene_8h_source.html#l00010">Scene.h:11</a></div></div>
+<div class="ttc" id="astruct_entity_data_html"><div class="ttname"><a href="struct_entity_data.html">EntityData</a></div><div class="ttdef"><b>Definition:</b> <a href="_entity_data_handler_8h_source.html#l00016">EntityDataHandler.h:16</a></div></div>
+<div class="ttc" id="astruct_rigid_body_html"><div class="ttname"><a href="struct_rigid_body.html">RigidBody</a></div><div class="ttdoc">Struct to handle the physics of the NPC. Implemented only in NPC as we did not plan to have any physi...</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8h_source.html#l00012">NPC.h:12</a></div></div>
+<div class="ttc" id="astruct_rigid_body_html_acca3355c5ba65b23f684e15e75ea990a"><div class="ttname"><a href="struct_rigid_body.html#acca3355c5ba65b23f684e15e75ea990a">RigidBody::Update</a></div><div class="ttdeci">void Update(EntityData *data, double dt)</div><div class="ttdoc">Updates the RigidBody here.</div><div class="ttdef"><b>Definition:</b> <a href="_n_p_c_8h_source.html#l00033">NPC.h:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -22,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneOffice.h
+\author Ridwan
+\brief
+2nd Last Scene to capture target from his Office.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 

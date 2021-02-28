@@ -6,6 +6,14 @@
 #include "Game.h"
 #include <string>
 
+/******************************************************************************/
+/*!
+\file	Application.h
+\brief
+Handles the entire application.
+*/
+/******************************************************************************/
+
 class Application
 {
 public:

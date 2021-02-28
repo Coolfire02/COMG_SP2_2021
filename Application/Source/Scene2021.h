@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	Scene2021.h
+\author Jordan Low
+\brief
+Main City Scene of the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 

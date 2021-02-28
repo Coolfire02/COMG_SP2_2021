@@ -5,6 +5,15 @@
 
 class Car;
 
+/******************************************************************************/
+/*!
+\file	Player.h
+\author Joash Foo
+\brief
+Handles all Players functionalities.
+*/
+/******************************************************************************/
+
 class Player : public Entity
 {
 private:

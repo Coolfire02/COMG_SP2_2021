@@ -3,6 +3,14 @@
 
 #include "Vertex.h"
 
+/******************************************************************************/
+/*!
+\file	Light.h
+\brief
+Handles Light attributes used by our shader.
+*/
+/******************************************************************************/
+
 struct Light
 {
 	Position position;

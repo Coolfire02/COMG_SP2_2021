@@ -6,6 +6,15 @@
 //Inventory class created by Ridwan on 16/2/2021
 //Optimized inventory class by Ridwan on 17/2/2021
 
+/******************************************************************************/
+/*!
+\file	Inventory.h
+\author Ridwan
+\brief
+Manager for all Inventories associated with Player.
+*/
+/******************************************************************************/
+
 class Inventory
 {
 private:

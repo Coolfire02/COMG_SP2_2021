@@ -37,6 +37,16 @@ enum SOUNDTYPE {
 	SOUND_COUNT
 };
 
+/******************************************************************************/
+/*!
+\file	AudioHandler.h
+\author Tan Yong Hong
+\brief
+Handles all the Audio in our Game. 
+Preloads ISoundSources to prevent lag when use.
+*/
+/******************************************************************************/
+
 class AudioHandler
 {
 private:

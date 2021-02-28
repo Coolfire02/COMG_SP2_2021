@@ -3,6 +3,15 @@
 #include <string>
 #include "MeshHandler.h"
 
+/******************************************************************************/
+/*!
+\file	Mission.h
+\author Tan Yong Hong
+\brief
+Mission Objects handled in Mission Handler for Game's Missions.
+*/
+/******************************************************************************/
+
 enum MISSIONTYPE {
 	//For configuration detection purposes, all missions must start with MISSION_
 	MISSION_FIND_HOUSE,

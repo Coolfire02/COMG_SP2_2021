@@ -4,6 +4,17 @@
 
 class Game;
 
+/******************************************************************************/
+/*!
+\file	UIManager.h
+\author Ridwan
+\brief
+Handles all UIs with Buttons in here.
+
+Accessed by Game/Scenes to swap "Main UI", enable/disable other UIs like MissionUI, SettingsUI etc.
+*/
+/******************************************************************************/
+
 enum UI_MENUS
 {
 	UI_GENERAL = 0, //renders hp,weapons,item

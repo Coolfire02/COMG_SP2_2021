@@ -1,5 +1,13 @@
-//Debug "Cout" -- Only couts whenever in debug mode
-//Regular Cout is now deprecated.
+/******************************************************************************/
+/*!
+\file	Debug.h
+\author Tan Yong Hong
+\brief
+Handles all Debug Mode COUT Tests.
+
+Used to prevent Couts from occuring in release builds.
+*/
+/******************************************************************************/
 
 #ifdef _DEBUG
 #define DEBUG_MSG(str) do { std::cout << "LOG: " << str << std::endl; } while( false )

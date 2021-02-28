@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneUI.h
+\author Jordan Low
+\brief
+Used for the Starting Screen UI
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 

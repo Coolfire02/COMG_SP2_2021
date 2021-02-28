@@ -23,6 +23,15 @@ enum ENTITYTYPE {
 	ETYPE_COUNT
 };
 
+/******************************************************************************/
+/*!
+\file	Entity.h
+\author Tan Yong Hong
+\brief
+Entity System encapsulating all attributes of something "Living"
+*/
+/******************************************************************************/
+
 class Entity 
 {
 private:

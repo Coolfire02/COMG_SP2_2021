@@ -22,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneCarShop.h
+\author Joash Foo
+\brief
+Car Shop Scene to purchase Cars in the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 

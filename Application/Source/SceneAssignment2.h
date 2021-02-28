@@ -23,6 +23,14 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneAssignment2.h
+\brief
+Test Scene used for Debugging/Testing.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,

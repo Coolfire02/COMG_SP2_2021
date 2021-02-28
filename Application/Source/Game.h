@@ -31,6 +31,15 @@ enum SETTINGS {
 	SETTINGS_COUNT
 };
 
+/******************************************************************************/
+/*!
+\file	Game.h
+\author Jordan Low
+\brief
+Handles the entire Game. (Scenes, Settings, Managers, etc.)
+*/
+/******************************************************************************/
+
 class Game
 {
 

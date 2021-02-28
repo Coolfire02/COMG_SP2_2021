@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneTimePortal.h
+\author Joash Foo
+\brief
+Time Portal Scene to enter and come back from the Future.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,

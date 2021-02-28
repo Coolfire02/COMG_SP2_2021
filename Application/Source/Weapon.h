@@ -6,6 +6,15 @@
 #include "EntityManager.h"
 // #include "Camera.h"
 
+/******************************************************************************/
+/*!
+\file	Weapon.h
+\author Jordan Low
+\brief
+Handles all Weapon Functionalities like Shooting, reloading.
+*/
+/******************************************************************************/
+
 enum WEAPON_TYPE
 {
 	PISTOL = 0,

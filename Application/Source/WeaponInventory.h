@@ -3,6 +3,15 @@
 #include "Weapon.h"
 //Weapon Inventory class created by Jordan on 16/2/2021
 
+/******************************************************************************/
+/*!
+\file	WeaponInventory.h
+\author Jordan Low
+\brief
+Handles all Weapons in associated with Entity.
+*/
+/******************************************************************************/
+
 class WeaponInventory
 {
 private:

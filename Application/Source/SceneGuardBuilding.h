@@ -23,6 +23,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGuardBuilding.h
+\author Rapheal Phua
+\brief
+Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,

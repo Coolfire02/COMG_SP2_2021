@@ -5,6 +5,18 @@
 
 class Game;
 
+/******************************************************************************/
+/*!
+\file	MissionManager.h
+\author Tan Yong Hong
+\brief
+Handles all Missions in the Game.
+
+Some Missions can only be accessed / can't be done based off missions done prior.
+MissionManager also loads all Missions from a text file to make it less statically written in code.
+*/
+/******************************************************************************/
+
 class MissionManager {
 
 

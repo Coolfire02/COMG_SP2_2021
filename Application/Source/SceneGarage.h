@@ -22,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGarage.h
+\author Ridwan
+\brief
+Garage scene for players to store their cars and bring it out to Main City Scene
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
