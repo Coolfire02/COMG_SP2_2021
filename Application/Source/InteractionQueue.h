@@ -12,6 +12,12 @@ Handles the Queued Interactions created in the Game.
 */
 /******************************************************************************/
 
+/******************************************************************************/
+/*!
+		Class Command:
+\brief Commands that are executed when doing Interactions. Callable in preCMD and postCMD of interactions
+*/
+/******************************************************************************/
 struct Command {
 	std::string command;
 	Scene* scene;
@@ -20,6 +26,12 @@ struct Command {
 	Command(std::string cmd, Scene* scene) { this->command = cmd; this->scene = scene; }
 };
 
+/******************************************************************************/
+/*!
+		Class Interaction:
+\brief A single unit of interaction with its precommands, the actual interaction text and postcommands
+*/
+/******************************************************************************/
 struct Interaction {
 	//Read up runCommand function for Command Params.
 	//e.g. cmd: /givecoin 1 (Gives player 1 coin)

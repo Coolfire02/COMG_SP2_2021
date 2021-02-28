@@ -73,40 +73,184 @@ $(function() {
  <a href="class_entity_manager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_entity_manager_8h_source.html">EntityManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for EntityManager:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_entity_manager__coll__graph.png" border="0" usemap="#a_entity_manager_coll__map" alt="Collaboration graph"/></div>
-</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac8432c481a366661fbd9e3471190a766"><td class="memItemLeft" align="right" valign="top"><a id="ac8432c481a366661fbd9e3471190a766"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>EntityManager</b> (<a class="el" href="class_scene.html">Scene</a> *scene)</td></tr>
+<tr class="memitem:ac8432c481a366661fbd9e3471190a766"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#ac8432c481a366661fbd9e3471190a766">EntityManager</a> (<a class="el" href="class_scene.html">Scene</a> *scene)</td></tr>
 <tr class="separator:ac8432c481a366661fbd9e3471190a766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a519b90a61cc8be605f1b7f7eacffc7c8"><td class="memItemLeft" align="right" valign="top"><a id="a519b90a61cc8be605f1b7f7eacffc7c8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>spawnMovingEntity</b> (<a class="el" href="class_entity.html">Entity</a> *)</td></tr>
+<tr class="memitem:a71a36c9fb8d579a1a1ec108e0fccf175"><td class="memItemLeft" align="right" valign="top"><a id="a71a36c9fb8d579a1a1ec108e0fccf175"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a71a36c9fb8d579a1a1ec108e0fccf175">~EntityManager</a> ()</td></tr>
+<tr class="memdesc:a71a36c9fb8d579a1a1ec108e0fccf175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for entity manager. deletes all world and moving entity pointers. <br /></td></tr>
+<tr class="separator:a71a36c9fb8d579a1a1ec108e0fccf175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a519b90a61cc8be605f1b7f7eacffc7c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a519b90a61cc8be605f1b7f7eacffc7c8">spawnMovingEntity</a> (<a class="el" href="class_entity.html">Entity</a> *)</td></tr>
+<tr class="memdesc:a519b90a61cc8be605f1b7f7eacffc7c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawning a Moving entity into the world.  <a href="class_entity_manager.html#a519b90a61cc8be605f1b7f7eacffc7c8">More...</a><br /></td></tr>
 <tr class="separator:a519b90a61cc8be605f1b7f7eacffc7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a95030a45d05cde6404fb3571225640"><td class="memItemLeft" align="right" valign="top"><a id="a4a95030a45d05cde6404fb3571225640"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>spawnWorldEntity</b> (<a class="el" href="class_entity.html">Entity</a> *)</td></tr>
+<tr class="memitem:a4a95030a45d05cde6404fb3571225640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a4a95030a45d05cde6404fb3571225640">spawnWorldEntity</a> (<a class="el" href="class_entity.html">Entity</a> *)</td></tr>
+<tr class="memdesc:a4a95030a45d05cde6404fb3571225640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Spawning a World entity into the world.  <a href="class_entity_manager.html#a4a95030a45d05cde6404fb3571225640">More...</a><br /></td></tr>
 <tr class="separator:a4a95030a45d05cde6404fb3571225640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a351909afd653d5500032abf473696068"><td class="memItemLeft" align="right" valign="top"><a id="a351909afd653d5500032abf473696068"></a>
-std::vector&lt; <a class="el" href="struct_collided_with.html">CollidedWith</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>preCollisionUpdate</b> ()</td></tr>
+<tr class="memitem:a351909afd653d5500032abf473696068"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_collided_with.html">CollidedWith</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a351909afd653d5500032abf473696068">preCollisionUpdate</a> ()</td></tr>
+<tr class="memdesc:a351909afd653d5500032abf473696068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-Collision Update, to check next tick, what objects are collided. returns a list of <a class="el" href="struct_collided_with.html">CollidedWith</a> structs to show which objects will be colliding.  <a href="class_entity_manager.html#a351909afd653d5500032abf473696068">More...</a><br /></td></tr>
 <tr class="separator:a351909afd653d5500032abf473696068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e6f5fa46e461638b2d2eb7ee25e36e"><td class="memItemLeft" align="right" valign="top"><a id="af9e6f5fa46e461638b2d2eb7ee25e36e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>collisionUpdate</b> (double dt)</td></tr>
+<tr class="memitem:af9e6f5fa46e461638b2d2eb7ee25e36e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#af9e6f5fa46e461638b2d2eb7ee25e36e">collisionUpdate</a> (double dt)</td></tr>
+<tr class="memdesc:af9e6f5fa46e461638b2d2eb7ee25e36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collision Update to cancel movement if when scene calls precollision and cancels collision. Will also call entity preupdate and post update.  <a href="class_entity_manager.html#af9e6f5fa46e461638b2d2eb7ee25e36e">More...</a><br /></td></tr>
 <tr class="separator:af9e6f5fa46e461638b2d2eb7ee25e36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b61796f6771f44ee1401de7726523c2"><td class="memItemLeft" align="right" valign="top"><a id="a5b61796f6771f44ee1401de7726523c2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>postCollisionUpdate</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a5b61796f6771f44ee1401de7726523c2">postCollisionUpdate</a> ()</td></tr>
+<tr class="memdesc:a5b61796f6771f44ee1401de7726523c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is after all collision is handled and will call <a class="el" href="class_entity.html" title="Entity System encapsulating all attributes of something &quot;Living&quot;.">Entity</a>'s post update as well. It will then clear up all entities that are now flagged as "Dead". <br /></td></tr>
 <tr class="separator:a5b61796f6771f44ee1401de7726523c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f8ae5169804fbdde48654a4c74483a"><td class="memItemLeft" align="right" valign="top"><a id="a78f8ae5169804fbdde48654a4c74483a"></a>
-std::vector&lt; <a class="el" href="class_entity.html">Entity</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEntities</b> ()</td></tr>
+<tr class="memitem:a78f8ae5169804fbdde48654a4c74483a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_entity.html">Entity</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_entity_manager.html#a78f8ae5169804fbdde48654a4c74483a">getEntities</a> ()</td></tr>
+<tr class="memdesc:a78f8ae5169804fbdde48654a4c74483a"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the list of entities currently in this entity manager.  <a href="class_entity_manager.html#a78f8ae5169804fbdde48654a4c74483a">More...</a><br /></td></tr>
 <tr class="separator:a78f8ae5169804fbdde48654a4c74483a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_scene.html" title="Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...">Scene</a> associated object that handles all <a class="el" href="class_entity.html" title="Entity System encapsulating all attributes of something &quot;Living&quot;.">Entity</a> in a specific Instance of a <a class="el" href="class_scene.html" title="Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...">Scene</a>. Providing Collision Management. </p>
 <pre class="fragment">    Class EntityManager:
-</pre> </div><hr/>The documentation for this class was generated from the following files:<ul>
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac8432c481a366661fbd9e3471190a766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8432c481a366661fbd9e3471190a766">&#9670;&nbsp;</a></span>EntityManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">EntityManager::EntityManager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_scene.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default constructor of <a class="el" href="class_entity_manager.html" title="Scene associated object that handles all Entity in a specific Instance of a Scene....">EntityManager</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>- <a class="el" href="class_scene.html" title="Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...">Scene</a> that this emanager is associated with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af9e6f5fa46e461638b2d2eb7ee25e36e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e6f5fa46e461638b2d2eb7ee25e36e">&#9670;&nbsp;</a></span>collisionUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EntityManager::collisionUpdate </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Collision Update to cancel movement if when scene calls precollision and cancels collision. Will also call entity preupdate and post update. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>- delta time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a78f8ae5169804fbdde48654a4c74483a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f8ae5169804fbdde48654a4c74483a">&#9670;&nbsp;</a></span>getEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_entity.html">Entity</a> * &gt; EntityManager::getEntities </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gets the list of entities currently in this entity manager. </p>
+<dl class="section return"><dt>Returns</dt><dd>the list of entities in this entity manager (both world and moving entities) </dd></dl>
+
+</div>
+</div>
+<a id="a351909afd653d5500032abf473696068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a351909afd653d5500032abf473696068">&#9670;&nbsp;</a></span>preCollisionUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="struct_collided_with.html">CollidedWith</a> * &gt; &amp; EntityManager::preCollisionUpdate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pre-Collision Update, to check next tick, what objects are collided. returns a list of <a class="el" href="struct_collided_with.html">CollidedWith</a> structs to show which objects will be colliding. </p>
+<dl class="section return"><dt>Returns</dt><dd>a vector of CollidedWiths, to allow a scene to manipulate whether to cancel collision in the future </dd></dl>
+
+</div>
+</div>
+<a id="a519b90a61cc8be605f1b7f7eacffc7c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a519b90a61cc8be605f1b7f7eacffc7c8">&#9670;&nbsp;</a></span>spawnMovingEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EntityManager::spawnMovingEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_entity.html">Entity</a> *&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Spawning a Moving entity into the world. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>- An entity that is created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4a95030a45d05cde6404fb3571225640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a95030a45d05cde6404fb3571225640">&#9670;&nbsp;</a></span>spawnWorldEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EntityManager::spawnWorldEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_entity.html">Entity</a> *&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Spawning a World entity into the world. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>- An entity that is created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_entity_manager_8h_source.html">EntityManager.h</a></li>
 <li>EntityManager.cpp</li>
 </ul>

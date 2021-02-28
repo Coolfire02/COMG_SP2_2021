@@ -9,58 +9,47 @@ Handles all Missions in the \mbox{\hyperlink{class_game}{Game}}.
 
 {\ttfamily \#include $<$Mission\+Manager.\+h$>$}
 
-
-
-Collaboration diagram for Mission\+Manager\+:
-% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_mission_manager_a32ac7d23b4e5b970f3524d4ee5a78167}\label{class_mission_manager_a32ac7d23b4e5b970f3524d4ee5a78167}} 
-std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ {\bfseries get\+Completed\+Missions} ()
-\item 
-\mbox{\Hypertarget{class_mission_manager_af51dcafbf813f22806a54dd8fa2404a8}\label{class_mission_manager_af51dcafbf813f22806a54dd8fa2404a8}} 
-std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ {\bfseries get\+Completable\+Missions} ()
-\item 
-\mbox{\Hypertarget{class_mission_manager_a1abc2afcd02e2b6936db0a5d8dde89b5}\label{class_mission_manager_a1abc2afcd02e2b6936db0a5d8dde89b5}} 
-bool {\bfseries mission\+Is\+Completable} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ \&completable)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a3d89face55913b54b30d5c0d22730cbe}\label{class_mission_manager_a3d89face55913b54b30d5c0d22730cbe}} 
-bool {\bfseries add\+Progress} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a5172eae3a14bec46a47162c5ccf8f880}\label{class_mission_manager_a5172eae3a14bec46a47162c5ccf8f880}} 
-bool {\bfseries set\+Progress} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a0a37c7981f708f69abbcb0e599f9f4ec}\label{class_mission_manager_a0a37c7981f708f69abbcb0e599f9f4ec}} 
-void {\bfseries add\+Unsafe\+Progress} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
-\item 
-\mbox{\Hypertarget{class_mission_manager_ad834fdd1c73795a8d03e81e7cea4c0cc}\label{class_mission_manager_ad834fdd1c73795a8d03e81e7cea4c0cc}} 
-float {\bfseries get\+Mission\+Progress} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type)
-\item 
-\mbox{\Hypertarget{class_mission_manager_ad39da61b1a2a4e44fc356b5a6ff0bdd1}\label{class_mission_manager_ad39da61b1a2a4e44fc356b5a6ff0bdd1}} 
-void {\bfseries Update} (double dt)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a36490a68ea15398943231e7f03059fb7}\label{class_mission_manager_a36490a68ea15398943231e7f03059fb7}} 
-std\+::vector$<$ \mbox{\hyperlink{class_mission}{Mission}} $\ast$ $>$ {\bfseries get\+Just\+Completed\+Missions} ()
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_mission_manager_a43758c0b04143e119400d7867173a6c9}\label{class_mission_manager_a43758c0b04143e119400d7867173a6c9}} 
+\mbox{\hyperlink{class_mission_manager_a43758c0b04143e119400d7867173a6c9}{Mission\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for a \mbox{\hyperlink{class_mission}{Mission}} Manager instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mission_manager_ab0fa7a44d5d7404df6560f7036b477d6}\label{class_mission_manager_ab0fa7a44d5d7404df6560f7036b477d6}} 
+\mbox{\hyperlink{class_mission_manager_ab0fa7a44d5d7404df6560f7036b477d6}{$\sim$\+Mission\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Default destructor for the \mbox{\hyperlink{class_mission}{Mission}} Manager, clearing up \mbox{\hyperlink{class_mission}{Mission}} Pointers. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ \mbox{\hyperlink{class_mission_manager_a32ac7d23b4e5b970f3524d4ee5a78167}{get\+Completed\+Missions}} ()
+\begin{DoxyCompactList}\small\item\em gets the list of compelted misisons so far. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ \mbox{\hyperlink{class_mission_manager_af51dcafbf813f22806a54dd8fa2404a8}{get\+Completable\+Missions}} ()
+\begin{DoxyCompactList}\small\item\em get the list of compeletable missions currently. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_mission_manager_a1abc2afcd02e2b6936db0a5d8dde89b5}{mission\+Is\+Completable}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ \&completable)
+\begin{DoxyCompactList}\small\item\em Checks if a mission is completable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_mission_manager_a3d89face55913b54b30d5c0d22730cbe}{add\+Progress}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
+\begin{DoxyCompactList}\small\item\em Add progress to a Mission\+Type. Progress only adds if its currently completable. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_mission_manager_a5172eae3a14bec46a47162c5ccf8f880}{set\+Progress}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
+\begin{DoxyCompactList}\small\item\em sets the progress of the mission but only if its compeltable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mission_manager_a0a37c7981f708f69abbcb0e599f9f4ec}{add\+Unsafe\+Progress}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type, float progress)
+\begin{DoxyCompactList}\small\item\em Add progress to a Mission\+Type. Progress owill add regardless if its completable. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_mission_manager_ad834fdd1c73795a8d03e81e7cea4c0cc}{get\+Mission\+Progress}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type)
+\begin{DoxyCompactList}\small\item\em get the mission progress. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mission_manager_ad39da61b1a2a4e44fc356b5a6ff0bdd1}{Update}} (double dt)
+\begin{DoxyCompactList}\small\item\em Update function for mission manager. Processes displaying mission completes on screen. and getting the list of missions completed this current tick etc. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_mission}{Mission}} $\ast$ $>$ \mbox{\hyperlink{class_mission_manager_a36490a68ea15398943231e7f03059fb7}{get\+Just\+Completed\+Missions}} ()
+\begin{DoxyCompactList}\small\item\em gets the list of just completed missions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_mission_manager_afae62dd80f25b22051c4c0365cf44ba1}\label{class_mission_manager_afae62dd80f25b22051c4c0365cf44ba1}} 
-static void {\bfseries load\+Mission\+Lang} ()
-\item 
-\mbox{\Hypertarget{class_mission_manager_a745e59e96acc20c4512554dd3d25dde3}\label{class_mission_manager_a745e59e96acc20c4512554dd3d25dde3}} 
-static \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} {\bfseries get\+Mission\+By\+Enum\+Name} (std\+::string name)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a51026454621c3b6467ca0864cedf71d6}\label{class_mission_manager_a51026454621c3b6467ca0864cedf71d6}} 
-static std\+::string {\bfseries get\+Mission\+Name\+Formatted} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a36ef351adf3efc7ef29d4b73a61c10ee}\label{class_mission_manager_a36ef351adf3efc7ef29d4b73a61c10ee}} 
-static void {\bfseries split} (std\+::string txt, char delim, std\+::vector$<$ std\+::string $>$ \&out)
-\item 
-\mbox{\Hypertarget{class_mission_manager_a249cba2de7eac88f7a79606606da8dbc}\label{class_mission_manager_a249cba2de7eac88f7a79606606da8dbc}} 
-static std\+::string {\bfseries string\+Trim} (std\+::string str)
-\end{DoxyCompactItemize}
+static void \mbox{\hyperlink{class_mission_manager_afae62dd80f25b22051c4c0365cf44ba1}{load\+Mission\+Lang}} ()
+\begin{DoxyCompactList}\small\item\em Loads all mission information from the text file. called in Applciation\+::\+Run() \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} \mbox{\hyperlink{class_mission_manager_a745e59e96acc20c4512554dd3d25dde3}{get\+Mission\+By\+Enum\+Name}} (std\+::string name)
+\begin{DoxyCompactList}\small\item\em Get a \mbox{\hyperlink{class_mission}{Mission}} ENUM TYPE by its String through the m\+Type\+Table of Enums and associated Strings. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_mission_manager_a51026454621c3b6467ca0864cedf71d6}{get\+Mission\+Name\+Formatted}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} type)
+\begin{DoxyCompactList}\small\item\em get the mission name beautified. For e.\+g., MISSION\+\_\+\+FINALE\+\_\+\+REWARDING would return. \mbox{\hyperlink{class_mission}{Mission}} Finale Rewarding. Title Case and removes \+\_\+ \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_mission_manager_a36ef351adf3efc7ef29d4b73a61c10ee}{split}} (std\+::string txt, char delim, std\+::vector$<$ std\+::string $>$ \&out)
+\begin{DoxyCompactList}\small\item\em Splitter function to split a string by a delim. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_mission_manager_a249cba2de7eac88f7a79606606da8dbc}{string\+Trim}} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em String trimmer. Removes the spaces. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -69,6 +58,231 @@ Handles all Missions in the \mbox{\hyperlink{class_game}{Game}}.
 \begin{DoxyVerb}    Class MissionManager:
 \end{DoxyVerb}
  
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mission_manager_a3d89face55913b54b30d5c0d22730cbe}\label{class_mission_manager_a3d89face55913b54b30d5c0d22730cbe}} 
+\index{MissionManager@{MissionManager}!addProgress@{addProgress}}
+\index{addProgress@{addProgress}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{addProgress()}{addProgress()}}
+{\footnotesize\ttfamily bool Mission\+Manager\+::add\+Progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type,  }\item[{float}]{progress }\end{DoxyParamCaption})}
+
+
+
+Add progress to a Mission\+Type. Progress only adds if its currently completable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ \mbox{\hyperlink{class_mission}{Mission}} type to add progress to \\
+\hline
+{\em progress} & -\/ Amount of progress \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/ if the progress could be added 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a0a37c7981f708f69abbcb0e599f9f4ec}\label{class_mission_manager_a0a37c7981f708f69abbcb0e599f9f4ec}} 
+\index{MissionManager@{MissionManager}!addUnsafeProgress@{addUnsafeProgress}}
+\index{addUnsafeProgress@{addUnsafeProgress}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{addUnsafeProgress()}{addUnsafeProgress()}}
+{\footnotesize\ttfamily void Mission\+Manager\+::add\+Unsafe\+Progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type,  }\item[{float}]{progress }\end{DoxyParamCaption})}
+
+
+
+Add progress to a Mission\+Type. Progress owill add regardless if its completable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ \mbox{\hyperlink{class_mission}{Mission}} type to add progress to \\
+\hline
+{\em progress} & -\/ Amount of progress \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mission_manager_af51dcafbf813f22806a54dd8fa2404a8}\label{class_mission_manager_af51dcafbf813f22806a54dd8fa2404a8}} 
+\index{MissionManager@{MissionManager}!getCompletableMissions@{getCompletableMissions}}
+\index{getCompletableMissions@{getCompletableMissions}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getCompletableMissions()}{getCompletableMissions()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ Mission\+Manager\+::get\+Completable\+Missions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get the list of compeletable missions currently. 
+
+\begin{DoxyReturn}{Returns}
+a vector of MISSIONTYPE missions that are completable currently. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a32ac7d23b4e5b970f3524d4ee5a78167}\label{class_mission_manager_a32ac7d23b4e5b970f3524d4ee5a78167}} 
+\index{MissionManager@{MissionManager}!getCompletedMissions@{getCompletedMissions}}
+\index{getCompletedMissions@{getCompletedMissions}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getCompletedMissions()}{getCompletedMissions()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ Mission\+Manager\+::get\+Completed\+Missions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+gets the list of compelted misisons so far. 
+
+\begin{DoxyReturn}{Returns}
+a vector of MISSION\+\_\+\+TYPE of completed missions 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a36490a68ea15398943231e7f03059fb7}\label{class_mission_manager_a36490a68ea15398943231e7f03059fb7}} 
+\index{MissionManager@{MissionManager}!getJustCompletedMissions@{getJustCompletedMissions}}
+\index{getJustCompletedMissions@{getJustCompletedMissions}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getJustCompletedMissions()}{getJustCompletedMissions()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_mission}{Mission}} $\ast$ $>$ Mission\+Manager\+::get\+Just\+Completed\+Missions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+gets the list of just completed missions. 
+
+\begin{DoxyReturn}{Returns}
+returns the missions completed this tick 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a745e59e96acc20c4512554dd3d25dde3}\label{class_mission_manager_a745e59e96acc20c4512554dd3d25dde3}} 
+\index{MissionManager@{MissionManager}!getMissionByEnumName@{getMissionByEnumName}}
+\index{getMissionByEnumName@{getMissionByEnumName}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getMissionByEnumName()}{getMissionByEnumName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} Mission\+Manager\+::get\+Mission\+By\+Enum\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get a \mbox{\hyperlink{class_mission}{Mission}} ENUM TYPE by its String through the m\+Type\+Table of Enums and associated Strings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ Name of enum in its full caps and proper statement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/ The mission type enum associated with this string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a51026454621c3b6467ca0864cedf71d6}\label{class_mission_manager_a51026454621c3b6467ca0864cedf71d6}} 
+\index{MissionManager@{MissionManager}!getMissionNameFormatted@{getMissionNameFormatted}}
+\index{getMissionNameFormatted@{getMissionNameFormatted}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getMissionNameFormatted()}{getMissionNameFormatted()}}
+{\footnotesize\ttfamily std\+::string Mission\+Manager\+::get\+Mission\+Name\+Formatted (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+get the mission name beautified. For e.\+g., MISSION\+\_\+\+FINALE\+\_\+\+REWARDING would return. \mbox{\hyperlink{class_mission}{Mission}} Finale Rewarding. Title Case and removes \+\_\+ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ Mission\+Type Enum \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/ the beautified name in std\+::string form 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_ad834fdd1c73795a8d03e81e7cea4c0cc}\label{class_mission_manager_ad834fdd1c73795a8d03e81e7cea4c0cc}} 
+\index{MissionManager@{MissionManager}!getMissionProgress@{getMissionProgress}}
+\index{getMissionProgress@{getMissionProgress}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{getMissionProgress()}{getMissionProgress()}}
+{\footnotesize\ttfamily float Mission\+Manager\+::get\+Mission\+Progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type }\end{DoxyParamCaption})}
+
+
+
+get the mission progress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ \mbox{\hyperlink{class_mission}{Mission}} Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the progress of the mission type requested 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a1abc2afcd02e2b6936db0a5d8dde89b5}\label{class_mission_manager_a1abc2afcd02e2b6936db0a5d8dde89b5}} 
+\index{MissionManager@{MissionManager}!missionIsCompletable@{missionIsCompletable}}
+\index{missionIsCompletable@{missionIsCompletable}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{missionIsCompletable()}{missionIsCompletable()}}
+{\footnotesize\ttfamily bool Mission\+Manager\+::mission\+Is\+Completable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type,  }\item[{std\+::vector$<$ \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} $>$ \&}]{completable }\end{DoxyParamCaption})}
+
+
+
+Checks if a mission is completable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ The Misison Type to check \\
+\hline
+{\em completable} & -\/ The list of completable missions currently \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it is completable 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a5172eae3a14bec46a47162c5ccf8f880}\label{class_mission_manager_a5172eae3a14bec46a47162c5ccf8f880}} 
+\index{MissionManager@{MissionManager}!setProgress@{setProgress}}
+\index{setProgress@{setProgress}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{setProgress()}{setProgress()}}
+{\footnotesize\ttfamily bool Mission\+Manager\+::set\+Progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type,  }\item[{float}]{progress }\end{DoxyParamCaption})}
+
+
+
+sets the progress of the mission but only if its compeltable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ \mbox{\hyperlink{class_mission}{Mission}} Type to set the progress for \\
+\hline
+{\em progress} & -\/ new progress to be set to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the progress was successfully updated 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_a36ef351adf3efc7ef29d4b73a61c10ee}\label{class_mission_manager_a36ef351adf3efc7ef29d4b73a61c10ee}} 
+\index{MissionManager@{MissionManager}!split@{split}}
+\index{split@{split}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{split()}{split()}}
+{\footnotesize\ttfamily void Mission\+Manager\+::split (\begin{DoxyParamCaption}\item[{std\+::string}]{txt,  }\item[{char}]{delim,  }\item[{std\+::vector$<$ std\+::string $>$ \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Splitter function to split a string by a delim. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em txt} & -\/ The text to split \\
+\hline
+{\em delim} & -\/ the character to split by \\
+\hline
+{\em out} & -\/ the output list of strings after the split \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mission_manager_a249cba2de7eac88f7a79606606da8dbc}\label{class_mission_manager_a249cba2de7eac88f7a79606606da8dbc}} 
+\index{MissionManager@{MissionManager}!stringTrim@{stringTrim}}
+\index{stringTrim@{stringTrim}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{stringTrim()}{stringTrim()}}
+{\footnotesize\ttfamily std\+::string Mission\+Manager\+::string\+Trim (\begin{DoxyParamCaption}\item[{std\+::string}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+String trimmer. Removes the spaces. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & -\/ string to trim \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the string without spaces 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_manager_ad39da61b1a2a4e44fc356b5a6ff0bdd1}\label{class_mission_manager_ad39da61b1a2a4e44fc356b5a6ff0bdd1}} 
+\index{MissionManager@{MissionManager}!Update@{Update}}
+\index{Update@{Update}!MissionManager@{MissionManager}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Mission\+Manager\+::\+Update (\begin{DoxyParamCaption}\item[{double}]{dt }\end{DoxyParamCaption})}
+
+
+
+Update function for mission manager. Processes displaying mission completes on screen. and getting the list of missions completed this current tick etc. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & -\/ delata time \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

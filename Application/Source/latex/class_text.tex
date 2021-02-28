@@ -9,70 +9,51 @@
 
 {\ttfamily \#include $<$Text.\+h$>$}
 
-
-
-Collaboration diagram for Text\+:
-% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}\label{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}} 
-{\bfseries Text} (\mbox{\hyperlink{struct_color}{Color}} color, float originX, float originY, float quad\+Size, FONTTYPE type, float size)
-\item 
-\mbox{\Hypertarget{class_text_a2d4d60035ef427001403eb147a460ffb}\label{class_text_a2d4d60035ef427001403eb147a460ffb}} 
-{\bfseries Text} (\mbox{\hyperlink{struct_color}{Color}} color, \mbox{\hyperlink{struct_u_i_item}{UIItem}} UIInfo, FONTTYPE type, float size)
-\item 
-\mbox{\Hypertarget{class_text_a49f638637347490b8ae216852660c871}\label{class_text_a49f638637347490b8ae216852660c871}} 
-void {\bfseries set\+Text\+String} (std\+::string text)
-\item 
-\mbox{\Hypertarget{class_text_a74ef5f5bec7468a3138a8aead0e49921}\label{class_text_a74ef5f5bec7468a3138a8aead0e49921}} 
-void {\bfseries set\+Text\+String\+Stream} (std\+::ostringstream text)
-\item 
-\mbox{\Hypertarget{class_text_a435c4be4047ee06fbc5babd00460675c}\label{class_text_a435c4be4047ee06fbc5babd00460675c}} 
-void {\bfseries set\+Text\+Offset\+From\+Top\+Left} (float x, float y)
-\item 
-\mbox{\Hypertarget{class_text_a9be754295963c936a31e94be71d4479f}\label{class_text_a9be754295963c936a31e94be71d4479f}} 
-void {\bfseries set\+Visisble} (bool visibility)
-\item 
-\mbox{\Hypertarget{class_text_a41bde5662e0e3a023166e5b134488bc2}\label{class_text_a41bde5662e0e3a023166e5b134488bc2}} 
-std\+::string {\bfseries get\+Text} ()
-\item 
-\mbox{\Hypertarget{class_text_ac88aeffde9629b302a22df09c2e4a668}\label{class_text_ac88aeffde9629b302a22df09c2e4a668}} 
-void {\bfseries update\+UIInfo} (\mbox{\hyperlink{struct_u_i_item}{UIItem}} info)
-\item 
-\mbox{\Hypertarget{class_text_a60ed7c4137d0389255e009a4b2bc7223}\label{class_text_a60ed7c4137d0389255e009a4b2bc7223}} 
-void {\bfseries set\+Color} (\mbox{\hyperlink{struct_color}{Color}} color)
-\item 
-\mbox{\Hypertarget{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}\label{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}} 
-\mbox{\hyperlink{struct_color}{Color}} {\bfseries get\+Color} ()
-\item 
-\mbox{\Hypertarget{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}\label{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}} 
-bool {\bfseries is\+Visible} ()
-\item 
-\mbox{\Hypertarget{class_text_afb8fd38b041da45ac0f3d93bbe368091}\label{class_text_afb8fd38b041da45ac0f3d93bbe368091}} 
-void {\bfseries set\+Size} (float size)
-\item 
-\mbox{\Hypertarget{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}\label{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}} 
-void {\bfseries change\+Font} (FONTTYPE type)
-\item 
-\mbox{\Hypertarget{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}\label{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}} 
-void {\bfseries Render} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}{Text}} (\mbox{\hyperlink{struct_color}{Color}} color, float originX, float originY, float quad\+Size, FONTTYPE type, float size)
+\begin{DoxyCompactList}\small\item\em Constructor of the text object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_text_a2d4d60035ef427001403eb147a460ffb}{Text}} (\mbox{\hyperlink{struct_color}{Color}} color, \mbox{\hyperlink{struct_u_i_item}{UIItem}} UIInfo, FONTTYPE type, float size)
+\begin{DoxyCompactList}\small\item\em Another constructor for \mbox{\hyperlink{class_text}{Text}}, but replaces most params with just UIInfo, this is to allow Buttons to share their UIInfos with the text object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_text_a2d49e5c280e205125b149f7777ae30c7}\label{class_text_a2d49e5c280e205125b149f7777ae30c7}} 
+\mbox{\hyperlink{class_text_a2d49e5c280e205125b149f7777ae30c7}{$\sim$\+Text}} ()
+\begin{DoxyCompactList}\small\item\em Default destructor of \mbox{\hyperlink{class_text}{Text}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a49f638637347490b8ae216852660c871}{set\+Text\+String}} (std\+::string text)
+\begin{DoxyCompactList}\small\item\em Sets the text of the \mbox{\hyperlink{class_text}{Text}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a74ef5f5bec7468a3138a8aead0e49921}{set\+Text\+String\+Stream}} (std\+::ostringstream text)
+\begin{DoxyCompactList}\small\item\em Sets the \mbox{\hyperlink{class_text}{Text}} of the \mbox{\hyperlink{class_text}{Text}} Object through an ostringstream. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a435c4be4047ee06fbc5babd00460675c}{set\+Text\+Offset\+From\+Top\+Left}} (float x, float y)
+\begin{DoxyCompactList}\small\item\em Set the text offset from its UIInfo origin position. This is used to allow Buttons to have text that are not directly at the border of a button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a9be754295963c936a31e94be71d4479f}{set\+Visisble}} (bool visibility)
+\begin{DoxyCompactList}\small\item\em set the visibility of the \mbox{\hyperlink{class_text}{Text}} object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_text_a41bde5662e0e3a023166e5b134488bc2}{get\+Text}} ()
+\begin{DoxyCompactList}\small\item\em Gets the string text message of a text. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_ac88aeffde9629b302a22df09c2e4a668}{update\+UIInfo}} (\mbox{\hyperlink{struct_u_i_item}{UIItem}} info)
+\begin{DoxyCompactList}\small\item\em set the UIInfo of the text object \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a60ed7c4137d0389255e009a4b2bc7223}{set\+Color}} (\mbox{\hyperlink{struct_color}{Color}} color)
+\begin{DoxyCompactList}\small\item\em sets the color of the text. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_color}{Color}} \mbox{\hyperlink{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}{get\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Gets the color of the text. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}{is\+Visible}} ()
+\begin{DoxyCompactList}\small\item\em whether \mbox{\hyperlink{class_text}{Text}} is visible. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_afb8fd38b041da45ac0f3d93bbe368091}{set\+Size}} (float size)
+\begin{DoxyCompactList}\small\item\em set the font size of the \mbox{\hyperlink{class_text}{Text}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}{change\+Font}} (FONTTYPE type)
+\begin{DoxyCompactList}\small\item\em change font of \mbox{\hyperlink{class_text}{Text}} Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}{Render}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Renders the text object on the associated scene that is parsed in. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_text_af748a315fd3534226283f61bd10d44b8}\label{class_text_af748a315fd3534226283f61bd10d44b8}} 
-static bool {\bfseries load\+Fonts} ()
-\item 
-\mbox{\Hypertarget{class_text_ad7f514f83ba16203c88dd07d892a0b0d}\label{class_text_ad7f514f83ba16203c88dd07d892a0b0d}} 
-static bool {\bfseries are\+Fonts\+Loaded} ()
-\item 
-\mbox{\Hypertarget{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}\label{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}} 
-static \mbox{\hyperlink{struct_font}{Font}} $\ast$ {\bfseries get\+Font} (FONTTYPE)
-\item 
-\mbox{\Hypertarget{class_text_a90b21d5f128e977454182d85c359fd37}\label{class_text_a90b21d5f128e977454182d85c359fd37}} 
-static void {\bfseries split\+Text} (std\+::string txt, char delim, std\+::vector$<$ std\+::string $>$ \&out)
-\end{DoxyCompactItemize}
+static bool \mbox{\hyperlink{class_text_af748a315fd3534226283f61bd10d44b8}{load\+Fonts}} ()
+\begin{DoxyCompactList}\small\item\em Loads all the text fonts; Its character width, offsets etc. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_text_ad7f514f83ba16203c88dd07d892a0b0d}{are\+Fonts\+Loaded}} ()
+\begin{DoxyCompactList}\small\item\em Checker function for if all Fonts have been generated. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_font}{Font}} $\ast$ \mbox{\hyperlink{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}{get\+Font}} (FONTTYPE)
+\begin{DoxyCompactList}\small\item\em Get a \mbox{\hyperlink{struct_font}{Font}} object by the FONTTYPE enum. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_text_a90b21d5f128e977454182d85c359fd37}{split\+Text}} (std\+::string txt, char delim, std\+::vector$<$ std\+::string $>$ \&out)
+\begin{DoxyCompactList}\small\item\em Splitter function to split strings by a delim. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -81,6 +62,297 @@ static void {\bfseries split\+Text} (std\+::string txt, char delim, std\+::vecto
 \begin{DoxyVerb}    Class Text:
 \end{DoxyVerb}
  
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}\label{class_text_a5ef08deb1f71d02c0c96bda3d6350b1f}} 
+\index{Text@{Text}!Text@{Text}}
+\index{Text@{Text}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{Text()}{Text()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Text\+::\+Text (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_color}{Color}}}]{color,  }\item[{float}]{originX,  }\item[{float}]{originY,  }\item[{float}]{quad\+Size,  }\item[{FONTTYPE}]{font,  }\item[{float}]{size }\end{DoxyParamCaption})}
+
+
+
+Constructor of the text object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ \mbox{\hyperlink{struct_color}{Color}} of the text object \\
+\hline
+{\em originX} & -\/ Origin X position of the text object \\
+\hline
+{\em originY} & -\/ Origin Y position of the text object \\
+\hline
+{\em quad\+Size} & -\/ Quad\+Size of the text object \\
+\hline
+{\em font} & -\/ Type of font for the text \\
+\hline
+{\em size} & -\/ \mbox{\hyperlink{struct_font}{Font}} size \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a2d4d60035ef427001403eb147a460ffb}\label{class_text_a2d4d60035ef427001403eb147a460ffb}} 
+\index{Text@{Text}!Text@{Text}}
+\index{Text@{Text}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{Text()}{Text()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Text\+::\+Text (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_color}{Color}}}]{color,  }\item[{\mbox{\hyperlink{struct_u_i_item}{UIItem}}}]{UIInfo,  }\item[{FONTTYPE}]{font,  }\item[{float}]{size }\end{DoxyParamCaption})}
+
+
+
+Another constructor for \mbox{\hyperlink{class_text}{Text}}, but replaces most params with just UIInfo, this is to allow Buttons to share their UIInfos with the text object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ color of text \\
+\hline
+{\em UIInfo} & -\/ ui\+Info of text \\
+\hline
+{\em font} & -\/ font type of text \\
+\hline
+{\em size} & -\/ font size of text \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_ad7f514f83ba16203c88dd07d892a0b0d}\label{class_text_ad7f514f83ba16203c88dd07d892a0b0d}} 
+\index{Text@{Text}!areFontsLoaded@{areFontsLoaded}}
+\index{areFontsLoaded@{areFontsLoaded}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{areFontsLoaded()}{areFontsLoaded()}}
+{\footnotesize\ttfamily bool Text\+::are\+Fonts\+Loaded (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checker function for if all Fonts have been generated. 
+
+\begin{DoxyReturn}{Returns}
+true if fonts have been loaded, false if they haven\textquotesingle{}t. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}\label{class_text_a7aaec37aaf9742b9d4e70f8e02cbd03c}} 
+\index{Text@{Text}!changeFont@{changeFont}}
+\index{changeFont@{changeFont}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{changeFont()}{changeFont()}}
+{\footnotesize\ttfamily void Text\+::change\+Font (\begin{DoxyParamCaption}\item[{FONTTYPE}]{type }\end{DoxyParamCaption})}
+
+
+
+change font of \mbox{\hyperlink{class_text}{Text}} Object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ new FONTTYPE to replace the old one with \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}\label{class_text_a9001efab08bd0adbb6d1f8bde1ce577a}} 
+\index{Text@{Text}!getColor@{getColor}}
+\index{getColor@{getColor}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_color}{Color}} Text\+::get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the color of the text. 
+
+\begin{DoxyReturn}{Returns}
+the color of the text 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}\label{class_text_ad84d99de3d88fc63b39a5e7279dc2b64}} 
+\index{Text@{Text}!getFont@{getFont}}
+\index{getFont@{getFont}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{getFont()}{getFont()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_font}{Font}} $\ast$ Text\+::get\+Font (\begin{DoxyParamCaption}\item[{FONTTYPE}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get a \mbox{\hyperlink{struct_font}{Font}} object by the FONTTYPE enum. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ Type of \mbox{\hyperlink{struct_font}{Font}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/ Actual font object that is needed for every text object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_a41bde5662e0e3a023166e5b134488bc2}\label{class_text_a41bde5662e0e3a023166e5b134488bc2}} 
+\index{Text@{Text}!getText@{getText}}
+\index{getText@{getText}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{getText()}{getText()}}
+{\footnotesize\ttfamily std\+::string Text\+::get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the string text message of a text. 
+
+\begin{DoxyReturn}{Returns}
+the string text message of a text. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}\label{class_text_af9f5cfa6f83a94e12cc82fa5ed16339e}} 
+\index{Text@{Text}!isVisible@{isVisible}}
+\index{isVisible@{isVisible}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{isVisible()}{isVisible()}}
+{\footnotesize\ttfamily bool Text\+::is\+Visible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+whether \mbox{\hyperlink{class_text}{Text}} is visible. 
+
+\begin{DoxyReturn}{Returns}
+whether the text is visible 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_af748a315fd3534226283f61bd10d44b8}\label{class_text_af748a315fd3534226283f61bd10d44b8}} 
+\index{Text@{Text}!loadFonts@{loadFonts}}
+\index{loadFonts@{loadFonts}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{loadFonts()}{loadFonts()}}
+{\footnotesize\ttfamily bool Text\+::load\+Fonts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Loads all the text fonts; Its character width, offsets etc. 
+
+\begin{DoxyReturn}{Returns}
+whether the fonts are loaded. Returns false if already loaded 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}\label{class_text_a8e32fcf03ac0dbb4041f3fd122fb132d}} 
+\index{Text@{Text}!Render@{Render}}
+\index{Render@{Render}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Text\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{scene }\end{DoxyParamCaption})}
+
+
+
+Renders the text object on the associated scene that is parsed in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & -\/ \mbox{\hyperlink{class_scene}{Scene}} to render text on \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a60ed7c4137d0389255e009a4b2bc7223}\label{class_text_a60ed7c4137d0389255e009a4b2bc7223}} 
+\index{Text@{Text}!setColor@{setColor}}
+\index{setColor@{setColor}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setColor()}{setColor()}}
+{\footnotesize\ttfamily void Text\+::set\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_color}{Color}}}]{color }\end{DoxyParamCaption})}
+
+
+
+sets the color of the text. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ the color for the text to change to. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_afb8fd38b041da45ac0f3d93bbe368091}\label{class_text_afb8fd38b041da45ac0f3d93bbe368091}} 
+\index{Text@{Text}!setSize@{setSize}}
+\index{setSize@{setSize}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setSize()}{setSize()}}
+{\footnotesize\ttfamily void Text\+::set\+Size (\begin{DoxyParamCaption}\item[{float}]{size }\end{DoxyParamCaption})}
+
+
+
+set the font size of the \mbox{\hyperlink{class_text}{Text}} Object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ new font size \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a435c4be4047ee06fbc5babd00460675c}\label{class_text_a435c4be4047ee06fbc5babd00460675c}} 
+\index{Text@{Text}!setTextOffsetFromTopLeft@{setTextOffsetFromTopLeft}}
+\index{setTextOffsetFromTopLeft@{setTextOffsetFromTopLeft}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setTextOffsetFromTopLeft()}{setTextOffsetFromTopLeft()}}
+{\footnotesize\ttfamily void Text\+::set\+Text\+Offset\+From\+Top\+Left (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption})}
+
+
+
+Set the text offset from its UIInfo origin position. This is used to allow Buttons to have text that are not directly at the border of a button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ x\+Offset \\
+\hline
+{\em y} & -\/ y\+Offset \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a49f638637347490b8ae216852660c871}\label{class_text_a49f638637347490b8ae216852660c871}} 
+\index{Text@{Text}!setTextString@{setTextString}}
+\index{setTextString@{setTextString}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setTextString()}{setTextString()}}
+{\footnotesize\ttfamily void Text\+::set\+Text\+String (\begin{DoxyParamCaption}\item[{std\+::string}]{txt }\end{DoxyParamCaption})}
+
+
+
+Sets the text of the \mbox{\hyperlink{class_text}{Text}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em txt} & -\/ the new text \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a74ef5f5bec7468a3138a8aead0e49921}\label{class_text_a74ef5f5bec7468a3138a8aead0e49921}} 
+\index{Text@{Text}!setTextStringStream@{setTextStringStream}}
+\index{setTextStringStream@{setTextStringStream}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setTextStringStream()}{setTextStringStream()}}
+{\footnotesize\ttfamily void Text\+::set\+Text\+String\+Stream (\begin{DoxyParamCaption}\item[{std\+::ostringstream}]{txt }\end{DoxyParamCaption})}
+
+
+
+Sets the \mbox{\hyperlink{class_text}{Text}} of the \mbox{\hyperlink{class_text}{Text}} Object through an ostringstream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em txt} & -\/ the new text \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a9be754295963c936a31e94be71d4479f}\label{class_text_a9be754295963c936a31e94be71d4479f}} 
+\index{Text@{Text}!setVisisble@{setVisisble}}
+\index{setVisisble@{setVisisble}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{setVisisble()}{setVisisble()}}
+{\footnotesize\ttfamily void Text\+::set\+Visisble (\begin{DoxyParamCaption}\item[{bool}]{visibility }\end{DoxyParamCaption})}
+
+
+
+set the visibility of the \mbox{\hyperlink{class_text}{Text}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em visibility} & -\/ whether it is visible \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_a90b21d5f128e977454182d85c359fd37}\label{class_text_a90b21d5f128e977454182d85c359fd37}} 
+\index{Text@{Text}!splitText@{splitText}}
+\index{splitText@{splitText}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{splitText()}{splitText()}}
+{\footnotesize\ttfamily void Text\+::split\+Text (\begin{DoxyParamCaption}\item[{std\+::string}]{txt,  }\item[{char}]{delim,  }\item[{std\+::vector$<$ std\+::string $>$ \&}]{out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Splitter function to split strings by a delim. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em txt} & -\/ \mbox{\hyperlink{class_text}{Text}} to split \\
+\hline
+{\em delim} & -\/ Splitting by character \\
+\hline
+{\em out} & -\/ out vector of the splitted string. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_ac88aeffde9629b302a22df09c2e4a668}\label{class_text_ac88aeffde9629b302a22df09c2e4a668}} 
+\index{Text@{Text}!updateUIInfo@{updateUIInfo}}
+\index{updateUIInfo@{updateUIInfo}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{updateUIInfo()}{updateUIInfo()}}
+{\footnotesize\ttfamily void Text\+::update\+UIInfo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_i_item}{UIItem}}}]{info }\end{DoxyParamCaption})}
+
+
+
+set the UIInfo of the text object 
+
+
+\begin{DoxyParams}{Parameters}
+{\em info} & -\/ \mbox{\hyperlink{struct_u_i_item}{UIItem}} struct containing origin x,y etc. \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

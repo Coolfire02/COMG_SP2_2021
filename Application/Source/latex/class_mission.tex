@@ -9,37 +9,27 @@
 
 {\ttfamily \#include $<$Mission.\+h$>$}
 
-
-
-Collaboration diagram for Mission\+:
-% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_mission_ae7d3744f928865a38777abfc65efa64b}\label{class_mission_ae7d3744f928865a38777abfc65efa64b}} 
-{\bfseries Mission} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}, \mbox{\hyperlink{struct_mission_info}{Mission\+Info}})
+\mbox{\hyperlink{class_mission_ae7d3744f928865a38777abfc65efa64b}{Mission}} (\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}, \mbox{\hyperlink{struct_mission_info}{Mission\+Info}})
 \item 
-\mbox{\Hypertarget{class_mission_abe923b689baaf23e28d03fe08ec1429a}\label{class_mission_abe923b689baaf23e28d03fe08ec1429a}} 
-void {\bfseries add\+Progress} (float progress)
+\mbox{\hyperlink{class_mission_ad1a61b34162393ac42be5955d9772921}{$\sim$\+Mission}} ()
 \item 
-\mbox{\Hypertarget{class_mission_a986aff997fde4cd279ed40b2d129cf10}\label{class_mission_a986aff997fde4cd279ed40b2d129cf10}} 
-void {\bfseries set\+Progress} (float progress)
-\item 
-\mbox{\Hypertarget{class_mission_aa83464ec00cfd22067d381a57bea2d9e}\label{class_mission_aa83464ec00cfd22067d381a57bea2d9e}} 
-bool {\bfseries is\+Completed} ()
-\item 
-\mbox{\Hypertarget{class_mission_a1872949936270f789d75910198469639}\label{class_mission_a1872949936270f789d75910198469639}} 
-float {\bfseries get\+Progress} ()
-\item 
-\mbox{\Hypertarget{class_mission_a287947ec12b20725436f755e58436532}\label{class_mission_a287947ec12b20725436f755e58436532}} 
-GEOMETRY\+\_\+\+TYPE {\bfseries get\+Preview\+Image} ()
-\item 
-\mbox{\Hypertarget{class_mission_aa09ee0a66fd2b2cc611de9e507e04ffb}\label{class_mission_aa09ee0a66fd2b2cc611de9e507e04ffb}} 
-\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} {\bfseries get\+Type} ()
-\item 
-\mbox{\Hypertarget{class_mission_a8d1c48353daff1eb0ff1b98197f65b30}\label{class_mission_a8d1c48353daff1eb0ff1b98197f65b30}} 
-\mbox{\hyperlink{struct_mission_info}{Mission\+Info}} {\bfseries get\+Mission\+Info} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_mission_abe923b689baaf23e28d03fe08ec1429a}{add\+Progress}} (float progress)
+\begin{DoxyCompactList}\small\item\em Add progress to a mission only. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mission_a986aff997fde4cd279ed40b2d129cf10}{set\+Progress}} (float progress)
+\begin{DoxyCompactList}\small\item\em set the progress of a mission. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_mission_aa83464ec00cfd22067d381a57bea2d9e}{is\+Completed}} ()
+\begin{DoxyCompactList}\small\item\em Checks if mission is complete. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_mission_a1872949936270f789d75910198469639}{get\+Progress}} ()
+\begin{DoxyCompactList}\small\item\em get the current progress of the mission. \end{DoxyCompactList}\item 
+GEOMETRY\+\_\+\+TYPE \mbox{\hyperlink{class_mission_a287947ec12b20725436f755e58436532}{get\+Preview\+Image}} ()
+\begin{DoxyCompactList}\small\item\em Get the preview image of the \mbox{\hyperlink{class_mission}{Mission}}, currently unused but may be used in the future. Maybe in a Detailed Missions UI, u can have a picture that is associated with the mission. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} \mbox{\hyperlink{class_mission_aa09ee0a66fd2b2cc611de9e507e04ffb}{get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em get the type of mission. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_mission_info}{Mission\+Info}} \mbox{\hyperlink{class_mission_a8d1c48353daff1eb0ff1b98197f65b30}{get\+Mission\+Info}} ()
+\begin{DoxyCompactList}\small\item\em get the mission info struct of the mission containing its information. i.\+e. mission objective msg, completion msg, the required/blacklisted pre missions etc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -48,6 +38,128 @@ GEOMETRY\+\_\+\+TYPE {\bfseries get\+Preview\+Image} ()
 \begin{DoxyVerb}    Class Mission:
 \end{DoxyVerb}
  
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_mission_ae7d3744f928865a38777abfc65efa64b}\label{class_mission_ae7d3744f928865a38777abfc65efa64b}} 
+\index{Mission@{Mission}!Mission@{Mission}}
+\index{Mission@{Mission}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{Mission()}{Mission()}}
+{\footnotesize\ttfamily Mission\+::\+Mission (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}}}]{type,  }\item[{\mbox{\hyperlink{struct_mission_info}{Mission\+Info}}}]{mission\+Info }\end{DoxyParamCaption})}
+
+Constructor of a mission object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ \mbox{\hyperlink{class_mission}{Mission}} type based of MISSIONTYPE Enum \\
+\hline
+{\em mission\+Info} & -\/ Preloaded info of our \mbox{\hyperlink{class_mission}{Mission}}. (Loaded while loading the lang file) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mission_ad1a61b34162393ac42be5955d9772921}\label{class_mission_ad1a61b34162393ac42be5955d9772921}} 
+\index{Mission@{Mission}!````~Mission@{$\sim$Mission}}
+\index{````~Mission@{$\sim$Mission}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{$\sim$Mission()}{~Mission()}}
+{\footnotesize\ttfamily Mission\+::$\sim$\+Mission (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor of a \mbox{\hyperlink{class_mission}{Mission}} Object. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mission_abe923b689baaf23e28d03fe08ec1429a}\label{class_mission_abe923b689baaf23e28d03fe08ec1429a}} 
+\index{Mission@{Mission}!addProgress@{addProgress}}
+\index{addProgress@{addProgress}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{addProgress()}{addProgress()}}
+{\footnotesize\ttfamily void Mission\+::add\+Progress (\begin{DoxyParamCaption}\item[{float}]{progress }\end{DoxyParamCaption})}
+
+
+
+Add progress to a mission only. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em progress} & -\/ progress to add \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mission_a8d1c48353daff1eb0ff1b98197f65b30}\label{class_mission_a8d1c48353daff1eb0ff1b98197f65b30}} 
+\index{Mission@{Mission}!getMissionInfo@{getMissionInfo}}
+\index{getMissionInfo@{getMissionInfo}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{getMissionInfo()}{getMissionInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_mission_info}{Mission\+Info}} Mission\+::get\+Mission\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get the mission info struct of the mission containing its information. i.\+e. mission objective msg, completion msg, the required/blacklisted pre missions etc. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_mission_info}{Mission\+Info}} of the mission object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_a287947ec12b20725436f755e58436532}\label{class_mission_a287947ec12b20725436f755e58436532}} 
+\index{Mission@{Mission}!getPreviewImage@{getPreviewImage}}
+\index{getPreviewImage@{getPreviewImage}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{getPreviewImage()}{getPreviewImage()}}
+{\footnotesize\ttfamily GEOMETRY\+\_\+\+TYPE Mission\+::get\+Preview\+Image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the preview image of the \mbox{\hyperlink{class_mission}{Mission}}, currently unused but may be used in the future. Maybe in a Detailed Missions UI, u can have a picture that is associated with the mission. 
+
+\begin{DoxyReturn}{Returns}
+get the current image of the mission 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_a1872949936270f789d75910198469639}\label{class_mission_a1872949936270f789d75910198469639}} 
+\index{Mission@{Mission}!getProgress@{getProgress}}
+\index{getProgress@{getProgress}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{getProgress()}{getProgress()}}
+{\footnotesize\ttfamily float Mission\+::get\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get the current progress of the mission. 
+
+\begin{DoxyReturn}{Returns}
+the current progress 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_aa09ee0a66fd2b2cc611de9e507e04ffb}\label{class_mission_aa09ee0a66fd2b2cc611de9e507e04ffb}} 
+\index{Mission@{Mission}!getType@{getType}}
+\index{getType@{getType}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_mission_8h_a6f7365448bc7c03b16e7909978b5d095}{MISSIONTYPE}} Mission\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get the type of mission. 
+
+\begin{DoxyReturn}{Returns}
+MISSIONTYPE enum of type of mission. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_aa83464ec00cfd22067d381a57bea2d9e}\label{class_mission_aa83464ec00cfd22067d381a57bea2d9e}} 
+\index{Mission@{Mission}!isCompleted@{isCompleted}}
+\index{isCompleted@{isCompleted}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{isCompleted()}{isCompleted()}}
+{\footnotesize\ttfamily bool Mission\+::is\+Completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if mission is complete. 
+
+\begin{DoxyReturn}{Returns}
+is mission completed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mission_a986aff997fde4cd279ed40b2d129cf10}\label{class_mission_a986aff997fde4cd279ed40b2d129cf10}} 
+\index{Mission@{Mission}!setProgress@{setProgress}}
+\index{setProgress@{setProgress}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{setProgress()}{setProgress()}}
+{\footnotesize\ttfamily void Mission\+::set\+Progress (\begin{DoxyParamCaption}\item[{float}]{progress }\end{DoxyParamCaption})}
+
+
+
+set the progress of a mission. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em progress} & -\/ the new current progress \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

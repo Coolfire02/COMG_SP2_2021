@@ -74,64 +74,490 @@ $(function() {
  <a href="class_mission_manager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_mission_manager_8h_source.html">MissionManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for MissionManager:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_mission_manager__coll__graph.png" border="0" usemap="#a_mission_manager_coll__map" alt="Collaboration graph"/></div>
-</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a32ac7d23b4e5b970f3524d4ee5a78167"><td class="memItemLeft" align="right" valign="top"><a id="a32ac7d23b4e5b970f3524d4ee5a78167"></a>
-std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCompletedMissions</b> ()</td></tr>
+<tr class="memitem:a43758c0b04143e119400d7867173a6c9"><td class="memItemLeft" align="right" valign="top"><a id="a43758c0b04143e119400d7867173a6c9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a43758c0b04143e119400d7867173a6c9">MissionManager</a> ()</td></tr>
+<tr class="memdesc:a43758c0b04143e119400d7867173a6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor for a <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Manager instance. <br /></td></tr>
+<tr class="separator:a43758c0b04143e119400d7867173a6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0fa7a44d5d7404df6560f7036b477d6"><td class="memItemLeft" align="right" valign="top"><a id="ab0fa7a44d5d7404df6560f7036b477d6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#ab0fa7a44d5d7404df6560f7036b477d6">~MissionManager</a> ()</td></tr>
+<tr class="memdesc:ab0fa7a44d5d7404df6560f7036b477d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor for the <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Manager, clearing up <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Pointers. <br /></td></tr>
+<tr class="separator:ab0fa7a44d5d7404df6560f7036b477d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ac7d23b4e5b970f3524d4ee5a78167"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a32ac7d23b4e5b970f3524d4ee5a78167">getCompletedMissions</a> ()</td></tr>
+<tr class="memdesc:a32ac7d23b4e5b970f3524d4ee5a78167"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the list of compelted misisons so far.  <a href="class_mission_manager.html#a32ac7d23b4e5b970f3524d4ee5a78167">More...</a><br /></td></tr>
 <tr class="separator:a32ac7d23b4e5b970f3524d4ee5a78167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af51dcafbf813f22806a54dd8fa2404a8"><td class="memItemLeft" align="right" valign="top"><a id="af51dcafbf813f22806a54dd8fa2404a8"></a>
-std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCompletableMissions</b> ()</td></tr>
+<tr class="memitem:af51dcafbf813f22806a54dd8fa2404a8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#af51dcafbf813f22806a54dd8fa2404a8">getCompletableMissions</a> ()</td></tr>
+<tr class="memdesc:af51dcafbf813f22806a54dd8fa2404a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the list of compeletable missions currently.  <a href="class_mission_manager.html#af51dcafbf813f22806a54dd8fa2404a8">More...</a><br /></td></tr>
 <tr class="separator:af51dcafbf813f22806a54dd8fa2404a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1abc2afcd02e2b6936db0a5d8dde89b5"><td class="memItemLeft" align="right" valign="top"><a id="a1abc2afcd02e2b6936db0a5d8dde89b5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>missionIsCompletable</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt; &amp;completable)</td></tr>
+<tr class="memitem:a1abc2afcd02e2b6936db0a5d8dde89b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a1abc2afcd02e2b6936db0a5d8dde89b5">missionIsCompletable</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt; &amp;completable)</td></tr>
+<tr class="memdesc:a1abc2afcd02e2b6936db0a5d8dde89b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a mission is completable.  <a href="class_mission_manager.html#a1abc2afcd02e2b6936db0a5d8dde89b5">More...</a><br /></td></tr>
 <tr class="separator:a1abc2afcd02e2b6936db0a5d8dde89b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d89face55913b54b30d5c0d22730cbe"><td class="memItemLeft" align="right" valign="top"><a id="a3d89face55913b54b30d5c0d22730cbe"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>addProgress</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memitem:a3d89face55913b54b30d5c0d22730cbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a3d89face55913b54b30d5c0d22730cbe">addProgress</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memdesc:a3d89face55913b54b30d5c0d22730cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add progress to a MissionType. Progress only adds if its currently completable.  <a href="class_mission_manager.html#a3d89face55913b54b30d5c0d22730cbe">More...</a><br /></td></tr>
 <tr class="separator:a3d89face55913b54b30d5c0d22730cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5172eae3a14bec46a47162c5ccf8f880"><td class="memItemLeft" align="right" valign="top"><a id="a5172eae3a14bec46a47162c5ccf8f880"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>setProgress</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memitem:a5172eae3a14bec46a47162c5ccf8f880"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a5172eae3a14bec46a47162c5ccf8f880">setProgress</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memdesc:a5172eae3a14bec46a47162c5ccf8f880"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the progress of the mission but only if its compeltable.  <a href="class_mission_manager.html#a5172eae3a14bec46a47162c5ccf8f880">More...</a><br /></td></tr>
 <tr class="separator:a5172eae3a14bec46a47162c5ccf8f880"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a37c7981f708f69abbcb0e599f9f4ec"><td class="memItemLeft" align="right" valign="top"><a id="a0a37c7981f708f69abbcb0e599f9f4ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addUnsafeProgress</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memitem:a0a37c7981f708f69abbcb0e599f9f4ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a0a37c7981f708f69abbcb0e599f9f4ec">addUnsafeProgress</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type, float progress)</td></tr>
+<tr class="memdesc:a0a37c7981f708f69abbcb0e599f9f4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add progress to a MissionType. Progress owill add regardless if its completable.  <a href="class_mission_manager.html#a0a37c7981f708f69abbcb0e599f9f4ec">More...</a><br /></td></tr>
 <tr class="separator:a0a37c7981f708f69abbcb0e599f9f4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad834fdd1c73795a8d03e81e7cea4c0cc"><td class="memItemLeft" align="right" valign="top"><a id="ad834fdd1c73795a8d03e81e7cea4c0cc"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getMissionProgress</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type)</td></tr>
+<tr class="memitem:ad834fdd1c73795a8d03e81e7cea4c0cc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#ad834fdd1c73795a8d03e81e7cea4c0cc">getMissionProgress</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type)</td></tr>
+<tr class="memdesc:ad834fdd1c73795a8d03e81e7cea4c0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the mission progress.  <a href="class_mission_manager.html#ad834fdd1c73795a8d03e81e7cea4c0cc">More...</a><br /></td></tr>
 <tr class="separator:ad834fdd1c73795a8d03e81e7cea4c0cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad39da61b1a2a4e44fc356b5a6ff0bdd1"><td class="memItemLeft" align="right" valign="top"><a id="ad39da61b1a2a4e44fc356b5a6ff0bdd1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (double dt)</td></tr>
+<tr class="memitem:ad39da61b1a2a4e44fc356b5a6ff0bdd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#ad39da61b1a2a4e44fc356b5a6ff0bdd1">Update</a> (double dt)</td></tr>
+<tr class="memdesc:ad39da61b1a2a4e44fc356b5a6ff0bdd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update function for mission manager. Processes displaying mission completes on screen. and getting the list of missions completed this current tick etc.  <a href="class_mission_manager.html#ad39da61b1a2a4e44fc356b5a6ff0bdd1">More...</a><br /></td></tr>
 <tr class="separator:ad39da61b1a2a4e44fc356b5a6ff0bdd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36490a68ea15398943231e7f03059fb7"><td class="memItemLeft" align="right" valign="top"><a id="a36490a68ea15398943231e7f03059fb7"></a>
-std::vector&lt; <a class="el" href="class_mission.html">Mission</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getJustCompletedMissions</b> ()</td></tr>
+<tr class="memitem:a36490a68ea15398943231e7f03059fb7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_mission.html">Mission</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a36490a68ea15398943231e7f03059fb7">getJustCompletedMissions</a> ()</td></tr>
+<tr class="memdesc:a36490a68ea15398943231e7f03059fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">gets the list of just completed missions.  <a href="class_mission_manager.html#a36490a68ea15398943231e7f03059fb7">More...</a><br /></td></tr>
 <tr class="separator:a36490a68ea15398943231e7f03059fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afae62dd80f25b22051c4c0365cf44ba1"><td class="memItemLeft" align="right" valign="top"><a id="afae62dd80f25b22051c4c0365cf44ba1"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>loadMissionLang</b> ()</td></tr>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#afae62dd80f25b22051c4c0365cf44ba1">loadMissionLang</a> ()</td></tr>
+<tr class="memdesc:afae62dd80f25b22051c4c0365cf44ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all mission information from the text file. called in Applciation::Run() <br /></td></tr>
 <tr class="separator:afae62dd80f25b22051c4c0365cf44ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a745e59e96acc20c4512554dd3d25dde3"><td class="memItemLeft" align="right" valign="top"><a id="a745e59e96acc20c4512554dd3d25dde3"></a>
-static <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getMissionByEnumName</b> (std::string name)</td></tr>
+<tr class="memitem:a745e59e96acc20c4512554dd3d25dde3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a745e59e96acc20c4512554dd3d25dde3">getMissionByEnumName</a> (std::string name)</td></tr>
+<tr class="memdesc:a745e59e96acc20c4512554dd3d25dde3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> ENUM TYPE by its String through the mTypeTable of Enums and associated Strings.  <a href="class_mission_manager.html#a745e59e96acc20c4512554dd3d25dde3">More...</a><br /></td></tr>
 <tr class="separator:a745e59e96acc20c4512554dd3d25dde3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51026454621c3b6467ca0864cedf71d6"><td class="memItemLeft" align="right" valign="top"><a id="a51026454621c3b6467ca0864cedf71d6"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getMissionNameFormatted</b> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type)</td></tr>
+<tr class="memitem:a51026454621c3b6467ca0864cedf71d6"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a51026454621c3b6467ca0864cedf71d6">getMissionNameFormatted</a> (<a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> type)</td></tr>
+<tr class="memdesc:a51026454621c3b6467ca0864cedf71d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the mission name beautified. For e.g., MISSION_FINALE_REWARDING would return. <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Finale Rewarding. Title Case and removes _  <a href="class_mission_manager.html#a51026454621c3b6467ca0864cedf71d6">More...</a><br /></td></tr>
 <tr class="separator:a51026454621c3b6467ca0864cedf71d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36ef351adf3efc7ef29d4b73a61c10ee"><td class="memItemLeft" align="right" valign="top"><a id="a36ef351adf3efc7ef29d4b73a61c10ee"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>split</b> (std::string txt, char delim, std::vector&lt; std::string &gt; &amp;out)</td></tr>
+<tr class="memitem:a36ef351adf3efc7ef29d4b73a61c10ee"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a36ef351adf3efc7ef29d4b73a61c10ee">split</a> (std::string txt, char delim, std::vector&lt; std::string &gt; &amp;out)</td></tr>
+<tr class="memdesc:a36ef351adf3efc7ef29d4b73a61c10ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splitter function to split a string by a delim.  <a href="class_mission_manager.html#a36ef351adf3efc7ef29d4b73a61c10ee">More...</a><br /></td></tr>
 <tr class="separator:a36ef351adf3efc7ef29d4b73a61c10ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a249cba2de7eac88f7a79606606da8dbc"><td class="memItemLeft" align="right" valign="top"><a id="a249cba2de7eac88f7a79606606da8dbc"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>stringTrim</b> (std::string str)</td></tr>
+<tr class="memitem:a249cba2de7eac88f7a79606606da8dbc"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mission_manager.html#a249cba2de7eac88f7a79606606da8dbc">stringTrim</a> (std::string str)</td></tr>
+<tr class="memdesc:a249cba2de7eac88f7a79606606da8dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">String trimmer. Removes the spaces.  <a href="class_mission_manager.html#a249cba2de7eac88f7a79606606da8dbc">More...</a><br /></td></tr>
 <tr class="separator:a249cba2de7eac88f7a79606606da8dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles all Missions in the <a class="el" href="class_game.html" title="Handles the entire Game. (Scenes, Settings, Managers, etc.)">Game</a>. </p>
 <pre class="fragment">    Class MissionManager:
-</pre> </div><hr/>The documentation for this class was generated from the following files:<ul>
+</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3d89face55913b54b30d5c0d22730cbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d89face55913b54b30d5c0d22730cbe">&#9670;&nbsp;</a></span>addProgress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MissionManager::addProgress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>progress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add progress to a MissionType. Progress only adds if its currently completable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> type to add progress to </td></tr>
+    <tr><td class="paramname">progress</td><td>- Amount of progress </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- if the progress could be added </dd></dl>
+
+</div>
+</div>
+<a id="a0a37c7981f708f69abbcb0e599f9f4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a37c7981f708f69abbcb0e599f9f4ec">&#9670;&nbsp;</a></span>addUnsafeProgress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MissionManager::addUnsafeProgress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>progress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add progress to a MissionType. Progress owill add regardless if its completable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> type to add progress to </td></tr>
+    <tr><td class="paramname">progress</td><td>- Amount of progress </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af51dcafbf813f22806a54dd8fa2404a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51dcafbf813f22806a54dd8fa2404a8">&#9670;&nbsp;</a></span>getCompletableMissions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt; MissionManager::getCompletableMissions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the list of compeletable missions currently. </p>
+<dl class="section return"><dt>Returns</dt><dd>a vector of MISSIONTYPE missions that are completable currently. </dd></dl>
+
+</div>
+</div>
+<a id="a32ac7d23b4e5b970f3524d4ee5a78167"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ac7d23b4e5b970f3524d4ee5a78167">&#9670;&nbsp;</a></span>getCompletedMissions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt; MissionManager::getCompletedMissions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gets the list of compelted misisons so far. </p>
+<dl class="section return"><dt>Returns</dt><dd>a vector of MISSION_TYPE of completed missions </dd></dl>
+
+</div>
+</div>
+<a id="a36490a68ea15398943231e7f03059fb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36490a68ea15398943231e7f03059fb7">&#9670;&nbsp;</a></span>getJustCompletedMissions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_mission.html">Mission</a> * &gt; MissionManager::getJustCompletedMissions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>gets the list of just completed missions. </p>
+<dl class="section return"><dt>Returns</dt><dd>returns the missions completed this tick </dd></dl>
+
+</div>
+</div>
+<a id="a745e59e96acc20c4512554dd3d25dde3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a745e59e96acc20c4512554dd3d25dde3">&#9670;&nbsp;</a></span>getMissionByEnumName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> MissionManager::getMissionByEnumName </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> ENUM TYPE by its String through the mTypeTable of Enums and associated Strings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>- Name of enum in its full caps and proper statement </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- The mission type enum associated with this string </dd></dl>
+
+</div>
+</div>
+<a id="a51026454621c3b6467ca0864cedf71d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51026454621c3b6467ca0864cedf71d6">&#9670;&nbsp;</a></span>getMissionNameFormatted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MissionManager::getMissionNameFormatted </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get the mission name beautified. For e.g., MISSION_FINALE_REWARDING would return. <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Finale Rewarding. Title Case and removes _ </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- MissionType Enum </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- the beautified name in std::string form </dd></dl>
+
+</div>
+</div>
+<a id="ad834fdd1c73795a8d03e81e7cea4c0cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad834fdd1c73795a8d03e81e7cea4c0cc">&#9670;&nbsp;</a></span>getMissionProgress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MissionManager::getMissionProgress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the mission progress. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the progress of the mission type requested </dd></dl>
+
+</div>
+</div>
+<a id="a1abc2afcd02e2b6936db0a5d8dde89b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1abc2afcd02e2b6936db0a5d8dde89b5">&#9670;&nbsp;</a></span>missionIsCompletable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MissionManager::missionIsCompletable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>completable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a mission is completable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- The Misison Type to check </td></tr>
+    <tr><td class="paramname">completable</td><td>- The list of completable missions currently </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if it is completable </dd></dl>
+
+</div>
+</div>
+<a id="a5172eae3a14bec46a47162c5ccf8f880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5172eae3a14bec46a47162c5ccf8f880">&#9670;&nbsp;</a></span>setProgress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MissionManager::setProgress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_mission_8h.html#a6f7365448bc7c03b16e7909978b5d095">MISSIONTYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>progress</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sets the progress of the mission but only if its compeltable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- <a class="el" href="class_mission.html" title="Mission Objects handled in Mission Handler for Game&#39;s Missions.">Mission</a> Type to set the progress for </td></tr>
+    <tr><td class="paramname">progress</td><td>- new progress to be set to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>whether the progress was successfully updated </dd></dl>
+
+</div>
+</div>
+<a id="a36ef351adf3efc7ef29d4b73a61c10ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36ef351adf3efc7ef29d4b73a61c10ee">&#9670;&nbsp;</a></span>split()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MissionManager::split </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>txt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>delim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Splitter function to split a string by a delim. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txt</td><td>- The text to split </td></tr>
+    <tr><td class="paramname">delim</td><td>- the character to split by </td></tr>
+    <tr><td class="paramname">out</td><td>- the output list of strings after the split </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a249cba2de7eac88f7a79606606da8dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a249cba2de7eac88f7a79606606da8dbc">&#9670;&nbsp;</a></span>stringTrim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MissionManager::stringTrim </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>String trimmer. Removes the spaces. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- string to trim </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the string without spaces </dd></dl>
+
+</div>
+</div>
+<a id="ad39da61b1a2a4e44fc356b5a6ff0bdd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39da61b1a2a4e44fc356b5a6ff0bdd1">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MissionManager::Update </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update function for mission manager. Processes displaying mission completes on screen. and getting the list of missions completed this current tick etc. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>- delata time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_mission_manager_8h_source.html">MissionManager.h</a></li>
 <li>MissionManager.cpp</li>
 </ul>

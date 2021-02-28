@@ -9,89 +9,75 @@
 
 {\ttfamily \#include $<$Entity.\+h$>$}
 
-
-
-Inheritance diagram for Entity\+:
-% FIG 0
-
-
-Collaboration diagram for Entity\+:
-% FIG 1
+Inheritance diagram for Entity\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_entity}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_entity_a73da5ca335b83ed43f950ba7a4644940}\label{class_entity_a73da5ca335b83ed43f950ba7a4644940}} 
-{\bfseries Entity} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name)
-\item 
-\mbox{\Hypertarget{class_entity_aaeda6f1e6e457eb9f9fec7070967c5e8}\label{class_entity_aaeda6f1e6e457eb9f9fec7070967c5e8}} 
-{\bfseries Entity} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name, int health)
-\item 
-\mbox{\Hypertarget{class_entity_a9b6c8790a9807853f80b22fe07357637}\label{class_entity_a9b6c8790a9807853f80b22fe07357637}} 
-{\bfseries Entity} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name, Vector3 pos)
-\item 
-\mbox{\Hypertarget{class_entity_ab824e4f163924eb4f136d3e2ff759897}\label{class_entity_ab824e4f163924eb4f136d3e2ff759897}} 
-std\+::string {\bfseries get\+Name} ()
-\item 
-\mbox{\Hypertarget{class_entity_a4d78d5c5061893ed4464fc014adfd6b8}\label{class_entity_a4d78d5c5061893ed4464fc014adfd6b8}} 
-bool {\bfseries is\+Dead} ()
-\item 
-\mbox{\Hypertarget{class_entity_a19268c61e30d32631f0bfc109aeaf544}\label{class_entity_a19268c61e30d32631f0bfc109aeaf544}} 
-void {\bfseries set\+Dead} (bool)
-\item 
-\mbox{\Hypertarget{class_entity_ad121c9c8826f7765f088262330a2083f}\label{class_entity_ad121c9c8826f7765f088262330a2083f}} 
-\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ {\bfseries get\+Entity\+Data} ()
-\item 
-\mbox{\Hypertarget{class_entity_a0e858f7af590c3edaf8b5771e6b38375}\label{class_entity_a0e858f7af590c3edaf8b5771e6b38375}} 
-\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ {\bfseries get\+Old\+Entity\+Data} ()
-\item 
-\mbox{\Hypertarget{class_entity_af8efdd641e69d638387f46132c7a6525}\label{class_entity_af8efdd641e69d638387f46132c7a6525}} 
-bool {\bfseries using\+New\+Data} ()
-\item 
-\mbox{\Hypertarget{class_entity_af5bb1c5c457ea3c482f1be967b456efd}\label{class_entity_af5bb1c5c457ea3c482f1be967b456efd}} 
-ENTITYTYPE {\bfseries get\+Type} ()
-\item 
-\mbox{\Hypertarget{class_entity_a641efc78c56e8b56b4f8a5e28aeead0a}\label{class_entity_a641efc78c56e8b56b4f8a5e28aeead0a}} 
-\mbox{\hyperlink{class_hit_box}{Hit\+Box}} $\ast$ {\bfseries get\+Hit\+Box} ()
-\item 
-\mbox{\Hypertarget{class_entity_ab4dffdf0df47b482dc49aec7aade106b}\label{class_entity_ab4dffdf0df47b482dc49aec7aade106b}} 
-Mtx44 {\bfseries get\+Current\+Mtx} ()
-\item 
-\mbox{\Hypertarget{class_entity_acfd0063b57f049f6278c4927f6e6122c}\label{class_entity_acfd0063b57f049f6278c4927f6e6122c}} 
-const \mbox{\hyperlink{class_scene}{Scene}} $\ast$ {\bfseries get\+Associated\+Scene} ()
-\item 
-\mbox{\Hypertarget{class_entity_a098d827982916bd7b3d13f6858c520d7}\label{class_entity_a098d827982916bd7b3d13f6858c520d7}} 
-bool {\bfseries is\+Visible} ()
-\item 
-\mbox{\Hypertarget{class_entity_ac5878868a6dca28949e099ffa892f0cd}\label{class_entity_ac5878868a6dca28949e099ffa892f0cd}} 
-void {\bfseries set\+Visibility} (bool)
-\item 
-\mbox{\Hypertarget{class_entity_ac9a6f4d749230efae58af4984744d780}\label{class_entity_ac9a6f4d749230efae58af4984744d780}} 
-void {\bfseries set\+Type} (ENTITYTYPE)
-\item 
+\mbox{\Hypertarget{class_entity_a980f368aa07ce358583982821533a54a}\label{class_entity_a980f368aa07ce358583982821533a54a}} 
+\mbox{\hyperlink{class_entity_a980f368aa07ce358583982821533a54a}{Entity}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor of entity that does nothing. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_entity_a73da5ca335b83ed43f950ba7a4644940}{Entity}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name)
+\begin{DoxyCompactList}\small\item\em Creates an entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_entity_aaeda6f1e6e457eb9f9fec7070967c5e8}{Entity}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name, int health)
+\begin{DoxyCompactList}\small\item\em Creates an entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_entity_a9b6c8790a9807853f80b22fe07357637}{Entity}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$associated\+Scene, ENTITYTYPE type, std\+::string name, Vector3 pos)
+\begin{DoxyCompactList}\small\item\em Creates an entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}\label{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}} 
+\mbox{\hyperlink{class_entity_adf6d3f7cb1b2ba029b6b048a395cc8ae}{$\sim$\+Entity}} ()
+\begin{DoxyCompactList}\small\item\em default destructor of entity, clearing up pointers. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_entity_ab824e4f163924eb4f136d3e2ff759897}{get\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Get the name of an \mbox{\hyperlink{class_entity}{Entity}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_entity_a4d78d5c5061893ed4464fc014adfd6b8}{is\+Dead}} ()
+\begin{DoxyCompactList}\small\item\em Checks if an entity is dead. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_a19268c61e30d32631f0bfc109aeaf544}{set\+Dead}} (bool)
+\begin{DoxyCompactList}\small\item\em Sets the entity dead attribute. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ \mbox{\hyperlink{class_entity_ad121c9c8826f7765f088262330a2083f}{get\+Entity\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Get the entity data of an entity. This stores its TRS. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ \mbox{\hyperlink{class_entity_a0e858f7af590c3edaf8b5771e6b38375}{get\+Old\+Entity\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Get the old entity data of an entity. This is used for movement cancellation and a few other processes. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_entity_af8efdd641e69d638387f46132c7a6525}{using\+New\+Data}} ()
+\begin{DoxyCompactList}\small\item\em checks if movement is cancelled basically. \end{DoxyCompactList}\item 
+ENTITYTYPE \mbox{\hyperlink{class_entity_af5bb1c5c457ea3c482f1be967b456efd}{get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Get the type of an \mbox{\hyperlink{class_entity}{Entity}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_hit_box}{Hit\+Box}} $\ast$ \mbox{\hyperlink{class_entity_a641efc78c56e8b56b4f8a5e28aeead0a}{get\+Hit\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Gets the hitbox of an entity. \end{DoxyCompactList}\item 
+Mtx44 \mbox{\hyperlink{class_entity_ab4dffdf0df47b482dc49aec7aade106b}{get\+Current\+Mtx}} ()
+\begin{DoxyCompactList}\small\item\em Get current MTX44 of the entity. This is used for \mbox{\hyperlink{class_hit_box}{Hit\+Box}} Updating. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_scene}{Scene}} $\ast$ \mbox{\hyperlink{class_entity_acfd0063b57f049f6278c4927f6e6122c}{get\+Associated\+Scene}} ()
+\begin{DoxyCompactList}\small\item\em Get the associated scene of this entity. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_entity_a098d827982916bd7b3d13f6858c520d7}{is\+Visible}} ()
+\begin{DoxyCompactList}\small\item\em Checks if an entity is visible. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_ac5878868a6dca28949e099ffa892f0cd}{set\+Visibility}} (bool)
+\begin{DoxyCompactList}\small\item\em Sets the visibility of an entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_ac9a6f4d749230efae58af4984744d780}{set\+Type}} (ENTITYTYPE)
+\begin{DoxyCompactList}\small\item\em Set the type of entity to another ENTITYTYPE. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_a394a29be72c3870747120d9839214828}\label{class_entity_a394a29be72c3870747120d9839214828}} 
-void {\bfseries cancel\+Next\+Movement} ()
-\item 
+void \mbox{\hyperlink{class_entity_a394a29be72c3870747120d9839214828}{cancel\+Next\+Movement}} ()
+\begin{DoxyCompactList}\small\item\em = DEPRECATED = Cancels the next tick\textquotesingle{}s movement entirely. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_a5d91ec47bd2e056a2eb58feb2372e82c}\label{class_entity_a5d91ec47bd2e056a2eb58feb2372e82c}} 
-void {\bfseries load\+Origin\+TRSInto\+Stackn\+Hit\+Box} ()
-\item 
+void \mbox{\hyperlink{class_entity_a5d91ec47bd2e056a2eb58feb2372e82c}{load\+Origin\+TRSInto\+Stackn\+Hit\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Loads Origin of \mbox{\hyperlink{class_entity}{Entity}} into the \mbox{\hyperlink{class_scene}{Scene}} Model Stack. And Update\textquotesingle{}s hitbox location based on new \mbox{\hyperlink{class_entity}{Entity}}\textquotesingle{}s location. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_a0f5bfd7b5352b3208f7e2701cdaccb4c}\label{class_entity_a0f5bfd7b5352b3208f7e2701cdaccb4c}} 
-void {\bfseries Pre\+Update} ()
-\item 
+void \mbox{\hyperlink{class_entity_a0f5bfd7b5352b3208f7e2701cdaccb4c}{Pre\+Update}} ()
+\begin{DoxyCompactList}\small\item\em Pre\+Update sets data to old data since one tick has passed, and refreshes var \char`\"{}use\+New\+Data\char`\"{}. so that movement is not cancelled. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_a692c53562d805876a52a54de1c53125a}\label{class_entity_a692c53562d805876a52a54de1c53125a}} 
 virtual void {\bfseries Update} (double dt)=0
 \item 
 \mbox{\Hypertarget{class_entity_aae2675156dfca048539f12aa3c1982f1}\label{class_entity_aae2675156dfca048539f12aa3c1982f1}} 
-void {\bfseries Post\+Update} ()
-\item 
+void \mbox{\hyperlink{class_entity_aae2675156dfca048539f12aa3c1982f1}{Post\+Update}} ()
+\begin{DoxyCompactList}\small\item\em Post Update sets all new data values to old data values. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_a2405d54f7af9a48442c45b9c091b7ec1}\label{class_entity_a2405d54f7af9a48442c45b9c091b7ec1}} 
 virtual void {\bfseries Render} ()=0
 \item 
-\mbox{\Hypertarget{class_entity_a2b0140ae8c77c0e3654b070ee3c7fe57}\label{class_entity_a2b0140ae8c77c0e3654b070ee3c7fe57}} 
-int {\bfseries get\+Health} ()
-\item 
-\mbox{\Hypertarget{class_entity_a0c4ef1c69d6054cebf71445d98bb3afc}\label{class_entity_a0c4ef1c69d6054cebf71445d98bb3afc}} 
-void {\bfseries set\+Health} (int)
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{class_entity_a2b0140ae8c77c0e3654b070ee3c7fe57}{get\+Health}} ()
+\begin{DoxyCompactList}\small\item\em Gets the health of the entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_a0c4ef1c69d6054cebf71445d98bb3afc}{set\+Health}} (int)
+\begin{DoxyCompactList}\small\item\em Sets the health of the entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -139,6 +125,276 @@ bool {\bfseries use\+New\+Data}
 \begin{DoxyVerb}    Class Entity:
 \end{DoxyVerb}
  
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_entity_a73da5ca335b83ed43f950ba7a4644940}\label{class_entity_a73da5ca335b83ed43f950ba7a4644940}} 
+\index{Entity@{Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{associated\+Scene,  }\item[{ENTITYTYPE}]{type,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates an entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em associated\+Scene} & -\/ in which scene \\
+\hline
+{\em type} & -\/ type of entity \\
+\hline
+{\em name} & -\/ name of entity \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_aaeda6f1e6e457eb9f9fec7070967c5e8}\label{class_entity_aaeda6f1e6e457eb9f9fec7070967c5e8}} 
+\index{Entity@{Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{associated\+Scene,  }\item[{ENTITYTYPE}]{type,  }\item[{std\+::string}]{name,  }\item[{int}]{health }\end{DoxyParamCaption})}
+
+
+
+Creates an entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em associated\+Scene} & -\/ in which scene \\
+\hline
+{\em type} & -\/ type of entity \\
+\hline
+{\em name} & -\/ name of entity \\
+\hline
+{\em health} & -\/ health of entity \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_a9b6c8790a9807853f80b22fe07357637}\label{class_entity_a9b6c8790a9807853f80b22fe07357637}} 
+\index{Entity@{Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{associated\+Scene,  }\item[{ENTITYTYPE}]{type,  }\item[{std\+::string}]{name,  }\item[{Vector3}]{pos }\end{DoxyParamCaption})}
+
+
+
+Creates an entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em associated\+Scene} & -\/ in which scene \\
+\hline
+{\em type} & -\/ type of entity \\
+\hline
+{\em name} & -\/ name of entity \\
+\hline
+{\em pos} & -\/ default position \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_entity_acfd0063b57f049f6278c4927f6e6122c}\label{class_entity_acfd0063b57f049f6278c4927f6e6122c}} 
+\index{Entity@{Entity}!getAssociatedScene@{getAssociatedScene}}
+\index{getAssociatedScene@{getAssociatedScene}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getAssociatedScene()}{getAssociatedScene()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_scene}{Scene}} $\ast$ Entity\+::get\+Associated\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the associated scene of this entity. 
+
+\begin{DoxyReturn}{Returns}
+associated scene in pointer form 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_ab4dffdf0df47b482dc49aec7aade106b}\label{class_entity_ab4dffdf0df47b482dc49aec7aade106b}} 
+\index{Entity@{Entity}!getCurrentMtx@{getCurrentMtx}}
+\index{getCurrentMtx@{getCurrentMtx}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getCurrentMtx()}{getCurrentMtx()}}
+{\footnotesize\ttfamily Mtx44 Entity\+::get\+Current\+Mtx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get current MTX44 of the entity. This is used for \mbox{\hyperlink{class_hit_box}{Hit\+Box}} Updating. 
+
+\begin{DoxyReturn}{Returns}
+Mtx44 of the current location of entity 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_ad121c9c8826f7765f088262330a2083f}\label{class_entity_ad121c9c8826f7765f088262330a2083f}} 
+\index{Entity@{Entity}!getEntityData@{getEntityData}}
+\index{getEntityData@{getEntityData}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getEntityData()}{getEntityData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ Entity\+::get\+Entity\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the entity data of an entity. This stores its TRS. 
+
+\begin{DoxyReturn}{Returns}
+entity\textquotesingle{}s location data 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a2b0140ae8c77c0e3654b070ee3c7fe57}\label{class_entity_a2b0140ae8c77c0e3654b070ee3c7fe57}} 
+\index{Entity@{Entity}!getHealth@{getHealth}}
+\index{getHealth@{getHealth}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getHealth()}{getHealth()}}
+{\footnotesize\ttfamily int Entity\+::get\+Health (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the health of the entity. 
+
+\begin{DoxyReturn}{Returns}
+entity\textquotesingle{}s health 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a641efc78c56e8b56b4f8a5e28aeead0a}\label{class_entity_a641efc78c56e8b56b4f8a5e28aeead0a}} 
+\index{Entity@{Entity}!getHitBox@{getHitBox}}
+\index{getHitBox@{getHitBox}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getHitBox()}{getHitBox()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_hit_box}{Hit\+Box}} $\ast$ Entity\+::get\+Hit\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the hitbox of an entity. 
+
+\begin{DoxyReturn}{Returns}
+the hitbox of an entity 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_ab824e4f163924eb4f136d3e2ff759897}\label{class_entity_ab824e4f163924eb4f136d3e2ff759897}} 
+\index{Entity@{Entity}!getName@{getName}}
+\index{getName@{getName}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string Entity\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the name of an \mbox{\hyperlink{class_entity}{Entity}}. 
+
+\begin{DoxyReturn}{Returns}
+the name of the \mbox{\hyperlink{class_entity}{Entity}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a0e858f7af590c3edaf8b5771e6b38375}\label{class_entity_a0e858f7af590c3edaf8b5771e6b38375}} 
+\index{Entity@{Entity}!getOldEntityData@{getOldEntityData}}
+\index{getOldEntityData@{getOldEntityData}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getOldEntityData()}{getOldEntityData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity_data}{Entity\+Data}} $\ast$ Entity\+::get\+Old\+Entity\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the old entity data of an entity. This is used for movement cancellation and a few other processes. 
+
+\begin{DoxyReturn}{Returns}
+the old entity\textquotesingle{}s location data (One tick ago) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_af5bb1c5c457ea3c482f1be967b456efd}\label{class_entity_af5bb1c5c457ea3c482f1be967b456efd}} 
+\index{Entity@{Entity}!getType@{getType}}
+\index{getType@{getType}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily ENTITYTYPE Entity\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the type of an \mbox{\hyperlink{class_entity}{Entity}}. 
+
+\begin{DoxyReturn}{Returns}
+the Entity\+Type of an \mbox{\hyperlink{class_entity}{Entity}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a4d78d5c5061893ed4464fc014adfd6b8}\label{class_entity_a4d78d5c5061893ed4464fc014adfd6b8}} 
+\index{Entity@{Entity}!isDead@{isDead}}
+\index{isDead@{isDead}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{isDead()}{isDead()}}
+{\footnotesize\ttfamily bool Entity\+::is\+Dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if an entity is dead. 
+
+\begin{DoxyReturn}{Returns}
+true if entity is dead 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a098d827982916bd7b3d13f6858c520d7}\label{class_entity_a098d827982916bd7b3d13f6858c520d7}} 
+\index{Entity@{Entity}!isVisible@{isVisible}}
+\index{isVisible@{isVisible}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{isVisible()}{isVisible()}}
+{\footnotesize\ttfamily bool Entity\+::is\+Visible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if an entity is visible. 
+
+\begin{DoxyReturn}{Returns}
+true if entity is visible, false if not. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_a19268c61e30d32631f0bfc109aeaf544}\label{class_entity_a19268c61e30d32631f0bfc109aeaf544}} 
+\index{Entity@{Entity}!setDead@{setDead}}
+\index{setDead@{setDead}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{setDead()}{setDead()}}
+{\footnotesize\ttfamily void Entity\+::set\+Dead (\begin{DoxyParamCaption}\item[{bool}]{dead }\end{DoxyParamCaption})}
+
+
+
+Sets the entity dead attribute. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dead} & -\/ to true to delete entity \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_a0c4ef1c69d6054cebf71445d98bb3afc}\label{class_entity_a0c4ef1c69d6054cebf71445d98bb3afc}} 
+\index{Entity@{Entity}!setHealth@{setHealth}}
+\index{setHealth@{setHealth}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{setHealth()}{setHealth()}}
+{\footnotesize\ttfamily void Entity\+::set\+Health (\begin{DoxyParamCaption}\item[{int}]{h }\end{DoxyParamCaption})}
+
+
+
+Sets the health of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em health} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_ac9a6f4d749230efae58af4984744d780}\label{class_entity_ac9a6f4d749230efae58af4984744d780}} 
+\index{Entity@{Entity}!setType@{setType}}
+\index{setType@{setType}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{setType()}{setType()}}
+{\footnotesize\ttfamily void Entity\+::set\+Type (\begin{DoxyParamCaption}\item[{ENTITYTYPE}]{type }\end{DoxyParamCaption})}
+
+
+
+Set the type of entity to another ENTITYTYPE. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_ac5878868a6dca28949e099ffa892f0cd}\label{class_entity_ac5878868a6dca28949e099ffa892f0cd}} 
+\index{Entity@{Entity}!setVisibility@{setVisibility}}
+\index{setVisibility@{setVisibility}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{setVisibility()}{setVisibility()}}
+{\footnotesize\ttfamily void Entity\+::set\+Visibility (\begin{DoxyParamCaption}\item[{bool}]{visible }\end{DoxyParamCaption})}
+
+
+
+Sets the visibility of an entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em visible} & -\/ entity visibility \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_af8efdd641e69d638387f46132c7a6525}\label{class_entity_af8efdd641e69d638387f46132c7a6525}} 
+\index{Entity@{Entity}!usingNewData@{usingNewData}}
+\index{usingNewData@{usingNewData}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{usingNewData()}{usingNewData()}}
+{\footnotesize\ttfamily bool Entity\+::using\+New\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+checks if movement is cancelled basically. 
+
+\begin{DoxyReturn}{Returns}
+true if movement is not cancelled 
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

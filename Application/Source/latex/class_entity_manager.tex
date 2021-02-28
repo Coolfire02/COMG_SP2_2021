@@ -9,34 +9,27 @@
 
 {\ttfamily \#include $<$Entity\+Manager.\+h$>$}
 
-
-
-Collaboration diagram for Entity\+Manager\+:
-% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_entity_manager_ac8432c481a366661fbd9e3471190a766}\label{class_entity_manager_ac8432c481a366661fbd9e3471190a766}} 
-{\bfseries Entity\+Manager} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\mbox{\hyperlink{class_entity_manager_ac8432c481a366661fbd9e3471190a766}{Entity\+Manager}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
 \item 
-\mbox{\Hypertarget{class_entity_manager_a519b90a61cc8be605f1b7f7eacffc7c8}\label{class_entity_manager_a519b90a61cc8be605f1b7f7eacffc7c8}} 
-void {\bfseries spawn\+Moving\+Entity} (\mbox{\hyperlink{class_entity}{Entity}} $\ast$)
-\item 
-\mbox{\Hypertarget{class_entity_manager_a4a95030a45d05cde6404fb3571225640}\label{class_entity_manager_a4a95030a45d05cde6404fb3571225640}} 
-void {\bfseries spawn\+World\+Entity} (\mbox{\hyperlink{class_entity}{Entity}} $\ast$)
-\item 
-\mbox{\Hypertarget{class_entity_manager_a351909afd653d5500032abf473696068}\label{class_entity_manager_a351909afd653d5500032abf473696068}} 
-std\+::vector$<$ \mbox{\hyperlink{struct_collided_with}{Collided\+With}} $\ast$ $>$ \& {\bfseries pre\+Collision\+Update} ()
-\item 
-\mbox{\Hypertarget{class_entity_manager_af9e6f5fa46e461638b2d2eb7ee25e36e}\label{class_entity_manager_af9e6f5fa46e461638b2d2eb7ee25e36e}} 
-void {\bfseries collision\+Update} (double dt)
-\item 
+\mbox{\Hypertarget{class_entity_manager_a71a36c9fb8d579a1a1ec108e0fccf175}\label{class_entity_manager_a71a36c9fb8d579a1a1ec108e0fccf175}} 
+\mbox{\hyperlink{class_entity_manager_a71a36c9fb8d579a1a1ec108e0fccf175}{$\sim$\+Entity\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for entity manager. deletes all world and moving entity pointers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_manager_a519b90a61cc8be605f1b7f7eacffc7c8}{spawn\+Moving\+Entity}} (\mbox{\hyperlink{class_entity}{Entity}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Spawning a Moving entity into the world. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_manager_a4a95030a45d05cde6404fb3571225640}{spawn\+World\+Entity}} (\mbox{\hyperlink{class_entity}{Entity}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Spawning a World entity into the world. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_collided_with}{Collided\+With}} $\ast$ $>$ \& \mbox{\hyperlink{class_entity_manager_a351909afd653d5500032abf473696068}{pre\+Collision\+Update}} ()
+\begin{DoxyCompactList}\small\item\em Pre-\/\+Collision Update, to check next tick, what objects are collided. returns a list of \mbox{\hyperlink{struct_collided_with}{Collided\+With}} structs to show which objects will be colliding. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_manager_af9e6f5fa46e461638b2d2eb7ee25e36e}{collision\+Update}} (double dt)
+\begin{DoxyCompactList}\small\item\em Collision Update to cancel movement if when scene calls precollision and cancels collision. Will also call entity preupdate and post update. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_entity_manager_a5b61796f6771f44ee1401de7726523c2}\label{class_entity_manager_a5b61796f6771f44ee1401de7726523c2}} 
-void {\bfseries post\+Collision\+Update} ()
-\item 
-\mbox{\Hypertarget{class_entity_manager_a78f8ae5169804fbdde48654a4c74483a}\label{class_entity_manager_a78f8ae5169804fbdde48654a4c74483a}} 
-std\+::vector$<$ \mbox{\hyperlink{class_entity}{Entity}} $\ast$ $>$ {\bfseries get\+Entities} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{class_entity_manager_a5b61796f6771f44ee1401de7726523c2}{post\+Collision\+Update}} ()
+\begin{DoxyCompactList}\small\item\em This is after all collision is handled and will call \mbox{\hyperlink{class_entity}{Entity}}\textquotesingle{}s post update as well. It will then clear up all entities that are now flagged as \char`\"{}\+Dead\char`\"{}. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_entity}{Entity}} $\ast$ $>$ \mbox{\hyperlink{class_entity_manager_a78f8ae5169804fbdde48654a4c74483a}{get\+Entities}} ()
+\begin{DoxyCompactList}\small\item\em gets the list of entities currently in this entity manager. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -45,6 +38,96 @@ std\+::vector$<$ \mbox{\hyperlink{class_entity}{Entity}} $\ast$ $>$ {\bfseries g
 \begin{DoxyVerb}    Class EntityManager:
 \end{DoxyVerb}
  
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_entity_manager_ac8432c481a366661fbd9e3471190a766}\label{class_entity_manager_ac8432c481a366661fbd9e3471190a766}} 
+\index{EntityManager@{EntityManager}!EntityManager@{EntityManager}}
+\index{EntityManager@{EntityManager}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{EntityManager()}{EntityManager()}}
+{\footnotesize\ttfamily Entity\+Manager\+::\+Entity\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{scene }\end{DoxyParamCaption})}
+
+Default constructor of \mbox{\hyperlink{class_entity_manager}{Entity\+Manager}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & -\/ \mbox{\hyperlink{class_scene}{Scene}} that this emanager is associated with \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_entity_manager_af9e6f5fa46e461638b2d2eb7ee25e36e}\label{class_entity_manager_af9e6f5fa46e461638b2d2eb7ee25e36e}} 
+\index{EntityManager@{EntityManager}!collisionUpdate@{collisionUpdate}}
+\index{collisionUpdate@{collisionUpdate}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{collisionUpdate()}{collisionUpdate()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::collision\+Update (\begin{DoxyParamCaption}\item[{double}]{dt }\end{DoxyParamCaption})}
+
+
+
+Collision Update to cancel movement if when scene calls precollision and cancels collision. Will also call entity preupdate and post update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & -\/ delta time \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_manager_a78f8ae5169804fbdde48654a4c74483a}\label{class_entity_manager_a78f8ae5169804fbdde48654a4c74483a}} 
+\index{EntityManager@{EntityManager}!getEntities@{getEntities}}
+\index{getEntities@{getEntities}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{getEntities()}{getEntities()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_entity}{Entity}} $\ast$ $>$ Entity\+Manager\+::get\+Entities (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+gets the list of entities currently in this entity manager. 
+
+\begin{DoxyReturn}{Returns}
+the list of entities in this entity manager (both world and moving entities) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_manager_a351909afd653d5500032abf473696068}\label{class_entity_manager_a351909afd653d5500032abf473696068}} 
+\index{EntityManager@{EntityManager}!preCollisionUpdate@{preCollisionUpdate}}
+\index{preCollisionUpdate@{preCollisionUpdate}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{preCollisionUpdate()}{preCollisionUpdate()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_collided_with}{Collided\+With}} $\ast$ $>$ \& Entity\+Manager\+::pre\+Collision\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Pre-\/\+Collision Update, to check next tick, what objects are collided. returns a list of \mbox{\hyperlink{struct_collided_with}{Collided\+With}} structs to show which objects will be colliding. 
+
+\begin{DoxyReturn}{Returns}
+a vector of Collided\+Withs, to allow a scene to manipulate whether to cancel collision in the future 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_manager_a519b90a61cc8be605f1b7f7eacffc7c8}\label{class_entity_manager_a519b90a61cc8be605f1b7f7eacffc7c8}} 
+\index{EntityManager@{EntityManager}!spawnMovingEntity@{spawnMovingEntity}}
+\index{spawnMovingEntity@{spawnMovingEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{spawnMovingEntity()}{spawnMovingEntity()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::spawn\+Moving\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_entity}{Entity}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+Spawning a Moving entity into the world. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ An entity that is created \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_manager_a4a95030a45d05cde6404fb3571225640}\label{class_entity_manager_a4a95030a45d05cde6404fb3571225640}} 
+\index{EntityManager@{EntityManager}!spawnWorldEntity@{spawnWorldEntity}}
+\index{spawnWorldEntity@{spawnWorldEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{spawnWorldEntity()}{spawnWorldEntity()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::spawn\+World\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_entity}{Entity}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+Spawning a World entity into the world. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ An entity that is created \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

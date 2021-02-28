@@ -53,6 +53,12 @@ enum MISSIONTYPE {
 };
 
 //Had to separate from actual Mission Object, so that you can render in MissionInfo from txt file only from Load() in MissionManager
+/******************************************************************************/
+/*!
+		Class MissionInfo:
+\brief Information of Missions are stored here.
+*/
+/******************************************************************************/
 struct MissionInfo {
 	std::string missionObjective;
 	std::string missionCompletionMessage;

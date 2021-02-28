@@ -22,6 +22,12 @@ enum FONTTYPE {
 	FONT_COUNT,
 };
 
+/******************************************************************************/
+/*!
+		Class Font:
+\brief Text Fonts with thier width attributes and other attributes like vertical offset, which Text Map of Mesh to use from Mesh Handler 
+*/
+/******************************************************************************/
 struct Font {
 	FONTTYPE type;
 	GEOMETRY_TYPE geoType;

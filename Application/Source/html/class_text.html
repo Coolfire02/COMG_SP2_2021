@@ -74,76 +74,641 @@ $(function() {
  <a href="class_text.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_text_8h_source.html">Text.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Text:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_text__coll__graph.png" border="0" usemap="#a_text_coll__map" alt="Collaboration graph"/></div>
-</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5ef08deb1f71d02c0c96bda3d6350b1f"><td class="memItemLeft" align="right" valign="top"><a id="a5ef08deb1f71d02c0c96bda3d6350b1f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Text</b> (<a class="el" href="struct_color.html">Color</a> color, float originX, float originY, float quadSize, FONTTYPE type, float size)</td></tr>
+<tr class="memitem:a5ef08deb1f71d02c0c96bda3d6350b1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a5ef08deb1f71d02c0c96bda3d6350b1f">Text</a> (<a class="el" href="struct_color.html">Color</a> color, float originX, float originY, float quadSize, FONTTYPE type, float size)</td></tr>
+<tr class="memdesc:a5ef08deb1f71d02c0c96bda3d6350b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the text object.  <a href="class_text.html#a5ef08deb1f71d02c0c96bda3d6350b1f">More...</a><br /></td></tr>
 <tr class="separator:a5ef08deb1f71d02c0c96bda3d6350b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d4d60035ef427001403eb147a460ffb"><td class="memItemLeft" align="right" valign="top"><a id="a2d4d60035ef427001403eb147a460ffb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Text</b> (<a class="el" href="struct_color.html">Color</a> color, <a class="el" href="struct_u_i_item.html">UIItem</a> UIInfo, FONTTYPE type, float size)</td></tr>
+<tr class="memitem:a2d4d60035ef427001403eb147a460ffb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a2d4d60035ef427001403eb147a460ffb">Text</a> (<a class="el" href="struct_color.html">Color</a> color, <a class="el" href="struct_u_i_item.html">UIItem</a> UIInfo, FONTTYPE type, float size)</td></tr>
+<tr class="memdesc:a2d4d60035ef427001403eb147a460ffb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Another constructor for <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a>, but replaces most params with just UIInfo, this is to allow Buttons to share their UIInfos with the text object.  <a href="class_text.html#a2d4d60035ef427001403eb147a460ffb">More...</a><br /></td></tr>
 <tr class="separator:a2d4d60035ef427001403eb147a460ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49f638637347490b8ae216852660c871"><td class="memItemLeft" align="right" valign="top"><a id="a49f638637347490b8ae216852660c871"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTextString</b> (std::string text)</td></tr>
+<tr class="memitem:a2d49e5c280e205125b149f7777ae30c7"><td class="memItemLeft" align="right" valign="top"><a id="a2d49e5c280e205125b149f7777ae30c7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a2d49e5c280e205125b149f7777ae30c7">~Text</a> ()</td></tr>
+<tr class="memdesc:a2d49e5c280e205125b149f7777ae30c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor of <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object. <br /></td></tr>
+<tr class="separator:a2d49e5c280e205125b149f7777ae30c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f638637347490b8ae216852660c871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a49f638637347490b8ae216852660c871">setTextString</a> (std::string text)</td></tr>
+<tr class="memdesc:a49f638637347490b8ae216852660c871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> object.  <a href="class_text.html#a49f638637347490b8ae216852660c871">More...</a><br /></td></tr>
 <tr class="separator:a49f638637347490b8ae216852660c871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74ef5f5bec7468a3138a8aead0e49921"><td class="memItemLeft" align="right" valign="top"><a id="a74ef5f5bec7468a3138a8aead0e49921"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTextStringStream</b> (std::ostringstream text)</td></tr>
+<tr class="memitem:a74ef5f5bec7468a3138a8aead0e49921"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a74ef5f5bec7468a3138a8aead0e49921">setTextStringStream</a> (std::ostringstream text)</td></tr>
+<tr class="memdesc:a74ef5f5bec7468a3138a8aead0e49921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object through an ostringstream.  <a href="class_text.html#a74ef5f5bec7468a3138a8aead0e49921">More...</a><br /></td></tr>
 <tr class="separator:a74ef5f5bec7468a3138a8aead0e49921"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a435c4be4047ee06fbc5babd00460675c"><td class="memItemLeft" align="right" valign="top"><a id="a435c4be4047ee06fbc5babd00460675c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTextOffsetFromTopLeft</b> (float x, float y)</td></tr>
+<tr class="memitem:a435c4be4047ee06fbc5babd00460675c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a435c4be4047ee06fbc5babd00460675c">setTextOffsetFromTopLeft</a> (float x, float y)</td></tr>
+<tr class="memdesc:a435c4be4047ee06fbc5babd00460675c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the text offset from its UIInfo origin position. This is used to allow Buttons to have text that are not directly at the border of a button.  <a href="class_text.html#a435c4be4047ee06fbc5babd00460675c">More...</a><br /></td></tr>
 <tr class="separator:a435c4be4047ee06fbc5babd00460675c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be754295963c936a31e94be71d4479f"><td class="memItemLeft" align="right" valign="top"><a id="a9be754295963c936a31e94be71d4479f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setVisisble</b> (bool visibility)</td></tr>
+<tr class="memitem:a9be754295963c936a31e94be71d4479f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a9be754295963c936a31e94be71d4479f">setVisisble</a> (bool visibility)</td></tr>
+<tr class="memdesc:a9be754295963c936a31e94be71d4479f"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the visibility of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> object.  <a href="class_text.html#a9be754295963c936a31e94be71d4479f">More...</a><br /></td></tr>
 <tr class="separator:a9be754295963c936a31e94be71d4479f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41bde5662e0e3a023166e5b134488bc2"><td class="memItemLeft" align="right" valign="top"><a id="a41bde5662e0e3a023166e5b134488bc2"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getText</b> ()</td></tr>
+<tr class="memitem:a41bde5662e0e3a023166e5b134488bc2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a41bde5662e0e3a023166e5b134488bc2">getText</a> ()</td></tr>
+<tr class="memdesc:a41bde5662e0e3a023166e5b134488bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string text message of a text.  <a href="class_text.html#a41bde5662e0e3a023166e5b134488bc2">More...</a><br /></td></tr>
 <tr class="separator:a41bde5662e0e3a023166e5b134488bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac88aeffde9629b302a22df09c2e4a668"><td class="memItemLeft" align="right" valign="top"><a id="ac88aeffde9629b302a22df09c2e4a668"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>updateUIInfo</b> (<a class="el" href="struct_u_i_item.html">UIItem</a> info)</td></tr>
+<tr class="memitem:ac88aeffde9629b302a22df09c2e4a668"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#ac88aeffde9629b302a22df09c2e4a668">updateUIInfo</a> (<a class="el" href="struct_u_i_item.html">UIItem</a> info)</td></tr>
+<tr class="memdesc:ac88aeffde9629b302a22df09c2e4a668"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the UIInfo of the text object  <a href="class_text.html#ac88aeffde9629b302a22df09c2e4a668">More...</a><br /></td></tr>
 <tr class="separator:ac88aeffde9629b302a22df09c2e4a668"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60ed7c4137d0389255e009a4b2bc7223"><td class="memItemLeft" align="right" valign="top"><a id="a60ed7c4137d0389255e009a4b2bc7223"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setColor</b> (<a class="el" href="struct_color.html">Color</a> color)</td></tr>
+<tr class="memitem:a60ed7c4137d0389255e009a4b2bc7223"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a60ed7c4137d0389255e009a4b2bc7223">setColor</a> (<a class="el" href="struct_color.html">Color</a> color)</td></tr>
+<tr class="memdesc:a60ed7c4137d0389255e009a4b2bc7223"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the color of the text.  <a href="class_text.html#a60ed7c4137d0389255e009a4b2bc7223">More...</a><br /></td></tr>
 <tr class="separator:a60ed7c4137d0389255e009a4b2bc7223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9001efab08bd0adbb6d1f8bde1ce577a"><td class="memItemLeft" align="right" valign="top"><a id="a9001efab08bd0adbb6d1f8bde1ce577a"></a>
-<a class="el" href="struct_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getColor</b> ()</td></tr>
+<tr class="memitem:a9001efab08bd0adbb6d1f8bde1ce577a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a9001efab08bd0adbb6d1f8bde1ce577a">getColor</a> ()</td></tr>
+<tr class="memdesc:a9001efab08bd0adbb6d1f8bde1ce577a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the color of the text.  <a href="class_text.html#a9001efab08bd0adbb6d1f8bde1ce577a">More...</a><br /></td></tr>
 <tr class="separator:a9001efab08bd0adbb6d1f8bde1ce577a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9f5cfa6f83a94e12cc82fa5ed16339e"><td class="memItemLeft" align="right" valign="top"><a id="af9f5cfa6f83a94e12cc82fa5ed16339e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> ()</td></tr>
+<tr class="memitem:af9f5cfa6f83a94e12cc82fa5ed16339e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#af9f5cfa6f83a94e12cc82fa5ed16339e">isVisible</a> ()</td></tr>
+<tr class="memdesc:af9f5cfa6f83a94e12cc82fa5ed16339e"><td class="mdescLeft">&#160;</td><td class="mdescRight">whether <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> is visible.  <a href="class_text.html#af9f5cfa6f83a94e12cc82fa5ed16339e">More...</a><br /></td></tr>
 <tr class="separator:af9f5cfa6f83a94e12cc82fa5ed16339e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb8fd38b041da45ac0f3d93bbe368091"><td class="memItemLeft" align="right" valign="top"><a id="afb8fd38b041da45ac0f3d93bbe368091"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setSize</b> (float size)</td></tr>
+<tr class="memitem:afb8fd38b041da45ac0f3d93bbe368091"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#afb8fd38b041da45ac0f3d93bbe368091">setSize</a> (float size)</td></tr>
+<tr class="memdesc:afb8fd38b041da45ac0f3d93bbe368091"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the font size of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object.  <a href="class_text.html#afb8fd38b041da45ac0f3d93bbe368091">More...</a><br /></td></tr>
 <tr class="separator:afb8fd38b041da45ac0f3d93bbe368091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aaec37aaf9742b9d4e70f8e02cbd03c"><td class="memItemLeft" align="right" valign="top"><a id="a7aaec37aaf9742b9d4e70f8e02cbd03c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>changeFont</b> (FONTTYPE type)</td></tr>
+<tr class="memitem:a7aaec37aaf9742b9d4e70f8e02cbd03c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a7aaec37aaf9742b9d4e70f8e02cbd03c">changeFont</a> (FONTTYPE type)</td></tr>
+<tr class="memdesc:a7aaec37aaf9742b9d4e70f8e02cbd03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">change font of <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object.  <a href="class_text.html#a7aaec37aaf9742b9d4e70f8e02cbd03c">More...</a><br /></td></tr>
 <tr class="separator:a7aaec37aaf9742b9d4e70f8e02cbd03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e32fcf03ac0dbb4041f3fd122fb132d"><td class="memItemLeft" align="right" valign="top"><a id="a8e32fcf03ac0dbb4041f3fd122fb132d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Render</b> (<a class="el" href="class_scene.html">Scene</a> *scene)</td></tr>
+<tr class="memitem:a8e32fcf03ac0dbb4041f3fd122fb132d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a8e32fcf03ac0dbb4041f3fd122fb132d">Render</a> (<a class="el" href="class_scene.html">Scene</a> *scene)</td></tr>
+<tr class="memdesc:a8e32fcf03ac0dbb4041f3fd122fb132d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the text object on the associated scene that is parsed in.  <a href="class_text.html#a8e32fcf03ac0dbb4041f3fd122fb132d">More...</a><br /></td></tr>
 <tr class="separator:a8e32fcf03ac0dbb4041f3fd122fb132d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af748a315fd3534226283f61bd10d44b8"><td class="memItemLeft" align="right" valign="top"><a id="af748a315fd3534226283f61bd10d44b8"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>loadFonts</b> ()</td></tr>
+<tr class="memitem:af748a315fd3534226283f61bd10d44b8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#af748a315fd3534226283f61bd10d44b8">loadFonts</a> ()</td></tr>
+<tr class="memdesc:af748a315fd3534226283f61bd10d44b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all the text fonts; Its character width, offsets etc.  <a href="class_text.html#af748a315fd3534226283f61bd10d44b8">More...</a><br /></td></tr>
 <tr class="separator:af748a315fd3534226283f61bd10d44b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f514f83ba16203c88dd07d892a0b0d"><td class="memItemLeft" align="right" valign="top"><a id="ad7f514f83ba16203c88dd07d892a0b0d"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>areFontsLoaded</b> ()</td></tr>
+<tr class="memitem:ad7f514f83ba16203c88dd07d892a0b0d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#ad7f514f83ba16203c88dd07d892a0b0d">areFontsLoaded</a> ()</td></tr>
+<tr class="memdesc:ad7f514f83ba16203c88dd07d892a0b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checker function for if all Fonts have been generated.  <a href="class_text.html#ad7f514f83ba16203c88dd07d892a0b0d">More...</a><br /></td></tr>
 <tr class="separator:ad7f514f83ba16203c88dd07d892a0b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad84d99de3d88fc63b39a5e7279dc2b64"><td class="memItemLeft" align="right" valign="top"><a id="ad84d99de3d88fc63b39a5e7279dc2b64"></a>
-static <a class="el" href="struct_font.html">Font</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> (FONTTYPE)</td></tr>
+<tr class="memitem:ad84d99de3d88fc63b39a5e7279dc2b64"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_font.html">Font</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#ad84d99de3d88fc63b39a5e7279dc2b64">getFont</a> (FONTTYPE)</td></tr>
+<tr class="memdesc:ad84d99de3d88fc63b39a5e7279dc2b64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="struct_font.html">Font</a> object by the FONTTYPE enum.  <a href="class_text.html#ad84d99de3d88fc63b39a5e7279dc2b64">More...</a><br /></td></tr>
 <tr class="separator:ad84d99de3d88fc63b39a5e7279dc2b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90b21d5f128e977454182d85c359fd37"><td class="memItemLeft" align="right" valign="top"><a id="a90b21d5f128e977454182d85c359fd37"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>splitText</b> (std::string txt, char delim, std::vector&lt; std::string &gt; &amp;out)</td></tr>
+<tr class="memitem:a90b21d5f128e977454182d85c359fd37"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text.html#a90b21d5f128e977454182d85c359fd37">splitText</a> (std::string txt, char delim, std::vector&lt; std::string &gt; &amp;out)</td></tr>
+<tr class="memdesc:a90b21d5f128e977454182d85c359fd37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splitter function to split strings by a delim.  <a href="class_text.html#a90b21d5f128e977454182d85c359fd37">More...</a><br /></td></tr>
 <tr class="separator:a90b21d5f128e977454182d85c359fd37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Objects used by Buttons. </p>
 <pre class="fragment">    Class Text:
-</pre> </div><hr/>The documentation for this class was generated from the following files:<ul>
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5ef08deb1f71d02c0c96bda3d6350b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ef08deb1f71d02c0c96bda3d6350b1f">&#9670;&nbsp;</a></span>Text() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Text::Text </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_color.html">Color</a>&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>originX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>originY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>quadSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FONTTYPE&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor of the text object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>- <a class="el" href="struct_color.html" title="Color of Vertex.">Color</a> of the text object </td></tr>
+    <tr><td class="paramname">originX</td><td>- Origin X position of the text object </td></tr>
+    <tr><td class="paramname">originY</td><td>- Origin Y position of the text object </td></tr>
+    <tr><td class="paramname">quadSize</td><td>- QuadSize of the text object </td></tr>
+    <tr><td class="paramname">font</td><td>- Type of font for the text </td></tr>
+    <tr><td class="paramname">size</td><td>- <a class="el" href="struct_font.html">Font</a> size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2d4d60035ef427001403eb147a460ffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d4d60035ef427001403eb147a460ffb">&#9670;&nbsp;</a></span>Text() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Text::Text </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_color.html">Color</a>&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_u_i_item.html">UIItem</a>&#160;</td>
+          <td class="paramname"><em>UIInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FONTTYPE&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Another constructor for <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a>, but replaces most params with just UIInfo, this is to allow Buttons to share their UIInfos with the text object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>- color of text </td></tr>
+    <tr><td class="paramname">UIInfo</td><td>- uiInfo of text </td></tr>
+    <tr><td class="paramname">font</td><td>- font type of text </td></tr>
+    <tr><td class="paramname">size</td><td>- font size of text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad7f514f83ba16203c88dd07d892a0b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f514f83ba16203c88dd07d892a0b0d">&#9670;&nbsp;</a></span>areFontsLoaded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Text::areFontsLoaded </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checker function for if all Fonts have been generated. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if fonts have been loaded, false if they haven't. </dd></dl>
+
+</div>
+</div>
+<a id="a7aaec37aaf9742b9d4e70f8e02cbd03c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aaec37aaf9742b9d4e70f8e02cbd03c">&#9670;&nbsp;</a></span>changeFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::changeFont </td>
+          <td>(</td>
+          <td class="paramtype">FONTTYPE&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>change font of <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- new FONTTYPE to replace the old one with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9001efab08bd0adbb6d1f8bde1ce577a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9001efab08bd0adbb6d1f8bde1ce577a">&#9670;&nbsp;</a></span>getColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_color.html">Color</a> Text::getColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the color of the text. </p>
+<dl class="section return"><dt>Returns</dt><dd>the color of the text </dd></dl>
+
+</div>
+</div>
+<a id="ad84d99de3d88fc63b39a5e7279dc2b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84d99de3d88fc63b39a5e7279dc2b64">&#9670;&nbsp;</a></span>getFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_font.html">Font</a> * Text::getFont </td>
+          <td>(</td>
+          <td class="paramtype">FONTTYPE&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a <a class="el" href="struct_font.html">Font</a> object by the FONTTYPE enum. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- Type of <a class="el" href="struct_font.html">Font</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- Actual font object that is needed for every text object. </dd></dl>
+
+</div>
+</div>
+<a id="a41bde5662e0e3a023166e5b134488bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41bde5662e0e3a023166e5b134488bc2">&#9670;&nbsp;</a></span>getText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Text::getText </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the string text message of a text. </p>
+<dl class="section return"><dt>Returns</dt><dd>the string text message of a text. </dd></dl>
+
+</div>
+</div>
+<a id="af9f5cfa6f83a94e12cc82fa5ed16339e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9f5cfa6f83a94e12cc82fa5ed16339e">&#9670;&nbsp;</a></span>isVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Text::isVisible </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>whether <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> is visible. </p>
+<dl class="section return"><dt>Returns</dt><dd>whether the text is visible </dd></dl>
+
+</div>
+</div>
+<a id="af748a315fd3534226283f61bd10d44b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af748a315fd3534226283f61bd10d44b8">&#9670;&nbsp;</a></span>loadFonts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Text::loadFonts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads all the text fonts; Its character width, offsets etc. </p>
+<dl class="section return"><dt>Returns</dt><dd>whether the fonts are loaded. Returns false if already loaded </dd></dl>
+
+</div>
+</div>
+<a id="a8e32fcf03ac0dbb4041f3fd122fb132d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e32fcf03ac0dbb4041f3fd122fb132d">&#9670;&nbsp;</a></span>Render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::Render </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_scene.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the text object on the associated scene that is parsed in. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>- <a class="el" href="class_scene.html" title="Abstract Class of Scenes, used to remove repeate codes from Individual Scenes and make it simpler to ...">Scene</a> to render text on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a60ed7c4137d0389255e009a4b2bc7223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60ed7c4137d0389255e009a4b2bc7223">&#9670;&nbsp;</a></span>setColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_color.html">Color</a>&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>sets the color of the text. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>- the color for the text to change to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afb8fd38b041da45ac0f3d93bbe368091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb8fd38b041da45ac0f3d93bbe368091">&#9670;&nbsp;</a></span>setSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setSize </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the font size of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>- new font size </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a435c4be4047ee06fbc5babd00460675c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a435c4be4047ee06fbc5babd00460675c">&#9670;&nbsp;</a></span>setTextOffsetFromTopLeft()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setTextOffsetFromTopLeft </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the text offset from its UIInfo origin position. This is used to allow Buttons to have text that are not directly at the border of a button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>- xOffset </td></tr>
+    <tr><td class="paramname">y</td><td>- yOffset </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a49f638637347490b8ae216852660c871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49f638637347490b8ae216852660c871">&#9670;&nbsp;</a></span>setTextString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setTextString </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>txt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the text of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txt</td><td>- the new text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a74ef5f5bec7468a3138a8aead0e49921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74ef5f5bec7468a3138a8aead0e49921">&#9670;&nbsp;</a></span>setTextStringStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setTextStringStream </td>
+          <td>(</td>
+          <td class="paramtype">std::ostringstream&#160;</td>
+          <td class="paramname"><em>txt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> Object through an ostringstream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txt</td><td>- the new text </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9be754295963c936a31e94be71d4479f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9be754295963c936a31e94be71d4479f">&#9670;&nbsp;</a></span>setVisisble()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::setVisisble </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>visibility</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the visibility of the <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visibility</td><td>- whether it is visible </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a90b21d5f128e977454182d85c359fd37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90b21d5f128e977454182d85c359fd37">&#9670;&nbsp;</a></span>splitText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::splitText </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>txt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>delim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Splitter function to split strings by a delim. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">txt</td><td>- <a class="el" href="class_text.html" title="Text Objects used by Buttons.">Text</a> to split </td></tr>
+    <tr><td class="paramname">delim</td><td>- Splitting by character </td></tr>
+    <tr><td class="paramname">out</td><td>- out vector of the splitted string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac88aeffde9629b302a22df09c2e4a668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac88aeffde9629b302a22df09c2e4a668">&#9670;&nbsp;</a></span>updateUIInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Text::updateUIInfo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_u_i_item.html">UIItem</a>&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set the UIInfo of the text object </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">info</td><td>- <a class="el" href="struct_u_i_item.html" title="Used by Buttons and Text Objects to store their attributes.">UIItem</a> struct containing origin x,y etc. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_text_8h_source.html">Text.h</a></li>
 <li>Text.cpp</li>
 </ul>

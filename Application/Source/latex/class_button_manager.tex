@@ -9,40 +9,33 @@ Manages all Buttons in a single instance.
 
 {\ttfamily \#include $<$Button\+Manager.\+h$>$}
 
-
-
-Collaboration diagram for Button\+Manager\+:
-% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_button_manager_a7dd471258462b84800d255f9feeaa1a8}\label{class_button_manager_a7dd471258462b84800d255f9feeaa1a8}} 
-void {\bfseries Update} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene, double dt)
-\item 
-\mbox{\Hypertarget{class_button_manager_a016d3305d1b5c8fffe48949318172129}\label{class_button_manager_a016d3305d1b5c8fffe48949318172129}} 
-void {\bfseries Render} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
-\item 
-\mbox{\Hypertarget{class_button_manager_af342b4e0f3350d329fd58bc08d561216}\label{class_button_manager_af342b4e0f3350d329fd58bc08d561216}} 
-void {\bfseries add\+Button} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
-\item 
-\mbox{\Hypertarget{class_button_manager_a3a870028e86a1db05ecbc1e5462f3a5a}\label{class_button_manager_a3a870028e86a1db05ecbc1e5462f3a5a}} 
-bool {\bfseries delete\+Button} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
-\item 
-\mbox{\Hypertarget{class_button_manager_a4ff54cf308db74c62b0ef1a6f42fe1f4}\label{class_button_manager_a4ff54cf308db74c62b0ef1a6f42fe1f4}} 
-bool {\bfseries activate\+Button} (std\+::string button\+Name)
-\item 
-\mbox{\Hypertarget{class_button_manager_a5eda5de65b924ecbf1ff70e6c000d604}\label{class_button_manager_a5eda5de65b924ecbf1ff70e6c000d604}} 
-bool {\bfseries deactivate\+Button} (std\+::string button\+Name)
-\item 
-\mbox{\Hypertarget{class_button_manager_a778e1bab9e9803785b43cae558906a6c}\label{class_button_manager_a778e1bab9e9803785b43cae558906a6c}} 
-\mbox{\hyperlink{class_button}{Button}} $\ast$ {\bfseries get\+Button\+By\+Name} (std\+::string button\+Name)
-\item 
-\mbox{\Hypertarget{class_button_manager_a225cf6d1e380a440a3046214ac3dad80}\label{class_button_manager_a225cf6d1e380a440a3046214ac3dad80}} 
-std\+::vector$<$ \mbox{\hyperlink{class_button}{Button}} $\ast$ $>$ {\bfseries get\+Buttons} ()
-\item 
-\mbox{\Hypertarget{class_button_manager_a9aa4498e67a363b80e4fb51a782172c9}\label{class_button_manager_a9aa4498e67a363b80e4fb51a782172c9}} 
-std\+::vector$<$ \mbox{\hyperlink{struct_button_collide}{Button\+Collide}} $\ast$ $>$ {\bfseries get\+Buttons\+Interacted} ()
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_button_manager_adcecc58a5498e83dba9503e3785d44ec}\label{class_button_manager_adcecc58a5498e83dba9503e3785d44ec}} 
+\mbox{\hyperlink{class_button_manager_adcecc58a5498e83dba9503e3785d44ec}{Button\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{class_button}{Button}} Manager. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_button_manager_a3eba7d1b355a842622c1131f0695c3b9}\label{class_button_manager_a3eba7d1b355a842622c1131f0695c3b9}} 
+\mbox{\hyperlink{class_button_manager_a3eba7d1b355a842622c1131f0695c3b9}{$\sim$\+Button\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \mbox{\hyperlink{class_button}{Button}} Manager, clearing up all buttons stored.. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_button_manager_a7dd471258462b84800d255f9feeaa1a8}{Update}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene, double dt)
+\begin{DoxyCompactList}\small\item\em Updates all buttons, whether they are now clicked or not clicked. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_button_manager_a016d3305d1b5c8fffe48949318172129}{Render}} (\mbox{\hyperlink{class_scene}{Scene}} $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Renders button on the screen based on current scene. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_button_manager_af342b4e0f3350d329fd58bc08d561216}{add\+Button}} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
+\begin{DoxyCompactList}\small\item\em add a button into the \mbox{\hyperlink{class_button}{Button}} Manager to be handled. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_button_manager_a3a870028e86a1db05ecbc1e5462f3a5a}{delete\+Button}} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
+\begin{DoxyCompactList}\small\item\em Calls delete on a button from this \mbox{\hyperlink{class_button}{Button}} Manager. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_button_manager_a4ff54cf308db74c62b0ef1a6f42fe1f4}{activate\+Button}} (std\+::string button\+Name)
+\begin{DoxyCompactList}\small\item\em Actives a button base of the button\textquotesingle{}s String ID. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_button_manager_a5eda5de65b924ecbf1ff70e6c000d604}{deactivate\+Button}} (std\+::string button\+Name)
+\begin{DoxyCompactList}\small\item\em Deactivates a button base of the button\textquotesingle{}s String ID. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_button}{Button}} $\ast$ \mbox{\hyperlink{class_button_manager_a778e1bab9e9803785b43cae558906a6c}{get\+Button\+By\+Name}} (std\+::string button\+Name)
+\begin{DoxyCompactList}\small\item\em Gets a \mbox{\hyperlink{class_button}{Button}} object by its name. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_button}{Button}} $\ast$ $>$ \mbox{\hyperlink{class_button_manager_a225cf6d1e380a440a3046214ac3dad80}{get\+Buttons}} ()
+\begin{DoxyCompactList}\small\item\em Gets all buttons currently in the button manager. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_button_collide}{Button\+Collide}} $\ast$ $>$ \mbox{\hyperlink{class_button_manager_a9aa4498e67a363b80e4fb51a782172c9}{get\+Buttons\+Interacted}} ()
+\begin{DoxyCompactList}\small\item\em Get the list of interacted withs buttons. This is used for code execution after collision is detected. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -51,6 +44,154 @@ Manages all Buttons in a single instance.
 \begin{DoxyVerb}    Class ButtonManager:
 \end{DoxyVerb}
  
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_button_manager_a4ff54cf308db74c62b0ef1a6f42fe1f4}\label{class_button_manager_a4ff54cf308db74c62b0ef1a6f42fe1f4}} 
+\index{ButtonManager@{ButtonManager}!activateButton@{activateButton}}
+\index{activateButton@{activateButton}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{activateButton()}{activateButton()}}
+{\footnotesize\ttfamily bool Button\+Manager\+::activate\+Button (\begin{DoxyParamCaption}\item[{std\+::string}]{bN }\end{DoxyParamCaption})}
+
+
+
+Actives a button base of the button\textquotesingle{}s String ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bN} & -\/ \mbox{\hyperlink{class_button}{Button}}\textquotesingle{}s string ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the button has found and activated. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_af342b4e0f3350d329fd58bc08d561216}\label{class_button_manager_af342b4e0f3350d329fd58bc08d561216}} 
+\index{ButtonManager@{ButtonManager}!addButton@{addButton}}
+\index{addButton@{addButton}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{addButton()}{addButton()}}
+{\footnotesize\ttfamily void Button\+Manager\+::add\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_button}{Button}} $\ast$}]{button }\end{DoxyParamCaption})}
+
+
+
+add a button into the \mbox{\hyperlink{class_button}{Button}} Manager to be handled. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & -\/ \mbox{\hyperlink{class_button}{Button}} Object to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_manager_a5eda5de65b924ecbf1ff70e6c000d604}\label{class_button_manager_a5eda5de65b924ecbf1ff70e6c000d604}} 
+\index{ButtonManager@{ButtonManager}!deactivateButton@{deactivateButton}}
+\index{deactivateButton@{deactivateButton}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{deactivateButton()}{deactivateButton()}}
+{\footnotesize\ttfamily bool Button\+Manager\+::deactivate\+Button (\begin{DoxyParamCaption}\item[{std\+::string}]{bN }\end{DoxyParamCaption})}
+
+
+
+Deactivates a button base of the button\textquotesingle{}s String ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bN} & -\/ \mbox{\hyperlink{class_button}{Button}}\textquotesingle{}s string ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the button has been found and deactivated. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_a3a870028e86a1db05ecbc1e5462f3a5a}\label{class_button_manager_a3a870028e86a1db05ecbc1e5462f3a5a}} 
+\index{ButtonManager@{ButtonManager}!deleteButton@{deleteButton}}
+\index{deleteButton@{deleteButton}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{deleteButton()}{deleteButton()}}
+{\footnotesize\ttfamily bool Button\+Manager\+::delete\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_button}{Button}} $\ast$}]{button }\end{DoxyParamCaption})}
+
+
+
+Calls delete on a button from this \mbox{\hyperlink{class_button}{Button}} Manager. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & -\/ \mbox{\hyperlink{class_button}{Button}} to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the button was successfully deleted 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_a778e1bab9e9803785b43cae558906a6c}\label{class_button_manager_a778e1bab9e9803785b43cae558906a6c}} 
+\index{ButtonManager@{ButtonManager}!getButtonByName@{getButtonByName}}
+\index{getButtonByName@{getButtonByName}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{getButtonByName()}{getButtonByName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_button}{Button}} $\ast$ Button\+Manager\+::get\+Button\+By\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{button\+Name }\end{DoxyParamCaption})}
+
+
+
+Gets a \mbox{\hyperlink{class_button}{Button}} object by its name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button\+Name} & -\/ The String ID of the button \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nullptr if it does not exist, and the \mbox{\hyperlink{class_button}{Button}} pointer object if it does 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_a225cf6d1e380a440a3046214ac3dad80}\label{class_button_manager_a225cf6d1e380a440a3046214ac3dad80}} 
+\index{ButtonManager@{ButtonManager}!getButtons@{getButtons}}
+\index{getButtons@{getButtons}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{getButtons()}{getButtons()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_button}{Button}} $\ast$ $>$ Button\+Manager\+::get\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets all buttons currently in the button manager. 
+
+\begin{DoxyReturn}{Returns}
+the vector of buttons currently in the button manager. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_a9aa4498e67a363b80e4fb51a782172c9}\label{class_button_manager_a9aa4498e67a363b80e4fb51a782172c9}} 
+\index{ButtonManager@{ButtonManager}!getButtonsInteracted@{getButtonsInteracted}}
+\index{getButtonsInteracted@{getButtonsInteracted}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{getButtonsInteracted()}{getButtonsInteracted()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_button_collide}{Button\+Collide}} $\ast$ $>$ Button\+Manager\+::get\+Buttons\+Interacted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the list of interacted withs buttons. This is used for code execution after collision is detected. 
+
+\begin{DoxyReturn}{Returns}
+a vector of buttons collided with mouse cursor in this current frame. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_manager_a016d3305d1b5c8fffe48949318172129}\label{class_button_manager_a016d3305d1b5c8fffe48949318172129}} 
+\index{ButtonManager@{ButtonManager}!Render@{Render}}
+\index{Render@{Render}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily void Button\+Manager\+::\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{scene }\end{DoxyParamCaption})}
+
+
+
+Renders button on the screen based on current scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & -\/ Current scene that is active \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_manager_a7dd471258462b84800d255f9feeaa1a8}\label{class_button_manager_a7dd471258462b84800d255f9feeaa1a8}} 
+\index{ButtonManager@{ButtonManager}!Update@{Update}}
+\index{Update@{Update}!ButtonManager@{ButtonManager}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Button\+Manager\+::\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene}{Scene}} $\ast$}]{scene,  }\item[{double}]{dt }\end{DoxyParamCaption})}
+
+
+
+Updates all buttons, whether they are now clicked or not clicked. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & -\/ \mbox{\hyperlink{class_scene}{Scene}} that is currently using this \mbox{\hyperlink{class_button}{Button}} Manager \\
+\hline
+{\em dt} & -\/ delta time of frame \\
+\hline
+\end{DoxyParams}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
