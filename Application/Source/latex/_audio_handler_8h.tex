@@ -1,0 +1,50 @@
+\hypertarget{_audio_handler_8h}{}\doxysection{Audio\+Handler.\+h File Reference}
+\label{_audio_handler_8h}\index{AudioHandler.h@{AudioHandler.h}}
+
+
+Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}}. Preloads ISound\+Sources to prevent lag when use.  
+
+
+{\ttfamily \#include \char`\"{}../common/conio.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}irr\+Klang.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include \char`\"{}Vector3.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_audio_handler}{Audio\+Handler}}
+\begin{DoxyCompactList}\small\item\em Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_audio_handler_8h_af5ec30be7044dcfed9a51225c2e0aaa3}\label{_audio_handler_8h_af5ec30be7044dcfed9a51225c2e0aaa3}} 
+enum {\bfseries LOOPED} \{ {\bfseries NOLOOP} = 0
+, {\bfseries LOOP} = 1
+ \}
+\item 
+\mbox{\Hypertarget{_audio_handler_8h_aa284981d076de170611b8bd198ad9a40}\label{_audio_handler_8h_aa284981d076de170611b8bd198ad9a40}} 
+enum {\bfseries SOUNDTYPE} \{ \newline
+{\bfseries CAR\+\_\+\+CRASH}
+, {\bfseries GUN\+\_\+\+PISTOL\+\_\+\+SHOOT}
+, {\bfseries GUN\+\_\+\+PISTOL\+\_\+\+EMPTY}
+, {\bfseries GUN\+\_\+\+PISTOL\+\_\+\+RELOAD}
+, \newline
+{\bfseries FIRE\+\_\+\+EXTINGUISH}
+, {\bfseries FIRE\+\_\+\+SOUND}
+, {\bfseries PORTAL}
+, {\bfseries DOOR}
+, \newline
+{\bfseries SOUND\+\_\+\+COUNT}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles all the Audio in our \mbox{\hyperlink{class_game}{Game}}. Preloads ISound\+Sources to prevent lag when use. 
+
+\begin{DoxyAuthor}{Author}
+Tan Yong Hong 
+\end{DoxyAuthor}

@@ -171,6 +171,12 @@ void Camera::Update(double dt)
 
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns true if the pos param is within a certain angle in the camera's view vector.
+*/
+/******************************************************************************/
 bool Camera::isLookingAt(Vector3 pos)
 {
 	float sideA = sqrt(pow(target.x - position.x, 2) + pow(target.y - position.y, 2) + pow(target.z - position.z, 2));
@@ -183,6 +189,12 @@ bool Camera::isLookingAt(Vector3 pos)
 }
 
 
+/******************************************************************************/
+/*!
+\brief
+Moves the camera according to its old position.
+*/
+/******************************************************************************/
 void Camera::Move(float x, float y, float z) {
 	Vector3 view = (target - position).Normalized();
 	position.x += x;

@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
@@ -23,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneHouseFire.h
+\author Tan Yong Hong
+\brief
+Starting scene of House on Fire for the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,
@@ -30,6 +38,12 @@ Change Scene Name Accordingly
 Init the Player Entity
 */
 
+/******************************************************************************/
+/*!
+		Class SceneHouseFire:
+\brief Starting scene of House on Fire for the Game.
+*/
+/******************************************************************************/
 class SceneHouseFire : public Scene
 {
 

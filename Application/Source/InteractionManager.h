@@ -7,6 +7,7 @@
 /*!
 \file	InteractionManager.h
 \author Joash Foo
+\author Tan Yong Hong
 \brief
 Handles all the interactions in this file
 */

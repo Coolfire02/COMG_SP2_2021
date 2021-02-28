@@ -6,6 +6,15 @@
 #include "MeshHandler.h"
 #include <sstream>
 
+/******************************************************************************/
+/*!
+\file	Text.h
+\author Tan Yong Hong
+\brief
+Text Objects used by Buttons. Used to handle text fonts, text size and associative position
+to Buttons.
+*/
+/******************************************************************************/
 
 enum FONTTYPE {
 	CALIBRI,
@@ -20,7 +29,12 @@ struct Font {
 	float verticalOffset;
 };
 
-
+/******************************************************************************/
+/*!
+		Class Text:
+\brief Text Objects used by Buttons.
+*/
+/******************************************************************************/
 class Text
 {
 	//Static Members

@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "ButtonManager.h"
@@ -22,6 +21,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneOffice.h
+\author Ridwan
+\brief
+2nd Last Scene to capture target from his Office.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -32,6 +40,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneOffice:
+\brief 2nd Last Scene to capture target from his Office.
+*/
+/******************************************************************************/
 class SceneOffice : public Scene
 {
 	enum INTERACTION_TYPE {

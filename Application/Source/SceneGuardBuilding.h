@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
@@ -23,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneGuardBuilding.h
+\author Rapheal Phua
+\brief
+Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,
@@ -33,6 +41,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneGuardBuilding:
+\brief Infiltrate the Government Facility Scene
+*/
+/******************************************************************************/
 class SceneGuardBuilding : public Scene
 {
 	enum INTERACTION_TYPE {

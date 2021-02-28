@@ -10,7 +10,7 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
+
 #include "ButtonManager.h"
 #include "EntityManager.h"
 #include "InteractionManager.h"
@@ -20,6 +20,15 @@
 #include "NPC.h"
 #include "CustomEntity.h"
 #include "WorldObject.h"
+
+/******************************************************************************/
+/*!
+\file	SceneFinale.h
+\author Ridwan
+\brief
+The Last and Final Scene of the Game.
+*/
+/******************************************************************************/
 
 /*
 * Scene Setup
@@ -31,6 +40,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneFinale:
+\brief The Last and Final Scene of the Game.
+*/
+/******************************************************************************/
 class SceneFinale : public Scene
 {
 	enum INTERACTION_TYPE {

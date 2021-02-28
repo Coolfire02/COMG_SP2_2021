@@ -1,0 +1,215 @@
+\hypertarget{_mesh_handler_8h}{}\doxysection{Mesh\+Handler.\+h File Reference}
+\label{_mesh_handler_8h}\index{MeshHandler.h@{MeshHandler.h}}
+
+
+Provides a Universal \mbox{\hyperlink{class_mesh}{Mesh}} List for all Scenes to use.  
+
+
+{\ttfamily \#include \char`\"{}Mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Mesh\+Builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Entity\+Data\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}GL/glew.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_mesh_handler}{Mesh\+Handler}}
+\begin{DoxyCompactList}\small\item\em Provides a Universal \mbox{\hyperlink{class_mesh}{Mesh}} List for all Scenes to use. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_mesh_handler_8h_ae921670d82047483df0e480a42c4cf9b}\label{_mesh_handler_8h_ae921670d82047483df0e480a42c4cf9b}} 
+enum {\bfseries GEOMETRY\+\_\+\+TYPE} \{ \newline
+{\bfseries EMPTY} = 0
+, {\bfseries GEO\+\_\+\+AXES}
+, {\bfseries GEO\+\_\+\+LIGHTBALL}
+, {\bfseries GEO\+\_\+\+TEXT}
+, \newline
+{\bfseries GEO\+\_\+\+TEXT\+\_\+\+CALIBRI}
+, {\bfseries GEO\+\_\+\+TEXT\+\_\+\+SUPERMARIO}
+, {\bfseries GEO\+\_\+\+BUILDING\+\_\+1}
+, {\bfseries GEO\+\_\+\+BUILDING\+\_\+2}
+, \newline
+{\bfseries GEO\+\_\+\+BUILDING\+\_\+3}
+, {\bfseries GEO\+\_\+\+BUILDING\+\_\+4}
+, {\bfseries GEO\+\_\+\+BUILDING\+\_\+5}
+, {\bfseries GEO\+\_\+\+BUILDING\+\_\+6}
+, \newline
+{\bfseries GEO\+\_\+\+BUILDING\+\_\+7}
+, {\bfseries GEO\+\_\+\+SUBURBAN\+\_\+1}
+, {\bfseries GEO\+\_\+\+SUBURBAN\+\_\+2}
+, {\bfseries GEO\+\_\+\+SUBURBAN\+\_\+3}
+, \newline
+{\bfseries GEO\+\_\+\+SUBURBAN\+\_\+4}
+, {\bfseries GEO\+\_\+\+SUBURBAN\+\_\+5}
+, {\bfseries GEO\+\_\+\+FIRE}
+, {\bfseries GEO\+\_\+\+GRASSBLOCK}
+, \newline
+{\bfseries GEO\+\_\+\+BOSS\+\_\+\+BUILDING}
+, {\bfseries GEO\+\_\+\+FOUNTAIN}
+, {\bfseries GEO\+\_\+\+NPC}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+TILE}
+, \newline
+{\bfseries GEO\+\_\+\+ROAD\+\_\+\+CROSSING}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+INTERSECTION\+\_\+\+PATH}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+ROUNDABOUT}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+BEND}
+, \newline
+{\bfseries GEO\+\_\+\+ROAD}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+END}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+STREET\+\_\+\+LAMP}
+, {\bfseries GEO\+\_\+\+ROAD\+\_\+\+BLOCK}
+, \newline
+{\bfseries GEO\+\_\+\+TREE}
+, {\bfseries GEO\+\_\+\+SEDAN}
+, {\bfseries GEO\+\_\+\+SEDAN\+\_\+\+SPORTS}
+, {\bfseries GEO\+\_\+\+RACER}
+, \newline
+{\bfseries GEO\+\_\+\+POLICE}
+, {\bfseries GEO\+\_\+\+AMBULANCE}
+, {\bfseries GEO\+\_\+\+SUV}
+, {\bfseries GEO\+\_\+\+HATCH\+\_\+\+BACK\+\_\+\+SPORTS}
+, \newline
+{\bfseries GEO\+\_\+\+TRACTOR\+\_\+\+SHOVEL}
+, {\bfseries GEO\+\_\+\+TRUCK}
+, {\bfseries GEO\+\_\+\+VAN}
+, {\bfseries GEO\+\_\+\+QUAD}
+, \newline
+{\bfseries GEO\+\_\+\+CUBE}
+, {\bfseries GEO\+\_\+\+HEALTHBAR}
+, {\bfseries GEO\+\_\+\+BOOSTMETER}
+, {\bfseries GEO\+\_\+\+SPHERE}
+, \newline
+{\bfseries GEO\+\_\+\+SKY\+\_\+\+LEFT}
+, {\bfseries GEO\+\_\+\+SKY\+\_\+\+RIGHT}
+, {\bfseries GEO\+\_\+\+SKY\+\_\+\+TOP}
+, {\bfseries GEO\+\_\+\+SKY\+\_\+\+BOTTOM}
+, \newline
+{\bfseries GEO\+\_\+\+SKY\+\_\+\+FRONT}
+, {\bfseries GEO\+\_\+\+SKY\+\_\+\+BACK}
+, {\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+LEFT}
+, {\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+RIGHT}
+, \newline
+{\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+TOP}
+, {\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+BOTTOM}
+, {\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+FRONT}
+, {\bfseries GEO\+\_\+\+GUNSHOP\+\_\+\+BACK}
+, \newline
+{\bfseries GEO\+\_\+\+WIREMESH}
+, {\bfseries GEO\+\_\+\+COUNTER}
+, {\bfseries GEO\+\_\+\+DRUGMAN}
+, {\bfseries GEO\+\_\+\+MACHINE\+\_\+\+GUN}
+, \newline
+{\bfseries GEO\+\_\+\+MACHINE\+\_\+\+GUN\+\_\+\+LAUNCHER}
+, {\bfseries GEO\+\_\+\+PISTOL}
+, {\bfseries GEO\+\_\+\+PISTOL\+\_\+S}
+, {\bfseries GEO\+\_\+\+RLM}
+, \newline
+{\bfseries GEO\+\_\+\+SHOTGUN}
+, {\bfseries GEO\+\_\+\+SHOTGUN\+\_\+S}
+, {\bfseries GEO\+\_\+\+SNIPER}
+, {\bfseries GEO\+\_\+\+UZI}
+, \newline
+{\bfseries GEO\+\_\+\+UZI\+\_\+L}
+, {\bfseries GEO\+\_\+\+UZI\+\_\+\+L\+\_\+S}
+, {\bfseries GEO\+\_\+\+UZI\+\_\+S}
+, {\bfseries GEO\+\_\+\+SHOWROOM}
+, \newline
+{\bfseries GEO\+\_\+\+GRASS}
+, {\bfseries GEO\+\_\+\+CYLINDER}
+, {\bfseries GEO\+\_\+\+TIMEPORTAL\+\_\+\+WALL}
+, {\bfseries GEO\+\_\+\+TIMEPORTAL\+\_\+\+DOOR}
+, \newline
+{\bfseries GEO\+\_\+\+DOOR}
+, {\bfseries GEO\+\_\+\+PORTAL\+\_\+\+SCREEN}
+, {\bfseries GEO\+\_\+\+FIREEXTINGUISHER}
+, {\bfseries GAME\+\_\+\+TITLE}
+, \newline
+{\bfseries TITLE\+\_\+\+BG}
+, {\bfseries PLAY\+\_\+\+BUTTON}
+, {\bfseries CREDITS\+\_\+\+BUTTON}
+, {\bfseries RESUME\+\_\+\+BUTTON}
+, \newline
+{\bfseries MENU\+\_\+\+BUTTON}
+, {\bfseries QUIT\+\_\+\+BUTTON}
+, {\bfseries THE\+\_\+\+END}
+, {\bfseries UI\+\_\+\+BLACK}
+, \newline
+{\bfseries UI\+\_\+\+BLUE}
+, {\bfseries UI\+\_\+\+WINDOW}
+, {\bfseries UI\+\_\+\+EMPTY}
+, {\bfseries UI\+\_\+\+BLANK}
+, \newline
+{\bfseries UI\+\_\+\+EGGPLANT}
+, {\bfseries UI\+\_\+\+CORN}
+, {\bfseries UI\+\_\+\+BURGER}
+, {\bfseries UI\+\_\+\+SEDAN}
+, \newline
+{\bfseries UI\+\_\+\+SEDAN\+\_\+\+SPORTS}
+, {\bfseries UI\+\_\+\+RACER}
+, {\bfseries UI\+\_\+\+POLICE}
+, {\bfseries UI\+\_\+\+AMBULANCE}
+, \newline
+{\bfseries UI\+\_\+\+SUV}
+, {\bfseries UI\+\_\+\+HATCH\+\_\+\+BACK\+\_\+\+SPORTS}
+, {\bfseries UI\+\_\+\+TRACTOR\+\_\+\+SHOVEL}
+, {\bfseries UI\+\_\+\+TRUCK}
+, \newline
+{\bfseries UI\+\_\+\+VAN}
+, {\bfseries UI\+\_\+\+PISTOL}
+, {\bfseries UI\+\_\+\+SILENCER}
+, {\bfseries UI\+\_\+\+FIRE\+\_\+\+EXTINGUISHER}
+, \newline
+{\bfseries GARAGE\+\_\+\+WALL}
+, {\bfseries GARAGE\+\_\+\+DOOR}
+, {\bfseries CONCRETE\+\_\+\+WALL}
+, {\bfseries GARAGE\+\_\+\+FLOOR}
+, \newline
+{\bfseries BARREL}
+, {\bfseries BARRELS}
+, {\bfseries BARRELS\+\_\+\+RAIL}
+, {\bfseries CRATE}
+, \newline
+{\bfseries CRATE\+\_\+\+STRONG}
+, {\bfseries CRATE\+\_\+\+ITEM}
+, {\bfseries CRATE\+\_\+\+ITEM\+\_\+\+STRONG}
+, {\bfseries PRESENT\+\_\+\+LOW}
+, \newline
+{\bfseries SNOWMAN\+\_\+\+FANCY}
+, {\bfseries SNOW\+\_\+\+PATCH}
+, {\bfseries TARGET\+\_\+A}
+, {\bfseries TARGET\+\_\+B}
+, \newline
+{\bfseries GEO\+\_\+\+DESK}
+, {\bfseries GEO\+\_\+\+DESK\+\_\+\+CHAIR}
+, {\bfseries GEO\+\_\+\+BIMSTER}
+, {\bfseries GEO\+\_\+\+PILLAR}
+, \newline
+{\bfseries GEO\+\_\+\+MISSION\+\_\+\+COMPLETE}
+, {\bfseries GEO\+\_\+\+MISSION\+\_\+\+TASK}
+, {\bfseries GEO\+\_\+\+ROADWAYPOINT}
+, {\bfseries GEO\+\_\+\+FIRE\+\_\+\+GIF}
+, \newline
+{\bfseries GEO\+\_\+\+BLACK}
+, {\bfseries UI\+\_\+\+TEXTBOX}
+, {\bfseries UI\+\_\+\+CHOICE}
+, {\bfseries UI\+\_\+\+CROSSHAIR}
+, \newline
+{\bfseries SETTINGS\+\_\+\+PANEL}
+, {\bfseries SETTINGS\+\_\+\+BUTTON\+\_\+\+OFF}
+, {\bfseries SETTINGS\+\_\+\+BUTTON\+\_\+\+ON}
+, {\bfseries SETTINGS\+\_\+\+BUTTON}
+, \newline
+{\bfseries SETTINGS\+\_\+\+TEXT\+\_\+\+SANDBOX}
+, {\bfseries SETTINGS\+\_\+\+TEXT\+\_\+\+FPS}
+, {\bfseries NUM\+\_\+\+GEOMETRY}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides a Universal \mbox{\hyperlink{class_mesh}{Mesh}} List for all Scenes to use. 
+
+\begin{DoxyAuthor}{Author}
+Tan Yong Hong 
+\end{DoxyAuthor}

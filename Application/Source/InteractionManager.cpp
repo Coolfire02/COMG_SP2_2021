@@ -219,6 +219,7 @@ bool InteractionManager::runCommand(Command cmd) {
 		else if (splitVar.at(0) == "/killBimster") {
 			if (cmd.scene->getName() == "Finale") {
 				((SceneFinale*)cmd.scene)->mrBimsterTied->setDead(true);
+				Game::killedBimster = true;
 			}
 		}
 		else if (splitVar.at(0) == "/returnto2051") {

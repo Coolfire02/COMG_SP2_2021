@@ -18,6 +18,23 @@ struct ButtonCollide {
 	ButtonCollide(Button* button, float firstInteract) : buttonClicked(button), justClicked(false), isClicking(false), clickTally(0), justHovered(true), hovering(true), firstInteractTime(firstInteract), lastClickedTime(0.f) {}
 };
 
+/******************************************************************************/
+/*!
+\file	ButtonManager.h
+\author Tan Yong Hong
+\brief
+Manages all Buttons in a single instance.
+
+Helps check for Button Hovers, Button Clicks etc.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
+		Class ButtonManager:
+\brief Manages all Buttons in a single instance.
+*/
+/******************************************************************************/
 class ButtonManager
 {
 	std::vector<Button*> buttons;

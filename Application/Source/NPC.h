@@ -4,6 +4,15 @@
 
 /******************************************************************************/
 /*!
+\file	NPC.h
+\author Joash Foo
+\brief
+Handles all NPC functionalities.
+*/
+/******************************************************************************/
+
+/******************************************************************************/
+/*!
 \brief
 Struct to handle the physics of the NPC. 
 Implemented only in NPC as we did not plan to have any physics for other entities.

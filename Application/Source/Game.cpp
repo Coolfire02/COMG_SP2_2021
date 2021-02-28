@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "LoadTGA.h"
 
+// Initialisation of static variables.
+
 bool Game::settings[SETTINGS_COUNT];
 float Game::FPS = 60.f;
 
@@ -17,6 +19,7 @@ int Game::ammo = 0;
 int Game::cash = 0;
 
 int Game::BimsterSavePoints = 0;
+bool Game::killedBimster = false;
 bool Game::switchingScene = false;
 SCENES Game::toSwitchScene = S_COUNT;
 double Game::timeToSwitch = 0.0;
@@ -25,6 +28,7 @@ double Game::startSwitchTime = 0.0;
 Inventory Game::inv;
 UIManager Game::uiManager;
 bool Game::gameExit = false;
+
 
 Game::Game()
 {
@@ -36,14 +40,29 @@ Game::~Game()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Initialises the UI and Interactions here.
+*/
+/******************************************************************************/
 void Game::Init()
 {
 	iManager.initInteractions("config//Interactions//Interactions.txt");
 	uiManager.Init();
 }
-
+// tickers for the fire gif.
 int frameTicker;
 int fireFrame;
+
+
+/******************************************************************************/
+/*!
+\brief
+Updates all of the game stuff here,
+e.g. current Scene, UI, Interactions, Inventory
+*/
+/******************************************************************************/
 void Game::Update(double dt)
 {
 
@@ -135,6 +154,12 @@ void Game::Update(double dt)
 	++frameTicker;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Updates the Interaction UI here.
+*/
+/******************************************************************************/
 void Game::InteractionUpdate(double dt)
 {
 
@@ -142,6 +167,7 @@ void Game::InteractionUpdate(double dt)
 		if (uiManager.getCurrentMenu() != UI_INTERACTION)
 			uiManager.setCurrentUI(UI_INTERACTION);
 
+		// Set all 4 choice buttons to deactivated by default. Only activate if there are choices available.
 		uiManager.getCurrentBM()->deactivateButton("Choice1");
 		uiManager.getCurrentBM()->deactivateButton("Choice2");
 		uiManager.getCurrentBM()->deactivateButton("Choice3");
@@ -150,11 +176,12 @@ void Game::InteractionUpdate(double dt)
 			for (int i = 1; i < iManager.getQueue().Top()->interactionChoices.size() + 1; ++i) {
 				std::stringstream ss;
 				ss << "Choice" << i;
+				// if the length of the string is greater than 2 lines, decrease font size and move the y offset up.
 				std::size_t pos = Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.find("\n");
 				if (Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.find("\n") != std::string::npos && pos != Game::iManager.getQueue().Top()->interactionChoices[i - 1]->interactionText.size() - 1) {
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setSize(2.5f);
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setTextOffsetFromTopLeft(9, 3.5);
-				}
+				} // else render as normal.
 				else {
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setSize(3.5f);
 					uiManager.getCurrentBM()->getButtonByName(ss.str())->getTextObject()->setTextOffsetFromTopLeft(9, 5.5);
@@ -171,16 +198,34 @@ void Game::InteractionUpdate(double dt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Renders the UI according to the active scene.
+*/
+/******************************************************************************/
 void Game::RenderUI()
 {
 	uiManager.Render(SceneList[activeScene]);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Renders the active scene to the GLFW Window.
+*/
+/******************************************************************************/
 void Game::Render()
 {
 	SceneList[activeScene]->Render();
 }
 
+/******************************************************************************/
+/*!
+\brief
+Cleans up the scenes here.
+*/
+/******************************************************************************/
 void Game::Exit()
 {
 	for (int i = 0; i < SceneList.size(); i++)
@@ -190,12 +235,24 @@ void Game::Exit()
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Adds a scene to the SceneList vector.
+*/
+/******************************************************************************/
 void Game::addScene(Scene* scene)
 {
 	SceneList.push_back(scene); //push back scene into SceneList vector
 	scene->Init();
 }
 
+/******************************************************************************/
+/*!
+\brief
+Switches the scene using the activeScene enum and intialises light parameters.
+*/
+/******************************************************************************/
 void Game::switchScene(static SCENES scene)
 {
 	activeScene = scene; //set scene argument to activeScene
@@ -203,6 +260,12 @@ void Game::switchScene(static SCENES scene)
 	Game::sceneCooldown = 0;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Overloaded scene switching function for scene transitions.
+*/
+/******************************************************************************/
 void Game::switchScene(static SCENES scene, float transitionTime, std::string text)
 {
 	if (switchingScene != true) {
@@ -218,11 +281,22 @@ void Game::switchScene(static SCENES scene, float transitionTime, std::string te
 }
 
 
-
+/******************************************************************************/
+/*!
+\brief
+returns the active scene.
+*/
+/******************************************************************************/
 Scene* Game::getActiveScene() {
-	return nullptr;
+	return SceneList[activeScene];
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns the scene given the string name.
+*/
+/******************************************************************************/
 Scene* Game::getSceneByName(std::string scene)
 {
 	for (int i = 0; i < SceneList.size(); ++i) //find the scene through name
@@ -235,11 +309,23 @@ Scene* Game::getScene()
 	return SceneList[activeScene]; //return ActiveScene
 }
 
+/******************************************************************************/
+/*!
+\brief
+Returns the previous scene's enum type.
+*/
+/******************************************************************************/
 SCENES Game::getPrevSceneENUM()
 {
 	return prevScene;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Sets the previous scene enum.
+*/
+/******************************************************************************/
 void Game::setPrevSceneENUM(SCENES p)
 {
 	prevScene = p;

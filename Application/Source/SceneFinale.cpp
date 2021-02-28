@@ -509,7 +509,10 @@ void SceneFinale::CollisionHandler(double dt) {
 						if (mission == MISSION_RETURN_TO_2051) {
 							Game::uiManager.setUIactive(UI_E_TO_INTERACT);
 							if (Application::IsKeyPressed('E') && Game::sceneCooldown > 3) {
-								Game::iManager.loadInteraction("bimsterKill2");
+
+								if (Game::killedBimster)
+									Game::iManager.loadInteraction("bimsterKill2");
+
 								ISound* door = AudioHandler::getEngine()->play3D(
 									AudioHandler::getSoundSource(DOOR),
 									AudioHandler::to_vec3df(Vector3(0, 0, 0)),

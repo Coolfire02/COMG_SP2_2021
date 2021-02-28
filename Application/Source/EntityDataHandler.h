@@ -1,5 +1,14 @@
 #pragma once
-// rewrite of entity data by Joash 16/2/21
+
+/******************************************************************************/
+/*!
+\file	EntityDataHandler.h
+\author Tan Yong Hong
+\author Joash Foo
+\brief
+Handles all World Attributes of an Entity.
+*/
+/******************************************************************************/
 
 //struct EntityMeshData {
 //	float
@@ -13,6 +22,15 @@
 
 //Level 1, non hierarchical (First item in hierarchical stack will use the data from Entity's EntityData)
 //This data is then used to communicate with the HitBox class to update it accordingly
+
+// rewrite of entity data by Joash 16/2/21
+
+/******************************************************************************/
+/*!
+		Class EntityDataHandler:
+\brief Handles all World Attributes of an Entity.
+*/
+/******************************************************************************/
 struct EntityData {
 	Vector3 Translate;
 	Vector3 Rotation;
@@ -48,3 +66,4 @@ struct EntityData {
 		Rotation.z = z;
 	}
 };
+// rewrite end

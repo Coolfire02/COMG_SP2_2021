@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "ButtonManager.h"
@@ -23,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	Scene2021.h
+\author Jordan Low
+\brief
+Main City Scene of the Game.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init, 
@@ -32,6 +40,13 @@ Init the Player Entity
 TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
+
+/******************************************************************************/
+/*!
+		Class Scene2021:
+\brief Main City Scene of the Game.
+*/
+/******************************************************************************/
 
 class Scene2021 : public Scene
 {

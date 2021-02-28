@@ -10,7 +10,6 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Interactions.h"
 
 #include "EntityManager.h"
 #include "MeshHandler.h"
@@ -23,6 +22,15 @@
 #include "CustomEntity.h"
 #include "WorldObject.h"
 
+/******************************************************************************/
+/*!
+\file	SceneTimePortal.h
+\author Joash Foo
+\brief
+Time Portal Scene to enter and come back from the Future.
+*/
+/******************************************************************************/
+
 /*
 * Scene Setup
 * In Init,
@@ -33,6 +41,12 @@ TODOs:
 Migrate Most Interaction Handling to Interaction Manager
 */
 
+/******************************************************************************/
+/*!
+		Class SceneTimePortal:
+\brief Time Portal Scene to enter and come back from the Future.
+*/
+/******************************************************************************/
 class SceneTimePortal : public Scene
 {
 	enum INTERACTION_TYPE {
