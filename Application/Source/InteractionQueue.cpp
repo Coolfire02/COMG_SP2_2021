@@ -8,14 +8,35 @@ InteractionQueue::~InteractionQueue()
 {
 }
 
+/******************************************************************************/
+/*!
+\brief
+Return queue vector
+*/
+/******************************************************************************/
+
 std::vector<Interaction*>& InteractionQueue::getQueue()
 {
 	return queue;
 }
 
+/******************************************************************************/
+/*!
+\brief
+Push an Interaction to queue vector
+*/
+/******************************************************************************/
+
 void InteractionQueue::pushInteraction(Interaction* interaction) {
 	queue.push_back(interaction);
 }
+
+/******************************************************************************/
+/*!
+\brief
+Push an Interaction to queue vector
+*/
+/******************************************************************************/
 
 void InteractionQueue::pushInteraction(std::vector<Command*> preInteractionCMD, std::string interactionText, std::vector<Command*> postInteractionCMD) {
 	Interaction* temp;
@@ -26,14 +47,35 @@ void InteractionQueue::pushInteraction(std::vector<Command*> preInteractionCMD, 
 	queue.push_back(temp);
 }
 
+/******************************************************************************/
+/*!
+\brief
+Gets the first in the queue vector
+*/
+/******************************************************************************/
+
 Interaction* InteractionQueue::Top()
 {
 	return queue.front();
 }
 
+/******************************************************************************/
+/*!
+\brief
+Gets queue vector size
+*/
+/******************************************************************************/
+
 int InteractionQueue::size() {
 	return queue.size();
 }
+
+/******************************************************************************/
+/*!
+\brief
+Pops the first Interaction that is in the vector
+*/
+/******************************************************************************/
 
 void InteractionQueue::popInteraction() {
 	this->queue[0] = nullptr;

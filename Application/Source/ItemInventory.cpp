@@ -1,9 +1,22 @@
 #include "ItemInventory.h"
 
+/******************************************************************************/
+/*!
+\brief
+Initialise ItemInventory to nullptr
+*/
+/******************************************************************************/
 ItemInventory::ItemInventory()
 {
 	currentItem = nullptr;
 }
+
+/******************************************************************************/
+/*!
+\brief
+Initialise ItemInventory while also adding an item
+*/
+/******************************************************************************/
 
 ItemInventory::ItemInventory(ITEM_TYPE itemtype, int amt)
 {
@@ -15,6 +28,13 @@ ItemInventory::~ItemInventory()
 {
 	//blank on purpose
 }
+
+/******************************************************************************/
+/*!
+\brief
+Add Items based on Item Type as well as amount and can deduct amount through vectors
+*/
+/******************************************************************************/
 
 void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 {
@@ -41,6 +61,13 @@ void ItemInventory::addItem(ITEM_TYPE itemtype, int amt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Switch to the next item on the vector
+*/
+/******************************************************************************/
+
 void ItemInventory::toggleItem()
 {
 	for (int i = 0; i < itemInv.size(); i++)
@@ -60,6 +87,13 @@ void ItemInventory::toggleItem()
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Check if item becomes subtracts below 0
+*/
+/******************************************************************************/
+
 void ItemInventory::negativeAmtCheckAndSetter(Item* item, int number)
 {
 	if (item == nullptr)
@@ -69,6 +103,13 @@ void ItemInventory::negativeAmtCheckAndSetter(Item* item, int number)
 	else
 		item->setAmt(item->getAmt() + number);
 }
+
+/******************************************************************************/
+/*!
+\brief
+Add amount of items based on specific Item Type
+*/
+/******************************************************************************/
 
 void ItemInventory::setAmtOfItems(ITEM_TYPE itemtype, int amt)
 {
@@ -82,6 +123,13 @@ void ItemInventory::setAmtOfItems(ITEM_TYPE itemtype, int amt)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Set current Item based on Item Type Enum
+*/
+/******************************************************************************/
+
 void ItemInventory::setCurrentItem(int itemType)
 {
 	for (int i = 0; i < itemInv.size(); i++)
@@ -91,10 +139,24 @@ void ItemInventory::setCurrentItem(int itemType)
 	}
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get current Item Amount
+*/
+/******************************************************************************/
+
 int ItemInventory::getCurrentItemAmt()
 {
 	return this->currentItem->getAmt();
 }
+
+/******************************************************************************/
+/*!
+\brief
+Get current Item Type
+*/
+/******************************************************************************/
 
 ITEM_TYPE ItemInventory::getCurrentItemType()
 {
@@ -102,10 +164,24 @@ ITEM_TYPE ItemInventory::getCurrentItemType()
 		return this->currentItem->getType();
 }
 
+/******************************************************************************/
+/*!
+\brief
+Get current Item Pointer
+*/
+/******************************************************************************/
+
 Item* ItemInventory::getCurrentItem()
 {
 	return this->currentItem;
 }
+
+/******************************************************************************/
+/*!
+\brief
+Get current Item List Vector
+*/
+/******************************************************************************/
 
 std::vector<Item*> ItemInventory::getItemVect()
 {
