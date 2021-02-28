@@ -20,6 +20,7 @@ using namespace irrklang;
 
 #pragma comment(lib, "irrKlang.lib")
 
+
 enum LOOPED {
 	NOLOOP = 0,
 	LOOP = 1
@@ -57,10 +58,10 @@ Preloads ISoundSources to prevent lag when use.
 class AudioHandler
 {
 private:
-	static bool loaded;
-	static ISoundEngine* engine;
-	static std::string fileLocation[SOUNDTYPE::SOUND_COUNT];
-	static ISoundSource* soundSource[SOUNDTYPE::SOUND_COUNT];
+	static bool loaded; // is Audio Handler loaded
+	static ISoundEngine* engine; // irrklang Engine that AudioHandler relies on.
+	static std::string fileLocation[SOUNDTYPE::SOUND_COUNT]; // file locations for the different sounds
+	static ISoundSource* soundSource[SOUNDTYPE::SOUND_COUNT]; // audio source objects that are pre-loaded to prevent lag.
 public:
 	static ISoundEngine* getEngine();
 	static const char* getFileLocation(SOUNDTYPE);
