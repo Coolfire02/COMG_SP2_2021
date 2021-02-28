@@ -19,8 +19,6 @@ Inventory::Inventory()
 
 	//for weapon inven
 	weaponInv = new WeaponInventory();
-	weaponInv->addWeapon(PISTOL);
-	weaponInv->addWeapon(SILENCER);
 }
 
 Inventory::~Inventory()
