@@ -1,7 +1,0 @@
-digraph "ItemInventory"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{ItemInventory\n||+  ItemInventory()\l+  ItemInventory(ITEM\l_TYPE itemtype, int amt)\l+  ~ItemInventory()\l+ void addItem(ITEM_TYPE\l itemtype, int amt)\l+ void toggleItem()\l+ void negativeAmtCheckAnd\lSetter(Item *item, int\l number)\l+ void setAmtOfItems\l(ITEM_TYPE itemtype,\l int amt)\l+ void setCurrentItem\l(int itemType)\l+ int getCurrentItemAmt()\l+ ITEM_TYPE getCurrentItem\lType()\l+ Item * getCurrentItem()\l+ std::vector\< Item *\l \> getItemVect()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles items in an Inventory."];
-}

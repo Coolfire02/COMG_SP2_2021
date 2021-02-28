@@ -1,7 +1,0 @@
-digraph "InteractionManager"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{InteractionManager\n||+  InteractionManager()\l+  ~InteractionManager()\l+ int getTimesInteracted\l(std::string interactionID)\l+ InteractionQueue &\l getQueue()\l+ bool runCommand(Command cmd)\l+ bool loadInteraction\l(std::string key)\l+ bool initInteractions\l(const char *filePath)\l+ void split(std::string\l txt, char delim, std\l::vector\< std::string \> &out)\l+ void EndInteraction()\l+ void nextInteraction\l(std::string key)\l+ bool isInteracting()\l+ bool passedInteractionCooldown()\l+ void Update(double)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Manager to handle the interactions in a map and active interactions using a queue."];
-}

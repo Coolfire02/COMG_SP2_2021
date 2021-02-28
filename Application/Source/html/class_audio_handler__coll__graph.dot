@@ -1,7 +1,0 @@
-digraph "AudioHandler"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{AudioHandler\n||+ static ISoundEngine\l * getEngine()\l+ static const char *\l getFileLocation(SOUNDTYPE)\l+ static ISoundSource\l * getSoundSource(SOUNDTYPE)\l+ static vec3df to_vec3df\l(Vector3 vec)\l+ static void load()\l+ static bool isLoaded()\l+ static void cleanup()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handles all the Audio in our Game."];
-}

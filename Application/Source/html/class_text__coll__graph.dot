@@ -1,7 +1,0 @@
-digraph "Text"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{Text\n||+  Text(Color color,\l float originX, float\l originY, float quadSize,\l FONTTYPE type, float size)\l+  Text(Color color,\l UIItem UIInfo, FONTTYPE\l type, float size)\l+  ~Text()\l+ void setTextString\l(std::string text)\l+ void setTextStringStream\l(std::ostringstream text)\l+ void setTextOffsetFromTop\lLeft(float x, float y)\l+ void setVisisble(bool\l visibility)\l+ std::string getText()\l+ void updateUIInfo(UIItem\l info)\l+ void setColor(Color\l color)\l+ Color getColor()\l+ bool isVisible()\l+ void setSize(float\l size)\l+ void changeFont(FONTTYPE\l type)\l+ void Render(Scene *scene)\l+ static bool loadFonts()\l+ static bool areFontsLoaded()\l+ static Font * getFont\l(FONTTYPE)\l+ static void splitText\l(std::string txt, char\l delim, std::vector\< std\l::string \> &out)\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Text Objects used by Buttons."];
-}
