@@ -25,7 +25,7 @@ class Player : public Entity
 private:
 	Car* currentDrivingCar; // current car
 	bool driving;
-	// int Money; // lmao useless now
+	// int Money; // lmao useless now xd
 	// std::vector<Items*> Inventory; remove the // later when Items have been implemented // Haha we put inventory in game LOL
 
 public:
