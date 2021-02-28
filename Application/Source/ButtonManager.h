@@ -3,6 +3,12 @@
 #include "Text.h"
 #include <vector>
 
+/******************************************************************************/
+/*!
+		Class ButtonCollide:
+\brief The object in vector<ButtonCollide> return from Update() in ButtonManager
+*/
+/******************************************************************************/
 struct ButtonCollide {
 	Button* buttonClicked;
 	bool justClicked;

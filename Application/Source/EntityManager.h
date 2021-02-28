@@ -3,6 +3,12 @@
 #include <vector>
 #include "Scene.h"
 
+/******************************************************************************/
+/*!
+		Class CollidedWith:
+\brief An Object that is communicated between scenes and EntityManager to cancel movement etc.
+*/
+/******************************************************************************/
 struct CollidedWith {
 	Entity* attacker, * victim;
 	const bool justCollided;
