@@ -227,7 +227,7 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
-	m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+	m_window = glfwCreateWindow(m_width, m_height, "Time Vengeance", NULL, NULL);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
 
 	//If the window couldn't be created
