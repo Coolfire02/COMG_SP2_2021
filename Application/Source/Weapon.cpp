@@ -109,10 +109,20 @@ void Weapon::Update(Scene* scene, EntityManager* eManager, Vector3 plrPos, Vecto
 					eManager->spawnMovingEntity(bullet);
 					shoot = true;
 
-					AudioHandler::getEngine()->play3D(
-						AudioHandler::getSoundSource(SOUNDTYPE::GUN_PISTOL_SHOOT),
-						AudioHandler::to_vec3df(Vector3(0, 0, 0)),
-						LOOPED::NOLOOP);
+					if (Game::inv.getActiveWeapon()->getWeaponType() == PISTOL)
+					{
+						AudioHandler::getEngine()->play3D(
+							AudioHandler::getSoundSource(SOUNDTYPE::GUN_PISTOL_SHOOT),
+							AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+							LOOPED::NOLOOP);
+					}
+					else
+					{
+						AudioHandler::getEngine()->play3D(
+							AudioHandler::getSoundSource(SOUNDTYPE::GUN_SILENCER_SHOOT),
+							AudioHandler::to_vec3df(Vector3(0, 0, 0)),
+							LOOPED::NOLOOP);
+					}
 
 					DEBUG_MSG("shot");
 					DEBUG_MSG("x: " << view.x << " y: " << view.y << " z: " << view.z);

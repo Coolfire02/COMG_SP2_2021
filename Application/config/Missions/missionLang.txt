@@ -98,9 +98,9 @@ MISSION_GET_INFO_FROM_GILBERT
 * PreRequisiteMissions:
 	- MISSION_RETURN_THE_GOODS
 
-MISSION_SNEAK_INTO_THE_BUILDING
+MISSION_SNEAK_INTO_THE_OFFICE
 - GEO_TYPE_Enum: EMPTY
-- ObjectiveMessage: Sneak into the government building through the back door
+- ObjectiveMessage: Sneak into the government office through the back door
 - CompletedMessage: pew
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
@@ -112,7 +112,7 @@ MISSION_ABDUCT_BIMSTER
 - CompletedMessage: Leave the area
 * BlackListedPreRequisiteMissions: []
 * PreRequisiteMissions:
-	- MISSION_SNEAK_INTO_THE_BUILDING
+	- MISSION_SNEAK_INTO_THE_OFFICE
 
 MISSION_ESCAPE_THE_OFFICE
 - GEO_TYPE_Enum: EMPTY
