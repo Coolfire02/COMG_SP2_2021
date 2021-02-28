@@ -1,10 +1,20 @@
 #include "EntityManager.h"
 #include "Bullet.h"
 
+/**
+ * Default constructor of EntityManager.
+ * 
+ * \param scene - Scene that this emanager is associated with
+ */
 EntityManager::EntityManager(Scene* scene) : scene(scene) {
 
 }
 
+/**
+ * \brief Destructor for entity manager.
+ * deletes all world and moving entity pointers
+ * 
+ */
 EntityManager::~EntityManager() {
 	for (auto& entry : worldEntities) {
 		delete entry;
@@ -14,24 +24,45 @@ EntityManager::~EntityManager() {
 	}
 }
 
+/**
+ * \brief Spawning a Moving entity into the world.
+ * 
+ * \param e - An entity that is created
+ */
 void EntityManager::spawnMovingEntity(Entity* e) {
 	e->PostUpdate(); //Sets old data to new data so that E's OldData is at origin of entity, not 0,0,0
 	if(e->getAssociatedScene() == this->scene)
 		movingEntities.push_back(e);
 }
 
+/**
+ * \brief Spawning a World entity into the world.
+ *
+ * \param e - An entity that is created
+ */
 void EntityManager::spawnWorldEntity(Entity* e) {
 	e->PostUpdate(); //Sets old data to new data so that E's OldData is at origin of entity, not 0,0,0
 	if (e->getAssociatedScene() == this->scene)
 		worldEntities.push_back(e);
 }
 
+/**
+ * \brief gets the list of entities currently in this entity manager.
+ * 
+ * \return the list of entities in this entity manager (both world and moving entities)
+ */
 std::vector<Entity*> EntityManager::getEntities() {
 	std::vector<Entity*> v(movingEntities);
 	v.insert(v.end(), worldEntities.begin(), worldEntities.end());
 	return v;
 }
 
+/**
+ * \brief Pre-Collision Update, to check next tick, what objects are collided.
+ * returns a list of CollidedWith structs to show which objects will be colliding
+ *
+ * \return a vector of CollidedWiths, to allow a scene to manipulate whether to cancel collision in the future
+ */
 std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 	//OldTick
 	for (auto& entry : prevTick) {
@@ -43,27 +74,6 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 
 	for (auto& movingE : movingEntities) {
 		for (auto& worldE : worldEntities) {
-
-			//if (movingE->getType() == BULLET) {
-			//	if ((movingE->getEntityData()->Translate - movingE->getOldEntityData()->Translate).Magnitude() > 10) {
-			//		Vector3 temp = movingE->getOldEntityData()->Translate;
-			//		Vector3 incrementVec = ((Bullet*)movingE)->getVelocity().Normalized();
-			//		while (temp.Magnitude() < ((Bullet*)movingE)->getVelocity().Magnitude()) {
-			//			HitBox* stepHitbox = new HitBox(movingE->getHitBox()->getThisTickBox());
-			//			HitBox* worldEHitbox = new HitBox(worldE->getHitBox()->getThisTickBox());
-			//			stepHitbox->UpdatePos(Vector3(floor(temp.x), floor(temp.y), floor(temp.z)));
-			//			//stepHitbox->UpdatePos(temp);
-			//			worldEHitbox->UpdatePos(Vector3(floor(worldEHitbox->getThisTickBox()->currentPos.x), floor(worldEHitbox->getThisTickBox()->currentPos.y), floor(worldEHitbox->getThisTickBox()->currentPos.z)));
-			//			Collider c = stepHitbox->collidedWith(worldEHitbox);
-			//			if (c.collided) {
-			//				thisTick.push_back(new CollidedWith(movingE, worldE, true, c.translationVector, c.normal));
-			//				break;
-			//			}
-
-			//			temp = temp + incrementVec;
-			//		}
-			//	}
-			//}
 
 			//Lag Fixing
 			if ((movingE->getEntityData()->Translate - worldE->getEntityData()->Translate).Magnitude() < 100) {
@@ -101,6 +111,12 @@ std::vector<CollidedWith*>& EntityManager::preCollisionUpdate() {
 	return thisTick;
 }
 
+/**
+ * \brief Collision Update to cancel movement if when scene calls precollision and cancels collision.
+ * Will also call entity preupdate and post update
+ * 
+ * \param dt - delta time
+ */
 void EntityManager::collisionUpdate(double dt) {
 
 	for (auto& collision : thisTick) {
@@ -125,6 +141,12 @@ void EntityManager::collisionUpdate(double dt) {
 	//Code
 }
 
+
+/**
+ * \brief This is after all collision is handled and will call Entity's post update as well.
+ * It will then clear up all entities that are now flagged as "Dead"
+ * 
+ */
 void EntityManager::postCollisionUpdate() {
 
 	for (auto& entity : worldEntities) {
